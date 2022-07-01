@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Inter-Executive Communication &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="UDP Adapter" href="UDPAdapter.html" />
+    <link rel="prev" title="Communication" href="Communication.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="UDPAdapter.html" title="UDP Adapter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Communication.html" title="Communication"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Inter-Executive Communication</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="inter-executive-communication">
+<span id="inter-executivecommunication"></span><h1><a class="toc-backref" href="#id9" role="doc-backlink">Inter-Executive Communication</a><a class="headerlink" href="#inter-executive-communication" title="Permalink to this heading">¶</a></h1>
+<p><em>19 May 2015</em></p>
+<p>This chapter describes how multiple interacting PLEXIL executives can be
+realized.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#inter-executive-communication" id="id9">Inter-Executive Communication</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id10">Overview</a></p></li>
+<li><p><a class="reference internal" href="#outgoing-communication" id="id11">Outgoing Communication</a></p></li>
+<li><p><a class="reference internal" href="#incoming-communication" id="id12">Incoming Communication</a></p>
+<ul>
+<li><p><a class="reference internal" href="#oncommand-and-onmessage" id="id13">OnCommand and OnMessage</a></p></li>
+<li><p><a class="reference internal" href="#lookups" id="id14">Lookups</a></p>
+<ul>
+<li><p><a class="reference internal" href="#example-lookup-configuration" id="id15">Example Lookup Configuration</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setup" id="id16">Setup</a></p>
+<ul>
+<li><p><a class="reference internal" href="#messaging" id="id17">Messaging</a></p></li>
+<li><p><a class="reference internal" href="#commands" id="id18">Commands</a></p></li>
+<li><p><a class="reference internal" href="#lookups-1" id="id19">Lookups</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#example" id="id20">Example</a></p>
+<ul>
+<li><p><a class="reference internal" href="#controlling-plan" id="id21">Controlling Plan</a></p></li>
+<li><p><a class="reference internal" href="#simulator-plan" id="id22">Simulator Plan</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#limitations" id="id23">Limitations</a></p></li>
+<li><p><a class="reference internal" href="#configuration-reference" id="id24">Configuration reference</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>In many cases, it is useful to have multiple PLEXIL executives work
+together to execute a plan. For instance, in a distributed environment
+with many sub-systems, it is more efficient to have PLEXIL plans and
+executives on each sub-system than to have a single system containing
+all plans, which may rely on the network to send out low-level commands.
+By distributing plans and executives among sub-systems, the amount of
+network traffic can be limited to high-level communication and the
+system becomes more easily maintainable.</p>
+<p>The PLEXIL executive can communicate with another executive via
+messages, commands, and lookups. An executive can be set up to receive
+messages, commands, and lookups via the interface configuration and the
+extended plexil constructs described below.</p>
+<p>The communication framework utilizes Carnegie Mellon University’s
+<a class="reference external" href="http://www.cs.cmu.edu/~IPC/">Inter-Process Communication (IPC)</a>
+package (See <em>plexil/third-party/ipc</em>, for more information and the
+latest distribution of the IPC package).</p>
+</section>
+<section id="outgoing-communication">
+<span id="id1"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Outgoing Communication</a><a class="headerlink" href="#outgoing-communication" title="Permalink to this heading">¶</a></h2>
+<p>All communication save command return values are performed through a
+publish/subscribe model. That is, all communication that is sent to the
+central communication server is sent to every other executive connected
+to that server. Because of this, it is important that no two executives
+expect to handle the same command or lookup, as these are, by
+definition, intended for one and only one agent. Having two executives
+handling the same command or lookup results in undefined behavior.</p>
+<p>Messages are published to all other executives via the SendMessage
+command, and commands and lookups are published via the normal methods
+of communicating with an external system. This allows executives to
+emulate external systems and act as simulators. These simulators can
+then be swapped out for a real application or more complex simulator
+with no change to the controlling plan. See the <a class="reference external" href="#example">example</a>
+section for an example plan that communicates with another executive.</p>
+</section>
+<section id="incoming-communication">
+<span id="id2"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Incoming Communication</a><a class="headerlink" href="#incoming-communication" title="Permalink to this heading">¶</a></h2>
+<p>When a message or command is received from an external executive, the
+action along with its parameters are stored in an internal queue. When
+an ‘OnCommand’, or ‘OnMessage’ node transitions to <code class="docutils literal notranslate"><span class="pre">EXECUTING</span></code>, it
+will immediately process the oldest matching action in the internal
+queue. If there are no matching actions in the internal queue, the
+command waits until one arrives. When a single action has been
+processed, the node completes.</p>
+<p>Lookups are handled differently. The IpcAdapter holds a table of lookup
+names and values. When a request for a lookup is received, the adapter
+automatically returns the current value of that lookup.</p>
+<p>When the parent node of an OnCommand or OnMessage node transitions from
+<code class="docutils literal notranslate"><span class="pre">EXECUTING</span></code> to any other state and the child node is in the
+<code class="docutils literal notranslate"><span class="pre">EXECUTING</span></code> state, the child node transitions to the <code class="docutils literal notranslate"><span class="pre">FAILING</span></code>
+state, canceling the request to handle new incoming actions.</p>
+<section id="oncommand-and-onmessage">
+<span id="id3"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">OnCommand and OnMessage</a><a class="headerlink" href="#oncommand-and-onmessage" title="Permalink to this heading">¶</a></h3>
+<p>For detailed semantics of the OnCommand and OnMessage Extended PLEXIL
+constructs used for receiving commands and messages, see the <a class="reference external" href="Plexil_Reference">Plexil
+Reference</a>.</p>
+</section>
+<section id="lookups">
+<h3><a class="toc-backref" href="#id14" role="doc-backlink">Lookups</a><a class="headerlink" href="#lookups" title="Permalink to this heading">¶</a></h3>
+<p>Lookups are defined in the <a class="reference external" href="Interface_Configuration_File">interface
+configuration</a> for the IpcAdapter, and
+are updated via the command ‘UpdateLookup’.</p>
+<p>Lookup definitions are specified in the following format within the
+<code class="docutils literal notranslate"><span class="pre">&lt;Adapter&gt;</span></code> tag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ExternalLookup</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lookup name&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;variable type&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;initial value&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">ExternalLookup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><strong>``lookup````````name``</strong> is the name of the lookup to implement</p></li>
+<li><p><strong>``variable````````type``</strong> is a PLEXIL data type (e.g.
+<code class="docutils literal notranslate"><span class="pre">Integer</span></code>, <code class="docutils literal notranslate"><span class="pre">String</span></code>, etc.)</p></li>
+<li><p><strong>``initial````````value``</strong> is the initial value of the lookup</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;Lookup&gt;</span></code> element requires all three attributes.</p>
+<p>Multiple lookups can be specified one after another, inside the
+<code class="docutils literal notranslate"><span class="pre">&lt;ExternalLookup&gt;</span></code> element.</p>
+<section id="example-lookup-configuration">
+<span id="id4"></span><h4><a class="toc-backref" href="#id15" role="doc-backlink">Example Lookup Configuration</a><a class="headerlink" href="#example-lookup-configuration" title="Permalink to this heading">¶</a></h4>
+<p>This interface configuration fragment declares an Integer Lookup <code class="docutils literal notranslate"><span class="pre">x</span></code>
+whose initial value is 1, and a String Lookup <code class="docutils literal notranslate"><span class="pre">str</span></code> whose initial
+value is “Hello”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Integer&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;str&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;String&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="setup">
+<h2><a class="toc-backref" href="#id16" role="doc-backlink">Setup</a><a class="headerlink" href="#setup" title="Permalink to this heading">¶</a></h2>
+<p>To enable inter-exec communication, the IpcAdapter must be set up
+correctly in the interface config file that is given to the PLEXIL
+Executive.</p>
+<p>As a prerequisite for any communication, the IPC Central process must be
+running on any open port on any machine and the IpcAdapter must be
+specified in the interface configuration. A sample interface
+configuration fragment that ensures communication can be established,
+but does not declare specific communication features, is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;IpcAdapter&quot;</span> <span class="n">Server</span><span class="o">=</span><span class="s2">&quot;59.60.0.1&quot;</span> <span class="n">AllowDuplicateMessages</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This enables the IpcAdapter and connects it to the IPC Central process
+being hosted at IP address 59.60.0.1.</p>
+<section id="messaging">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Messaging</a><a class="headerlink" href="#messaging" title="Permalink to this heading">¶</a></h3>
+<p>To enable messaging, use a <code class="docutils literal notranslate"><span class="pre">&lt;CommandNames&gt;</span></code> block to register the
+commands “SendMessage” and “ReceiveMessage” with the IpcAdapter.</p>
+</section>
+<section id="commands">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Commands</a><a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h3>
+<p>To enable the handling of incoming commands, use a <code class="docutils literal notranslate"><span class="pre">&lt;CommandNames&gt;</span></code>
+element to register the commands “ReceiveMessage”, “GetParameters”, and
+“SendReturnValues” with the IpcAdapter.</p>
+<p>To enable the sending of commands, replace the <code class="docutils literal notranslate"><span class="pre">&lt;CommandNames&gt;</span></code>
+element with the element <code class="docutils literal notranslate"><span class="pre">&lt;DefaultCommandAdapter/&gt;</span></code>. This registers
+the IpcAdapter with every command not specified in a <code class="docutils literal notranslate"><span class="pre">&lt;CommandNames&gt;</span></code>
+block in any other adapter.</p>
+</section>
+<section id="lookups-1">
+<span id="id5"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Lookups</a><a class="headerlink" href="#lookups-1" title="Permalink to this heading">¶</a></h3>
+<p>To enable the handling of incoming lookups, specify each lookup to be
+handled in an <code class="docutils literal notranslate"><span class="pre">&lt;ExternalLookups&gt;</span></code> block. Within this block, each
+lookup to be handled is specified in a <code class="docutils literal notranslate"><span class="pre">&lt;Lookup&gt;</span></code> element. For more
+information and an example, see <a class="reference external" href="#Lookups">Lookups</a>.</p>
+</section>
+</section>
+<section id="example">
+<h2><a class="toc-backref" href="#id20" role="doc-backlink">Example</a><a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p>Here is an example of two plans that communicate with each other. One
+acts as a simulator, and the other acts as a high-level controlling
+plan.</p>
+<section id="controlling-plan">
+<span id="id6"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Controlling Plan</a><a class="headerlink" href="#controlling-plan" title="Permalink to this heading">¶</a></h3>
+<p><em>to be supplied</em></p>
+</section>
+<section id="simulator-plan">
+<span id="id7"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Simulator Plan</a><a class="headerlink" href="#simulator-plan" title="Permalink to this heading">¶</a></h3>
+<p>This plan implements a simulator that serves:</p>
+<ul class="simple">
+<li><p>One integer lookup, <code class="docutils literal notranslate"><span class="pre">x</span></code></p></li>
+<li><p>The command <code class="docutils literal notranslate"><span class="pre">MoveRight(Integer</span> <span class="pre">dX)</span></code>, which increases X by dX</p></li>
+<li><p>The message <code class="docutils literal notranslate"><span class="pre">Quit</span></code>, which shuts down the simulator</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Command</span> <span class="n">UpdateLookup</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Integer</span><span class="p">);</span>
+<span class="n">Command</span> <span class="n">SendReturnValue</span><span class="p">(</span><span class="n">Integer</span><span class="p">);</span>
+
+<span class="n">Interface</span><span class="p">:</span>
+ <span class="p">{</span>
+   <span class="o">//</span><span class="n">The</span> <span class="n">integer</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">x</span>
+   <span class="n">Integer</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="n">Boolean</span> <span class="k">continue</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
+  <span class="n">Loop</span><span class="p">:</span>
+   <span class="n">Concurrence</span>
+   <span class="p">{</span>
+     <span class="o">//</span> <span class="n">Repeat</span> <span class="n">the</span> <span class="n">loop</span> <span class="n">until</span> <span class="n">the</span> <span class="n">flag</span> <span class="ow">is</span> <span class="n">false</span><span class="o">.</span>
+     <span class="n">RepeatCondition</span> <span class="k">continue</span><span class="p">;</span>
+     <span class="o">//</span> <span class="n">One</span> <span class="n">iteration</span> <span class="n">ends</span> <span class="n">when</span> <span class="n">either</span> <span class="n">of</span> <span class="n">the</span> <span class="n">child</span> <span class="n">nodes</span> <span class="n">finishes</span><span class="o">.</span>
+     <span class="n">EndCondition</span> <span class="n">RecMoveRight</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">FINISHED</span> <span class="o">||</span> <span class="n">RecQuit</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">FINISHED</span><span class="p">;</span>
+
+     <span class="o">//</span><span class="n">The</span> <span class="n">handler</span> <span class="k">for</span> <span class="n">the</span> <span class="n">command</span> <span class="n">MoveRight</span><span class="p">(</span><span class="n">Integer</span> <span class="n">dX</span><span class="p">)</span>
+    <span class="n">RecMoveRight</span><span class="p">:</span>
+     <span class="n">OnCommand</span> <span class="s2">&quot;MoveRight&quot;</span> <span class="p">(</span> <span class="n">Integer</span> <span class="n">modX</span> <span class="p">)</span> <span class="p">{</span>
+       <span class="n">Increment</span><span class="p">:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">modX</span><span class="p">;</span>
+       <span class="n">SetExt</span><span class="p">:</span> <span class="n">UpdateLookup</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+       <span class="n">RespondMoveRight</span><span class="p">:</span> <span class="n">SendReturnValue</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="o">//</span><span class="n">The</span> <span class="n">handler</span> <span class="k">for</span> <span class="n">the</span> <span class="n">message</span> <span class="s1">&#39;Quit&#39;</span>
+    <span class="n">RecQuit</span><span class="p">:</span>
+     <span class="n">OnMessage</span> <span class="s2">&quot;Quit&quot;</span> <span class="p">{</span>
+       <span class="n">Set</span><span class="p">:</span> <span class="k">continue</span> <span class="o">=</span> <span class="n">false</span><span class="p">;</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is the interface configuration for this executive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;OSNativeTime&quot;</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;IpcAdapter&quot;</span> <span class="n">Server</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span> <span class="n">AllowDuplicateMessages</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Integer&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;/</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">Adapter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="limitations">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">Limitations</a><a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h2>
+<p>Although not inherent in the system, the related problem of presence
+guarantees still remains. While a normal simulator interface directly
+connects to the simulator or is the simulator, a PLEXIL simulator
+operates on a subscription model. Because of this, there is no built-in
+way to check to ensure that one and only one simulator is going to
+process commands that are being broadcast.</p>
+<p>Also, if an exec needs to send commands and lookups to multiple
+listening agents, there is no way to differentiate between the two. If
+the lookup “wind_speed” exists on two listening agents, any lookup
+“wind_speed” from the main plan will receive whichever response comes in
+first, leaving the second one to sit in the message queue.</p>
+<p>Both of these limitations can be overcome with good planning and
+forethought, but the fact that they exist remains.</p>
+</section>
+<section id="configuration-reference">
+<span id="id8"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">Configuration reference</a><a class="headerlink" href="#configuration-reference" title="Permalink to this heading">¶</a></h2>
+<p>The IpcAdapter takes the following parameters as attributes in the
+<code class="docutils literal notranslate"><span class="pre">Adapter</span></code> element:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Server</span></code> is the name or IP address of the IPC central server. It
+defaults to <code class="docutils literal notranslate"><span class="pre">localhost</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AllowDuplicateMessages</span></code> is a Boolean value; <code class="docutils literal notranslate"><span class="pre">true</span></code> means
+multiple messages with the same name can be processed; <code class="docutils literal notranslate"><span class="pre">false</span></code>
+means they are ignored. The default is <code class="docutils literal notranslate"><span class="pre">false</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TaskName</span></code> is the identifier by which this executive will be known,
+for the purposes of sending and receiving IPC messages. The default
+is a randomly generated string.</p></li>
+</ul>
+<p>The following elements may appear in the body of the <code class="docutils literal notranslate"><span class="pre">Adapter</span></code>
+element:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ExternalLookups</span></code> is a list of <code class="docutils literal notranslate"><span class="pre">Lookup</span></code> elements describing the
+lookups that this executive will serve for itself and for other IPC
+clients. The <code class="docutils literal notranslate"><span class="pre">Lookup</span></code> element takes the following parameters as
+required attributes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> is the name of the lookup;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> is the PLEXIL data type of the value returned, one of
+<code class="docutils literal notranslate"><span class="pre">Boolean</span></code>, <code class="docutils literal notranslate"><span class="pre">Integer</span></code>, <code class="docutils literal notranslate"><span class="pre">Real</span></code>, or <code class="docutils literal notranslate"><span class="pre">String</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code> is the initial value of this lookup.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CommandNames</span></code> is a comma-separated list of command names that will
+be handled by the IpcAdapter. The adapter’s built-in command names
+are automatically registered;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LookupNames</span></code> is a comma-separated list of lookup names that will
+be routed to external IPC servers by the IpcAdapter;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DefaultCommandInterface</span></code> causes the IpcAdapter to perform all
+commands not explicitly handled by other interfaces;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DefaultLookupInterface</span></code> causes the IpcAdapter to perform all
+lookups not explicitly handled by other interfaces;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DefaultAdapter</span></code> causes the IpcAdapter to perform all commands,
+lookups, and planner updates not explicitly handled by other
+interfaces.</p></li>
+</ul>
+<p>An example <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> element for a hypothetical robot mobility
+controller might look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;IpcAdapter&quot;</span> <span class="n">Server</span><span class="o">=</span><span class="s2">&quot;RobotCentral&quot;</span> <span class="n">TaskName</span><span class="o">=</span><span class="s2">&quot;MobilityController&quot;</span> <span class="n">AllowDuplicateMessages</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;heading&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Integer&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;speed&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Real&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="n">Lookup</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;odometer&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Real&quot;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span> <span class="o">/&gt;</span>
+ <span class="o">&lt;/</span><span class="n">ExternalLookups</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">LookupNames</span><span class="o">&gt;</span><span class="n">power_status</span><span class="o">&lt;/</span><span class="n">LookupNames</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">CommandNames</span><span class="o">&gt;</span><span class="n">report_fault</span><span class="o">&lt;/</span><span class="n">LookupNames</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">Adapter</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2015, Universities Space Research Association (USRA).
+All rights reserved.</p>
+<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Communication.html">Communication</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>

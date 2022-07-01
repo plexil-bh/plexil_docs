@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Implementing Custom Interfaces &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Implementing Custom Applications" href="ImplementingCustomApplications.html" />
+    <link rel="prev" title="The Application Framework" href="TheApplicationFramework.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ImplementingCustomApplications.html" title="Implementing Custom Applications"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="TheApplicationFramework.html" title="The Application Framework"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Implementing Custom Interfaces</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <nav class="contents" id="contents" role="doc-toc">
+<span id="implementingcustominterfaces"></span><p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#implementing-custom-interfaces" id="id12">Implementing Custom Interfaces</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id13">Overview</a></p></li>
+<li><p><a class="reference internal" href="#implementing-interface-adapters" id="id14">Implementing Interface Adapters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lifecycle" id="id15">Lifecycle</a></p></li>
+<li><p><a class="reference internal" href="#data-flow-and-threading" id="id16">Data Flow and Threading</a></p></li>
+<li><p><a class="reference internal" href="#lookups" id="id17">Lookups</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adapter-methods" id="id18">Adapter Methods</a></p></li>
+<li><p><a class="reference internal" href="#statecacheentry-member-functions" id="id19">StateCacheEntry member functions</a></p></li>
+<li><p><a class="reference internal" href="#adapterexecinterface-member-functions" id="id20">AdapterExecInterface member functions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#commands" id="id21">Commands</a></p>
+<ul>
+<li><p><a class="reference internal" href="#adapter-methods-1" id="id22">Adapter methods</a></p></li>
+<li><p><a class="reference internal" href="#command-member-functions" id="id23">Command member functions</a></p></li>
+<li><p><a class="reference internal" href="#adapterexecinterface-member-functions-1" id="id24">AdapterExecInterface member functions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#update-nodes" id="id25">Update Nodes</a></p></li>
+<li><p><a class="reference internal" href="#registration" id="id26">Registration</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#implementing-exec-listeners-and-filters" id="id27">Implementing Exec Listeners and Filters</a></p></li>
+<li><p><a class="reference internal" href="#integrating-interface-code-as-a-shared-library" id="id28">Integrating Interface Code as a Shared Library</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="implementing-custom-interfaces">
+<h1><a class="toc-backref" href="#id12" role="doc-backlink">Implementing Custom Interfaces</a><a class="headerlink" href="#implementing-custom-interfaces" title="Permalink to this heading">¶</a></h1>
+<p><em>30 Apr 2015</em></p>
+<p>This chapter outlines how the Plexil Executive can be interfaced to
+arbitrary external systems through the addition of custom <em>interface
+adapters</em> and <em>exec listeners</em>.</p>
+<section id="overview">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>Interface adapters allow plans to query state, perform required actions,
+and provide feedback to the outside world. Exec listeners allow external
+observers to monitor changes in plan state.</p>
+</section>
+<section id="implementing-interface-adapters">
+<span id="id1"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Implementing Interface Adapters</a><a class="headerlink" href="#implementing-interface-adapters" title="Permalink to this heading">¶</a></h2>
+<p>Interface adapters handle three types of operations: lookups, commands,
+and planner updates. Each is (usually) independent of the others, though
+this is a design choice left to the interface implementor. In addition,
+they are required to implement the lifecycle API below to manage
+initialization, activation, deactivation, and shutdown.</p>
+<p>The abstract base class
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#InterfaceAdapter">InterfaceAdapter</a>
+declares the API which interface developers must implement.</p>
+<section id="lifecycle">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Lifecycle</a><a class="headerlink" href="#lifecycle" title="Permalink to this heading">¶</a></h3>
+<p>Please see <a class="reference external" href="Introduction_to_PLEXIL_Application_Framework#The_Lifecycle_Model">The Lifecycle
+Model</a>
+for an overview of the phases of application execution.</p>
+<p>Interface adapter classes must implement the following lifecycle
+management methods, whose prototypes are declared in the
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#InterfaceAdapter">InterfaceAdapter</a>
+abstract base class:</p>
+<ul class="simple">
+<li><p>bool initialize(); // set up internal data structures</p></li>
+<li><p>bool start(); // start communicating</p></li>
+<li><p>bool stop(); // stop communicating</p></li>
+<li><p>bool reset(); // reset to initialized state</p></li>
+<li><p>bool shutdown(); // release any resources and prepare to be deleted</p></li>
+</ul>
+<p>The return value for each method is a <code class="docutils literal notranslate"><span class="pre">bool</span></code> value representing
+whether the method succeeded or failed. Success is indicated by a
+<code class="docutils literal notranslate"><span class="pre">true</span></code> return value. So a minimal <code class="docutils literal notranslate"><span class="pre">initialize()</span></code>method would look
+like this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span> <span class="n">MyAdapter</span><span class="p">::</span><span class="n">initialize</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="data-flow-and-threading">
+<span id="id2"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">Data Flow and Threading</a><a class="headerlink" href="#data-flow-and-threading" title="Permalink to this heading">¶</a></h3>
+<p>In the <a class="reference external" href="PLEXIL_Executive">PLEXIL Executive</a>, there is a thread
+dedicated to running the execution engine. Adapter methods called by the
+exec are called from this thread.</p>
+<p>Results of execution (LookupOnChange data, command and update
+acknowledgments, command return values) are often (but not always)
+delivered by other threads. These results are stored temporarily in a
+<em>queue</em> inside the interface manager, and delivered to the execution
+engine when its thread is active again.</p>
+<p>The exec thread sleeps between execution cycles. Wakeups are delivered
+by calling <code class="docutils literal notranslate"><span class="pre">InterfaceAdapter::notifyOfExternalEvent()</span></code>. Enqueued data
+are processed immediately after the wakeup is delivered.</p>
+<p>Application developers can choose between waking the exec after every
+datum is delivered, waking up after a batch of data is delivered (e.g.
+enqueuing a telemetry packet’s worth of data at a time), or running the
+exec thread on a strict tick-based schedule. The choice is a tradeoff
+between responsiveness requirements, CPU utilization, scheduler
+overhead, and other application dependent factors.</p>
+</section>
+<section id="lookups">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Lookups</a><a class="headerlink" href="#lookups" title="Permalink to this heading">¶</a></h3>
+<p>The PLEXIL language defines two external state query operators,
+LookupNow and LookupOnChange. LookupNow largely means what it says:
+“give me the current value of this external state.” LookupOnChange means
+“give me the current value, AND tell me when the value changes.”</p>
+<p>Lookups in the PLEXIL exec are implemented with the aid of a <em>state
+cache</em>, a table of state names and their most recent values with
+timestamps. Putting a value in the state cache when there is no active
+lookup for that state name is permitted.</p>
+<section id="adapter-methods">
+<span id="id3"></span><h4><a class="toc-backref" href="#id18" role="doc-backlink">Adapter Methods</a><a class="headerlink" href="#adapter-methods" title="Permalink to this heading">¶</a></h4>
+<p>The following member function is called for both LookupNow and
+LookupOnChange:</p>
+<ul class="simple">
+<li><p>void lookupNow(State const &amp;state, StateCacheEntry &amp;cacheEntry);</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">lookupNow()</span></code> returns the requested value by updating the
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#StateCacheEntry">StateCacheEntry</a>
+object supplied in the call.</p>
+<p><strong>VERY IMPORTANT!</strong> This member function is called synchronously inside
+the PLEXIL exec’s main decision-making loop. Blocking (e.g. waiting for
+another process, or another system, to respond) during a <code class="docutils literal notranslate"><span class="pre">lookupNow()</span></code>
+call should be avoided whenever possible, as it delays plan execution.</p>
+<p>LookupOnChange can be implemented by the following member functions:</p>
+<ul class="simple">
+<li><p>void subscribe(const State&amp; state);</p></li>
+</ul>
+<p>Tells the interface adapter to notify the exec whenever a new value for
+the state arrives.</p>
+<ul class="simple">
+<li><p>void unsubscribe(const State&amp; state);</p></li>
+</ul>
+<p>Tells the interface adapter to stop notifying the exec of new values for
+this state.</p>
+<p>LookupOnChange of rapidly varying numeric quantities can be optimized
+with the following optional member functions:</p>
+<ul class="simple">
+<li><p>void setThresholds(const State&amp; state, double hi, double lo);</p></li>
+<li><p>void setThresholds(const State&amp; state, int32_t hi, int32_t lo);</p></li>
+</ul>
+<p>These tell the adapter to ignore changes in the state’s value until they
+meet or exceed the supplied thresholds.</p>
+<p><strong>NOTE:</strong> Any adapter for the <code class="docutils literal notranslate"><span class="pre">time</span></code> state MUST implement
+<code class="docutils literal notranslate"><span class="pre">setThresholds()</span></code>.</p>
+</section>
+<section id="statecacheentry-member-functions">
+<span id="id4"></span><h4><a class="toc-backref" href="#id19" role="doc-backlink">StateCacheEntry member functions</a><a class="headerlink" href="#statecacheentry-member-functions" title="Permalink to this heading">¶</a></h4>
+<p>The
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#StateCacheEntry">StateCacheEntry</a>
+class provides the following member functions for implementing return
+values from LookupNow:</p>
+<ul class="simple">
+<li><p>void setUnknown();</p></li>
+</ul>
+<p>Returns an UNKNOWN value.</p>
+<ul class="simple">
+<li><p>void update(bool const &amp;val);</p></li>
+<li><p>void update(int32_t const &amp;val);</p></li>
+<li><p>void update(double const &amp;val);</p></li>
+<li><p>void update(std::string const &amp;val);</p></li>
+</ul>
+<p>These return a Boolean, Integer, Real, or String value respectively.</p>
+<ul class="simple">
+<li><p>void updatePtr(std::string const *valPtr);</p></li>
+</ul>
+<p>This returns a String value.</p>
+<ul class="simple">
+<li><p>void updatePtr(BooleanArray const *valPtr);</p></li>
+<li><p>void updatePtr(IntegerArray const *valPtr);</p></li>
+<li><p>void updatePtr(RealArray const *valPtr);</p></li>
+<li><p>void updatePtr(StringArray const *valPtr);</p></li>
+</ul>
+<p>These are used to return array values.</p>
+<ul class="simple">
+<li><p>void update(Value const &amp;val);</p></li>
+</ul>
+<p>This is the generic version for returning a
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#Value">Value</a> instance.</p>
+</section>
+<section id="adapterexecinterface-member-functions">
+<span id="id5"></span><h4><a class="toc-backref" href="#id20" role="doc-backlink">AdapterExecInterface member functions</a><a class="headerlink" href="#adapterexecinterface-member-functions" title="Permalink to this heading">¶</a></h4>
+<p>These member functions are used to return values from LookupOnChange, or
+to post values to the state cache asynchronously, independent of any
+queries.</p>
+<ul class="simple">
+<li><p>void handleValueChange(State const &amp;state, const Value&amp; value);</p></li>
+</ul>
+<p>Enqueues a state value update entry in the interface manager’s queue.</p>
+<ul class="simple">
+<li><p>void notifyOfExternalEvent();</p></li>
+</ul>
+<p>Tells the interface manager to wake up the exec and process the entries
+in the queue. Several <code class="docutils literal notranslate"><span class="pre">handleValueChange()</span></code> and other calls can be
+batched and processed by a single <code class="docutils literal notranslate"><span class="pre">notifyOfExternalEvent()</span></code> call.</p>
+</section>
+</section>
+<section id="commands">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Commands</a><a class="headerlink" href="#commands" title="Permalink to this heading">¶</a></h3>
+<section id="adapter-methods-1">
+<span id="id6"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">Adapter methods</a><a class="headerlink" href="#adapter-methods-1" title="Permalink to this heading">¶</a></h4>
+<p>Adapter classes must implement the following methods to support
+commands.</p>
+<ul class="simple">
+<li><p>void executeCommand(Command *cmd);</p></li>
+</ul>
+<p>Send the command to the external system. At the very least this method
+must cause a <em>command handle value</em> to be sent back to the exec.</p>
+<ul class="simple">
+<li><p>void invokeAbort(Command *cmd);</p></li>
+</ul>
+<p>Abort the specified command. Called when a Command node is prematurely
+ended. This method must at minimum cause an abort acknowledgment to be
+sent back.</p>
+</section>
+<section id="command-member-functions">
+<span id="id7"></span><h4><a class="toc-backref" href="#id23" role="doc-backlink">Command member functions</a><a class="headerlink" href="#command-member-functions" title="Permalink to this heading">¶</a></h4>
+<p>These are functions for extracting information from a Command object.</p>
+<ul class="simple">
+<li><p>std::string const &amp;getName() const;</p></li>
+</ul>
+<p>Get the command’s name as a string.</p>
+<ul class="simple">
+<li><p>std::vector const &amp;getArgValues() const;</p></li>
+</ul>
+<p>Get a vector of the argument values.</p>
+</section>
+<section id="adapterexecinterface-member-functions-1">
+<span id="id8"></span><h4><a class="toc-backref" href="#id24" role="doc-backlink">AdapterExecInterface member functions</a><a class="headerlink" href="#adapterexecinterface-member-functions-1" title="Permalink to this heading">¶</a></h4>
+<p>These are the interface manager member functions for responding to a
+command.</p>
+<ul class="simple">
+<li><p>void handleCommandAck(Command * cmd, CommandHandleValue value);</p></li>
+</ul>
+<p>Enqueues the command handle (acknowledgment) value in the interface
+manager’s queue.</p>
+<ul class="simple">
+<li><p>void handleCommandReturn(Command * cmd, Value const&amp; value);</p></li>
+</ul>
+<p>Enqueues the command’s return value in the interface manager’s queue.</p>
+<ul class="simple">
+<li><p>void handleCommandAbortAck(Command * cmd, bool ack);</p></li>
+</ul>
+<p>Enqueues the abort acknowledgment in the interface manager’s queue.</p>
+<ul class="simple">
+<li><p>void notifyOfExternalEvent();</p></li>
+</ul>
+<p>As with lookups, tells the interface manager to wake up the exec and
+process the queue. Also as with lookups, several enqueued responses can
+be processed with a single call.</p>
+</section>
+</section>
+<section id="update-nodes">
+<span id="id9"></span><h3><a class="toc-backref" href="#id25" role="doc-backlink">Update Nodes</a><a class="headerlink" href="#update-nodes" title="Permalink to this heading">¶</a></h3>
+<p>Comprehensive documentation on interfacing the Update Node (or <em>planner
+update</em>) is yet to be supplied. The following is a quick guide. Let’s
+assume your interface adapter class, derived from <code class="docutils literal notranslate"><span class="pre">InterfaceAdapter</span></code>
+is named <code class="docutils literal notranslate"><span class="pre">MyAdapter</span></code>.</p>
+<p>1. Don’t use the virtual function
+<code class="docutils literal notranslate"><span class="pre">InterfaceAdapter::sendPlannerUpdate(Update*)</span></code>, which is deprecated.
+Instead, define a <em>static</em> member function in <code class="docutils literal notranslate"><span class="pre">MyAdapter</span></code> that has the
+following signature, using any function/argument names you like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">void</span> <span class="n">myPlannerUpdate</span> <span class="p">(</span><span class="n">PLEXIL</span><span class="p">::</span><span class="n">Update</span><span class="o">*</span> <span class="n">update</span><span class="p">,</span> <span class="n">PLEXIL</span><span class="p">::</span><span class="n">AdapterExecInterface</span><span class="o">*</span> <span class="n">exec</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>2. This function, the Update node handler, must contain the following
+line in order to transition the Update node to the Finished state. Your
+application logic will determine where to place this line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exec</span><span class="o">-&gt;</span><span class="n">handleUpdateAck</span> <span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>3. In <code class="docutils literal notranslate"><span class="pre">MyAdapter::initialize()</span></code>, the following line is needed to
+register your Update handler:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g_configuration</span><span class="o">-&gt;</span><span class="n">registerPlannerUpdateHandler</span><span class="p">(</span><span class="n">OwAdapter</span><span class="p">::</span><span class="n">myPlannerUpdate</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">g_configuration</span></code> is a global variable defined in the PLEXIL
+header <code class="docutils literal notranslate"><span class="pre">AdapterConfiguration.hh</span></code>, which you may need to include.</p>
+<p>4. In your interface configuration (<code class="docutils literal notranslate"><span class="pre">.xml</span></code> file), in the element, add
+the following (empty) element:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">PlannerUpdate</span><span class="o">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="registration">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Registration</a><a class="headerlink" href="#registration" title="Permalink to this heading">¶</a></h3>
+<p>Interface adapters must be registered with the
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#AdapterConfiguration">AdapterConfiguration</a>
+object. There are several ways to handle this.</p>
+<p><em>more to be supplied</em></p>
+</section>
+</section>
+<section id="implementing-exec-listeners-and-filters">
+<span id="id10"></span><h2><a class="toc-backref" href="#id27" role="doc-backlink">Implementing Exec Listeners and Filters</a><a class="headerlink" href="#implementing-exec-listeners-and-filters" title="Permalink to this heading">¶</a></h2>
+<p>‘’to be supplied’</p>
+</section>
+<section id="integrating-interface-code-as-a-shared-library">
+<span id="id11"></span><h2><a class="toc-backref" href="#id28" role="doc-backlink">Integrating Interface Code as a Shared Library</a><a class="headerlink" href="#integrating-interface-code-as-a-shared-library" title="Permalink to this heading">¶</a></h2>
+<p><em>to be supplied</em></p>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2015, Universities Space Research Association (USRA).
+All rights reserved.</p>
+<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>

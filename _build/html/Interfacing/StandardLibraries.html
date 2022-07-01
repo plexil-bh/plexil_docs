@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Standard Libraries &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Application Framework" href="TheApplicationFramework.html" />
+    <link rel="prev" title="Interface Configuration File" href="InterfaceConfigurationFile.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="TheApplicationFramework.html" title="The Application Framework"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="InterfaceConfigurationFile.html" title="Interface Configuration File"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Standard Libraries</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="standard-libraries">
+<span id="standardlibraries"></span><h1><a class="toc-backref" href="#id19" role="doc-backlink">Standard Libraries</a><a class="headerlink" href="#standard-libraries" title="Permalink to this heading">¶</a></h1>
+<p><em>13 May 2015</em></p>
+<p>These are the interface libraries which are part of the PLEXIL
+distribution.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#standard-libraries" id="id19">Standard Libraries</a></p>
+<ul>
+<li><p><a class="reference internal" href="#predefined-adapters" id="id20">Predefined Adapters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dummy-adapter" id="id21">Dummy Adapter</a></p></li>
+<li><p><a class="reference internal" href="#time-adapter" id="id22">Time Adapter</a></p></li>
+<li><p><a class="reference internal" href="#utility-adapter" id="id23">Utility Adapter</a></p></li>
+<li><p><a class="reference internal" href="#ipcadapter" id="id24">IpcAdapter</a></p></li>
+<li><p><a class="reference internal" href="#udpadapter" id="id25">UdpAdapter</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#predefined-listeners" id="id26">Predefined Listeners</a></p>
+<ul>
+<li><p><a class="reference internal" href="#luvlistener" id="id27">LuvListener</a></p></li>
+<li><p><a class="reference internal" href="#plandebuglistener" id="id28">PlanDebugListener</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#predefined-listener-filters" id="id29">Predefined Listener Filters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nodestate-filter" id="id30">NodeState Filter</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#interface-configuration-reference" id="id31">Interface Configuration Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#configuring-adapters" id="id32">Configuring Adapters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dummy-adapter-configuration" id="id33">Dummy Adapter Configuration</a></p></li>
+<li><p><a class="reference internal" href="#ipcadapter-configuration" id="id34">IpcAdapter Configuration</a></p></li>
+<li><p><a class="reference internal" href="#time-adapter-configuration" id="id35">Time Adapter Configuration</a></p></li>
+<li><p><a class="reference internal" href="#udpadapter-configuration" id="id36">UdpAdapter Configuration</a></p></li>
+<li><p><a class="reference internal" href="#utility-adapter-configuration" id="id37">Utility Adapter Configuration</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#configuring-listeners-and-listener-filters" id="id38">Configuring Listeners and Listener Filters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#luvlistener-1" id="id39">LuvListener</a></p></li>
+<li><p><a class="reference internal" href="#plandebuglistener-1" id="id40">PlanDebugListener</a></p></li>
+<li><p><a class="reference internal" href="#nodestate-filter-1" id="id41">NodeState Filter</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="predefined-adapters">
+<span id="id1"></span><h2><a class="toc-backref" href="#id20" role="doc-backlink">Predefined Adapters</a><a class="headerlink" href="#predefined-adapters" title="Permalink to this heading">¶</a></h2>
+<p>There are five adapters currently included with PLEXIL. These are the
+Dummy, OSNativeTime, Utility, IpcAdapter, and UdpAdapter adapters.</p>
+<section id="dummy-adapter">
+<span id="id2"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Dummy Adapter</a><a class="headerlink" href="#dummy-adapter" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Dummy</span></code> adapter is a stub for testing purposes. Lookups sent to
+this adapter always return <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>. Commands immediately receive an
+acknowledgement value of <code class="docutils literal notranslate"><span class="pre">COMMAND_SENT_TO_SYSTEM</span></code>; no command return
+value is generated.</p>
+</section>
+<section id="time-adapter">
+<span id="id3"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Time Adapter</a><a class="headerlink" href="#time-adapter" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">OSNativeTime</span></code> adapter uses the native operating system’s
+real-time clock facility for lookups of the <code class="docutils literal notranslate"><span class="pre">time</span></code> state. Both
+<code class="docutils literal notranslate"><span class="pre">LookupNow</span></code> and <code class="docutils literal notranslate"><span class="pre">LookupOnChange</span></code> are supported.</p>
+<p><strong>IMPORTANT NOTE: LookupOnChange of ``time`` requires a non-zero
+tolerance. Omitting a tolerance, or explicitly providing a zero
+tolerance value, will result in a run-time exception.</strong></p>
+</section>
+<section id="utility-adapter">
+<span id="id4"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">Utility Adapter</a><a class="headerlink" href="#utility-adapter" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Utility</span></code> adapter provides the <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">pprint</span></code> commands,
+as described in the <a class="reference external" href="Plexil_Reference#Utility_Commands">PLEXIL
+Reference</a>. See the directory
+<code class="docutils literal notranslate"><span class="pre">plexil/src/apps/sample</span></code> for example usage of this adapter.</p>
+</section>
+<section id="ipcadapter">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">IpcAdapter</a><a class="headerlink" href="#ipcadapter" title="Permalink to this heading">¶</a></h3>
+<p>The IpcAdapter supports collaboration between multiple PLEXIL Executives
+and other systems, using the <a class="reference external" href="http://www.cs.cmu.edu/~IPC/">IPC</a>
+(Inter-Process Communication) package from Carnegie Mellon University to
+implement publish-subscribe communications.</p>
+<p>For detailed documentation, please see <a class="reference external" href="Inter-Executive_Communication">Inter-Executive
+Communication</a>.</p>
+</section>
+<section id="udpadapter">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">UdpAdapter</a><a class="headerlink" href="#udpadapter" title="Permalink to this heading">¶</a></h3>
+<p>The UdpAdapter supports collaboration between multiple PLEXIL Executives
+and other systems, using the standard UDP Datagram protocol over
+Internet. The UdpAdapter provides point-to-point communications.</p>
+<p>For detailed documentation, please see <a class="reference external" href="UDP_Adapter">UDP Adapter</a>.</p>
+</section>
+</section>
+<section id="predefined-listeners">
+<span id="id5"></span><h2><a class="toc-backref" href="#id26" role="doc-backlink">Predefined Listeners</a><a class="headerlink" href="#predefined-listeners" title="Permalink to this heading">¶</a></h2>
+<p>There are two predefined Listeners available to all PLEXIL applications.</p>
+<section id="luvlistener">
+<h3><a class="toc-backref" href="#id27" role="doc-backlink">LuvListener</a><a class="headerlink" href="#luvlistener" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">LuvListener</span></code> implements a TCP socket-based connection to the
+PLEXIL Viewer. For detailed information, please see <a class="reference external" href="Viewing_Plan_Execution">PLEXIL
+Viewer</a>.</p>
+</section>
+<section id="plandebuglistener">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">PlanDebugListener</a><a class="headerlink" href="#plandebuglistener" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">PlanDebugListener</span></code> causes a debug message to be generated for the
+<code class="docutils literal notranslate"><span class="pre">Node:clock</span></code> <a class="reference external" href="PLEXIL_Executive#Output_and_the_Debug_Configuration_File">debug
+flag</a> every
+time a node enters the <code class="docutils literal notranslate"><span class="pre">EXECUTING</span></code> or <code class="docutils literal notranslate"><span class="pre">FINISHED</span></code> state.</p>
+</section>
+</section>
+<section id="predefined-listener-filters">
+<span id="id6"></span><h2><a class="toc-backref" href="#id29" role="doc-backlink">Predefined Listener Filters</a><a class="headerlink" href="#predefined-listener-filters" title="Permalink to this heading">¶</a></h2>
+<p>One listener filter is provided to all PLEXIL applications.</p>
+<section id="nodestate-filter">
+<span id="id7"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">NodeState Filter</a><a class="headerlink" href="#nodestate-filter" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">NodeState</span></code> filter determines in which node states the associated
+listener will be active.</p>
+</section>
+</section>
+<section id="interface-configuration-reference">
+<span id="id8"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink">Interface Configuration Reference</a><a class="headerlink" href="#interface-configuration-reference" title="Permalink to this heading">¶</a></h2>
+<p>This documents the interface configuration information required to use
+the above interface libraries. Please see <a class="reference external" href="Interface_Configuration_File">Interface Configuration
+File</a> for an overview of how to use
+configuration data.</p>
+<section id="configuring-adapters">
+<span id="id9"></span><h3><a class="toc-backref" href="#id32" role="doc-backlink">Configuring Adapters</a><a class="headerlink" href="#configuring-adapters" title="Permalink to this heading">¶</a></h3>
+<p>Adapter descriptions go in the <code class="docutils literal notranslate"><span class="pre">Adapters</span></code> element of the interface
+configuration. E.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">Adapters</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;type&quot;</span> <span class="o">...</span> <span class="n">other</span> <span class="n">attributes</span> <span class="o">...&gt;</span>
+   <span class="o">...</span> <span class="n">additional</span> <span class="n">configuration</span> <span class="n">info</span> <span class="k">for</span> <span class="n">this</span> <span class="n">adapter</span> <span class="o">...</span>
+  <span class="o">&lt;/</span><span class="n">Adapter</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">Adapters</span><span class="o">&gt;</span>
+ <span class="o">...</span> <span class="n">listeners</span> <span class="n">go</span> <span class="n">here</span> <span class="o">...</span>
+<span class="o">&lt;/</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="dummy-adapter-configuration">
+<span id="id10"></span><h4><a class="toc-backref" href="#id33" role="doc-backlink">Dummy Adapter Configuration</a><a class="headerlink" href="#dummy-adapter-configuration" title="Permalink to this heading">¶</a></h4>
+<p>The Dummy adapter has no parameters. However, it must be explicitly
+registered for the commands and lookups it should handle.</p>
+<p>A common case is for the Dummy adapter to handle all commands and
+lookups not yet implemented by other adapters. The declaration for this
+case would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;Dummy&quot;</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">DefaultAdapter</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">Adapter</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>To handle only specific commands and lookups, specify them in a
+<code class="docutils literal notranslate"><span class="pre">CommandNames</span></code> or <code class="docutils literal notranslate"><span class="pre">LookupNames</span></code> element inside the <code class="docutils literal notranslate"><span class="pre">Adapter</span></code>
+element.</p>
+</section>
+<section id="ipcadapter-configuration">
+<span id="id11"></span><h4><a class="toc-backref" href="#id34" role="doc-backlink">IpcAdapter Configuration</a><a class="headerlink" href="#ipcadapter-configuration" title="Permalink to this heading">¶</a></h4>
+<p>Please see <a class="reference external" href="Inter-Executive_Communication#Configuration_Reference">IPC Configuration
+Reference</a>.</p>
+</section>
+<section id="time-adapter-configuration">
+<span id="id12"></span><h4><a class="toc-backref" href="#id35" role="doc-backlink">Time Adapter Configuration</a><a class="headerlink" href="#time-adapter-configuration" title="Permalink to this heading">¶</a></h4>
+<p>The Time adapter requires no additional configuration information. It
+automatically registers itself for lookups of <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;OSNativeTime&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="udpadapter-configuration">
+<span id="id13"></span><h4><a class="toc-backref" href="#id36" role="doc-backlink">UdpAdapter Configuration</a><a class="headerlink" href="#udpadapter-configuration" title="Permalink to this heading">¶</a></h4>
+<p><strong>WORK IN PROGRESS</strong></p>
+<p>The UdpAdapter takes the following parameters as attributes to the
+<code class="docutils literal notranslate"><span class="pre">Adapter</span></code> element:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">default_local_port</span></code> and <code class="docutils literal notranslate"><span class="pre">default_peer_port</span></code> are optional. If
+supplied, they should be valid UDP port numbers (range 1-65535).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default_peer</span></code> is optional. It should be the name of a network host
+or an IP address. Default is <code class="docutils literal notranslate"><span class="pre">localhost</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug</span></code> is optional. If supplied it should be a Boolean value. If
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, enables debugging output; default is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+</ul>
+<p>Messages are defined by describing them in the body of the <code class="docutils literal notranslate"><span class="pre">Adapter</span></code>
+element, with a <code class="docutils literal notranslate"><span class="pre">Message</span></code> element for each different message type.
+<code class="docutils literal notranslate"><span class="pre">Message</span></code> takes the following parameters as attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (required) is the name of the message type, and the
+corresponding command name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">peer</span></code> is the optional name or IP address of a network host. If not
+supplied, it defaults to the value of the <code class="docutils literal notranslate"><span class="pre">default_peer</span></code> attribute
+above, or <code class="docutils literal notranslate"><span class="pre">localhost</span></code> if neither is supplied.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local_port</span></code> and <code class="docutils literal notranslate"><span class="pre">peer_port</span></code> are optional. If supplied, they
+should be valid UDP port numbers (range 1-65535). If not supplied,
+they default to the value of <code class="docutils literal notranslate"><span class="pre">default_local_port</span></code> and
+<code class="docutils literal notranslate"><span class="pre">default_peer_port</span></code> respectively. <strong>NOTE: If neither a default port
+nor message port are supplied, the interface will crash with a
+runtime exception. One or the other must be supplied.</strong></p></li>
+</ul>
+<p>The format of a message is defined by <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> elements inside the
+<code class="docutils literal notranslate"><span class="pre">Message</span></code> element. <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> takes the following attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">desc</span></code> is an optional descriptor (e.g. parameter name);</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bytes</span></code> (required) is the length in bytes of the parameter in the
+message;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code> (required) is the type of the parameter, which must be one
+of the following:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code> for the PLEXIL <code class="docutils literal notranslate"><span class="pre">Integer</span></code> type;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float</span></code> for the <code class="docutils literal notranslate"><span class="pre">Real</span></code> type;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> for the <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> type;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> for the <code class="docutils literal notranslate"><span class="pre">String</span></code> type;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">int-array</span></code> for arrays of <code class="docutils literal notranslate"><span class="pre">Integer</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">float-array</span></code> for arrays of <code class="docutils literal notranslate"><span class="pre">Real</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bool-array</span></code> for arrays of <code class="docutils literal notranslate"><span class="pre">Boolean</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string-array</span></code> for arrays of <code class="docutils literal notranslate"><span class="pre">String</span></code>;</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elements</span></code> is required for array types. It is the (fixed) size of
+the array;</p></li>
+</ul>
+<p>The UdpAdapter automatically registers itself for the following
+commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SendMessage</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ReceiveCommand</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetParameter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SendReturnValue</span></code></p></li>
+</ul>
+</section>
+<section id="utility-adapter-configuration">
+<span id="id14"></span><h4><a class="toc-backref" href="#id37" role="doc-backlink">Utility Adapter Configuration</a><a class="headerlink" href="#utility-adapter-configuration" title="Permalink to this heading">¶</a></h4>
+<p>The Utility adapter requires no additional configuration information. It
+automatically registers itself for the commands <code class="docutils literal notranslate"><span class="pre">print</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pprint</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;Utility&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuring-listeners-and-listener-filters">
+<span id="id15"></span><h3><a class="toc-backref" href="#id38" role="doc-backlink">Configuring Listeners and Listener Filters</a><a class="headerlink" href="#configuring-listeners-and-listener-filters" title="Permalink to this heading">¶</a></h3>
+<p>Listener descriptions go in the <code class="docutils literal notranslate"><span class="pre">Listeners</span></code> element of the interface
+configuration. E.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+ <span class="o">...</span> <span class="n">adapters</span> <span class="n">go</span> <span class="n">here</span> <span class="o">...</span>
+ <span class="o">&lt;</span><span class="n">Listeners</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Listener</span> <span class="n">ListenerType</span><span class="o">=</span><span class="s2">&quot;type&quot;</span> <span class="o">...</span> <span class="n">other</span> <span class="n">attributes</span> <span class="o">...&gt;</span>
+   <span class="o">&lt;</span><span class="n">Filter</span> <span class="n">FilterType</span><span class="o">=</span><span class="s2">&quot;filter_type&quot;</span> <span class="o">...</span> <span class="n">other</span> <span class="nb">filter</span> <span class="n">attributes</span> <span class="o">...&gt;</span>
+    <span class="o">...</span> <span class="n">additional</span> <span class="n">configuration</span> <span class="n">info</span> <span class="k">for</span> <span class="n">this</span> <span class="nb">filter</span> <span class="o">...</span>
+   <span class="o">&lt;/</span><span class="n">Filter</span><span class="o">&gt;</span>
+   <span class="o">...</span> <span class="n">additional</span> <span class="n">configuration</span> <span class="n">info</span> <span class="k">for</span> <span class="n">this</span> <span class="n">listener</span> <span class="o">...</span>
+  <span class="o">&lt;/</span><span class="n">Listener</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">Listeners</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="luvlistener-1">
+<span id="id16"></span><h4><a class="toc-backref" href="#id39" role="doc-backlink">LuvListener</a><a class="headerlink" href="#luvlistener-1" title="Permalink to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">LuvListener</span></code> has several optional parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Blocking</span></code> is a Boolean value. If <code class="docutils literal notranslate"><span class="pre">true</span></code>, the Executive waits for
+acknowledgement from the Plexil Viewer after every node transition,
+to allow single-stepping and breakpointing of plans. The default
+value is <code class="docutils literal notranslate"><span class="pre">false</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HostName</span></code> specifies the viewer host. It can be either an IP
+address or a host name. The default is <code class="docutils literal notranslate"><span class="pre">localhost</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Port</span></code> is a TCP port number. It defaults to 49100.</p></li>
+</ul>
+<p>An example of a custom <code class="docutils literal notranslate"><span class="pre">LuvListener</span></code> configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Listener</span> <span class="n">ListenerType</span><span class="o">=</span><span class="s2">&quot;LuvListener&quot;</span> <span class="n">Blocking</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="n">HostName</span><span class="o">=</span><span class="s2">&quot;test_console&quot;</span> <span class="n">Port</span><span class="o">=</span><span class="s2">&quot;13579&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>Note that as of PLEXIL 4, parameters supplied at the <a class="reference external" href="PLEXIL_Executive">PLEXIL
+Executive</a> command line will override the
+<code class="docutils literal notranslate"><span class="pre">LuvListener</span></code> parameters in an interface configuration file.</p>
+</section>
+<section id="plandebuglistener-1">
+<span id="id17"></span><h4><a class="toc-backref" href="#id40" role="doc-backlink">PlanDebugListener</a><a class="headerlink" href="#plandebuglistener-1" title="Permalink to this heading">¶</a></h4>
+<p>The PlanDebugListener requires no additional configuration information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Listener</span> <span class="n">ListenerType</span><span class="o">=</span><span class="s2">&quot;PlanDebugListener&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="nodestate-filter-1">
+<span id="id18"></span><h4><a class="toc-backref" href="#id41" role="doc-backlink">NodeState Filter</a><a class="headerlink" href="#nodestate-filter-1" title="Permalink to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">NodeState</span></code> filter allows a listener to selectively report when a
+node transitions to or from specific node states.</p>
+<p>Selecting the node states is done via one of these optional elements.
+One or the other, <strong>but not both</strong>, must be supplied.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">States</span></code> should be a list of node state names, separated by commas.
+The filter will permit the listener to report when a node transitions
+from or to the named states.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IgnoredStates</span></code> should be a list of node state names, separated by
+commas. The filter will permit the listener to report when a node
+transitions from or to any state <em>other than</em> the named states.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ExecListener</span> <span class="n">ListenerType</span><span class="o">=</span><span class="s2">&quot;JoesListener&quot;</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">Filter</span> <span class="n">FilterType</span><span class="o">=</span><span class="s2">&quot;NodeState&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">States</span><span class="o">&gt;</span><span class="n">EXECUTING</span><span class="p">,</span> <span class="n">FAILING</span><span class="p">,</span> <span class="n">FINISHING</span><span class="p">,</span> <span class="n">ITERATION_ENDED</span><span class="o">&lt;/</span><span class="n">States</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">Filter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">ExecListener</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2015, Universities Space Research Association (USRA).
+All rights reserved.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>

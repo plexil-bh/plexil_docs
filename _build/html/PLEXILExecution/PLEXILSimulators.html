@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PLEXIL Simulators &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PLEXIL Viewer" href="PLEXILViewer.html" />
+    <link rel="prev" title="PLEXIL Executive" href="PLEXILExecutive.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PLEXILViewer.html" title="PLEXIL Viewer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PLEXILExecutive.html" title="PLEXIL Executive"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PLEXIL Simulators</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexil-simulators">
+<span id="plexilsimulators"></span><h1><a class="toc-backref" href="#id14" role="doc-backlink">PLEXIL Simulators</a><a class="headerlink" href="#plexil-simulators" title="Permalink to this heading">¶</a></h1>
+<p><em>10 Apr 2021</em></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plexil-simulators" id="id14">PLEXIL Simulators</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id15">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#test-executive" id="id16">Test Executive</a></p>
+<ul>
+<li><p><a class="reference internal" href="#examples" id="id17">Examples</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#test-executive-simulation-script" id="id18">Test Executive Simulation Script</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simulation-script-files" id="id19">Simulation Script files</a></p></li>
+<li><p><a class="reference internal" href="#example-simulation-scripts" id="id20">Example Simulation Scripts</a></p></li>
+<li><p><a class="reference internal" href="#scripting-commmand-handles-and-return-values" id="id21">Scripting Commmand Handles and Return Values</a></p></li>
+<li><p><a class="reference internal" href="#test-executive-script-syntax" id="id22">Test Executive Script Syntax</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#plexil-simulator" id="id23">Plexil Simulator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#capabilities-of-the-plexil-simulator" id="id24">Capabilities of the Plexil Simulator</a></p></li>
+<li><p><a class="reference internal" href="#running-the-plexil-simulator" id="id25">Running the Plexil Simulator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#advanced-usage" id="id26">Advanced usage</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#plexil-simulator-script" id="id27">Plexil Simulator Script</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-response" id="id28">Command/Response</a></p></li>
+<li><p><a class="reference internal" href="#telemetry" id="id29">Telemetry</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>In order to be useful, PLEXIL plans need an external world, or
+simulation thereof, to operate within and upon. The PLEXIL Executive
+executes PLEXIL plans, but it is the executive’s <a class="reference external" href="Interfacing_Overview">external
+interface</a> that connects the executive to
+external systems, thus realizing a <em>PLEXIL application</em>.</p>
+<p>The PLEXIL distribution provides several example applications. This
+chapter describes two of them: two different simulators for modeling an
+external world with which a PLEXIL plan can interact.</p>
+<p>The <em>Test Executive</em> is a simple simulator which interleaves events
+specified in a script file with nodes coded in a PLEXIL plan. The
+<em>PLEXIL Simulator</em> is an application that uses a more powerful
+simulation script and has its simulator running as a separate process
+from the PLEXIL Executive, providing a more realistic representation of
+an external system. Additionally, it is possible to use a PLEXIL
+executive itself as a simulator for another executive; this topic is
+covered in the chapter on <a class="reference external" href="Inter-Executive_Communication">Inter-Executive
+Communication</a>.</p>
+</section>
+<section id="test-executive">
+<span id="id1"></span><h2><a class="toc-backref" href="#id16" role="doc-backlink">Test Executive</a><a class="headerlink" href="#test-executive" title="Permalink to this heading">¶</a></h2>
+<p>The Test Executive, also called TestExec, found in
+<code class="docutils literal notranslate"><span class="pre">plexil/src/apps/TestExec</span></code>, is essentially a plan execution simulator.
+Given a plan, and simulation script representing the behavior of the
+external world or system, the plan is executed against this script.</p>
+<p>More precisely, <em>the script drives the execution of the plan</em>. The
+script has two parts, an initial state and an event list. First, the
+initial state (external variable values) is read and the executive
+advanced one <a class="reference external" href="Detailed_Semantics#Macro_Steps">step</a>. Then, events are
+read from the script one at a time, advancing the executive one
+<a class="reference external" href="Detailed_Semantics#Macro_Steps">step</a> after each event. Note that if
+the script runs out while there are still nodes waiting to execute, the
+plan will terminate in an unfinished state.</p>
+<p>The most flexible way to start the Test Executive is with the
+<code class="docutils literal notranslate"><span class="pre">plexiltest</span></code> command. Let’s assume you have a Plexil plan filed as
+<code class="docutils literal notranslate"><span class="pre">foo.plx</span></code>. The most basic way to execute this plan is as follows. (The
+second line is an abbreviated form of the first).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexiltest</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span>
+<span class="n">plexiltest</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span>
+</pre></div>
+</div>
+<p>A simulation script (described in sections below) is required to run the
+Test Executive. When not specified on the command line (as above), a
+default is automatically chosen. The first choice is a script file whose
+name is the same as the plan’s filename, but having a <code class="docutils literal notranslate"><span class="pre">.psx</span></code>
+extension, and filed either in the same directory or a <code class="docutils literal notranslate"><span class="pre">scripts</span></code>
+subdirectory. Otherwise, the default script used is the empty simulation
+script, <code class="docutils literal notranslate"><span class="pre">plexil/examples/empty.psx</span></code>. This script is appropriate for
+Plexil plans that do not interact with an external world (i.e. contain
+no lookups, commands, or updates).</p>
+<p>You can specify a simulation script file (let’s call it <code class="docutils literal notranslate"><span class="pre">world.psx</span></code>)
+as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexiltest</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">script</span> <span class="n">world</span><span class="o">.</span><span class="n">psx</span>
+<span class="n">plexiltest</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">s</span> <span class="n">world</span><span class="o">.</span><span class="n">psx</span>
+</pre></div>
+</div>
+<p>If your plan uses libraries (discussed in <a class="reference external" href="Plexil_Reference">Plexil
+Reference</a>), they may be specified as well. In the
+following example, assume two library files named <code class="docutils literal notranslate"><span class="pre">lib1.plx</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lib2.plx</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexiltest</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">script</span> <span class="n">world</span><span class="o">.</span><span class="n">psx</span> <span class="o">-</span><span class="n">library</span> <span class="n">lib1</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">library</span> <span class="n">lib2</span><span class="o">.</span><span class="n">plx</span>
+<span class="n">plexiltest</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">s</span> <span class="n">world</span><span class="o">.</span><span class="n">psx</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib1</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib2</span><span class="o">.</span><span class="n">plx</span>
+</pre></div>
+</div>
+<p>There are many more command line options available; type
+<code class="docutils literal notranslate"><span class="pre">plexiltest</span> <span class="pre">-help</span></code> to see a listing. We provide a few pointers here.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-check</span></code> (or <code class="docutils literal notranslate"><span class="pre">-ch</span></code>) option runs Plexil’s <a class="reference external" href="Plexil_Checker">static type
+checker</a> on the plan prior to having it loaded.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-debug</span></code> (or <code class="docutils literal notranslate"><span class="pre">-d</span></code>) option specifies a Debug Configuration
+file (see next section).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-quiet</span></code> (or <code class="docutils literal notranslate"><span class="pre">-q</span></code>) option suppresses a leading printed
+summary and default debug messages during execution.</p></li>
+</ul>
+<p>The <a class="reference external" href="Viewing_Plan_Execution">Plexil viewer</a> chapter describes options
+that bring up a graphical plan viewer, which can be very useful.</p>
+<section id="examples">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h3>
+<p>Here are a few examples of running the Test Executive in the
+‘plexil/test/TestExec-regression-test’ directory. Note that in the first
+example, the simulation script is found automatically because of its
+filename.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">plexiltest</span> <span class="o">-</span><span class="n">p</span> <span class="n">plans</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">survey</span><span class="o">.</span><span class="n">plx</span>
+
+<span class="n">Running</span> <span class="n">executive</span> <span class="kn">from</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">fred</span><span class="o">/</span><span class="n">plexil</span>
+  <span class="n">Plan</span><span class="p">:</span>      <span class="n">plans</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">survey</span><span class="o">.</span><span class="n">plx</span>
+  <span class="n">Script</span><span class="p">:</span>    <span class="n">scripts</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">survey</span><span class="o">.</span><span class="n">psx</span>
+  <span class="n">Libraries</span><span class="p">:</span>
+  <span class="n">PORT</span><span class="p">:</span>
+
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;SiteSurveyWithEOF&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;SiteSurveyWithEOF&#39;</span> <span class="kn">from</span> <span class="nn">WAITING</span> <span class="n">to</span> <span class="n">EXECUTING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;SiteSurveyWrapper&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;SignalEndOfPlan&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;MonitorAbortSignal&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;SendAbortUpdate&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+
+
+  <span class="p">[</span> <span class="n">rest</span> <span class="n">of</span> <span class="n">output</span> <span class="n">omitted</span> <span class="p">]</span>
+
+
+<span class="o">%</span><span class="n">plexiltest</span> <span class="o">-</span><span class="n">p</span> <span class="n">plans</span><span class="o">/</span><span class="n">library</span><span class="o">-</span><span class="n">call6</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">l</span> <span class="n">plans</span><span class="o">/</span><span class="n">library6</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">s</span> <span class="n">scripts</span><span class="o">/</span><span class="n">library</span><span class="o">-</span><span class="n">call6</span><span class="o">-</span><span class="n">script</span><span class="o">.</span><span class="n">psx</span>
+
+<span class="n">Running</span> <span class="n">executive</span> <span class="kn">from</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">fred</span><span class="o">/</span><span class="n">plexil</span>
+  <span class="n">Plan</span><span class="p">:</span>      <span class="n">plans</span><span class="o">/</span><span class="n">library</span><span class="o">-</span><span class="n">call6</span><span class="o">.</span><span class="n">plx</span>
+  <span class="n">Script</span><span class="p">:</span>    <span class="n">scripts</span><span class="o">/</span><span class="n">library</span><span class="o">-</span><span class="n">call6</span><span class="o">-</span><span class="n">script</span><span class="o">.</span><span class="n">psx</span>
+  <span class="n">Libraries</span><span class="p">:</span>  <span class="o">-</span><span class="n">l</span> <span class="n">plans</span><span class="o">/</span><span class="n">library6</span><span class="o">.</span><span class="n">plx</span>
+  <span class="n">PORT</span><span class="p">:</span>
+
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;root&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;root&#39;</span> <span class="kn">from</span> <span class="nn">WAITING</span> <span class="n">to</span> <span class="n">EXECUTING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;library6&#39;</span> <span class="kn">from</span> <span class="nn">INACTIVE</span> <span class="n">to</span> <span class="n">WAITING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;library6&#39;</span> <span class="kn">from</span> <span class="nn">WAITING</span> <span class="n">to</span> <span class="n">EXECUTING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;root&#39;</span> <span class="kn">from</span> <span class="nn">EXECUTING</span> <span class="n">to</span> <span class="n">FINISHING</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;library6&#39;</span> <span class="kn">from</span> <span class="nn">EXECUTING</span> <span class="n">to</span> <span class="n">ITERATION_ENDED</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;library6&#39;</span> <span class="kn">from</span> <span class="nn">ITERATION_ENDED</span> <span class="n">to</span> <span class="n">FINISHED</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">outcome</span><span class="p">]</span><span class="n">Outcome</span> <span class="n">of</span> <span class="s1">&#39;library6&#39;</span> <span class="ow">is</span> <span class="n">SUCCESS</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;root&#39;</span> <span class="kn">from</span> <span class="nn">FINISHING</span> <span class="n">to</span> <span class="n">ITERATION_ENDED</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span><span class="p">]</span><span class="n">Transitioning</span> <span class="s1">&#39;root&#39;</span> <span class="kn">from</span> <span class="nn">ITERATION_ENDED</span> <span class="n">to</span> <span class="n">FINISHED</span>
+<span class="p">[</span><span class="n">Node</span><span class="p">:</span><span class="n">outcome</span><span class="p">]</span><span class="n">Outcome</span> <span class="n">of</span> <span class="s1">&#39;root&#39;</span> <span class="ow">is</span> <span class="n">SUCCESS</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="test-executive-simulation-script">
+<span id="id2"></span><h2><a class="toc-backref" href="#id18" role="doc-backlink">Test Executive Simulation Script</a><a class="headerlink" href="#test-executive-simulation-script" title="Permalink to this heading">¶</a></h2>
+<p>The Test Executive operates on a script that encodes an initial world
+state and a sequence of state change events and responses to commands
+and updates. Execution of a plan is interleaved with the processing of
+events and responses in the script. The initial state and/or event
+sequence may be empty.</p>
+<p>If the plan operates on time, the passing of time is simulated by
+encoding values (as real numbers) for the state variable <code class="docutils literal notranslate"><span class="pre">time</span></code> in the
+script.</p>
+<p>Processing of the simulation script proceeds in “lock step” with
+execution of the plan. If the script contains responses for commands or
+updates that haven’t occurred in the plan, a runtime error will result.
+Conversely, if the script fails to acknowledge a command or update that
+is executed, or provide a state value for a lookup, the plan may
+terminate prematurely or be left “hanging”, waiting for this external
+feedback.</p>
+<section id="simulation-script-files">
+<span id="id3"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink">Simulation Script files</a><a class="headerlink" href="#simulation-script-files" title="Permalink to this heading">¶</a></h3>
+<p>Simulation scripts are written in files that should have a <code class="docutils literal notranslate"><span class="pre">.pst</span></code>
+extension. These files must be translated into their XML representation
+before running the Test Executive. To translate a script, e.g.
+<code class="docutils literal notranslate"><span class="pre">world.pst</span></code> into its XML form, <code class="docutils literal notranslate"><span class="pre">world.psx</span></code>, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilc</span> <span class="n">world</span><span class="o">.</span><span class="n">pst</span>
+</pre></div>
+</div>
+<p>This command will overwrite any existing version of <code class="docutils literal notranslate"><span class="pre">world.psx</span></code>.</p>
+<p>The syntax for Test Executive simulation scripts is described in the
+following sections.</p>
+</section>
+<section id="example-simulation-scripts">
+<span id="id4"></span><h3><a class="toc-backref" href="#id20" role="doc-backlink">Example Simulation Scripts</a><a class="headerlink" href="#example-simulation-scripts" title="Permalink to this heading">¶</a></h3>
+<p>Here is the file <code class="docutils literal notranslate"><span class="pre">plexil/examples/SimpleDrive.pst</span></code>, which is a
+simulation script for the plan
+<code class="docutils literal notranslate"><span class="pre">plexil/plexil/examples/SimpleDrive.ple</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">initial</span><span class="o">-</span><span class="n">state</span> <span class="p">{</span>
+  <span class="n">state</span> <span class="n">At</span> <span class="p">(</span><span class="s2">&quot;Rock&quot;</span> <span class="p">:</span> <span class="n">string</span><span class="p">)</span> <span class="o">=</span> <span class="n">false</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">script</span> <span class="p">{</span>
+  <span class="n">command</span><span class="o">-</span><span class="n">success</span> <span class="n">drive</span> <span class="p">(</span><span class="mf">1.0</span> <span class="p">:</span> <span class="n">real</span><span class="p">);</span>
+  <span class="n">state</span> <span class="n">At</span> <span class="p">(</span><span class="s2">&quot;Rock&quot;</span> <span class="p">:</span> <span class="n">string</span><span class="p">)</span> <span class="o">=</span> <span class="n">true</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">;</span>
+  <span class="n">command</span><span class="o">-</span><span class="n">success</span> <span class="n">takeSample</span> <span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This script specifies an initial state named <em>At</em> whose value is false.
+Note that this is a <em>parameterized</em> state, with a single parameter
+valued “Rock”. The script performs these events:</p>
+<ol class="arabic simple">
+<li><p>It changes the <em>At</em> state to true (i.e. the rover has reached the
+rock).</p></li>
+<li><p>It acknowledges the <em>drive</em> command with the <code class="docutils literal notranslate"><span class="pre">COMMAND_SUCCESS</span></code>
+handle.</p></li>
+<li><p>It acknowledges the <em>takeSample</em> command with the <code class="docutils literal notranslate"><span class="pre">COMMAND_SUCCESS</span></code>
+handle.</p></li>
+</ol>
+<p>See the following section for important information about scripting
+command handles.</p>
+<p>There are more examples of simulation scripts in the following
+directories of the PLEXIL distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexil</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span>
+<span class="n">plexil</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">TestExec</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">scripts</span>
+</pre></div>
+</div>
+</section>
+<section id="scripting-commmand-handles-and-return-values">
+<span id="id5"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Scripting Commmand Handles and Return Values</a><a class="headerlink" href="#scripting-commmand-handles-and-return-values" title="Permalink to this heading">¶</a></h3>
+<p>The example in the previous section illustrates the scripting of
+<a class="reference external" href="Resource_Model#Command_Handles">command handles</a>.</p>
+<p>There is an important aspect of scripting command handles when the
+command <em>also</em> returns a value. Namely, the handle must occur <em>after</em>
+the value. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">script</span> <span class="p">{</span>
+  <span class="n">command</span>         <span class="n">get</span><span class="o">-</span><span class="nb">input</span> <span class="p">()</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span> <span class="p">:</span> <span class="n">string</span><span class="p">;</span>
+  <span class="n">command</span><span class="o">-</span><span class="n">success</span> <span class="n">get</span><span class="o">-</span><span class="nb">input</span> <span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This ordering requirement is purely an artifact of implementation, and
+it’s a common coding error to have them reversed.</p>
+</section>
+<section id="test-executive-script-syntax">
+<span id="id6"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Test Executive Script Syntax</a><a class="headerlink" href="#test-executive-script-syntax" title="Permalink to this heading">¶</a></h3>
+<p>Here is the syntax for Test Executive simulation scripts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">element</span> <span class="o">=</span>
+    <span class="n">script</span>        <span class="p">{</span> <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span> <span class="o">...</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="n">initial</span><span class="o">-</span><span class="n">state</span> <span class="p">{</span> <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span> <span class="o">...</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="n">simultaneous</span>  <span class="p">{</span> <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span> <span class="o">...</span> <span class="p">}</span>
+  <span class="o">|</span> <span class="n">update</span><span class="o">-</span><span class="n">ack</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">;</span>
+  <span class="o">|</span> <span class="n">function</span><span class="o">-</span><span class="n">call</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span> <span class="p">;</span>
+  <span class="o">|</span> <span class="n">command</span>       <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span> <span class="p">;</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">abort</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span> <span class="p">;</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">ack</span>   <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span> <span class="p">;</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">accepted</span>       <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">denied</span>         <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">sent</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">system</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">rcvd</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">system</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">success</span>        <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+  <span class="o">|</span> <span class="n">command</span><span class="o">-</span><span class="n">failed</span>         <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+
+<span class="n">value</span> <span class="o">=</span> <span class="n">true</span> <span class="o">|</span> <span class="n">false</span> <span class="o">|</span> <span class="o">-</span><span class="mi">100</span> <span class="o">|</span> <span class="mi">100</span> <span class="o">|</span> <span class="mf">100.0</span> <span class="o">|</span> <span class="o">-</span><span class="mf">100.0</span>
+      <span class="o">|</span> <span class="s2">&quot;hello&quot;</span> <span class="o">|</span> <span class="o">&lt;</span><span class="n">unknown</span><span class="o">&gt;</span> <span class="o">|</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="nb">type</span> <span class="o">=</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">real</span> <span class="o">|</span> <span class="n">string</span>
+     <span class="o">|</span> <span class="nb">bool</span><span class="o">-</span><span class="n">array</span> <span class="o">|</span> <span class="nb">int</span><span class="o">-</span><span class="n">array</span> <span class="o">|</span> <span class="n">real</span><span class="o">-</span><span class="n">array</span> <span class="o">|</span> <span class="n">string</span><span class="o">-</span><span class="n">array</span>
+</pre></div>
+</div>
+<p>NOTE: <a href="#id7"><span class="problematic" id="id8">**</span></a>** as included in the kinds of values above, is a literal. It
+extends all PLEXIL types, and allows the scripting of a lookup or
+command to return the UNKNOWN value to PLEXIL. Recall that UNKNOWN has
+no literal representation in PLEXIL itself – a value can only be tested
+using the <strong>isKnown</strong> expression. For examples of the scripting of
+UNKNOWN values, see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexil</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">basic</span><span class="o">/</span><span class="n">TestUnknown</span><span class="o">.</span><span class="n">ple</span>
+<span class="n">plexil</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">basic</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">TestUnknown</span><span class="o">.</span><span class="n">pst</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="plexil-simulator">
+<span id="id9"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">Plexil Simulator</a><a class="headerlink" href="#plexil-simulator" title="Permalink to this heading">¶</a></h2>
+<p>The Plexil Simulator is a PLEXIL application that uses a simple,
+stateless, non-graphical simulator. (Formerly, this simulator was called
+the Standalone Simulator, or SAS). The Plexil Simulator can be used for
+testing Plexil plans and capabilities of the Plexil Executive. This
+simulator’s objective is to mimic the rudimentary behavior of real
+applications at a low fidelity level involving commands and their
+response, thereby eliminating the necessity to interface with complex
+systems during development, testing and validation. The simulator
+accepts commands as the real system normally would and responds in a
+pre-programmed manner as defined by the user in a simulation script. The
+simulator can also post telemetry data as specified in a script file.
+Such an approach provides an excellent way to develop and test the
+coverage of off-nominal behaviors of systems.</p>
+<p>For example, if you are developing a Plexil-based controller that
+interacts with the navigation and instruments on-board a rover, it may
+not be possible and sometimes not desirable to interface with the actual
+rover throughout the development, debugging and validation process. By
+using the Plexil Simulator, the user can instead easily simulate the
+desired behavior such as responding with <em>Success</em> or <em>Failure</em> values
+after a time delay for various navigation and science tasks.</p>
+<p>The remainder of this section is a guide for using the Plexil Simulator.
+A description of its architecture is given in <a class="reference external" href="Standalone_Simulator_Architecture_and_Application_Development">Appendix
+D</a>.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">plexil/src/apps/StandaloneSimulator/PlexilSimulator/test</span></code>
+directory and its <code class="docutils literal notranslate"><span class="pre">README</span></code> file for a simple example usage of the
+Plexil Simulator.</p>
+<section id="capabilities-of-the-plexil-simulator">
+<span id="id10"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">Capabilities of the Plexil Simulator</a><a class="headerlink" href="#capabilities-of-the-plexil-simulator" title="Permalink to this heading">¶</a></h3>
+<p>The Plexil Simulator provides the following capabilities;</p>
+<ul class="simple">
+<li><p>Ability to respond to specific commands as well as post telemetry
+data. The required behavior of the simulator is specified using two
+script files, one for command/response and another for telemetry
+behavior.</p></li>
+<li><p><em>Command/Response behavior</em>: The simulation script contains the names
+of commands that need to be simulated, the time delay after which the
+corresponding response messages are posted, and the contents of the
+response itself.</p></li>
+<li><p>Ability to customize the behavior of specific commands as well as the
+specific occurrence of a command. For example, it is not only
+possible to specify the behavior of a Move command in the context of
+a rover, but it is also possible to specify the behavior of the <em>Nth</em>
+Move command that the simulator receives.</p></li>
+<li><p>Ability to control the delay between the time when the simulator
+receives a command and the time when the response gets sent out for
+that command. The time delay can be specified at a microsecond
+resolution.</p></li>
+<li><p>Responses for multiple instances of a command that are slated to be
+posted at the same time will be sent in a first-in, first-out order.
+Note that there are two possible ways in which this situation can
+arise. First, if the simulator receives multiple instances of the
+same command back-to-back and they all have the same time delay.
+Second, if multiple instances of a command are received by the
+simulator at various times but their simulation time delay is such
+that more than one command response is scheduled to be sent out at
+the same time.</p></li>
+<li><p>The exact response value data structure can be defined by the user.
+For example, for some commands the response could be just a single
+boolean value but in other could be a data structure consisting of a
+heterogeneous types including strings, integers, reals and booleans.</p></li>
+<li><p><em>Telemetry behavior</em>: The telemetry data to be posted along with the
+time when it has to be posted (relative to the start time of the
+simulator) is captured in the form of a second script.</p></li>
+<li><p>The simulator design is not tied to a specific inter-process
+communication protocol. The architecture provides the necessary hooks
+that allows the user to pick the preferred data transport mechanism.</p></li>
+</ul>
+</section>
+<section id="running-the-plexil-simulator">
+<span id="id11"></span><h3><a class="toc-backref" href="#id25" role="doc-backlink">Running the Plexil Simulator</a><a class="headerlink" href="#running-the-plexil-simulator" title="Permalink to this heading">¶</a></h3>
+<p>The most flexible way to start the Plexil Simulator is the <code class="docutils literal notranslate"><span class="pre">plexilsim</span></code>
+command. Let’s assume your Plexil plan is filed as <code class="docutils literal notranslate"><span class="pre">foo.plx</span></code>, and
+script as <code class="docutils literal notranslate"><span class="pre">foo-script.txt</span></code>. The most basic way to execute this plan is
+as follows. (The second line is an abbreviated form of the first).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilsim</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">script</span> <span class="n">foo</span><span class="o">-</span><span class="n">script</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">plexilsim</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">s</span> <span class="n">foo</span><span class="o">-</span><span class="n">script</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Note that unlike the Test Executive (described above), a simulation
+script is required for the Plexil Simulator – there is no default.</p>
+<p>Many other useful command line options are available. Type
+<code class="docutils literal notranslate"><span class="pre">plexilsim</span> <span class="pre">-help</span></code> for a listing. For a description of the most useful
+options, please see the section above on the <a class="reference external" href="Executing_Plans#Test_Executive">plexiltest
+script</a>, which shares the same
+options.</p>
+<section id="advanced-usage">
+<span id="id12"></span><h4><a class="toc-backref" href="#id26" role="doc-backlink">Advanced usage</a><a class="headerlink" href="#advanced-usage" title="Permalink to this heading">¶</a></h4>
+<p>The approach above is sufficient to run the Plexil Simulator in the most
+basic way: executing a single plan using a single simulator. It general
+it is possible to have multiple executives interacting with multiple
+simulators. For such configurations, the executives and (standalone)
+simulators must be started separately. In addition, a third component,
+the IPC communications router, which is automatically started by
+<code class="docutils literal notranslate"><span class="pre">plexilsim</span></code>, must also be started manually. The procedure is as
+follows.</p>
+<ol class="arabic simple">
+<li><p>In one shell, start IPC first:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ipc</span>
+</pre></div>
+</div>
+<p>2. In additional shells (each running its own simulator) start the
+simulator as a standalone component:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="o">-</span><span class="n">sas</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>3. Also in their own shells, start the Plexil Executive(s) last, using
+the <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> script. See the <a class="reference external" href="PLEXIL_Executive">PLEXIL
+Executive</a> chapter for instructions on this script.
+You’ll need an interface configuration file that specifies the IPC
+Adapter for commands and lookups; see
+<code class="docutils literal notranslate"><span class="pre">/Users/kdalal/plexil/src/apps/StandAloneSimulator/PlexilSimulator/test/config.xml</span></code>
+for an example.</p>
+</section>
+</section>
+</section>
+<section id="plexil-simulator-script">
+<span id="id13"></span><h2><a class="toc-backref" href="#id27" role="doc-backlink">Plexil Simulator Script</a><a class="headerlink" href="#plexil-simulator-script" title="Permalink to this heading">¶</a></h2>
+<p>The behavior of the Plexil Simulator is dictated by script files that
+specify command responses and lookup values (another term for lookup
+values is <em>telemetry</em>). Each of these specifications has its own syntax,
+and a simulation script may contain zero or more sections (prefixed by a
+keyword) for each kind of specification. More than one simulation script
+can be used, and multiple script files are the equivalent of their
+concatenation.</p>
+<p><strong>NOTE</strong>: Currently, command responses and telemetry values are
+restricted to numbers (integers or real).</p>
+<p>A Plexil Simulator script is a text file, completely distinct from the
+Test Executive scripts described above. There is no requirement for the
+file’s name.</p>
+<section id="command-response">
+<h3><a class="toc-backref" href="#id28" role="doc-backlink">Command/Response</a><a class="headerlink" href="#command-response" title="Permalink to this heading">¶</a></h3>
+<p>A simulation script can itemizes the commands that need to be simulated.
+This specification begins with the keyword</p>
+<p>`` BEGIN_COMMANDS``</p>
+<p>and is followed by entries having the following format.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Line 1 (required): &lt;command_name : string&gt; &lt;command_index : integer&gt;
+       &lt;response_needed? : boolean, 0 or 1&gt; &lt;time_delay : real&gt;
+Line 2 (required only if response_needed == 1): &lt;response values&gt;
+</pre></div>
+</div>
+<p>All the entries in <em>Line 1</em> are mandatory while <em>Line 2</em> is required
+only if the <em>response_needed?</em> field in <em>Line 1</em> is 1. <em>Line 1</em> is
+parsed by the script reader implemented in the core software while <em>Line
+2</em> is parsed by the user. Therefore, no restriction is placed on the
+data type or the ordering of the elements in <em>Line 2</em> and it is entirely
+up to the user to define the structure and provide a parser for it. The
+significance of each of the fields in <em>line 1</em> is the following;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;command_name&gt;     : Name of the command that the simulator is expected
+                     to respond to.  If the simulator receives a command
+                     that does not match (case sensitive) with any of those
+                     specified in the simulation script file, it will be ignored.
+&lt;command_index&gt;    : Allows the user to customize the response for a
+                     specific occurrence of a command. The index value count is
+                     one-based with the behavior corresponding to 0 being the
+                     default that applies to all instances of commands that do not
+                     have a specific behavior.
+&lt;response_needed?&gt; : Specifies if a return value(s) has to be posted by
+                     the simulator for the command.
+&lt;time_delay&gt;       : The time delay after which the simulator needs to
+                     respond to a command.
+</pre></div>
+</div>
+<p>Consider a rover that accepts four types of navigation commands (MoveUp,
+MoveRight, MoveDown, MoveLeft) and a command that queries some sensors
+(QueryEnergySensor). Also, the navigational commands expect an integer
+response value of -1, 0 or 1 while the query command expects an array of
+five real values. The following example simulates a specific behavior of
+the rover wherein all the navigational commands except for the second
+occurrence of the MoveDown command will return a value of 1. The second
+occurrence of the MoveDown command will return a value of 0. All the
+QueryEnergySensor commands will return an array of five real values 1.1,
+1.2, 1.3, 1.4 and 1.5. The responses for all commands will be posted
+after 2.0 seconds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MoveUp</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mi">1</span>
+
+<span class="n">MoveRight</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mi">1</span>
+
+<span class="n">MoveDown</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mi">1</span>
+
+<span class="n">MoveLeft</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mi">1</span>
+
+<span class="n">QueryEnergySensor</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mf">1.1</span> <span class="mf">2.2</span> <span class="mf">3.3</span> <span class="mf">4.4</span> <span class="mf">5.5</span>
+
+<span class="n">MoveDown</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mf">2.0</span>
+<span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="telemetry">
+<h3><a class="toc-backref" href="#id29" role="doc-backlink">Telemetry</a><a class="headerlink" href="#telemetry" title="Permalink to this heading">¶</a></h3>
+<p>In addition to responding to specific commands, the simulator can also
+post telemetry data at predefined time instances. This specification
+begins with the keyword</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BEGIN_TELEMETRY</span>
+</pre></div>
+</div>
+<p>which is followed by entries having the following format.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Line</span> <span class="mi">1</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">telemetry_data_name</span><span class="p">:</span> <span class="n">string</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">time</span> <span class="p">:</span> <span class="n">real</span><span class="o">&gt;</span>
+<span class="n">Line</span> <span class="mi">2</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">telemetry</span> <span class="n">data</span><span class="o">&gt;</span>
+
+<span class="n">where</span>
+
+<span class="o">&lt;</span><span class="n">telemetry_data_name</span><span class="o">&gt;</span> <span class="p">:</span> <span class="n">Name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">state</span> <span class="n">whose</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">posted</span> <span class="k">as</span> <span class="n">telemetry</span> <span class="n">data</span><span class="o">.</span>
+<span class="o">&lt;</span><span class="n">time</span><span class="o">&gt;</span>                <span class="p">:</span> <span class="n">The</span> <span class="n">time</span> <span class="n">when</span> <span class="n">the</span> <span class="n">telemetry</span> <span class="n">data</span> <span class="n">has</span> <span class="n">to</span> <span class="n">be</span>
+                        <span class="n">posted</span><span class="o">.</span> <span class="n">This</span> <span class="n">time</span> <span class="ow">is</span> <span class="n">computed</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span>
+                        <span class="n">start</span> <span class="n">of</span> <span class="n">the</span> <span class="n">simulator</span><span class="o">.</span>
+
+<span class="o">&lt;</span><span class="n">telemetry_data</span><span class="o">&gt;</span>      <span class="p">:</span> <span class="n">The</span> <span class="n">actual</span> <span class="n">data</span> <span class="n">that</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">posted</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Consider the following example where the state (<em>RobotState</em>) of the
+rover position (<em>X, Y and Z</em>) is being posted at instances 3.0 to 7.0
+seconds computed with respect to the start of the simulator.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RobotState</span> <span class="mf">3.0</span>
+<span class="mf">100.1</span> <span class="mf">100.2</span> <span class="mf">100.3</span>
+
+<span class="n">RobotState</span> <span class="mf">4.0</span>
+<span class="mf">200.1</span> <span class="mf">200.2</span> <span class="mf">200.3</span>
+
+<span class="n">RobotState</span> <span class="mf">5.0</span>
+<span class="mf">300.1</span> <span class="mf">300.2</span> <span class="mf">300.3</span>
+
+<span class="n">RobotState</span> <span class="mf">6.0</span>
+<span class="mf">400.1</span> <span class="mf">400.2</span> <span class="mf">400.3</span>
+
+<span class="n">RobotState</span> <span class="mf">7.0</span>
+<span class="mf">500.1</span> <span class="mf">500.2</span> <span class="mf">500.3</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2021, Universities Space Research Association (USRA).
+All rights reserved.</p>
+<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>

@@ -1,0 +1,652 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PLEXIL Viewer &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Communication" href="Communication.html" />
+    <link rel="prev" title="PLEXIL Simulators" href="PLEXILSimulators.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Communication.html" title="Communication"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PLEXILSimulators.html" title="PLEXIL Simulators"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PLEXIL Viewer</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexil-viewer">
+<span id="plexilviewer"></span><h1><a class="toc-backref" href="#id32" role="doc-backlink">PLEXIL Viewer</a><a class="headerlink" href="#plexil-viewer" title="Permalink to this heading">¶</a></h1>
+<p><em>8 May 2015</em></p>
+<p>NOTE: As of May 22, 2019, the current version of the PLEXIL viewer is
+broken – it has a number of startup and usage bugs. We hope to have
+someone working on this soon, but cannot guarantee anything. In the mean
+time, please use PLEXIL in its command-line form. If you are inclined to
+debug the viewer, the PLEXIL community welcomes any contributions!
+Please contact <a class="reference external" href="mailto:plexil-support&#37;&#52;&#48;lists&#46;sourceforge&#46;net">plexil-support<span>&#64;</span>lists<span>&#46;</span>sourceforge<span>&#46;</span>net</a>.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plexil-viewer" id="id32">PLEXIL Viewer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id33">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#using-the-plexil-viewer" id="id34">Using the PLEXIL Viewer</a></p></li>
+<li><p><a class="reference internal" href="#executing-plans-with-the-test-executive" id="id35">Executing Plans with the Test Executive</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-line-approach" id="id36">Command line approach</a></p></li>
+<li><p><a class="reference internal" href="#graphical-approach" id="id37">Graphical approach</a></p>
+<ul>
+<li><p><a class="reference internal" href="#starting-the-plexil-viewer" id="id38">Starting the PLEXIL Viewer</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#executing-plans-with-the-plexil-executive" id="id39">Executing Plans with the Plexil Executive</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-line-approach-1" id="id40">Command line approach</a></p></li>
+<li><p><a class="reference internal" href="#graphical-approach-1" id="id41">Graphical approach</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#executing-plans-with-the-plexil-simulator" id="id42">Executing Plans with the Plexil Simulator</a></p>
+<ul>
+<li><p><a class="reference internal" href="#command-line-approach-2" id="id43">Command line approach</a></p></li>
+<li><p><a class="reference internal" href="#graphical-approach-2" id="id44">Graphical approach</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#advanced-options" id="id45">Advanced options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#selecting-a-remote-host" id="id46">Selecting a remote host</a></p></li>
+<li><p><a class="reference internal" href="#selecting-a-port-number" id="id47">Selecting a port number</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#saved-settings" id="id48">Saved Settings</a></p></li>
+<li><p><a class="reference internal" href="#viewer-features" id="id49">Viewer Features</a></p>
+<ul>
+<li><p><a class="reference internal" href="#expand-plan-view" id="id50">Expand Plan View</a></p></li>
+<li><p><a class="reference internal" href="#node-information-window" id="id51">Node Information Window</a></p></li>
+<li><p><a class="reference internal" href="#plan-interruption-and-breakpoints" id="id52">Plan Interruption and Breakpoints</a></p></li>
+<li><p><a class="reference internal" href="#stop-execution" id="id53">Stop Execution</a></p></li>
+<li><p><a class="reference internal" href="#create-debug-configuration-file" id="id54">Create Debug Configuration File</a></p></li>
+<li><p><a class="reference internal" href="#find-nodes" id="id55">Find Nodes</a></p></li>
+<li><p><a class="reference internal" href="#hide-nodes" id="id56">Hide Nodes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#temporal-plan-viewer" id="id57">Temporal Plan Viewer</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-the-viewer" id="id58">Using the viewer</a></p></li>
+<li><p><a class="reference internal" href="#important-additional-notes" id="id59">Important additional notes</a></p></li>
+<li><p><a class="reference internal" href="#how-it-works" id="id60">How it works</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id33" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>The Plexil Viewer (formerly “<strong>L</strong>ightweight <strong>U</strong>niversal Executive
+<strong>V</strong>iewer”, or LUV), is a graphical interface for visualizing
+execution of Plexil plans. It allows you to specify a desired PLEXIL
+application, load plans and other supporting files, and monitor
+execution of a plan while being able to set breakpoints and
+interactively pause and resume the execution.</p>
+<p>The PLEXIL Viewer allows you to execute Plexil plans using any of the
+three Plexil applications provided in the PLEXIL software distribution:</p>
+<ul class="simple">
+<li><p>The <a class="reference external" href="Simulating_Plan_Execution#Test_Executive">Test Executive</a></p></li>
+<li><p>The <a class="reference external" href="Simulating_Plan_Execution#Plexil_Simulator">Plexil Simulator</a></p></li>
+<li><p>The <a class="reference external" href="PLEXIL_Executive">PLEXIL Executive</a></p></li>
+<li><p>External PLEXIL applications running independently of the Viewer
+<em>(documentation to be supplied)</em></p></li>
+</ul>
+<p>Here is an example of what plan execution looks like in the viewer.</p>
+<figure class="align-default">
+<img alt="../_images/Executing.jpg" src="../_images/Executing.jpg" />
+</figure>
+</section>
+<section id="using-the-plexil-viewer">
+<span id="id1"></span><h2><a class="toc-backref" href="#id34" role="doc-backlink">Using the PLEXIL Viewer</a><a class="headerlink" href="#using-the-plexil-viewer" title="Permalink to this heading">¶</a></h2>
+<p>There are two different ways to use the PLEXIL viewer.</p>
+<ol class="arabic simple">
+<li><p><em>Command line</em>: Run the PLEXIL application from the Unix command
+line, specifying the viewer as command line options.</p></li>
+<li><p><em>Graphical</em>: Start the PLEXIL viewer, and from here select and run
+the desired application.</p></li>
+</ol>
+<p>The following sections describe both the command line and graphical
+means for running PLEXIL applications. We give detailed instructions for
+running the <a class="reference external" href="Simulating_Plan_Execution#Test_Executive">Test
+Executive</a> application. The
+process for running the other PLEXIL applications with the PLEXIL viewer
+is almost identical.</p>
+</section>
+<section id="executing-plans-with-the-test-executive">
+<span id="id2"></span><h2><a class="toc-backref" href="#id35" role="doc-backlink">Executing Plans with the Test Executive</a><a class="headerlink" href="#executing-plans-with-the-test-executive" title="Permalink to this heading">¶</a></h2>
+<p>See the <a class="reference external" href="Simulating_Plan_Execution">PLEXIL Simulators</a> chapter for an
+introduction to the Test Executive and <code class="docutils literal notranslate"><span class="pre">plexiltest</span></code> command.</p>
+<section id="command-line-approach">
+<span id="id3"></span><h3><a class="toc-backref" href="#id36" role="doc-backlink">Command line approach</a><a class="headerlink" href="#command-line-approach" title="Permalink to this heading">¶</a></h3>
+<p>Type one of the following, equivalent, commands at a Unix prompt. (The
+second is an abbreviated form of the first).</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>plexiltest -viewer -blocking -plan plan_file -script script_file
+plexiltest -v -b -p plan_file -s script_file
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-viewer</span></code> or <code class="docutils literal notranslate"><span class="pre">-v</span></code> option says to open a viewer.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-blocking</span></code> or <code class="docutils literal notranslate"><span class="pre">-b</span></code> option says to open the viewer in <em>blocking</em>
+mode, which means that plan execution is controlled interactively: the
+space bar advances the plan by one
+<a class="reference external" href="Detailed_Semantics#Macro_Steps">step</a>, and the return key pauses and
+resumes plan execution. This option is also required to allow setting
+breakpoints in the plan. Note that use of this option significantly
+slows the execution of the plan.</p>
+</section>
+<section id="graphical-approach">
+<span id="id4"></span><h3><a class="toc-backref" href="#id37" role="doc-backlink">Graphical approach</a><a class="headerlink" href="#graphical-approach" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Start the viewer by typing <code class="docutils literal notranslate"><span class="pre">plexil</span></code> (see additional detail in the
+subsection below).</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">File/Configuration</span></code>, which opens the <em>configuration dialog</em>
+(see image below).</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">PlexilTest</span></code> button.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Plan</span></code>, which opens a file browser. In this browser, find and
+select the desired Plexil plan (<code class="docutils literal notranslate"><span class="pre">.plx</span></code> file).</p></li>
+<li><p>If your plan uses library plans that are not found directly in the
+same directory as the plan, click <code class="docutils literal notranslate"><span class="pre">Libraries</span></code> to select the needed
+library plans. See the section on adding libraries below.</p></li>
+<li><p>Select a simulation script. If your plan uses the empty script or a
+script file having the same base name as the plan, click the
+<code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Default</span></code> button next to the <code class="docutils literal notranslate"><span class="pre">Script</span></code> button. Otherwise,
+click <code class="docutils literal notranslate"><span class="pre">Script</span></code>, which opens a file browser. In this browser, find
+and select the desired simulation script (<code class="docutils literal notranslate"><span class="pre">.psx</span></code> file).</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">OK</span></code> to capture these selections.</p></li>
+<li><p>To execute the plan, select <code class="docutils literal notranslate"><span class="pre">Run/Execute</span> <span class="pre">Plan</span></code> in the main Plexil
+Viewer window or menu bar.</p></li>
+</ol>
+<figure class="align-default" id="id30">
+<img alt="config-dialog.png" src="../_images/Config-dialog.png" />
+<figcaption>
+<p><span class="caption-text">config-dialog.png</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="starting-the-plexil-viewer">
+<span id="id5"></span><h4><a class="toc-backref" href="#id38" role="doc-backlink">Starting the PLEXIL Viewer</a><a class="headerlink" href="#starting-the-plexil-viewer" title="Permalink to this heading">¶</a></h4>
+<p>The PLEXIL viewer is started by typing <code class="docutils literal notranslate"><span class="pre">plexil</span></code> at a Unix shell
+prompt. A single window will appear, showing the PLEXIL logo. On Linux
+systems, the top of this window will have a set of pulldown menu
+selections. Under MacOS, the pulldown menus appear in application menu
+bar at the top of the computer screen.</p>
+</section>
+</section>
+</section>
+<section id="executing-plans-with-the-plexil-executive">
+<span id="id6"></span><h2><a class="toc-backref" href="#id39" role="doc-backlink">Executing Plans with the Plexil Executive</a><a class="headerlink" href="#executing-plans-with-the-plexil-executive" title="Permalink to this heading">¶</a></h2>
+<p>See the <a class="reference external" href="PLEXIL_Executive">PLEXIL Executive</a> chapter for an
+introduction to the Plexil Executive and <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> command.</p>
+<section id="command-line-approach-1">
+<span id="id7"></span><h3><a class="toc-backref" href="#id40" role="doc-backlink">Command line approach</a><a class="headerlink" href="#command-line-approach-1" title="Permalink to this heading">¶</a></h3>
+<p>Type one of the following, equivalent, commands at a Unix prompt. (The
+second is an abbreviated form of the first).</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>plexilexec -viewer -blocking -plan plan_file -config interface_config_file
+plexilexec -v -b -p plan_file -c interface_config
+</pre></div>
+</div>
+<p>Note that the interface configuration file (-c/-config options) is
+optional. If omitted the default (“dummy”) configuration file is used.</p>
+</section>
+<section id="graphical-approach-1">
+<span id="id8"></span><h3><a class="toc-backref" href="#id41" role="doc-backlink">Graphical approach</a><a class="headerlink" href="#graphical-approach-1" title="Permalink to this heading">¶</a></h3>
+<p>This approach is identical to the graphical approach for running the
+Test Executive described above, except that the <code class="docutils literal notranslate"><span class="pre">PlexilExec</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Config</span></code> buttons are selected in the configuration dialog. The
+<code class="docutils literal notranslate"><span class="pre">Config</span></code> button opens a file browser for selecting an interface
+configuration file (XML format). If your plan does not need a specific
+configuration file (i.e. it performs no external commands or lookups),
+click <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">Default</span></code> to select the default (dummy) configuration.</p>
+</section>
+</section>
+<section id="executing-plans-with-the-plexil-simulator">
+<span id="id9"></span><h2><a class="toc-backref" href="#id42" role="doc-backlink">Executing Plans with the Plexil Simulator</a><a class="headerlink" href="#executing-plans-with-the-plexil-simulator" title="Permalink to this heading">¶</a></h2>
+<p>See <a class="reference external" href="Simulating_Plan_Execution#Plexil_Simulator">Plexil Simulator</a>
+for an introduction to the Plexil Simulator and <code class="docutils literal notranslate"><span class="pre">plexilsim</span></code> command.</p>
+<section id="command-line-approach-2">
+<span id="id10"></span><h3><a class="toc-backref" href="#id43" role="doc-backlink">Command line approach</a><a class="headerlink" href="#command-line-approach-2" title="Permalink to this heading">¶</a></h3>
+<p>Type one of the following, equivalent, commands at a Unix prompt. (The
+second is an abbreviated form of the first).</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>plexilsim -viewer -blocking -plan plan_file -script simulation_script_file
+plexilsim -v -b -p plan_file -s simulation_script_file
+</pre></div>
+</div>
+</section>
+<section id="graphical-approach-2">
+<span id="id11"></span><h3><a class="toc-backref" href="#id44" role="doc-backlink">Graphical approach</a><a class="headerlink" href="#graphical-approach-2" title="Permalink to this heading">¶</a></h3>
+<p>This approach is identical to the graphical approach for running the
+Test Executive described above, except that the <code class="docutils literal notranslate"><span class="pre">PlexilSim</span></code> button is
+selected in the configuration dialog.</p>
+</section>
+</section>
+<section id="advanced-options">
+<span id="id12"></span><h2><a class="toc-backref" href="#id45" role="doc-backlink">Advanced options</a><a class="headerlink" href="#advanced-options" title="Permalink to this heading">¶</a></h2>
+<p>There are additional, more advanced, command line options relevant using
+any of the three Plexil application with a viewer.</p>
+<section id="selecting-a-remote-host">
+<span id="id13"></span><h3><a class="toc-backref" href="#id46" role="doc-backlink">Selecting a remote host</a><a class="headerlink" href="#selecting-a-remote-host" title="Permalink to this heading">¶</a></h3>
+<p>If the viewer is running on a different machine than the Plexil
+executive, specify the viewer’s host using the <code class="docutils literal notranslate"><span class="pre">-hostname</span></code> or <code class="docutils literal notranslate"><span class="pre">-h</span></code>
+option followed by the host’s name. You may also need to specify a port
+number, as described in the next section.</p>
+</section>
+<section id="selecting-a-port-number">
+<span id="id14"></span><h3><a class="toc-backref" href="#id47" role="doc-backlink">Selecting a port number</a><a class="headerlink" href="#selecting-a-port-number" title="Permalink to this heading">¶</a></h3>
+<p>The Plexil viewer connects with the Plexil executive using a Unix
+<em>port</em>. There are a series of consecutive <em>port numbers</em> (starting with
+49100) that the PLEXIL software dedicates to this connection. Port
+selection is managed automatically such that multiple executives, each
+with a viewer, should be able to run concurrently on the same machine.
+There are several cases in which this automatic selection will not work,
+in which case a specific port number must be specified:</p>
+<ul class="simple">
+<li><p>There are multiple viewers running, and the desired one is not using
+the first default port 65400 (e.g. it is not the first viewer
+started).</p></li>
+<li><p>The desired viewer’s port number has been changed from its default
+selection (e.g. using the Debug/Change Server port option).</p></li>
+</ul>
+<p>A specific port is specified on the command line with the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option.
+Here is what a full invocation of <code class="docutils literal notranslate"><span class="pre">plexiltest</span></code> might look like when
+running with a remote viewer:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>plexiltest -viewer -blocking -hostname foo.bar.com -port 49102
+           -plan plan_file -script script_file
+</pre></div>
+</div>
+<p>The above command line has been split to fit this document, but in
+practice should be all one line. Here’s the abbreviated form:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>plexiltest -v -b -h foo.bar.com -n 49102 -p plan_file -s script_file
+</pre></div>
+</div>
+</section>
+</section>
+<section id="saved-settings">
+<span id="id15"></span><h2><a class="toc-backref" href="#id48" role="doc-backlink">Saved Settings</a><a class="headerlink" href="#saved-settings" title="Permalink to this heading">¶</a></h2>
+<p>The last settings used by the PLEXIL viewer are automatically stored in
+the hidden file <code class="docutils literal notranslate"><span class="pre">$HOME/.luv</span></code>. There is normally no reason to inspect
+this file, as it is managed by the viewer. Note that this setting file
+will hold the last settings made in the <em>last</em> Plexil viewer that was
+quit normally by a given user, even if multiple viewers had been used
+simultaneously. If a viewer quits abnormally (e.g. crashes), the
+settings file may not be updated.</p>
+</section>
+<section id="viewer-features">
+<span id="id16"></span><h2><a class="toc-backref" href="#id49" role="doc-backlink">Viewer Features</a><a class="headerlink" href="#viewer-features" title="Permalink to this heading">¶</a></h2>
+<p>The following sections provide brief descriptions and snapshots of
+various PLEXIL viewer features.</p>
+<section id="expand-plan-view">
+<span id="id17"></span><h3><a class="toc-backref" href="#id50" role="doc-backlink">Expand Plan View</a><a class="headerlink" href="#expand-plan-view" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Choose <strong>View - Expand All</strong></p></li>
+<li><p>Inversely, collapse plan view by choosing <strong>View - Collapse All</strong></p></li>
+</ul>
+<figure class="align-default">
+<img alt="../_images/Expandall.jpg" src="../_images/Expandall.jpg" />
+</figure>
+</section>
+<section id="node-information-window">
+<span id="id18"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">Node Information Window</a><a class="headerlink" href="#node-information-window" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>DOUBLE-CLICK</strong> on a node to open node information window</p></li>
+<li><p>Depending on the node, the node information window could contain a
+Conditions Tab, Variables Tab and various Action Tabs:</p></li>
+</ul>
+<p>Conditions Tab</p>
+<figure class="align-default">
+<img alt="../_images/Conditioninfo.png" src="../_images/Conditioninfo.png" />
+</figure>
+<p>Variables Tab</p>
+<figure class="align-default">
+<img alt="../_images/Variables.png" src="../_images/Variables.png" />
+</figure>
+<p>Assignment Action Tab</p>
+<figure class="align-default">
+<img alt="../_images/Assninfo.jpg" src="../_images/Assninfo.jpg" />
+</figure>
+</section>
+<section id="plan-interruption-and-breakpoints">
+<span id="id19"></span><h3><a class="toc-backref" href="#id52" role="doc-backlink">Plan Interruption and Breakpoints</a><a class="headerlink" href="#plan-interruption-and-breakpoints" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Choose <strong>Run - Enable Breaks</strong></p></li>
+<li><p><strong>RIGHT-CLICK</strong> (Mac OS: <strong>CTRL-CLICK</strong>) on node to add a breakpoint</p></li>
+<li><p>Choose <strong>Run - Execute Plan</strong></p></li>
+<li><p>Plan will pause at beginning of execution</p></li>
+<li><p>Press <strong>ENTER</strong> to resume plan execution</p></li>
+<li><p>Press <strong>SPACE BAR</strong> to step through a plan</p></li>
+</ul>
+<figure class="align-default">
+<img alt="../_images/Stopatbkpoint.jpg" src="../_images/Stopatbkpoint.jpg" />
+</figure>
+</section>
+<section id="stop-execution">
+<span id="id20"></span><h3><a class="toc-backref" href="#id53" role="doc-backlink">Stop Execution</a><a class="headerlink" href="#stop-execution" title="Permalink to this heading">¶</a></h3>
+<p>During the execution of a plan, you are allowed the option of stopping
+the execution of a plan or reloading a plan.</p>
+<ul class="simple">
+<li><p>Choose <strong>Run - Stop Execution</strong>, OR</p></li>
+<li><p>Choose <strong>File - Reload</strong></p></li>
+</ul>
+</section>
+<section id="create-debug-configuration-file">
+<span id="id21"></span><h3><a class="toc-backref" href="#id54" role="doc-backlink">Create Debug Configuration File</a><a class="headerlink" href="#create-debug-configuration-file" title="Permalink to this heading">¶</a></h3>
+<p>During the execution of a plan, Debug Tags trigger debugging messages to
+be sent from the executive. For example, the following Debug Tags would
+tell the executive to send messages for the state transitions and the
+final outcomes of every node:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>:Node:transition
+:Node:outcome
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Choose <strong>Debug - Create Debug Configuration File…</strong></p></li>
+<li><p>Check the check boxes of the Debug Tags you want to enable and click
+<strong>Create CFG file</strong></p></li>
+<li><p><em>NOTE: a preview of the Debug.cfg file is displayed in this window
+and the location of the actual file is displayed in the bottom of
+this window</em></p></li>
+<li><p>After the <em>Debug.cfg</em> file is created, the following additional
+information will appear in the Debug Window as you execute future
+plans</p></li>
+<li><p><em>NOTE: to open Debug Window choose Debug - Show Debug Window</em></p></li>
+</ul>
+<figure class="align-default">
+<img alt="../_images/Enablecfg.jpg" src="../_images/Enablecfg.jpg" />
+</figure>
+<figure class="align-default">
+<img alt="../_images/Execwithdebuginfo.jpg" src="../_images/Execwithdebuginfo.jpg" />
+</figure>
+</section>
+<section id="find-nodes">
+<span id="id22"></span><h3><a class="toc-backref" href="#id55" role="doc-backlink">Find Nodes</a><a class="headerlink" href="#find-nodes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Choose <strong>View - Find…</strong></p></li>
+<li><p>Type the exact name of the node you wish to locate and press
+<strong>ENTER</strong></p></li>
+<li><p>To locate any node starting with a name you choose, type the partial
+name with a wild card (*) at the end and press <strong>ENTER</strong></p></li>
+<li><p>To locate any node ending with a name you choose, type the partial
+name with a wild card (*) at the beginning and press <strong>ENTER</strong></p></li>
+<li><p>To locate any node containing a name you choose, type the partial
+name with a wild card (*) at both ends and press <strong>ENTER</strong></p></li>
+</ul>
+<figure class="align-default">
+<img alt="../_images/Find_sequence_.jpg" src="../_images/Find_sequence_.jpg" />
+</figure>
+</section>
+<section id="hide-nodes">
+<span id="id23"></span><h3><a class="toc-backref" href="#id56" role="doc-backlink">Hide Nodes</a><a class="headerlink" href="#hide-nodes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Choose <strong>View - Hide/Show Nodes…</strong></p></li>
+<li><p>Uncheck the check boxes of the node types you want to hide</p></li>
+<li><p>Type the exact name of the node you wish to hide and click <strong>Hide</strong></p></li>
+<li><p>To hide any node starting with a name you choose, type the partial
+name with a wild card (*) at the end and click <strong>Hide</strong></p></li>
+<li><p>To hide any node ending with a name you choose, type the partial name
+with a wild card (*) at the beginning and click <strong>Hide</strong></p></li>
+<li><p>To hide any node containing a name you choose, type the partial name
+with a wild card (*) at both ends and click <strong>Hide</strong></p></li>
+</ul>
+<figure class="align-default">
+<img alt="../_images/Hideshownode1.jpg" src="../_images/Hideshownode1.jpg" />
+</figure>
+<figure class="align-default">
+<img alt="../_images/Hideshownode2.jpg" src="../_images/Hideshownode2.jpg" />
+</figure>
+</section>
+</section>
+<section id="temporal-plan-viewer">
+<span id="id24"></span><h2><a class="toc-backref" href="#id57" role="doc-backlink">Temporal Plan Viewer</a><a class="headerlink" href="#temporal-plan-viewer" title="Permalink to this heading">¶</a></h2>
+<p>The Gantt/Timeline Temporal Plan Viewer (distinct from the Plexil Viewer
+described above) allows for the post-execution visualization of PLEXIL
+plans over time via a Gantt chart or a series of timelines. The viewer
+can be used with plans run via the plexilsim or plexilexec executives.
+The <code class="docutils literal notranslate"><span class="pre">plexiltest</span></code> executive does not allow for this feature.</p>
+<section id="using-the-viewer">
+<span id="id25"></span><h3><a class="toc-backref" href="#id58" role="doc-backlink">Using the viewer</a><a class="headerlink" href="#using-the-viewer" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Add <a href="#id26"><span class="problematic" id="id27">**</span></a>** to an interface configuration XML file associated with any
+plan(s) you wish to test with the viewer.</p></li>
+<li><p>Run the plans you want to test with the viewer via <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> or
+<code class="docutils literal notranslate"><span class="pre">plexilsim</span></code>.</p></li>
+<li><p>Open the HTML file that is stored in the same directory that you run
+plans from; each HTML file corresponds to the execution of a single
+plan. It is recommended that you use Mozilla Firefox or Safari;
+Google Chrome is not supported. The naming convention for HTML files
+is <em>gantt_x_y.html</em> where <em>x</em> is the system process ID of the plan’s
+execution and <em>y</em> is the name of root node in the executed plan. JSON
+files associated with each plan are stored in the same directory
+under a folder called “json” with the naming convention <em>x_y.html</em>
+where <em>x</em> and <em>y</em> are as stated above.</p></li>
+<li><p>To observe specific information about a node, click on its token
+line. Within the draggable dialog window that opens, a number of node
+characteristics can be observed. Local variables in blue font
+indicate variables that have changed in value during that node’s
+execution. Additional display characteristics of the Gantt viewer
+window can be modified using the buttons at the top of the viewer.
+The functionality of these buttons is detailed below.</p></li>
+<li><p>When finished, it is recommended that you click Reset to defaults
+within the HTML browser window you are viewing so that all
+cookies/local storage is cleared after each use. This will also
+prevent your display characteristics from persisting when viewing
+another plan in new window at a later time. If you would like to
+preserve your display settings, simply close the browser window.</p></li>
+</ol>
+</section>
+<section id="important-additional-notes">
+<span id="id28"></span><h3><a class="toc-backref" href="#id59" role="doc-backlink">Important additional notes</a><a class="headerlink" href="#important-additional-notes" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Javascript and cookies must be enabled within your browser.</p></li>
+<li><p>Safari and Firefox are the only browsers tested successfully, with
+Safari working better.</p></li>
+<li><p>In the case of long plans, the browser may prompt you to end a slow
+script because the viewer is taking longer than the browser’s
+permissible time to process the plan’s data. You’ll need to authorize
+the script to continue running. To prevent the prompt from showing up
+in Safari, you can:</p></li>
+</ul>
+<p>:# Open Safari preferences, click the Advanced tab,</p>
+<p>:# Check the box that says “Show Develop menu in menu bar,” and then</p>
+<p>:# Click Disable Javascript Runaway Timer under the new Develop menu
+item that appears at the top of the screen. This will allow scripts to
+run to completion. In Firefox, the prompt will appear once, and you
+should then be able to check a box within the prompt window that
+prevents further prompts.</p>
+<ul class="simple">
+<li><p>If tokens are not being displayed as you would expect, or certain
+tokens appear to be missing, it is best to first click Reset to
+defaults at the top of the viewer window. This will clear any
+settings that are stored via cookies and may be affecting the way in
+which tokens are being displayed.</p></li>
+<li><p>The loading time for the viewer is variable, but long plans have been
+known to take many minutes to load. Shorter plans may load instantly.</p></li>
+<li><p>The Gantt view can only be displayed after your plan has completed
+its execution. Trying to open a Gantt window during execution will
+either not work or a Gantt window corresponding to a prior plan’s
+execution will be displayed.</p></li>
+</ul>
+</section>
+<section id="how-it-works">
+<span id="id29"></span><h3><a class="toc-backref" href="#id60" role="doc-backlink">How it works</a><a class="headerlink" href="#how-it-works" title="Permalink to this heading">¶</a></h3>
+<p>The viewer, written in Javascript, works by parsing data from a
+formatted set of JSON tokens and displaying tokens on timelines through
+use of this parsed data. The JSON tokens are generated in a single file
+by the Gantt Listener interface that gathers information from nodes when
+they reach their <em>Executing</em>, <em>Finished</em> or <em>Failed</em> states within a
+plan’s execution. Below is a screenshot of the viewer (<a class="reference external" href="Media:GanttViewer.png">see
+larger</a>):</p>
+<figure class="align-default" id="id31">
+<img alt="800 px|alt=PLEXIL Gantt/Timeline Temporal Plan Viewer" src="../_images/GanttViewer.png" />
+<figcaption>
+<p><span class="caption-text">800 px|alt=PLEXIL Gantt/Timeline Temporal Plan Viewer</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The root node of a plan has a blue token line, while its immediate
+children have green token lines. All other nodes have brown token lines.
+The bolded names on the left represent the names of parent nodes, while
+the names of each node represented on the token line are not bolded and
+are below their corresponding parents. Looping nodes are represented
+sequentially on the same token line. The <em>Pixels per time increment</em>
+options allows for the manipulation of the spacing between the dark grey
+gridlines that represent time increments. The <em>Token height</em> option
+modifies the height of each colored token box in pixels. These two
+options essentially allow for zooming in and out. The <em>Scale down</em>
+feature will more drastically modify the zoom of the plan by zooming out
+by powers of ten. The token lines themselves each display the name of
+the node they represent and the duration of the node’s execution.</p>
+<p>Various buttons at the top of the Gantt Viewer window allow for the
+customization of the way tokens are displayed. Here is a brief
+description of each button’s functionality:</p>
+<ul class="simple">
+<li><p>Close all dialogs - Closes any open dialog windows that are displayed
+node information (three are open in the screenshot above).</p></li>
+<li><p>Toggle generated nodes - Displays or hides nodes that are generated
+by the PLEXIL executive during runtime; these are nodes that have
+names that are prefaced with <em>ep2cp_</em>, <em>plexilisp_</em>, or
+<em>__CHILD__</em>. By default, generated nodes are hidden.</p></li>
+<li><p>Toggle timeline/expanded - Switches between an expanded Gantt-style
+view and a condensed timeline view. The Gantt-style view displays
+each node’s token on it’s own separate timeline. The timeline view
+condenses child node tokens to all fit on the line of their parent
+node. To observe concurrence, use the expanded Gantt-style view.</p></li>
+<li><p>Toggle options box - Displays or hides the options box at the top of
+the viewer that allows control of certain display characteristics.</p></li>
+<li><p>Resize - After resizing the browser window, clicking this button will
+resize the Gantt chart container within the viewer such that it’s
+width fits within the newly-sized window.</p></li>
+<li><p>Reset to defaults - Destroys all existing cookie values such that the
+viewer window’s settings are returned to default. It is recommended
+that you click this after viewing a plan.</p></li>
+<li><p>Hide specific nodes - Allows for the specification of specific nodes
+that should be hidden on the viewer. Either type the full name for
+each node or use the wildcard * character to represent a sequence of
+any characters. Separate node names with commas.</p></li>
+</ul>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2015, Universities Space Research Association (USRA).
+All rights reserved.</p>
+<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>

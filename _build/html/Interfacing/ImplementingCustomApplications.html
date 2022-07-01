@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Implementing Custom Applications &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="APIReference.html" />
+    <link rel="prev" title="Implementing Custom Interfaces" href="ImplementingCustomInterfaces.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="APIReference.html" title="API Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ImplementingCustomInterfaces.html" title="Implementing Custom Interfaces"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Implementing Custom Applications</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <nav class="contents" id="contents" role="doc-toc">
+<span id="implementingcustomapplications"></span><p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#implementing-custom-applications" id="id8">Implementing Custom Applications</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id9">Overview</a></p></li>
+<li><p><a class="reference internal" href="#anatomy-of-the-universalexec-application" id="id10">Anatomy of the universalExec Application</a></p></li>
+<li><p><a class="reference internal" href="#plexil-application-framework-lifecycle-model" id="id11">PLEXIL Application Framework Lifecycle Model</a></p></li>
+<li><p><a class="reference internal" href="#interface-setup" id="id12">Interface Setup</a></p>
+<ul>
+<li><p><a class="reference internal" href="#interface-configuration-via-xml" id="id13">Interface Configuration via XML</a></p></li>
+<li><p><a class="reference internal" href="#hard-coding-interface-configuration" id="id14">Hard-Coding Interface Configuration</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-top-level-loop" id="id15">The Top-Level Loop</a></p>
+<ul>
+<li><p><a class="reference internal" href="#multi-threaded-versus-single-threaded-operation" id="id16">Multi-Threaded versus Single-Threaded Operation</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="implementing-custom-applications">
+<h1><a class="toc-backref" href="#id8" role="doc-backlink">Implementing Custom Applications</a><a class="headerlink" href="#implementing-custom-applications" title="Permalink to this heading">¶</a></h1>
+<p><em>27 April 2015</em></p>
+<p>This chapter outlines the reasons one might need a custom application of
+the PLEXIL Executive, how to implement such an application, and
+considerations for the design of that application.</p>
+<section id="overview">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The <a class="reference external" href="PLEXIL_Executive">PLEXIL Executive</a> is a general purpose plan
+execution engine, with provisions for loading user-specified interfacing
+code at startup time. But some applications have requirements which the
+PLEXIL Executive cannot meet. Such requirements may include:</p>
+<ul class="simple">
+<li><p>A need to launch the Exec as a subroutine of a larger program;</p></li>
+<li><p>Lack of run-time facilities for loading interface shared libraries;</p></li>
+<li><p>A need to “lock down” the application’s interface code for
+configuration control purposes;</p></li>
+<li><p>Operation as a single thread (process) in a real-time operating
+system environment.</p></li>
+</ul>
+</section>
+<section id="anatomy-of-the-universalexec-application">
+<span id="id1"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink">Anatomy of the universalExec Application</a><a class="headerlink" href="#anatomy-of-the-universalexec-application" title="Permalink to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">universalExec</span></code> main program simply does the following:</p>
+<ol class="arabic simple">
+<li><p>Parse command line arguments.</p></li>
+<li><p>Construct the framework objects.</p></li>
+<li><p>Get interface configuration data.</p></li>
+<li><p>Construct interfaces.</p></li>
+<li><p>Initialize interfaces.</p></li>
+<li><p>(optional) Load the specified libraries.</p></li>
+<li><p>(optional) Load the specified plan.</p></li>
+<li><p>Start the interfaces.</p></li>
+<li><p>Start the top-level loop thread.</p></li>
+<li><p>Wait for execution to finish.</p></li>
+<li><p>Destroy interface objects.</p></li>
+<li><p>Destroy framework objects.</p></li>
+<li><p>Exit.</p></li>
+</ol>
+<p>Embedded PLEXIL executive applications will need to perform many of
+these same steps.</p>
+</section>
+<section id="plexil-application-framework-lifecycle-model">
+<span id="id2"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">PLEXIL Application Framework Lifecycle Model</a><a class="headerlink" href="#plexil-application-framework-lifecycle-model" title="Permalink to this heading">¶</a></h2>
+<p>For an overview of the lifecycle states, please see <a class="reference external" href="Introduction_to_PLEXIL_Application_Framework#The_Lifecycle_Model">The Lifecycle
+Model</a>.</p>
+</section>
+<section id="interface-setup">
+<span id="id3"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Interface Setup</a><a class="headerlink" href="#interface-setup" title="Permalink to this heading">¶</a></h2>
+<p>The PLEXIL application is responsible for setting up the
+AdapterConfiguration instance to route interface requests to the
+appropriate objects. AdapterConfiguration has the capability to read
+user-supplied XML, load the appropriate libraries, and construct the
+interface objects. However, if required AdapterConfiguration can simply
+route to interface objects explicitly constructed by the application, in
+ways explicitly directed by the application.</p>
+<section id="interface-configuration-via-xml">
+<span id="id4"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">Interface Configuration via XML</a><a class="headerlink" href="#interface-configuration-via-xml" title="Permalink to this heading">¶</a></h3>
+<p>The
+<a class="reference external" href="PLEXIL_Application_Framework_API_Reference#AdapterConfiguration">AdapterConfiguration</a>
+member function
+<code class="docutils literal notranslate"><span class="pre">AdapterConfiguration::constructInterfaces(pugi::xml_node</span> <span class="pre">const)</span></code>
+parses configuration XML and constructs the interface adapters and exec
+listeners specified in it. The application developer only needs to open
+and read the file, e.g. via <code class="docutils literal notranslate"><span class="pre">pugi::xml_document::load()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">pugi::xml_document::load_file()</span></code>, extract the top level element from
+the XML document via <code class="docutils literal notranslate"><span class="pre">pugi::xml_document::document_element()</span></code>, and
+call <code class="docutils literal notranslate"><span class="pre">AdapterConfiguration::constructInterfaces()</span></code> on the element.</p>
+</section>
+<section id="hard-coding-interface-configuration">
+<span id="id5"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Hard-Coding Interface Configuration</a><a class="headerlink" href="#hard-coding-interface-configuration" title="Permalink to this heading">¶</a></h3>
+<p><em>to be supplied</em></p>
+</section>
+</section>
+<section id="the-top-level-loop">
+<span id="id6"></span><h2><a class="toc-backref" href="#id15" role="doc-backlink">The Top-Level Loop</a><a class="headerlink" href="#the-top-level-loop" title="Permalink to this heading">¶</a></h2>
+<p><em>to be supplied</em></p>
+<section id="multi-threaded-versus-single-threaded-operation">
+<span id="id7"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">Multi-Threaded versus Single-Threaded Operation</a><a class="headerlink" href="#multi-threaded-versus-single-threaded-operation" title="Permalink to this heading">¶</a></h3>
+<p>The PLEXIL Application Framework can run as a multi-threaded
+application, or as a single thread.</p>
+<p><em>more to be supplied</em></p>
+<hr class="docutils" />
+<p>Copyright (c) 2006-2015, Universities Space Research Association (USRA).
+All rights reserved.</p>
+<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+  </div>
+  
+  </body>
+</html>
