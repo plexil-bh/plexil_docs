@@ -48,53 +48,53 @@
           <div class="body" role="main">
             
   <section id="node-state-diagrams">
-<span id="nodestatediagrams"></span><h1><a class="toc-backref" href="#id35" role="doc-backlink">Node State Diagrams</a><a class="headerlink" href="#node-state-diagrams" title="Permalink to this heading">¶</a></h1>
+<span id="nodestatediagrams"></span><h1><a class="toc-backref" href="#id22" role="doc-backlink">Node State Diagrams</a><a class="headerlink" href="#node-state-diagrams" title="Permalink to this heading">¶</a></h1>
 <p><em>29 May 2015</em></p>
 <p>These illustrations describe the node state transition semantics of
-PLEXIL nodes. The previous version of this page is found
-<a class="reference external" href="Original_Node_State_Transition_Diagrams">here</a>; it was written
+<em>PLEXIL</em> nodes. The previous version of this page is found
+<a class="reference external" href="http://plexil.sourceforge.net/wiki/index.php/Original_Node_State_Transition_Diagrams">here</a>; it was written
 before the addition of Exit Condition, uses a different notation, and
 does not capture the exact behavior of the Plexil Executive in a few
 areas.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#node-state-diagrams" id="id35">Node State Diagrams</a></p>
+<li><p><a class="reference internal" href="#node-state-diagrams" id="id22">Node State Diagrams</a></p>
 <ul>
-<li><p><a class="reference internal" href="#inactive-state" id="id36">INACTIVE state</a></p></li>
-<li><p><a class="reference internal" href="#waiting-state" id="id37">WAITING state</a></p></li>
-<li><p><a class="reference internal" href="#executing-state" id="id38">EXECUTING state</a></p>
+<li><p><a class="reference internal" href="#inactive-state" id="id23">INACTIVE state</a></p></li>
+<li><p><a class="reference internal" href="#waiting-state" id="id24">WAITING state</a></p></li>
+<li><p><a class="reference internal" href="#executing-state" id="id25">EXECUTING state</a></p>
 <ul>
-<li><p><a class="reference internal" href="#executing-empty-nodes" id="id39">EXECUTING - Empty nodes</a></p></li>
-<li><p><a class="reference internal" href="#executing-assignment-nodes" id="id40">EXECUTING - Assignment nodes</a></p></li>
-<li><p><a class="reference internal" href="#executing-command-nodes" id="id41">EXECUTING - Command nodes</a></p></li>
-<li><p><a class="reference internal" href="#executing-update-nodes" id="id42">EXECUTING - Update nodes</a></p></li>
-<li><p><a class="reference internal" href="#executing-nodelist-and-librarynodecall-nodes" id="id43">EXECUTING - NodeList and LibraryNodeCall nodes</a></p></li>
+<li><p><a class="reference internal" href="#executing-empty-nodes" id="id26">EXECUTING - Empty nodes</a></p></li>
+<li><p><a class="reference internal" href="#executing-assignment-nodes" id="id27">EXECUTING - Assignment nodes</a></p></li>
+<li><p><a class="reference internal" href="#executing-command-nodes" id="id28">EXECUTING - Command nodes</a></p></li>
+<li><p><a class="reference internal" href="#executing-update-nodes" id="id29">EXECUTING - Update nodes</a></p></li>
+<li><p><a class="reference internal" href="#executing-nodelist-and-librarynodecall-nodes" id="id30">EXECUTING - NodeList and LibraryNodeCall nodes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#finishing-state" id="id44">FINISHING state</a></p>
+<li><p><a class="reference internal" href="#finishing-state" id="id31">FINISHING state</a></p>
 <ul>
-<li><p><a class="reference internal" href="#finishing-command-nodes" id="id45">FINISHING - Command nodes</a></p></li>
-<li><p><a class="reference internal" href="#finishing-nodelist-and-librarynodecall-nodes" id="id46">FINISHING - NodeList and LibraryNodeCall nodes</a></p></li>
+<li><p><a class="reference internal" href="#finishing-command-nodes" id="id32">FINISHING - Command nodes</a></p></li>
+<li><p><a class="reference internal" href="#finishing-nodelist-and-librarynodecall-nodes" id="id33">FINISHING - NodeList and LibraryNodeCall nodes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#failing-state" id="id47">FAILING state</a></p>
+<li><p><a class="reference internal" href="#failing-state" id="id34">FAILING state</a></p>
 <ul>
-<li><p><a class="reference internal" href="#failing-assignment-nodes" id="id48">FAILING - Assignment nodes</a></p></li>
-<li><p><a class="reference internal" href="#failing-command-nodes" id="id49">FAILING - Command nodes</a></p></li>
-<li><p><a class="reference internal" href="#failing-update-nodes" id="id50">FAILING - Update nodes</a></p></li>
-<li><p><a class="reference internal" href="#failing-nodelist-and-librarynodecall-nodes" id="id51">FAILING - NodeList and LibraryNodeCall nodes</a></p></li>
+<li><p><a class="reference internal" href="#failing-assignment-nodes" id="id35">FAILING - Assignment nodes</a></p></li>
+<li><p><a class="reference internal" href="#failing-command-nodes" id="id36">FAILING - Command nodes</a></p></li>
+<li><p><a class="reference internal" href="#failing-update-nodes" id="id37">FAILING - Update nodes</a></p></li>
+<li><p><a class="reference internal" href="#failing-nodelist-and-librarynodecall-nodes" id="id38">FAILING - NodeList and LibraryNodeCall nodes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#iteration-ended-state" id="id52">ITERATION_ENDED state</a></p></li>
-<li><p><a class="reference internal" href="#finished-state" id="id53">FINISHED state</a></p></li>
+<li><p><a class="reference internal" href="#iteration-ended-state" id="id39">ITERATION_ENDED state</a></p></li>
+<li><p><a class="reference internal" href="#finished-state" id="id40">FINISHED state</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <section id="inactive-state">
-<span id="id1"></span><h2><a class="toc-backref" href="#id36" role="doc-backlink">INACTIVE state</a><a class="headerlink" href="#inactive-state" title="Permalink to this heading">¶</a></h2>
-<p>Effective with the PLEXIL 3 release, INACTIVE nodes behave as shown:</p>
+<span id="id1"></span><h2><a class="toc-backref" href="#id23" role="doc-backlink">INACTIVE state</a><a class="headerlink" href="#inactive-state" title="Permalink to this heading">¶</a></h2>
+<p>Effective with the <em>PLEXIL</em> 3 release, INACTIVE nodes behave as shown:</p>
 <figure class="align-default" id="id19">
 <img alt="Inactive state for all node types" src="../_images/Inactive_revised_2013-03-06.png" />
 <figcaption>
@@ -103,7 +103,7 @@ areas.</p>
 </figure>
 </section>
 <section id="waiting-state">
-<span id="id2"></span><h2><a class="toc-backref" href="#id37" role="doc-backlink">WAITING state</a><a class="headerlink" href="#waiting-state" title="Permalink to this heading">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">WAITING state</a><a class="headerlink" href="#waiting-state" title="Permalink to this heading">¶</a></h2>
 <p>Nodes in the WAITING state transition directly to FINISHED when their or
 some ancestor’s ExitCondition becomes true.</p>
 <figure class="align-default" id="id20">
@@ -122,35 +122,29 @@ transitions to EXECUTING:</p>
 </figure>
 </section>
 <section id="executing-state">
-<span id="id3"></span><h2><a class="toc-backref" href="#id38" role="doc-backlink">EXECUTING state</a><a class="headerlink" href="#executing-state" title="Permalink to this heading">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id25" role="doc-backlink">EXECUTING state</a><a class="headerlink" href="#executing-state" title="Permalink to this heading">¶</a></h2>
 <section id="executing-empty-nodes">
-<span id="id4"></span><h3><a class="toc-backref" href="#id39" role="doc-backlink">EXECUTING - Empty nodes</a><a class="headerlink" href="#executing-empty-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id4"></span><h3><a class="toc-backref" href="#id26" role="doc-backlink">EXECUTING - Empty nodes</a><a class="headerlink" href="#executing-empty-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Empty nodes transition directly to ITERATION_ENDED when their
 ExitCondition becomes true, or to FINISHED if some ancestor’s becomes
 true.</p>
-<figure class="align-default" id="id22">
+<figure class="align-default">
 <img alt="Executing_Empty_nodes_with_Exit_condition.png" src="../_images/Executing_Empty_nodes_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Executing_Empty_nodes_with_Exit_condition.png</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="executing-assignment-nodes">
-<span id="id5"></span><h3><a class="toc-backref" href="#id40" role="doc-backlink">EXECUTING - Assignment nodes</a><a class="headerlink" href="#executing-assignment-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id5"></span><h3><a class="toc-backref" href="#id27" role="doc-backlink">EXECUTING - Assignment nodes</a><a class="headerlink" href="#executing-assignment-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Assignment nodes transition to FAILING and restore the variable’s
 previous value if their or some ancestor’s ExitCondition becomes true,
 or their or some ancestor’s InvariantCondition becomes false. Otherwise
 Assignment nodes transition to ITERATION_ENDED when the ExitCondition
 becomes true; the PostCondition determines the outcome.</p>
-<figure class="align-default" id="id23">
+<figure class="align-default">
 <img alt="Executing_Assignment_nodes_with_Exit_condition.png" src="../_images/Executing_Assignment_nodes_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Executing_Assignment_nodes_with_Exit_condition.png</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="executing-command-nodes">
-<span id="id6"></span><h3><a class="toc-backref" href="#id41" role="doc-backlink">EXECUTING - Command nodes</a><a class="headerlink" href="#executing-command-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id6"></span><h3><a class="toc-backref" href="#id28" role="doc-backlink">EXECUTING - Command nodes</a><a class="headerlink" href="#executing-command-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Command nodes transition to FINISHING in the nominal case. In the event
 of an ExitCondition true or InvariantCondition false, they transition to
 FAILING to abort the command.</p>
@@ -158,136 +152,103 @@ FAILING to abort the command.</p>
 <code class="docutils literal notranslate"><span class="pre">(command_handle</span> <span class="pre">==</span> <span class="pre">COMMAND_DENIED</span> <span class="pre">||</span> <span class="pre">command_handle</span> <span class="pre">==</span> <span class="pre">COMMAND_FAILED)</span></code>
 . This allows the node to transition in the event the resource arbiter
 rejects the command.</p>
-<figure class="align-default" id="id24">
+<figure class="align-default">
 <img alt="Executing_Command_with_Exit_and_FINISHING.png" src="../_images/Executing_Command_with_Exit_and_FINISHING.png" />
-<figcaption>
-<p><span class="caption-text">Executing_Command_with_Exit_and_FINISHING.png</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="executing-update-nodes">
-<span id="id7"></span><h3><a class="toc-backref" href="#id42" role="doc-backlink">EXECUTING - Update nodes</a><a class="headerlink" href="#executing-update-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id7"></span><h3><a class="toc-backref" href="#id29" role="doc-backlink">EXECUTING - Update nodes</a><a class="headerlink" href="#executing-update-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Update nodes behave similarly to Assignment nodes.</p>
 <p>Note that the supplied EndCondition is ANDed with update-complete.</p>
-<figure class="align-default" id="id25">
+<figure class="align-default">
 <img alt="Executing_Update_with_Exit_condition.png" src="../_images/Executing_Update_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Executing_Update_with_Exit_condition.png</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="executing-nodelist-and-librarynodecall-nodes">
-<span id="id8"></span><h3><a class="toc-backref" href="#id43" role="doc-backlink">EXECUTING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#executing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id8"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">EXECUTING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#executing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
 <p>NodeList and LibraryNodeCall nodes transition to FAILING if their or
 some ancestor’s ExitCondition becomes true.</p>
 <p>Note that the default EndCondition for these node types is all children
 in FINISHED state.</p>
-<figure class="align-default" id="id26">
+<figure class="align-default">
 <img alt="Executing_List_nodes_with_Exit_condition.png" src="../_images/Executing_List_nodes_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Executing_List_nodes_with_Exit_condition.png</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 </section>
 <section id="finishing-state">
-<span id="id9"></span><h2><a class="toc-backref" href="#id44" role="doc-backlink">FINISHING state</a><a class="headerlink" href="#finishing-state" title="Permalink to this heading">¶</a></h2>
+<span id="id9"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink">FINISHING state</a><a class="headerlink" href="#finishing-state" title="Permalink to this heading">¶</a></h2>
 <p>In general, the FINISHING state waits for completion of actions that may
 take an indeterminate time. If the node fails while waiting for
 completion, it transitions to FAILING.</p>
 <section id="finishing-command-nodes">
-<span id="id10"></span><h3><a class="toc-backref" href="#id45" role="doc-backlink">FINISHING - Command nodes</a><a class="headerlink" href="#finishing-command-nodes" title="Permalink to this heading">¶</a></h3>
-<figure class="align-default" id="id27">
+<span id="id10"></span><h3><a class="toc-backref" href="#id32" role="doc-backlink">FINISHING - Command nodes</a><a class="headerlink" href="#finishing-command-nodes" title="Permalink to this heading">¶</a></h3>
+<figure class="align-default">
 <img alt="Finishing_Command_with_Exit_condition.png" src="../_images/Finishing_Command_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Finishing_Command_with_Exit_condition.png</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="finishing-nodelist-and-librarynodecall-nodes">
-<span id="id11"></span><h3><a class="toc-backref" href="#id46" role="doc-backlink">FINISHING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#finishing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
-<figure class="align-default" id="id28">
+<span id="id11"></span><h3><a class="toc-backref" href="#id33" role="doc-backlink">FINISHING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#finishing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
+<figure class="align-default">
 <img alt="Finishing_with_Exit_condition.png" src="../_images/Finishing_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Finishing_with_Exit_condition.png</span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 </section>
 <section id="failing-state">
-<span id="id12"></span><h2><a class="toc-backref" href="#id47" role="doc-backlink">FAILING state</a><a class="headerlink" href="#failing-state" title="Permalink to this heading">¶</a></h2>
+<span id="id12"></span><h2><a class="toc-backref" href="#id34" role="doc-backlink">FAILING state</a><a class="headerlink" href="#failing-state" title="Permalink to this heading">¶</a></h2>
 <p>In general, FAILING is used to finish recovery from an abnormal
 situation.</p>
 <section id="failing-assignment-nodes">
-<span id="id13"></span><h3><a class="toc-backref" href="#id48" role="doc-backlink">FAILING - Assignment nodes</a><a class="headerlink" href="#failing-assignment-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id13"></span><h3><a class="toc-backref" href="#id35" role="doc-backlink">FAILING - Assignment nodes</a><a class="headerlink" href="#failing-assignment-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Assignment nodes simply transition to FINISHED or ITERATION_ENDED as
 appropriate. The variable has already been restored to its previous
 value on the transition into FAILING.</p>
 <p>Note that the previous as-implemented behavior was to assign UNKNOWN in
 the event of a failure. The entire team agrees that restoring the
 previous value is preferable.</p>
-<figure class="align-default" id="id29">
+<figure class="align-default">
 <img alt="Failing_Assignment_nodes_with_Exit_condtion.png" src="../_images/Failing_Assignment_nodes_with_Exit_condtion.png" />
-<figcaption>
-<p><span class="caption-text">Failing_Assignment_nodes_with_Exit_condtion.png</span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="failing-command-nodes">
-<span id="id14"></span><h3><a class="toc-backref" href="#id49" role="doc-backlink">FAILING - Command nodes</a><a class="headerlink" href="#failing-command-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id14"></span><h3><a class="toc-backref" href="#id36" role="doc-backlink">FAILING - Command nodes</a><a class="headerlink" href="#failing-command-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Command nodes abort the command, wait for the abort to complete, then
 transition to FINISHED or ITERATION_ENDED as appropriate.</p>
-<figure class="align-default" id="id30">
+<figure class="align-default">
 <img alt="Failing_Command_with_Exit_condition.png" src="../_images/Failing_Command_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Failing_Command_with_Exit_condition.png</span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="failing-update-nodes">
-<span id="id15"></span><h3><a class="toc-backref" href="#id50" role="doc-backlink">FAILING - Update nodes</a><a class="headerlink" href="#failing-update-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id15"></span><h3><a class="toc-backref" href="#id37" role="doc-backlink">FAILING - Update nodes</a><a class="headerlink" href="#failing-update-nodes" title="Permalink to this heading">¶</a></h3>
 <p>Update nodes simply wait for the update to complete, then transition to
 FINISHED or ITERATION_ENDED as appropriate.</p>
-<figure class="align-default" id="id31">
+<figure class="align-default">
 <img alt="Failing_Update_with_Exit_condition.png" src="../_images/Failing_Update_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Failing_Update_with_Exit_condition.png</span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="failing-nodelist-and-librarynodecall-nodes">
-<span id="id16"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">FAILING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#failing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
+<span id="id16"></span><h3><a class="toc-backref" href="#id38" role="doc-backlink">FAILING - NodeList and LibraryNodeCall nodes</a><a class="headerlink" href="#failing-nodelist-and-librarynodecall-nodes" title="Permalink to this heading">¶</a></h3>
 <p>NodeList and LibraryNodeCall nodes wait for all children to achieve
 either the WAITING or FINISHED state before transitioning to FINISHED or
 ITERATION_ENDED.</p>
-<figure class="align-default" id="id32">
+<figure class="align-default">
 <img alt="Failing_List_node_with_Exit_condition.png" src="../_images/Failing_List_node_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Failing_List_node_with_Exit_condition.png</span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 </section>
 <section id="iteration-ended-state">
-<span id="id17"></span><h2><a class="toc-backref" href="#id52" role="doc-backlink">ITERATION_ENDED state</a><a class="headerlink" href="#iteration-ended-state" title="Permalink to this heading">¶</a></h2>
+<span id="id17"></span><h2><a class="toc-backref" href="#id39" role="doc-backlink">ITERATION_ENDED state</a><a class="headerlink" href="#iteration-ended-state" title="Permalink to this heading">¶</a></h2>
 <p>ITERATION_ENDED transitions directly to FINISHED if an ancestor’s
 ExitCondition becomes true.</p>
-<figure class="align-default" id="id33">
+<figure class="align-default">
 <img alt="Iteration_Ended_with_Exit_condition.png" src="../_images/Iteration_Ended_with_Exit_condition.png" />
-<figcaption>
-<p><span class="caption-text">Iteration_Ended_with_Exit_condition.png</span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 <section id="finished-state">
-<span id="id18"></span><h2><a class="toc-backref" href="#id53" role="doc-backlink">FINISHED state</a><a class="headerlink" href="#finished-state" title="Permalink to this heading">¶</a></h2>
+<span id="id18"></span><h2><a class="toc-backref" href="#id40" role="doc-backlink">FINISHED state</a><a class="headerlink" href="#finished-state" title="Permalink to this heading">¶</a></h2>
 <p>The Finished state is unchanged from the specification and previous
 implemented behavior.</p>
-<figure class="align-default" id="id34">
+<figure class="align-default">
 <img alt="Finished_Revised.png" src="../_images/Finished_Revised.png" />
-<figcaption>
-<p><span class="caption-text">Finished_Revised.png</span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
-</figcaption>
 </figure>
 </section>
 </section>
@@ -328,6 +289,7 @@ implemented behavior.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -369,8 +331,8 @@ implemented behavior.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

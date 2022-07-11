@@ -12,40 +12,40 @@ Introduction
 ------------
 
 The *PLEXIL Executive* (formerly called the Universal Executive, or UE),
-is an implementation of the PLEXIL language. It is also a runtime
+is an implementation of the |PLEXIL| language. It is also a runtime
 environment that provides or facilitates the following capabilities:
 
--  loading and execution of PLEXIL plans and libraries
+-  loading and execution of |PLEXIL| plans and libraries
 -  commanding and querying state of external systems
 -  notifications about execution status:
 
-   -  to the `Plexil Viewer <Viewing_Plan_Execution>`__
-   -  to `external systems <Interfacing_Overview>`__
+   -  to the :ref:`Plexil Viewer <PLEXILViewer>`
+   -  to :ref:`external systems <InterfacingOverview>`
 
 .. _plexil_application:
 
 PLEXIL Application
 ~~~~~~~~~~~~~~~~~~
 
-The PLEXIL Executive, often referred to simply as the "executive", is,
+The |PLEXIL| Executive, often referred to simply as the "executive", is,
 strictly speaking, a software library written in C++. To use the
-executive, it must run as part of a *PLEXIL application*. PLEXIL
+executive, it must run as part of a *PLEXIL application*. |PLEXIL|
 applications consist of an executive, one or more *interface adapters*,
 and one or more external systems or simulators. External interfacing is
 discussed at length elsewhere. This chapter describes how to operate the
-executive itself within the context of a PLEXIL application; namely, how
+executive itself within the context of a |PLEXIL| application; namely, how
 to start the executive and specify its application configuration,
 operating parameters, and textual debugging output.
 
-If you are new to PLEXIL, we suggest you start with the simulators
-described in `Simulating Plan Execution <Simulating_Plan_Execution>`__.
+If you are new to |PLEXIL|, we suggest you start with the simulators
+described in :ref:`Simulating Plan Execution <PLEXILSimulator>`.
 
 .. _running_the_executive:
 
 Running the Executive
 ---------------------
 
-There are two ways to start the PLEXIL Executive: the ``plexilexec``
+There are two ways to start the |PLEXIL| Executive: the ``plexilexec``
 script, and the ``universalExec`` executable.
 
 .. _the_plexilexec_script:
@@ -53,7 +53,7 @@ script, and the ``universalExec`` executable.
 The plexilexec script
 ~~~~~~~~~~~~~~~~~~~~~
 
-The most flexible way to start the PLEXIL Executive is by running the
+The most flexible way to start the |PLEXIL| Executive is by running the
 ``plexilexec`` shell script. ``plexilexec`` can launch a graphical user
 interface, run various checks on a plan file, and actually run the plan.
 
@@ -66,7 +66,7 @@ line is an abbreviated form of the first).
      plexilexec -plan foo.plx
      plexilexec -p foo.plx
 
-An `interface configuration file <Interface_Configuration_File>`__ is
+An :ref:`interface configuration file <InterfaceConfigurationFile>` is
 required to run the Plexil executive, and defaults to a "dummy"
 configuration filed as ``plexil/examples/dummy-config.xml``. You can
 specify an interface configuration file (call it ``my-config.xml``) as
@@ -77,8 +77,7 @@ follows.
      plexilexec -plan foo.plx -config my-config.xml
      plexilexec -p foo.plx -c my-config.xml
 
-If your plan uses libraries (discussed in `Plexil
-Reference <Plexil_Reference>`__), they may be specified as well. In the
+If your plan uses libraries (discussed in :ref:`Plexil Reference <PlexilReferences>`), they may be specified as well. In the
 following example, assume two library files named ``lib1.plx`` and
 ``lib2.plx``.
 
@@ -90,14 +89,13 @@ following example, assume two library files named ``lib1.plx`` and
 There are many more command line options available; type
 ``plexilexec -help`` to see a listing. We provide a few pointers here:
 
--  The ``-check`` (or ``-ch``) option runs Plexil's `static type
-   checker <Plexil_Checker>`__ on the plan prior to having it loaded.
+-  The ``-check`` (or ``-ch``) option runs Plexil's :ref:`static type checker <PlexilChecker>` on the plan prior to having it loaded.
 -  The ``-debug`` (or ``-d``) option specifies a Debug Configuration
    file (see next section).
 -  The ``-quiet`` (or ``-q``) option suppresses a leading printed
    summary and default debug messages during execution.
 
-The `PLEXIL Viewer <Viewing_Plan_Execution>`__ chapter describes
+The :ref:`PLEXIL Viewer <PLEXILViewer>` chapter describes
 additional options that launch the plan viewer, which allows monitoring
 of plan execution down to the microstep level.
 
@@ -106,7 +104,7 @@ of plan execution down to the microstep level.
 The universalExec executable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``universalExec`` executable is the actual PLEXIL Executive program.
+The ``universalExec`` executable is the actual |PLEXIL| Executive program.
 Unlike the ``plexilexec`` script, all it does is run plans.
 
 ``universalExec`` accepts the following command line options:
@@ -120,7 +118,7 @@ Unlike the ``plexilexec`` script, all it does is run plans.
 -  ``-L``\ *``library_directory``* - directory to search for libraries;
    this option can appear multiple times
 -  ``-p``\ *``plan_file``* - the plan file to run
--  ``-v`` - connect to a PLEXIL Viewer; suboptions:
+-  ``-v`` - connect to a |PLEXIL| Viewer; suboptions:
 
    -  ``-b`` - allow Viewer to block execution (e.g. for breakpoints);
       default is non-blocking
@@ -141,7 +139,7 @@ Using the examples above, typical invocations might look like:
 Output and the Debug Configuration File
 ---------------------------------------
 
-The PLEXIL Executive can generate optional text output. This output can
+The |PLEXIL| Executive can generate optional text output. This output can
 be used to debug a plan or simply study its behavior. To have such
 output printed as the executive runs, a *debug configuration* file (or
 *debug file* for short) is needed. This file must exist in the directory
@@ -150,8 +148,7 @@ directory as that of the plan). By default, a file named ``Debug.cfg``,
 if it exists, is used. A debug file with another name can be specified
 using the ``-debug`` or ``-d`` command line option to ``plexilexec``
 (described in previous section), or the similar commands ``plexiltest``
-and ``plexilsim`` described in the `simulator
-chapter <Executing_Plans>`__.
+and ``plexilsim`` described in the :ref:`simulator chapter <PLEXILSimulator>`.
 
 The debug file is a text file. Lines should start with either a comment
 character ('#') or a colon, after which should be the *tag*. A tag is an
@@ -186,10 +183,3 @@ incomplete, though fairly current, listing of possible debug tags is
 found in the file ``plexil/doc/CompleteDebugFlags.cfg``. A somewhat less
 complete listing of debug tag explanations is found in
 ``plexil/doc/DebugFlagDefinitions.txt``.
-
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

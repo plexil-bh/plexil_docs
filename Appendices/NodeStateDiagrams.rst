@@ -6,8 +6,8 @@ Node State Diagrams
 *29 May 2015*
 
 These illustrations describe the node state transition semantics of
-PLEXIL nodes. The previous version of this page is found
-`here <Original_Node_State_Transition_Diagrams>`__; it was written
+|PLEXIL| nodes. The previous version of this page is found
+`here <http://plexil.sourceforge.net/wiki/index.php/Original_Node_State_Transition_Diagrams>`_; it was written
 before the addition of Exit Condition, uses a different notation, and
 does not capture the exact behavior of the Plexil Executive in a few
 areas.
@@ -19,7 +19,7 @@ areas.
 INACTIVE state
 --------------
 
-Effective with the PLEXIL 3 release, INACTIVE nodes behave as shown:
+Effective with the |PLEXIL| 3 release, INACTIVE nodes behave as shown:
 
 .. figure:: ../_static/images/Inactive_revised_2013-03-06.png
    :alt: Inactive state for all node types
@@ -64,8 +64,6 @@ true.
 .. figure:: ../_static/images/Executing_Empty_nodes_with_Exit_condition.png
    :alt: Executing_Empty_nodes_with_Exit_condition.png
 
-   Executing_Empty_nodes_with_Exit_condition.png
-
 .. _executing___assignment_nodes:
 
 EXECUTING - Assignment nodes
@@ -79,8 +77,6 @@ becomes true; the PostCondition determines the outcome.
 
 .. figure:: ../_static/images/Executing_Assignment_nodes_with_Exit_condition.png
    :alt: Executing_Assignment_nodes_with_Exit_condition.png
-
-   Executing_Assignment_nodes_with_Exit_condition.png
 
 .. _executing___command_nodes:
 
@@ -99,8 +95,6 @@ rejects the command.
 .. figure:: ../_static/images/Executing_Command_with_Exit_and_FINISHING.png
    :alt: Executing_Command_with_Exit_and_FINISHING.png
 
-   Executing_Command_with_Exit_and_FINISHING.png
-
 .. _executing___update_nodes:
 
 EXECUTING - Update nodes
@@ -112,8 +106,6 @@ Note that the supplied EndCondition is ANDed with update-complete.
 
 .. figure:: ../_static/images/Executing_Update_with_Exit_condition.png
    :alt: Executing_Update_with_Exit_condition.png
-
-   Executing_Update_with_Exit_condition.png
 
 .. _executing___nodelist_and_librarynodecall_nodes:
 
@@ -128,8 +120,6 @@ in FINISHED state.
 
 .. figure:: ../_static/images/Executing_List_nodes_with_Exit_condition.png
    :alt: Executing_List_nodes_with_Exit_condition.png
-
-   Executing_List_nodes_with_Exit_condition.png
 
 .. _finishing_state:
 
@@ -148,8 +138,6 @@ FINISHING - Command nodes
 .. figure:: ../_static/images/Finishing_Command_with_Exit_condition.png
    :alt: Finishing_Command_with_Exit_condition.png
 
-   Finishing_Command_with_Exit_condition.png
-
 .. _finishing___nodelist_and_librarynodecall_nodes:
 
 FINISHING - NodeList and LibraryNodeCall nodes
@@ -157,8 +145,6 @@ FINISHING - NodeList and LibraryNodeCall nodes
 
 .. figure:: ../_static/images/Finishing_with_Exit_condition.png
    :alt: Finishing_with_Exit_condition.png
-
-   Finishing_with_Exit_condition.png
 
 .. _failing_state:
 
@@ -184,8 +170,6 @@ previous value is preferable.
 .. figure:: ../_static/images/Failing_Assignment_nodes_with_Exit_condtion.png
    :alt: Failing_Assignment_nodes_with_Exit_condtion.png
 
-   Failing_Assignment_nodes_with_Exit_condtion.png
-
 .. _failing___command_nodes:
 
 FAILING - Command nodes
@@ -197,8 +181,6 @@ transition to FINISHED or ITERATION_ENDED as appropriate.
 .. figure:: ../_static/images/Failing_Command_with_Exit_condition.png
    :alt: Failing_Command_with_Exit_condition.png
 
-   Failing_Command_with_Exit_condition.png
-
 .. _failing___update_nodes:
 
 FAILING - Update nodes
@@ -209,8 +191,6 @@ FINISHED or ITERATION_ENDED as appropriate.
 
 .. figure:: ../_static/images/Failing_Update_with_Exit_condition.png
    :alt: Failing_Update_with_Exit_condition.png
-
-   Failing_Update_with_Exit_condition.png
 
 .. _failing___nodelist_and_librarynodecall_nodes:
 
@@ -224,8 +204,6 @@ ITERATION_ENDED.
 .. figure:: ../_static/images/Failing_List_node_with_Exit_condition.png
    :alt: Failing_List_node_with_Exit_condition.png
 
-   Failing_List_node_with_Exit_condition.png
-
 .. _iteration_ended_state:
 
 ITERATION_ENDED state
@@ -237,8 +215,6 @@ ExitCondition becomes true.
 .. figure:: ../_static/images/Iteration_Ended_with_Exit_condition.png
    :alt: Iteration_Ended_with_Exit_condition.png
 
-   Iteration_Ended_with_Exit_condition.png
-
 .. _finished_state:
 
 FINISHED state
@@ -249,5 +225,3 @@ implemented behavior.
 
 .. figure:: ../_static/images/Finished_Revised.png
    :alt: Finished_Revised.png
-
-   Finished_Revised.png

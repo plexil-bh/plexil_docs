@@ -5,7 +5,7 @@ Simulator Notes
 
 *10/5/10*
 
-This chapter provides detailed notes on the Plexil Simulator. It is
+This chapter provides detailed notes on the |PLEXIL| Simulator. It is
 directed at software developers rather than users.
 
 .. contents::
@@ -13,7 +13,7 @@ directed at software developers rather than users.
 Introduction
 ------------
 
-Although the objective of the Plexil simulator is to program it to mimic
+Although the objective of the |PLEXIL| simulator is to program it to mimic
 a real-life application, in the interest of customizability and ease of
 use, it is a good idea to identify and separate out the aspects of the
 architecture that are common to all applications. In particular, the
@@ -166,14 +166,14 @@ class that was described in the simulator core.
 Communication Mechanism
 -----------------------
 
-Since the "simulator" part of the Plexil Simulator is a process in its
+Since the "simulator" part of the |PLEXIL| Simulator is a process in its
 own right, we need some sort of a inter-process communication mechanism
 to send it commands and also receive responses. We have chosen the
-`IPC <http://www.cs.cmu.edu/~ipc/>`__ package from Carnegie Mellon
+`IPC <http://www.cs.cmu.edu/~ipc/>`_ package from Carnegie Mellon
 University. IPC handles both the communication and data marshalling
 aspects of inter-process communication making it straightforward for the
 user to program the simulator to send and receive appropriate messages.
-This package is found in ``plexil/third-party/ipc`` in the PLEXIL
+This package is found in ``plexil/third-party/ipc`` in the |PLEXIL|
 distribution.
 
 .. _steps_to_construct_a_simulator:
@@ -192,7 +192,7 @@ concrete implementation capture information that are specific to the
 scenario being simulated such as the structure of values returned in
 response to issued commands and the specific communication mechanism and
 protocol. An example of the second has been provided as part of the
-Plexil Simulator distribution in
+|PLEXIL| Simulator distribution in
 
 ::
 
@@ -227,9 +227,3 @@ response parser. If however, one or more of the values being returned on
 response to a command or as a telemetry state is a string, the user will
 have to provide a customized parser.
 
---------------
-
-Copyright (c) 2006-2014, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

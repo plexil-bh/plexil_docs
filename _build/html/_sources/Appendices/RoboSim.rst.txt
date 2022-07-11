@@ -19,11 +19,11 @@ that contains obstacles, energy sources, goals, flags, and other robots.
 Robots understand and respond to a small list of commands.
 
 The RoboSim application is filed in the ``plexil/src/apps/robosim``
-directory of the PLEXIL distribution. It has been tested on Linux and
+directory of the |PLEXIL| distribution. It has been tested on Linux and
 MacOS systems.
 
 This document describes the RoboSim application and its interface with
-PLEXIL and the PLEXIL Executive.
+|PLEXIL| and the |PLEXIL| Executive.
 
 Domain
 ------
@@ -225,9 +225,9 @@ your choice, e.g.
     % plexilexec -p CaptureTheFlag.plx
 
 Note that other options to
-`plexilexec <PLEXIL_Executive#Running_the_Executive>`__ are possible.
+:ref:`plexilexec <running_the_executive>` are possible.
 
-Currently, PLEXIL can control a yellow robot ("RobotYellow") and a blue
+Currently, |PLEXIL| can control a yellow robot ("RobotYellow") and a blue
 one ("RobotBlue3"). Other robots move around randomly until they run out
 of energy.
 
@@ -236,19 +236,12 @@ of energy.
 PLEXIL Interface
 ~~~~~~~~~~~~~~~~
 
-PLEXIL plans can interact with RoboSim using commands only. At this time
+|PLEXIL| plans can interact with RoboSim using commands only. At this time
 no lookups (world state queries) have been implemented.
 
 The commands available are exactly those listed above in the section
-`Commanding Robots <Example_application:_RoboSim#Commanding_Robots>`__.
+`Commanding Robots <commanding_robots_>`_.
 
 See the directories ``plexil/src/apps/robosim/plans`` and
-``robosim/scripts`` for sample PLEXIL code, which contain examples of
+``robosim/scripts`` for sample |PLEXIL| code, which contain examples of
 the commands.
-
---------------
-
-Copyright (c) 2006-2020, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

@@ -48,107 +48,107 @@
           <div class="body" role="main">
             
   <section id="plexil-references">
-<span id="plexilreferences"></span><h1><a class="toc-backref" href="#id40" role="doc-backlink">PLEXIL References</a><a class="headerlink" href="#plexil-references" title="Permalink to this heading">¶</a></h1>
+<span id="plexilreferences"></span><h1><a class="toc-backref" href="#id47" role="doc-backlink">PLEXIL References</a><a class="headerlink" href="#plexil-references" title="Permalink to this heading">¶</a></h1>
 <p><em>16 Aug 2021</em></p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#plexil-references" id="id40">PLEXIL References</a></p>
+<li><p><a class="reference internal" href="#plexil-references" id="id47">PLEXIL References</a></p>
 <ul>
-<li><p><a class="reference internal" href="#about-this-chapter" id="id41">About this chapter</a></p></li>
-<li><p><a class="reference internal" href="#nodes" id="id42">Nodes</a></p></li>
-<li><p><a class="reference internal" href="#node-attributes" id="id43">Node Attributes</a></p>
+<li><p><a class="reference internal" href="#about-this-chapter" id="id48">About this chapter</a></p></li>
+<li><p><a class="reference internal" href="#nodes" id="id49">Nodes</a></p></li>
+<li><p><a class="reference internal" href="#node-attributes" id="id50">Node Attributes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#variables" id="id44">Variables</a></p></li>
-<li><p><a class="reference internal" href="#interface" id="id45">Interface</a></p></li>
-<li><p><a class="reference internal" href="#conditions" id="id46">Conditions</a></p></li>
-<li><p><a class="reference internal" href="#comments" id="id47">Comments</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id51">Variables</a></p></li>
+<li><p><a class="reference internal" href="#interface" id="id52">Interface</a></p></li>
+<li><p><a class="reference internal" href="#conditions" id="id53">Conditions</a></p></li>
+<li><p><a class="reference internal" href="#comments" id="id54">Comments</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#leaf-nodes" id="id48">Leaf Nodes</a></p>
+<li><p><a class="reference internal" href="#leaf-nodes" id="id55">Leaf Nodes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#empty-node" id="id49">Empty Node</a></p></li>
-<li><p><a class="reference internal" href="#assignment" id="id50">Assignment</a></p>
+<li><p><a class="reference internal" href="#empty-node" id="id56">Empty Node</a></p></li>
+<li><p><a class="reference internal" href="#assignment" id="id57">Assignment</a></p>
 <ul>
-<li><p><a class="reference internal" href="#assignments-and-concurrency" id="id51">Assignments and Concurrency</a></p></li>
+<li><p><a class="reference internal" href="#assignments-and-concurrency" id="id58">Assignments and Concurrency</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#command" id="id52">Command</a></p>
+<li><p><a class="reference internal" href="#command" id="id59">Command</a></p>
 <ul>
-<li><p><a class="reference internal" href="#asynchronous-command-execution" id="id53">Asynchronous command execution</a></p></li>
-<li><p><a class="reference internal" href="#utility-commands" id="id54">Utility Commands</a></p></li>
+<li><p><a class="reference internal" href="#asynchronous-command-execution" id="id60">Asynchronous command execution</a></p></li>
+<li><p><a class="reference internal" href="#utility-commands" id="id61">Utility Commands</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#update" id="id55">Update</a></p></li>
-<li><p><a class="reference internal" href="#library-call" id="id56">Library Call</a></p>
+<li><p><a class="reference internal" href="#update" id="id62">Update</a></p></li>
+<li><p><a class="reference internal" href="#library-call" id="id63">Library Call</a></p>
 <ul>
-<li><p><a class="reference internal" href="#library-call-execution" id="id57">Library Call execution</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#compound-nodes" id="id58">Compound Nodes</a></p>
-<ul>
-<li><p><a class="reference internal" href="#sequence" id="id59">Sequence</a></p></li>
-<li><p><a class="reference internal" href="#checkedsequence" id="id60">CheckedSequence</a></p></li>
-<li><p><a class="reference internal" href="#unchecked-sequence" id="id61">Unchecked Sequence</a></p></li>
-<li><p><a class="reference internal" href="#concurrence" id="id62">Concurrence</a></p></li>
-<li><p><a class="reference internal" href="#try" id="id63">Try</a></p></li>
-<li><p><a class="reference internal" href="#if-elseif-else" id="id64">If-Elseif-Else</a></p></li>
-<li><p><a class="reference internal" href="#while-loop" id="id65">While Loop</a></p></li>
-<li><p><a class="reference internal" href="#do-loop-plexil-4-6-and-later-releases" id="id66">Do Loop (PLEXIL 4.6 and later releases)</a></p></li>
-<li><p><a class="reference internal" href="#for-loop" id="id67">For Loop</a></p></li>
-<li><p><a class="reference internal" href="#oncommand" id="id68">OnCommand</a></p>
-<ul>
-<li><p><a class="reference internal" href="#requirements" id="id69">Requirements</a></p></li>
-<li><p><a class="reference internal" href="#failure-behavior" id="id70">Failure behavior</a></p></li>
-<li><p><a class="reference internal" href="#returning-a-value-from-the-command" id="id71">Returning a value from the command</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#onmessage" id="id72">OnMessage</a></p>
-<ul>
-<li><p><a class="reference internal" href="#requirements-1" id="id73">Requirements</a></p></li>
-<li><p><a class="reference internal" href="#failure-behavior-1" id="id74">Failure behavior</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#synchronous-command" id="id75">Synchronous Command</a></p></li>
-<li><p><a class="reference internal" href="#wait" id="id76">Wait</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#data-types-and-expressions" id="id77">Data Types and Expressions</a></p>
-<ul>
-<li><p><a class="reference internal" href="#unknown-isknown" id="id78">Unknown/isKnown</a></p></li>
-<li><p><a class="reference internal" href="#numeric-expressions" id="id79">Numeric Expressions</a></p>
-<ul>
-<li><p><a class="reference internal" href="#numeric-type-conversions" id="id80">Numeric Type Conversions</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#boolean-expressions" id="id81">Boolean Expressions</a></p></li>
-<li><p><a class="reference internal" href="#string-expressions" id="id82">String Expressions</a></p></li>
-<li><p><a class="reference internal" href="#dates-and-durations" id="id83">Dates and Durations</a></p>
-<ul>
-<li><p><a class="reference internal" href="#date-and-duration-expressions" id="id84">Date and Duration expressions</a></p></li>
-<li><p><a class="reference internal" href="#operations-using-dates-and-durations" id="id85">Operations using Dates and Durations</a></p></li>
-<li><p><a class="reference internal" href="#date-and-duration-representation" id="id86">Date and Duration representation</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#arrays" id="id87">Arrays</a></p></li>
-<li><p><a class="reference internal" href="#node-state" id="id88">Node State</a></p></li>
-<li><p><a class="reference internal" href="#external-state-lookups" id="id89">External State (Lookups)</a></p>
-<ul>
-<li><p><a class="reference internal" href="#execution-of-lookups" id="id90">Execution of Lookups</a></p></li>
-<li><p><a class="reference internal" href="#the-time-state" id="id91">The “time” state</a></p></li>
+<li><p><a class="reference internal" href="#library-call-execution" id="id64">Library Call execution</a></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#global-declarations" id="id92">Global Declarations</a></p></li>
-<li><p><a class="reference internal" href="#programming-in-plexil" id="id93">Programming in Plexil</a></p>
+<li><p><a class="reference internal" href="#compound-nodes" id="id65">Compound Nodes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#plexil-files" id="id94">Plexil Files</a></p></li>
-<li><p><a class="reference internal" href="#plexilc-the-plexil-translator" id="id95"><code class="docutils literal notranslate"><span class="pre">plexilc</span></code>, the Plexil translator</a></p></li>
-<li><p><a class="reference internal" href="#preprocessing-plexil-plans" id="id96">Preprocessing PLEXIL Plans</a></p></li>
-<li><p><a class="reference internal" href="#executing-plexil-plans" id="id97">Executing PLEXIL Plans</a></p></li>
+<li><p><a class="reference internal" href="#sequence" id="id66">Sequence</a></p></li>
+<li><p><a class="reference internal" href="#checkedsequence" id="id67">CheckedSequence</a></p></li>
+<li><p><a class="reference internal" href="#unchecked-sequence" id="id68">Unchecked Sequence</a></p></li>
+<li><p><a class="reference internal" href="#concurrence" id="id69">Concurrence</a></p></li>
+<li><p><a class="reference internal" href="#try" id="id70">Try</a></p></li>
+<li><p><a class="reference internal" href="#if-elseif-else" id="id71">If-Elseif-Else</a></p></li>
+<li><p><a class="reference internal" href="#while-loop" id="id72">While Loop</a></p></li>
+<li><p><a class="reference internal" href="#do-loop-plexil-4-6-and-later-releases" id="id73">Do Loop (PLEXIL 4.6 and later releases)</a></p></li>
+<li><p><a class="reference internal" href="#for-loop" id="id74">For Loop</a></p></li>
+<li><p><a class="reference internal" href="#oncommand" id="id75">OnCommand</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements" id="id76">Requirements</a></p></li>
+<li><p><a class="reference internal" href="#failure-behavior" id="id77">Failure behavior</a></p></li>
+<li><p><a class="reference internal" href="#returning-a-value-from-the-command" id="id78">Returning a value from the command</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#onmessage" id="id79">OnMessage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#requirements-1" id="id80">Requirements</a></p></li>
+<li><p><a class="reference internal" href="#failure-behavior-1" id="id81">Failure behavior</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#synchronous-command" id="id82">Synchronous Command</a></p></li>
+<li><p><a class="reference internal" href="#wait" id="id83">Wait</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#data-types-and-expressions" id="id84">Data Types and Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#unknown-isknown" id="id85">Unknown/isKnown</a></p></li>
+<li><p><a class="reference internal" href="#numeric-expressions" id="id86">Numeric Expressions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#numeric-type-conversions" id="id87">Numeric Type Conversions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id30" id="id88">Boolean Expressions</a></p></li>
+<li><p><a class="reference internal" href="#string-expressions" id="id89">String Expressions</a></p></li>
+<li><p><a class="reference internal" href="#dates-and-durations" id="id90">Dates and Durations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#date-and-duration-expressions" id="id91">Date and Duration expressions</a></p></li>
+<li><p><a class="reference internal" href="#operations-using-dates-and-durations" id="id92">Operations using Dates and Durations</a></p></li>
+<li><p><a class="reference internal" href="#date-and-duration-representation" id="id93">Date and Duration representation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#arrays" id="id94">Arrays</a></p></li>
+<li><p><a class="reference internal" href="#node-state" id="id95">Node State</a></p></li>
+<li><p><a class="reference internal" href="#external-state-lookups" id="id96">External State (Lookups)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#execution-of-lookups" id="id97">Execution of Lookups</a></p></li>
+<li><p><a class="reference internal" href="#the-time-state" id="id98">The “time” state</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#global-declarations" id="id99">Global Declarations</a></p></li>
+<li><p><a class="reference internal" href="#programming-in-plexil" id="id100">Programming in Plexil</a></p>
+<ul>
+<li><p><a class="reference internal" href="#plexil-files" id="id101">Plexil Files</a></p></li>
+<li><p><a class="reference internal" href="#plexilc-the-plexil-translator" id="id102"><code class="docutils literal notranslate"><span class="pre">plexilc</span></code>, the Plexil translator</a></p></li>
+<li><p><a class="reference internal" href="#preprocessing-plexil-plans" id="id103">Preprocessing PLEXIL Plans</a></p></li>
+<li><p><a class="reference internal" href="#executing-plexil-plans" id="id104">Executing PLEXIL Plans</a></p></li>
 </ul>
 </li>
 </ul>
@@ -156,29 +156,32 @@
 </ul>
 </nav>
 <section id="about-this-chapter">
-<span id="id1"></span><h2><a class="toc-backref" href="#id41" role="doc-backlink">About this chapter</a><a class="headerlink" href="#about-this-chapter" title="Permalink to this heading">¶</a></h2>
-<p>This chapter documents the Standard PLEXIL programming language, and how
+<span id="id1"></span><h2><a class="toc-backref" href="#id48" role="doc-backlink">About this chapter</a><a class="headerlink" href="#about-this-chapter" title="Permalink to this heading">¶</a></h2>
+<p>This chapter documents the Standard <em>PLEXIL</em> programming language, and how
 to create and compile Plexil files for execution.</p>
-<p>We explain PLEXIL primarily though examples, using Standard PLEXIL
+<p>We explain <em>PLEXIL</em> primarily though examples, using Standard <em>PLEXIL</em>
 syntax.</p>
-<p>This is not a rigorous treatment of PLEXIL, but hopefully – in
-combination with the <a class="reference external" href="Example_PLEXIL_Plans">Example PLEXIL Plans</a> –
-provides enough to enable you to program in PLEXIL effectively.</p>
-<p>The PLEXIL langauge is summarized briefly in the previous chapter,
-<a class="reference external" href="Overview">Overview</a>. Its execution semantics are explained more
-deeply in the following chapter, <a class="reference external" href="Detailed_Semantics">Detailed
-Semantics</a>, which cites papers that provide a
-rigorous formal definition of the language. The PLEXIL syntax is
+<p>This is not a rigorous treatment of <em>PLEXIL</em>, but hopefully – in
+combination with the <a class="reference internal" href="../Appendices/ExamplePlans.html#exampleplans"><span class="std std-ref">Example PLEXIL Plans</span></a>
+provides enough to enable you to program in <em>PLEXIL</em> effectively.</p>
+<p>The <em>PLEXIL</em> langauge is summarized briefly in the previous chapter,
+<a class="reference internal" href="PLEXILOverview.html#plexiloverview"><span class="std std-ref">Overview</span></a>. Its execution semantics are explained more
+deeply in the following chapter, <a class="reference internal" href="PLEXILSemantics.html#plexilsemantics"><span class="std std-ref">Detailed Semantics</span></a>,
+which cites papers that provide a
+rigorous formal definition of the language. The <em>PLEXIL</em> syntax is
 formalized in XML schemas found in the software distribution.</p>
-<p>NOTE: Although this chapter focuses on the Standard PLEXIL language and
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although this chapter focuses on the Standard <em>PLEXIL</em> language and
 its semantics, as independent from the exact behavior of a particular
 implementation of Plexil, explanations of how the supplied Plexil
 Executive behaves have been provided in places we felt this information
 helpful.</p>
+</div>
 </section>
 <section id="nodes">
-<h2><a class="toc-backref" href="#id42" role="doc-backlink">Nodes</a><a class="headerlink" href="#nodes" title="Permalink to this heading">¶</a></h2>
-<p>A Standard PLEXIL plan consists of one <em>node</em>, which may have child
+<span id="id2"></span><h2><a class="toc-backref" href="#id49" role="doc-backlink">Nodes</a><a class="headerlink" href="#nodes" title="Permalink to this heading">¶</a></h2>
+<p>A Standard <em>PLEXIL</em> plan consists of one <em>node</em>, which may have child
 nodes. A node is a structure specifying a certain kind of behavior.</p>
 <p>A node is notated by a pair of curly braces containing the node’s
 specification, preceded optionally by a name for the node. The simplest
@@ -195,14 +198,14 @@ colon preceding the opening brace, is optional. An anonymous (nameless)
 node is valid, though it cannot be referenced anywhere explicitly,
 except within the node itself (by using the <code class="docutils literal notranslate"><span class="pre">Self</span></code> keyword, described
 below). In practice, every node has a name; an anonymous node is
-assigned a unique name when compiled into PLEXIL’s XML form for
+assigned a unique name when compiled into <em>PLEXIL</em>’s XML form for
 execution.</p>
 <p>A node and its parent, immediate children, and siblings (this structure
 will be explained later) must have unique names. Uniqueness of names
 across more distant relationships in a plan is not required, especially
 since these nodes cannot reference each other (more on referencing scope
 below).</p>
-<p>Standard PLEXIL is case-sensitive, but whitespace-insensitive, so the
+<p>Standard <em>PLEXIL</em> is case-sensitive, but whitespace-insensitive, so the
 <code class="docutils literal notranslate"><span class="pre">DoNothing</span></code> plan above can also be written, for example, in either of
 the following ways:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DoNothing</span><span class="p">:</span>
@@ -224,14 +227,14 @@ of the node accomplishes.</p>
 will be provided below.</p>
 </section>
 <section id="node-attributes">
-<span id="id2"></span><h2><a class="toc-backref" href="#id43" role="doc-backlink">Node Attributes</a><a class="headerlink" href="#node-attributes" title="Permalink to this heading">¶</a></h2>
+<span id="id3"></span><h2><a class="toc-backref" href="#id50" role="doc-backlink">Node Attributes</a><a class="headerlink" href="#node-attributes" title="Permalink to this heading">¶</a></h2>
 <p>Nodes may contain <em>attributes</em>, which include local variables, an
 <em>interface</em>, <em>conditions</em>, and a comment. Attributes are optional, and
 some have specific default values. When attributes are specified, they
 must occur <em>first</em> in node’s form, i.e. immediately following the
 opening curly brace.</p>
 <section id="variables">
-<h3><a class="toc-backref" href="#id44" role="doc-backlink">Variables</a><a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
+<span id="id4"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">Variables</a><a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
 <p>A node may declare variables, which are local to the node. Plexil
 currently supports variables of type Boolean, integer, real, string, and
 arrays of these four basic types. Examples of declarations of the basic
@@ -244,7 +247,7 @@ types are as follows.</p>
 </div>
 <p>These examples of variable declarations do not specify initial values
 for the variables. Uninitialized variables of all types except arrays
-are given the value <a class="reference external" href="#Data_Types_and_Expressions">Unknown</a>. Here are
+are given the value <a class="reference internal" href="#data-types-and-expressions"><span class="std std-ref">Unknown</span></a>. Here are
 the same variable declarations with initial values specified. Initial
 values must be literals – expressions are not allowed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Boolean</span> <span class="n">isReset</span> <span class="o">=</span> <span class="n">true</span><span class="p">;</span>
@@ -278,12 +281,15 @@ of an empty node that declares some variables.</p>
 introduced the other nodes. The example above is illustrative but would
 serve no practical purpose, since its variables cannot be used in any
 way.</p>
-<p><em>NOTE: Variable declarations and interface declarations (described in
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Variable declarations and interface declarations (described in
 the following section) must occur prior to any other kinds of attributes
-in a node definition. They may be intermixed.</em></p>
+in a node definition. They may be intermixed.</p>
+</div>
 </section>
 <section id="interface">
-<h3><a class="toc-backref" href="#id45" role="doc-backlink">Interface</a><a class="headerlink" href="#interface" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id52" role="doc-backlink">Interface</a><a class="headerlink" href="#interface" title="Permalink to this heading">¶</a></h3>
 <p>A node’s <em>interface</em> is the set of variables it can read and/or write
 (assign) to. By default, the interface of a node N is the union of its
 parent’s interface and the variables declared in N. Interface clauses
@@ -311,15 +317,17 @@ variables in Test.</p>
 <p>A node’s interface variables are also called its <em>parameters</em>. It is an
 error for a node to declare a variable having the same name as a
 variable that appears in its interface.</p>
-<p><em>NOTE: Variable declarations (described in the previous section) and
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Variable declarations (described in the previous section) and
 interface declarations must occur prior to any other kinds of attributes
-in a node definition. They can be intermixed.</em></p>
+in a node definition. They can be intermixed.</p>
+</div>
 </section>
 <section id="conditions">
-<h3><a class="toc-backref" href="#id46" role="doc-backlink">Conditions</a><a class="headerlink" href="#conditions" title="Permalink to this heading">¶</a></h3>
+<span id="id5"></span><h3><a class="toc-backref" href="#id53" role="doc-backlink">Conditions</a><a class="headerlink" href="#conditions" title="Permalink to this heading">¶</a></h3>
 <p>A node can specify up to eight <em>conditions</em> that govern precisely how
-the node is executed. Exact details are described in the <a class="reference external" href="Node_State_Transition_Diagrams">Node State
-Transition Diagrams</a> document.</p>
+the node is executed. Exact details are described in the <a class="reference internal" href="../Appendices/NodeStateDiagrams.html#nodestatediagrams"><span class="std std-ref">Node State Transition Diagrams</span></a> document.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StartCondition</span>      <span class="o">//</span> <span class="n">Node</span> <span class="n">won</span><span class="s1">&#39;t begin until this is true</span>
 <span class="n">EndCondition</span>        <span class="o">//</span> <span class="n">Node</span> <span class="n">won</span><span class="s1">&#39;t terminate until this is true</span>
 <span class="n">ExitCondition</span>       <span class="o">//</span> <span class="n">Node</span> <span class="n">will</span> <span class="n">terminate</span> <span class="p">(</span><span class="k">if</span> <span class="n">executing</span><span class="p">)</span> <span class="ow">or</span> <span class="n">be</span> <span class="n">skipped</span> <span class="p">(</span><span class="k">if</span> <span class="n">waiting</span><span class="p">)</span> <span class="k">if</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">true</span>
@@ -331,7 +339,7 @@ Transition Diagrams</a> document.</p>
 </pre></div>
 </div>
 <p>A condition specifies a Plexil <em>Boolean expression</em>. Expressions are
-described in a section <a class="reference external" href="#Data_Types_and_Expressions">below</a>. Here are
+described in a section <a class="reference internal" href="#data-types-and-expressions"><span class="std std-ref">below</span></a>. Here are
 some varied examples of conditions:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StartCondition</span> <span class="n">Node1</span><span class="o">.</span><span class="n">outcome</span> <span class="o">==</span> <span class="n">SUCCESS</span><span class="p">;</span>
 
@@ -370,10 +378,10 @@ useful empty node. Empty nodes are often used to <em>wait</em> for a condition
 condition (expressed here through the invariant condition).</p>
 </section>
 <section id="comments">
-<h3><a class="toc-backref" href="#id47" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h3>
-<p>There are two kinds of comments in a Standard PLEXIL plan. The source
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">Comments</a><a class="headerlink" href="#comments" title="Permalink to this heading">¶</a></h3>
+<p>There are two kinds of comments in a Standard <em>PLEXIL</em> plan. The source
 code can include comments to help document the code but that are not
-preserved in the translated Core PLEXIL XML output. These are notated in
+preserved in the translated Core <em>PLEXIL</em> XML output. These are notated in
 the C/C++ style syntax for block and single line comments. Examples of
 each are as follows.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/*</span>
@@ -395,16 +403,16 @@ the plan, unlike other comments.</p>
 </section>
 </section>
 <section id="leaf-nodes">
-<span id="id3"></span><h2><a class="toc-backref" href="#id48" role="doc-backlink">Leaf Nodes</a><a class="headerlink" href="#leaf-nodes" title="Permalink to this heading">¶</a></h2>
-<p>As described in the <a class="reference external" href="Overview">Overview</a>, PLEXIL has many kinds of
+<span id="id6"></span><h2><a class="toc-backref" href="#id55" role="doc-backlink">Leaf Nodes</a><a class="headerlink" href="#leaf-nodes" title="Permalink to this heading">¶</a></h2>
+<p>As described in the <a class="reference internal" href="PLEXILOverview.html#plexiloverview"><span class="std std-ref">Overview</span></a>, <em>PLEXIL</em> has many kinds of
 nodes. The type of a given node is identified by the node’s <em>body</em>. A
 node’s body is what immediately follows its attributes (described in the
 previous sections).</p>
 <p>Nodes that do not contain or decompose into child nodes form the leaves
-in a PLEXIL plan tree. These nodes are called <em>nodes</em> and are part of
-Core PLEXIL, which is the subset of PLEXIL that is executed directly.</p>
+in a <em>PLEXIL</em> plan tree. These nodes are called <em>nodes</em> and are part of
+Core <em>PLEXIL</em>, which is the subset of <em>PLEXIL</em> that is executed directly.</p>
 <section id="empty-node">
-<span id="id4"></span><h3><a class="toc-backref" href="#id49" role="doc-backlink">Empty Node</a><a class="headerlink" href="#empty-node" title="Permalink to this heading">¶</a></h3>
+<span id="id7"></span><h3><a class="toc-backref" href="#id56" role="doc-backlink">Empty Node</a><a class="headerlink" href="#empty-node" title="Permalink to this heading">¶</a></h3>
 <p>All the examples presented above are empty nodes (also called empty
 nodes). Empty nodes contain only attributes. They have no external
 behavior (i.e. no direct effect on an external system or a plan
@@ -419,15 +427,15 @@ a node that verifies a temperature reading.</p>
 </div>
 </section>
 <section id="assignment">
-<h3><a class="toc-backref" href="#id50" role="doc-backlink">Assignment</a><a class="headerlink" href="#assignment" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">Assignment</a><a class="headerlink" href="#assignment" title="Permalink to this heading">¶</a></h3>
 <p>An assignment to a declared variable has the following form:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">variable</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The part of the assignment, referred to as its left-hand side (LHS),
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;variable&gt;</span></code> part of the assignment, referred to as its left-hand side (LHS),
 must be a writable variable in the node’s interface. The <code class="docutils literal notranslate"><span class="pre">expression</span></code>,
 referred to as the right-hand side (RHS) of the assignment, can be any
-PLEXIL expression. Expressions are described below. The type of the
+<em>PLEXIL</em> expression. Expressions are described below. The type of the
 expression must match the type of the variable.</p>
 <p>An <em>assignment node</em>, is one that contains only an expression of this
 form in its body. The following are examples of assignment nodes. Note
@@ -452,11 +460,11 @@ braces and/or names. The preceding examples could be rewritten as:</p>
 </pre></div>
 </div>
 <section id="assignments-and-concurrency">
-<span id="id5"></span><h4><a class="toc-backref" href="#id51" role="doc-backlink">Assignments and Concurrency</a><a class="headerlink" href="#assignments-and-concurrency" title="Permalink to this heading">¶</a></h4>
-<p>If two nodes in a PLEXIL plan attempt to assign the same variable
-simultaneously, this is an error condition. The PLEXIL compiler does not
+<span id="id8"></span><h4><a class="toc-backref" href="#id58" role="doc-backlink">Assignments and Concurrency</a><a class="headerlink" href="#assignments-and-concurrency" title="Permalink to this heading">¶</a></h4>
+<p>If two nodes in a <em>PLEXIL</em> plan attempt to assign the same variable
+simultaneously, this is an error condition. The <em>PLEXIL</em> compiler does not
 detect the possibility of concurrent assignment, and unfortunately the
-current PLEXIL executive behaves ungracefully when it is attempted: it
+current <em>PLEXIL</em> executive behaves ungracefully when it is attempted: it
 issues a message about the conflict and then aborts. If your plan
 contains such nodes, this contention problem can be resolved with the
 <code class="docutils literal notranslate"><span class="pre">Priority</span></code> clause. Here’s a trivial contrived example:</p>
@@ -488,7 +496,7 @@ conflicting assignments are avoided.</p>
 </section>
 </section>
 <section id="command">
-<h3><a class="toc-backref" href="#id52" role="doc-backlink">Command</a><a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
+<span id="id9"></span><h3><a class="toc-backref" href="#id59" role="doc-backlink">Command</a><a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
 <p>A <em>command</em> has the form:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">&lt;</span><span class="n">variable</span><span class="o">&gt;</span> <span class="o">=</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">command_name</span><span class="o">&gt;</span> <span class="p">([</span><span class="o">&lt;</span><span class="n">argument_list</span><span class="o">&gt;</span><span class="p">]);</span>
 </pre></div>
@@ -547,14 +555,14 @@ examples:</p>
 </pre></div>
 </div>
 <p>By default, a command node finishes when the executive receives a
-<em>command handle</em> for its command, via the PLEXIL external interface (see
-the Interfacing section of this manual). See <a class="reference external" href="Resource_Model">Resource
-Model</a> for a description of command handles.</p>
+<em>command handle</em> for its command, via the <em>PLEXIL</em> external interface (see
+the Interfacing section of this manual). See <a class="reference internal" href="ResourceModel.html#resourcemodel"><span class="std std-ref">Resource Model</span></a>
+for a description of command handles.</p>
 <p>Note that the finishing of the command node is distinct from the
 finishing of the command itself; command execution may be ongoing even
 after the node finishes. We elaborate further on this point.</p>
 <section id="asynchronous-command-execution">
-<span id="id6"></span><h4><a class="toc-backref" href="#id53" role="doc-backlink">Asynchronous command execution</a><a class="headerlink" href="#asynchronous-command-execution" title="Permalink to this heading">¶</a></h4>
+<span id="id10"></span><h4><a class="toc-backref" href="#id60" role="doc-backlink">Asynchronous command execution</a><a class="headerlink" href="#asynchronous-command-execution" title="Permalink to this heading">¶</a></h4>
 <p>Note that calls to commands do <em>not</em> wait, or block execution of the
 plan. Rather, the command executes in the external system asynchronously
 with the plan. To examine the progress of the command, the plan should
@@ -584,12 +592,12 @@ Fortunately, Plexil provides a convenient form for <em>synchronous</em>
 commanding – see the <a class="reference external" href="#Synchronous_Command">section</a> below.</p>
 <p>Optionally, command nodes may specify resource requirements for the
 affected command. The syntax and semantics for this is described in the
-<a class="reference external" href="Resource_Model">Resource Model</a> chapter.</p>
+<a class="reference internal" href="ResourceModel.html#resourcemodel"><span class="std std-ref">Resource Model</span></a> chapter.</p>
 </section>
 <section id="utility-commands">
-<span id="id7"></span><h4><a class="toc-backref" href="#id54" role="doc-backlink">Utility Commands</a><a class="headerlink" href="#utility-commands" title="Permalink to this heading">¶</a></h4>
+<span id="id11"></span><h4><a class="toc-backref" href="#id61" role="doc-backlink">Utility Commands</a><a class="headerlink" href="#utility-commands" title="Permalink to this heading">¶</a></h4>
 <p>Several convenient utilities, in the form of commands, are available in
-Plexil. Currently there are two commands that print PLEXIL expressions
+Plexil. Currently there are two commands that print <em>PLEXIL</em> expressions
 to the standard output stream (e.g. the Unix terminal).</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">(exp1,</span> <span class="pre">exp2,</span> <span class="pre">...)</span></code> prints expressions without any added
@@ -605,7 +613,7 @@ Adapter</a>.</p>
 </section>
 </section>
 <section id="update">
-<h3><a class="toc-backref" href="#id55" role="doc-backlink">Update</a><a class="headerlink" href="#update" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id62" role="doc-backlink">Update</a><a class="headerlink" href="#update" title="Permalink to this heading">¶</a></h3>
 <p>An Update node serves to relay information outside the executive. For
 example, it can be used to update a planner or other system that has
 invoked the executive, with status about execution of the plan. The
@@ -633,12 +641,12 @@ Any number of such name/value pairs can be given, separated by commas.</p>
 containing braces may be omitted.</p>
 </section>
 <section id="library-call">
-<span id="id8"></span><h3><a class="toc-backref" href="#id56" role="doc-backlink">Library Call</a><a class="headerlink" href="#library-call" title="Permalink to this heading">¶</a></h3>
+<span id="id12"></span><h3><a class="toc-backref" href="#id63" role="doc-backlink">Library Call</a><a class="headerlink" href="#library-call" title="Permalink to this heading">¶</a></h3>
 <p>A <code class="docutils literal notranslate"><span class="pre">Library</span> <span class="pre">Call</span></code> node has the following form as its body.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LibraryCall</span> <span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">alias_list</span><span class="o">&gt;</span><span class="p">];</span>
 </pre></div>
 </div>
-<p>where is the ID of the invoked <em>library node</em>. The is an optional list
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;Id&gt;</span></code> is the ID of the invoked <em>library node</em>. The <code class="docutils literal notranslate"><span class="pre">&lt;alias_list&gt;</span></code> is an optional list
 of <em>aliases</em>, which are pairs of the form</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">parameter</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span>
 </pre></div>
@@ -648,12 +656,16 @@ present in the interface of the library node) with an actual value or
 declared variable.</p>
 <p>Here’s a contrived example of a call to trivial library node. The first
 file defines the library node <code class="docutils literal notranslate"><span class="pre">F</span></code>, and the second file contains a node
-that calls <code class="docutils literal notranslate"><span class="pre">F</span></code>. NOTE: These examples contain a declaration of the
+that calls <code class="docutils literal notranslate"><span class="pre">F</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These examples contain a declaration of the
 library node using the historic</p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LibraryAction</span>
 </pre></div>
 </div>
-<p>form. A newer version of PLEXIL (not yet released) aliases this with</p>
+<p>form. A newer version of <em>PLEXIL</em> (not yet released) aliases this with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LibraryNode</span>
 </pre></div>
 </div>
@@ -691,7 +703,7 @@ required, the containing braces may be omitted:</p>
 </pre></div>
 </div>
 <section id="library-call-execution">
-<span id="id9"></span><h4><a class="toc-backref" href="#id57" role="doc-backlink">Library Call execution</a><a class="headerlink" href="#library-call-execution" title="Permalink to this heading">¶</a></h4>
+<span id="id13"></span><h4><a class="toc-backref" href="#id64" role="doc-backlink">Library Call execution</a><a class="headerlink" href="#library-call-execution" title="Permalink to this heading">¶</a></h4>
 <p>Prior to execution of a Plexil plan, at every point of a library call, a
 copy of the invoked library node is <em>statically</em> inserted in place of
 the call. Hence, “call” is technically a misnomer, and the mechanism for
@@ -703,13 +715,13 @@ library node can produce a large plan for execution.</p>
 </section>
 </section>
 <section id="compound-nodes">
-<span id="id10"></span><h2><a class="toc-backref" href="#id58" role="doc-backlink">Compound Nodes</a><a class="headerlink" href="#compound-nodes" title="Permalink to this heading">¶</a></h2>
+<span id="id14"></span><h2><a class="toc-backref" href="#id65" role="doc-backlink">Compound Nodes</a><a class="headerlink" href="#compound-nodes" title="Permalink to this heading">¶</a></h2>
 <p>Compound nodes are translated into simple (Core PLEXIL) nodes prior to
-execution. A Core PLEXIL plan is a tree consisting of the leaf nodes
+execution. A Core <em>PLEXIL</em> plan is a tree consisting of the leaf nodes
 described in the previous section, plus the List Node, described in this
 section under Concurrence.</p>
 <section id="sequence">
-<h3><a class="toc-backref" href="#id59" role="doc-backlink">Sequence</a><a class="headerlink" href="#sequence" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id66" role="doc-backlink">Sequence</a><a class="headerlink" href="#sequence" title="Permalink to this heading">¶</a></h3>
 <p>A Sequence executes its child nodes in the given order.</p>
 <p>Because sequential execution is so often the intended and expected
 behavior of a plan, the <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> keyword is optional:</p>
@@ -720,16 +732,19 @@ behavior of a plan, the <code class="docutils literal notranslate"><span class="
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>Note:</strong> Sequence is currently an alias for CheckedSequence. Because of
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sequence is currently an alias for CheckedSequence. Because of
 the overhead of checking for child node success, and the default
 behavior in other sequential languages is to continue sequential
-execution after a child node fails (e.g. shell scripting), future PLEXIL
+execution after a child node fails (e.g. shell scripting), future <em>PLEXIL</em>
 release may instead alias it to UncheckedSequence. To ensure your plans
 do not change behavior, please consider explicitly using either
 CheckedSequence or UncheckedSequence.</p>
+</div>
 </section>
 <section id="checkedsequence">
-<h3><a class="toc-backref" href="#id60" role="doc-backlink">CheckedSequence</a><a class="headerlink" href="#checkedsequence" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id67" role="doc-backlink">CheckedSequence</a><a class="headerlink" href="#checkedsequence" title="Permalink to this heading">¶</a></h3>
 <p>A CheckedSequence executes its child nodes in the given order. If any
 node fails (i.e. terminates with outcome <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>), the
 CheckedSequence also terminates with outcome <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> and failure
@@ -746,7 +761,7 @@ only if all its nodes succeed. An empty CheckedSequence always succeeds.</p>
 </div>
 </section>
 <section id="unchecked-sequence">
-<span id="id11"></span><h3><a class="toc-backref" href="#id61" role="doc-backlink">Unchecked Sequence</a><a class="headerlink" href="#unchecked-sequence" title="Permalink to this heading">¶</a></h3>
+<span id="id15"></span><h3><a class="toc-backref" href="#id68" role="doc-backlink">Unchecked Sequence</a><a class="headerlink" href="#unchecked-sequence" title="Permalink to this heading">¶</a></h3>
 <p>An UncheckedSequence simply executes its child nodes in the given order.
 An UncheckedSequence succeeds by default.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UncheckedSequence</span>
@@ -759,12 +774,12 @@ An UncheckedSequence succeeds by default.</p>
 </div>
 </section>
 <section id="concurrence">
-<h3><a class="toc-backref" href="#id62" role="doc-backlink">Concurrence</a><a class="headerlink" href="#concurrence" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id69" role="doc-backlink">Concurrence</a><a class="headerlink" href="#concurrence" title="Permalink to this heading">¶</a></h3>
 <p>A Concurrence encloses zero or more child nodes, which are executed
 <em>concurrently</em>. Precisely, there are no execution constraints on the
 child nodes other than those imposed by explicit conditions (those found
 in each child node as well as in the Concurrence form itself).</p>
-<p>Concurrence translates directly to a Core PLEXIL List node.</p>
+<p>Concurrence translates directly to a Core <em>PLEXIL</em> List node.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Concurrence</span>
 <span class="p">{</span>
   <span class="o">&lt;</span><span class="n">node1</span><span class="o">&gt;</span><span class="p">;</span>
@@ -818,18 +833,21 @@ with a particular execution protocol:</p>
 they can start immediately. The Commence node waits for Init to finish
 before it can start. After it finishes, either InformSuccess or
 InformFailure will execute, depending on the result.</p>
-<p>NOTE: If more than one child node is eligible for execution at a given
-moment, and PLEXIL is being executed on a sequential machine, the actual
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If more than one child node is eligible for execution at a given
+moment, and <em>PLEXIL</em> is being executed on a sequential machine, the actual
 order of execution is <em>unspecified</em>. In any context where the exact
 execution order of nodes really matters, it must be encoded explicitly
 in the plan.</p>
+</div>
 </section>
 <section id="try">
-<h3><a class="toc-backref" href="#id63" role="doc-backlink">Try</a><a class="headerlink" href="#try" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id70" role="doc-backlink">Try</a><a class="headerlink" href="#try" title="Permalink to this heading">¶</a></h3>
 <p>In a Try sequence, the child nodes are executed in sequence, <em>until</em> one
 succeeds. The remaining nodes are skipped. A Try succeeds if and only if
 one of its nodes succeed. An empty Try always fails.</p>
-<p>The PLEXIL Try is distinct from the try-catch idiom found in many
+<p>The <em>PLEXIL</em> Try is distinct from the try-catch idiom found in many
 popular programming languages.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Try</span>
 <span class="p">{</span>
@@ -841,17 +859,20 @@ popular programming languages.</p>
 </div>
 </section>
 <section id="if-elseif-else">
-<span id="id12"></span><h3><a class="toc-backref" href="#id64" role="doc-backlink">If-Elseif-Else</a><a class="headerlink" href="#if-elseif-else" title="Permalink to this heading">¶</a></h3>
+<span id="id16"></span><h3><a class="toc-backref" href="#id71" role="doc-backlink">If-Elseif-Else</a><a class="headerlink" href="#if-elseif-else" title="Permalink to this heading">¶</a></h3>
 <p>This is the traditional <em>if-then-else</em> construct, with optional “elseif”
 and “else” parts. The <code class="docutils literal notranslate"><span class="pre">if</span></code> and optional <code class="docutils literal notranslate"><span class="pre">elseif</span></code> clauses each
 specify a condition, and a node to execute if this condition is true;
 they are evaluated in the order listed until one condition succeeds. The
 optional <code class="docutils literal notranslate"><span class="pre">else</span></code> clause provides a default node which is executed if
 none of the conditions evaluates to true.</p>
-<p><strong>Note:</strong> Previous versions of the PLEXIL compiler required an <code class="docutils literal notranslate"><span class="pre">endif</span></code>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Previous versions of the <em>PLEXIL</em> compiler required an <code class="docutils literal notranslate"><span class="pre">endif</span></code>
 keyword to terminate the <code class="docutils literal notranslate"><span class="pre">if</span></code> node. This requirement has been
-eliminated since PLEXIL 4.5. The <code class="docutils literal notranslate"><span class="pre">endif</span></code> keyword is still accepted by
+eliminated since <em>PLEXIL</em> 4.5. The <code class="docutils literal notranslate"><span class="pre">endif</span></code> keyword is still accepted by
 the compiler for backwards compatibility.</p>
+</div>
 <p>Each clause may have multiple child nodes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">C1</span>
   <span class="o">&lt;</span><span class="n">node</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span>
@@ -887,7 +908,7 @@ invoke no action.</p>
 </div>
 </section>
 <section id="while-loop">
-<span id="id13"></span><h3><a class="toc-backref" href="#id65" role="doc-backlink">While Loop</a><a class="headerlink" href="#while-loop" title="Permalink to this heading">¶</a></h3>
+<span id="id17"></span><h3><a class="toc-backref" href="#id72" role="doc-backlink">While Loop</a><a class="headerlink" href="#while-loop" title="Permalink to this heading">¶</a></h3>
 <p>This is a traditional <em>while</em> loop.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">C</span>
   <span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span>
@@ -900,7 +921,7 @@ invoke no action.</p>
 </div>
 </section>
 <section id="do-loop-plexil-4-6-and-later-releases">
-<span id="id14"></span><h3><a class="toc-backref" href="#id66" role="doc-backlink">Do Loop (PLEXIL 4.6 and later releases)</a><a class="headerlink" href="#do-loop-plexil-4-6-and-later-releases" title="Permalink to this heading">¶</a></h3>
+<span id="id18"></span><h3><a class="toc-backref" href="#id73" role="doc-backlink">Do Loop (PLEXIL 4.6 and later releases)</a><a class="headerlink" href="#do-loop-plexil-4-6-and-later-releases" title="Permalink to this heading">¶</a></h3>
 <p>This is a traditional <em>do-while</em> loop.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">do</span> <span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span>
 <span class="k">while</span> <span class="n">C</span>
@@ -914,7 +935,7 @@ while ! Lookup(RoverWheelStuck)
 </div>
 </section>
 <section id="for-loop">
-<span id="id15"></span><h3><a class="toc-backref" href="#id67" role="doc-backlink">For Loop</a><a class="headerlink" href="#for-loop" title="Permalink to this heading">¶</a></h3>
+<span id="id20"></span><h3><a class="toc-backref" href="#id74" role="doc-backlink">For Loop</a><a class="headerlink" href="#for-loop" title="Permalink to this heading">¶</a></h3>
 <p>This is a traditional For loop, limited to a numeric variant.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">T</span> <span class="n">V</span> <span class="o">=</span> <span class="n">Z</span><span class="p">;</span> <span class="n">C</span><span class="p">;</span> <span class="n">E</span><span class="p">)</span>
   <span class="o">&lt;</span><span class="n">node</span><span class="o">&gt;</span>
@@ -937,7 +958,7 @@ Examples:</p>
 </div>
 </section>
 <section id="oncommand">
-<h3><a class="toc-backref" href="#id68" role="doc-backlink">OnCommand</a><a class="headerlink" href="#oncommand" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id75" role="doc-backlink">OnCommand</a><a class="headerlink" href="#oncommand" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> implements a “handler” for an external command. It is used
 in multiple executive settings where one executive receives a command
 sent by another executive. It has the following syntax.</p>
@@ -947,22 +968,18 @@ sent by another executive. It has the following syntax.</p>
 </div>
 <p>where:</p>
 <ul class="simple">
-<li><p>is a string expression naming the command to be handled;</p></li>
-<li><p>is an optional list of zero or more comma-separated variable</p></li>
-</ul>
-<blockquote>
-<div><p>declarations for parameters; and</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>is an action to be performed upon receiving the command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;command-name&gt;</span></code> is a string expression naming the command to be handled;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;parameter-declaration&gt;</span></code> is an optional list of zero or more comma-separated variable
+declarations for parameters; and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;node&gt;</span></code> is an action to be performed upon receiving the command.</p></li>
 </ul>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OnCommand</span> <span class="s2">&quot;Sum&quot;</span> <span class="p">(</span><span class="n">Integer</span> <span class="n">a</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">b</span><span class="p">)</span>
-  <span class="n">Increment</span><span class="p">:</span> <span class="p">{</span> <span class="n">SendReturnValue</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> <span class="p">}</span>
+ <span class="n">Increment</span><span class="p">:</span> <span class="p">{</span> <span class="n">SendReturnValue</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span> <span class="p">}</span>
 </pre></div>
 </div>
 <section id="requirements">
-<h4><a class="toc-backref" href="#id69" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h4>
+<h4><a class="toc-backref" href="#id76" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> expects the following commands to be implemented:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">String</span> <span class="pre">Command</span> <span class="pre">ReceiveCommand(String</span> <span class="pre">command_name)</span></code> - waits for
@@ -975,42 +992,50 @@ parameter is received, returns the parameter value, and a command
 acknowledgement of <code class="docutils literal notranslate"><span class="pre">COMMAND_SUCCESS</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">SendReturnValue(String</span> <span class="pre">handle,</span> <span class="pre">Any</span> <span class="pre">return_val)</span></code> -
 publishes return_val as the result of the command referenced by the
-handle argument. (<strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> macro automatically
-provides the handle value; it should not be supplied by the user.)
-The external system <strong>must</strong> respond with a command acknowledgement.</p></li>
+handle argument.</p></li>
 </ul>
-<p>The <em>IpcAdapter</em> interface module provided with the PLEXIL distribution
-implements these commands; see <a class="reference external" href="Inter-Executive_Communication">Inter-Executive
-Communication</a>. But any PLEXIL
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> macro automatically provides the handle value; it should not be supplied by the user.
+The external system <strong>must</strong> respond with a command acknowledgement.</p>
+</div>
+<p>The <em>IpcAdapter</em> interface module provided with the <em>PLEXIL</em> distribution
+implements these commands; see <a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html#inter-executivecommunication"><span class="std std-ref">Inter-Executive Communication</span></a>.
+But any <em>PLEXIL</em>
 application which implements these commands as specified here can use
 <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code>.</p>
 </section>
 <section id="failure-behavior">
-<span id="id16"></span><h4><a class="toc-backref" href="#id70" role="doc-backlink">Failure behavior</a><a class="headerlink" href="#failure-behavior" title="Permalink to this heading">¶</a></h4>
+<span id="id22"></span><h4><a class="toc-backref" href="#id77" role="doc-backlink">Failure behavior</a><a class="headerlink" href="#failure-behavior" title="Permalink to this heading">¶</a></h4>
 <p>In the event of an interface error in receiving the command or its
 parameters, the <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> node will have an outcome of <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>
 and a failure type of <code class="docutils literal notranslate"><span class="pre">INVARIANT_CONDITION_FAILED</span></code>.</p>
 </section>
 <section id="returning-a-value-from-the-command">
-<span id="id17"></span><h4><a class="toc-backref" href="#id71" role="doc-backlink">Returning a value from the command</a><a class="headerlink" href="#returning-a-value-from-the-command" title="Permalink to this heading">¶</a></h4>
-<p><strong>Important:</strong> Every <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> node is required to call the command</p>
+<span id="id23"></span><h4><a class="toc-backref" href="#id78" role="doc-backlink">Returning a value from the command</a><a class="headerlink" href="#returning-a-value-from-the-command" title="Permalink to this heading">¶</a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Every <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> node is required to call the command</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SendReturnValue</span><span class="p">(</span><span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where can be any legal PLEXIL expression with a known value.</p>
+<p>where &lt;value&gt; can be any legal <em>PLEXIL</em> expression with a known value.</p>
+</div>
 <p>If a <code class="docutils literal notranslate"><span class="pre">SendReturnValue</span></code> command is not present in the body, a
 <code class="docutils literal notranslate"><span class="pre">SendReturnValue(true)</span></code> command is automatically generated, and runs
 after the body node has finished executing.</p>
-<p><strong>If the ``SendReturnValue`` command is not acknowledged, the
-``OnCommand`` node will never finish.</strong></p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">SendReturnValue</span></code> command is not acknowledged, the
+<code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> node will never finish.</p>
+</div>
 <p>The requirement to issue, and acknowledge, a <code class="docutils literal notranslate"><span class="pre">SendReturnValue</span></code> command
-may be removed in a future release of the PLEXIL Executive.</p>
-<p>For more information, see <a class="reference external" href="Inter-Executive_Communication">Inter-Executive
-Communication</a>.</p>
+may be removed in a future release of the <em>PLEXIL</em> Executive.</p>
+<p>For more information, see <a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html#inter-executivecommunication"><span class="std std-ref">Inter-Executive Communication</span></a>.</p>
 </section>
 </section>
 <section id="onmessage">
-<h3><a class="toc-backref" href="#id72" role="doc-backlink">OnMessage</a><a class="headerlink" href="#onmessage" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id79" role="doc-backlink">OnMessage</a><a class="headerlink" href="#onmessage" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">OnMessage</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code>, but only receives text sent
 by the command <code class="docutils literal notranslate"><span class="pre">SendMessage</span></code>, and may not have parameters.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OnMessage</span> <span class="o">&lt;</span><span class="n">message</span><span class="o">&gt;</span>
@@ -1019,24 +1044,21 @@ by the command <code class="docutils literal notranslate"><span class="pre">Send
 </div>
 <p>Where:</p>
 <ul class="simple">
-<li><p>is a string expression; and</p></li>
-<li><p>is an action to be performed upon receiving that message.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;message&gt;</span></code> is a string expression; and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;node&gt;</span></code> is an action to be performed upon receiving that message.</p></li>
 </ul>
 <p>Example:</p>
-<dl class="simple">
-<dt>::</dt><dd><dl class="simple">
-<dt>OnMessage “ConnectionEstablished”</dt><dd><p>BeginProcess();</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>OnMessage “ConnectionEstablished”
+   BeginProcess();
+</pre></div>
+</div>
 <p>This “handler” for messages can be invoked by the following command in
 the IpcAdapter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SendMessage</span><span class="p">(</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="requirements-1">
-<span id="id18"></span><h4><a class="toc-backref" href="#id73" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements-1" title="Permalink to this heading">¶</a></h4>
+<span id="id24"></span><h4><a class="toc-backref" href="#id80" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements-1" title="Permalink to this heading">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">OnMessage</span></code> macro requires the application to provide the
 following command:</p>
 <ul class="simple">
@@ -1049,16 +1071,15 @@ message is received, it returns a command acknowledgement value of
 corresponding <code class="docutils literal notranslate"><span class="pre">SendMessage</span></code> command</p>
 </section>
 <section id="failure-behavior-1">
-<span id="id19"></span><h4><a class="toc-backref" href="#id74" role="doc-backlink">Failure behavior</a><a class="headerlink" href="#failure-behavior-1" title="Permalink to this heading">¶</a></h4>
+<span id="id25"></span><h4><a class="toc-backref" href="#id81" role="doc-backlink">Failure behavior</a><a class="headerlink" href="#failure-behavior-1" title="Permalink to this heading">¶</a></h4>
 <p>In the event of an interfacing error, the <code class="docutils literal notranslate"><span class="pre">OnMessage</span></code> node will have
 an outcome of <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> and a failure type of
 <code class="docutils literal notranslate"><span class="pre">INVARIANT_CONDITION_FAILED</span></code>.</p>
-<p>For more information, see <a class="reference external" href="Inter-Executive_Communication">Inter-Executive
-Communication</a>.</p>
+<p>For more information, see <a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html#inter-executivecommunication"><span class="std std-ref">Inter-Executive Communication</span></a>.</p>
 </section>
 </section>
 <section id="synchronous-command">
-<span id="id20"></span><h3><a class="toc-backref" href="#id75" role="doc-backlink">Synchronous Command</a><a class="headerlink" href="#synchronous-command" title="Permalink to this heading">¶</a></h3>
+<span id="id26"></span><h3><a class="toc-backref" href="#id82" role="doc-backlink">Synchronous Command</a><a class="headerlink" href="#synchronous-command" title="Permalink to this heading">¶</a></h3>
 <p>Plexil provides a convenient form for synchronous commands, which
 automatically waits for a return value if expected, otherwise a command
 handle indicating completion of the command.</p>
@@ -1084,11 +1105,11 @@ with tolerance of 0.1 (i.e. check the time every 0.1 units if possible).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SynchronousCommand</span> <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span><span class="p">()</span> <span class="n">Timeout</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>This section begs elaboration of several aspects of PLEXIL not yet
+<p>This section begs elaboration of several aspects of <em>PLEXIL</em> not yet
 discussed in detail.</p>
 <ul class="simple">
-<li><p>Time. As mentioned in the <a class="reference external" href="Overview">Overview</a>, time is not a
-special concept in PLEXIL – it’s just an external world state;
+<li><p>Time. As mentioned in the <a class="reference internal" href="PLEXILOverview.html#plexiloverview"><span class="std std-ref">Overview</span></a>, time is not a
+special concept in <em>PLEXIL</em> – it’s just an external world state;
 specifically, a real-valued state variable named <code class="docutils literal notranslate"><span class="pre">time</span></code>. This
 variable may be referenced explicitly, e.g. <code class="docutils literal notranslate"><span class="pre">Lookup</span> <span class="pre">(time,</span> <span class="pre">1)</span></code>,
 though in most cases it is used implicitly: the Plexil executive
@@ -1097,24 +1118,22 @@ time-related computations in a plan, such as the timeout in
 <code class="docutils literal notranslate"><span class="pre">SynchronousCommand</span></code> described here. The tolerance parameter to the
 timeout is simply the tolerance given to the Lookup that queries
 <code class="docutils literal notranslate"><span class="pre">time</span></code> for this node.</p></li>
-<li><p>Command Handles. These are described in the <a class="reference external" href="Resource_Model">Resource
-Model</a> chapter, but we must note here that
+<li><p>Command Handles. These are described in the <a class="reference internal" href="ResourceModel.html#resourcemodel"><span class="std std-ref">Resource Model</span></a> chapter, but we must note here that
 instances of SynchronousCommand without return values <em>require</em> that
-certain command handles are supported by the <a class="reference external" href="PLEXIL_Executive">Plexil
-application</a>. Specifically, for
+certain command handles are supported by the <a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html#plexilexecutive"><span class="std std-ref">Plexil application</span></a>. Specifically, for
 SynchronousCommand to work, the application <em>must</em> return one of the
 following handles for the command invoked: COMMAND_SUCCESS,
 COMMAND_FAILED, COMMAND_DENIED.</p></li>
 </ul>
 </section>
 <section id="wait">
-<h3><a class="toc-backref" href="#id76" role="doc-backlink">Wait</a><a class="headerlink" href="#wait" title="Permalink to this heading">¶</a></h3>
+<h3><a class="toc-backref" href="#id83" role="doc-backlink">Wait</a><a class="headerlink" href="#wait" title="Permalink to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">Wait</span></code> node does just that – waits for a specified amount of time
 to pass:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Wait</span> <span class="o">&lt;</span><span class="n">time</span><span class="o">-</span><span class="n">units</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>where is a unitless real number (the time unit this actually represents
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;time-units&gt;</span></code> is a unitless real number (the time unit this actually represents
 is application-specific), and so is <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>. Tolerance, which is
 optional and defaults to the , specifies the minimum amount of time that
 is of significance in the wait. Real-valued variables can also be used.
@@ -1132,19 +1151,19 @@ Examples:</p>
 </section>
 </section>
 <section id="data-types-and-expressions">
-<span id="id21"></span><h2><a class="toc-backref" href="#id77" role="doc-backlink">Data Types and Expressions</a><a class="headerlink" href="#data-types-and-expressions" title="Permalink to this heading">¶</a></h2>
-<p>PLEXIL supports the following data types: integer, real, string, Boolean
+<span id="id27"></span><h2><a class="toc-backref" href="#id84" role="doc-backlink">Data Types and Expressions</a><a class="headerlink" href="#data-types-and-expressions" title="Permalink to this heading">¶</a></h2>
+<p><em>PLEXIL</em> supports the following data types: integer, real, string, Boolean
 (logical expressions), and arrays (homogeneous arrays of any type except
-array itself). PLEXIL provides a variety of operations on each of these
+array itself). <em>PLEXIL</em> provides a variety of operations on each of these
 types.</p>
-<p>An <em>expression</em> in PLEXIL is either a literal value, a variable, a
+<p>An <em>expression</em> in <em>PLEXIL</em> is either a literal value, a variable, a
 lookup, or a combination of any of these formed by operators. In
 particular, expressions can contain expressions (i.e. they can be
 arbitrarily complex). Expressions can occur within node conditions, the
 target of assignments, and resource specifications.</p>
 <section id="unknown-isknown">
-<h3><a class="toc-backref" href="#id78" role="doc-backlink">Unknown/isKnown</a><a class="headerlink" href="#unknown-isknown" title="Permalink to this heading">¶</a></h3>
-<p>Each PLEXIL type is extended by a special value <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>, i.e. any
+<h3><a class="toc-backref" href="#id85" role="doc-backlink">Unknown/isKnown</a><a class="headerlink" href="#unknown-isknown" title="Permalink to this heading">¶</a></h3>
+<p>Each <em>PLEXIL</em> type is extended by a special value <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>, i.e. any
 expression can evaluate to <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>. The unknown value occurs in the
 following cases.</p>
 <ul class="simple">
@@ -1156,13 +1175,13 @@ timepoints are discussed below.</p></li>
 <li><p>It is a valid value for Plexil logical expressions.</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code> value is <em>not</em> a literal – it may not be used in a
-PLEXIL plan. It is tested solely through the <code class="docutils literal notranslate"><span class="pre">isKnown</span></code> operator, which
+<em>PLEXIL</em> plan. It is tested solely through the <code class="docutils literal notranslate"><span class="pre">isKnown</span></code> operator, which
 returns false if its argument evaluates to <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code>, and true
 otherwise. An example of the use of <code class="docutils literal notranslate"><span class="pre">isKnown</span></code> is found in the section
 above on Command nodes.</p>
 </section>
 <section id="numeric-expressions">
-<span id="id22"></span><h3><a class="toc-backref" href="#id79" role="doc-backlink">Numeric Expressions</a><a class="headerlink" href="#numeric-expressions" title="Permalink to this heading">¶</a></h3>
+<span id="id28"></span><h3><a class="toc-backref" href="#id86" role="doc-backlink">Numeric Expressions</a><a class="headerlink" href="#numeric-expressions" title="Permalink to this heading">¶</a></h3>
 <p>Numeric expressions include literals (integers, real numbers), variables
 (of type Integer or Real), lookups and node timepoint values (both
 discussed below), and arithmetic operations: addition, subtraction,
@@ -1196,7 +1215,7 @@ value cannot be used where an Integer is expected, e.g. as an array
 index, nor can a Real value be assigned to an Integer variable or array
 element.</p>
 <section id="numeric-type-conversions">
-<span id="id23"></span><h4><a class="toc-backref" href="#id80" role="doc-backlink">Numeric Type Conversions</a><a class="headerlink" href="#numeric-type-conversions" title="Permalink to this heading">¶</a></h4>
+<span id="id29"></span><h4><a class="toc-backref" href="#id87" role="doc-backlink">Numeric Type Conversions</a><a class="headerlink" href="#numeric-type-conversions" title="Permalink to this heading">¶</a></h4>
 <p>Plexil offers the following type conversion operators for converting a
 Real to an Integer:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceil</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/*</span> <span class="n">returns</span> <span class="n">least</span> <span class="n">positive</span> <span class="n">integer</span> <span class="n">greater</span> <span class="n">than</span> <span class="ow">or</span> <span class="n">equal</span> <span class="n">to</span> <span class="n">r</span> <span class="o">*/</span>
@@ -1211,17 +1230,17 @@ Integer, UNKNOWN is returned. Additionally, <code class="docutils literal notran
 UNKNOWN if the supplied Real is not exactly an integer value.</p>
 </section>
 </section>
-<section id="boolean-expressions">
-<span id="id24"></span><h3><a class="toc-backref" href="#id81" role="doc-backlink">Boolean Expressions</a><a class="headerlink" href="#boolean-expressions" title="Permalink to this heading">¶</a></h3>
-<p>PLEXIL employs a <em>ternary</em> logic, extending the usual Boolean logic with
+<section id="id30">
+<span id="id31"></span><h3><a class="toc-backref" href="#id88" role="doc-backlink">Boolean Expressions</a><a class="headerlink" href="#id30" title="Permalink to this heading">¶</a></h3>
+<p><em>PLEXIL</em> employs a <em>ternary</em> logic, extending the usual Boolean logic with
 a third value, Unknown, described in a section above. Though strictly a
-misnomer, the term Boolean is used throughout this manual and PLEXIL
+misnomer, the term Boolean is used throughout this manual and <em>PLEXIL</em>
 itself to describe operators, expressions, and values in this ternary
 logic.</p>
 <p>Logical expressions include the Boolean literals <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Boolean</span></code>-typed variables, lookups, comparisons, logical operations,
 array elements (of <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> arrays), and the <code class="docutils literal notranslate"><span class="pre">isKnown</span></code> operator.</p>
-<p>The logical connectives, their syntax in PLEXIL, and arity (number of
+<p>The logical connectives, their syntax in <em>PLEXIL</em>, and arity (number of
 operands allowed) are as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Negation (Not)     !, NOT      1
 Conjunction (And)  &amp;&amp;, AND     2 or more
@@ -1230,8 +1249,8 @@ Exclusive Or       XOR         2
 </pre></div>
 </div>
 <p>When restricted to Boolean (<code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>) values in their
-constituents, logical expressions in PLEXIL follow the standard rules of
-Boolean logic. Here is how PLEXIL handles the Unknown value, again a
+constituents, logical expressions in <em>PLEXIL</em> follow the standard rules of
+Boolean logic. Here is how <em>PLEXIL</em> handles the Unknown value, again a
 standard interpretation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>true &amp;&amp; Unknown     = Unknown
 false &amp;&amp; Unknown    = false
@@ -1275,12 +1294,15 @@ isKnown(val)  /* where val is any variable */
 node3.state == FINISHED &amp;&amp; node3.outcome == SUCCESS
 </pre></div>
 </div>
-<p>NOTE: Precedence and associativity rules for these operators are
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Precedence and associativity rules for these operators are
 consistent with the standard rules for C and C++. Parentheses can be
 used to make explicit the intended semantics.</p>
+</div>
 </section>
 <section id="string-expressions">
-<span id="id25"></span><h3><a class="toc-backref" href="#id82" role="doc-backlink">String Expressions</a><a class="headerlink" href="#string-expressions" title="Permalink to this heading">¶</a></h3>
+<span id="id32"></span><h3><a class="toc-backref" href="#id89" role="doc-backlink">String Expressions</a><a class="headerlink" href="#string-expressions" title="Permalink to this heading">¶</a></h3>
 <p>String expressions include literal strings, variables (of type String),
 lookups, and string concatenations. Examples of each are as follows.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;foo&quot;</span>
@@ -1296,15 +1318,15 @@ and <code class="docutils literal notranslate"><span class="pre">!=</span></code
 <p>The <code class="docutils literal notranslate"><span class="pre">strlen</span></code> operator returns the length of a String as an Integer.</p>
 </section>
 <section id="dates-and-durations">
-<span id="id26"></span><h3><a class="toc-backref" href="#id83" role="doc-backlink">Dates and Durations</a><a class="headerlink" href="#dates-and-durations" title="Permalink to this heading">¶</a></h3>
-<p>One may want to reason about time. PLEXIL provides basic support for
+<span id="id33"></span><h3><a class="toc-backref" href="#id90" role="doc-backlink">Dates and Durations</a><a class="headerlink" href="#dates-and-durations" title="Permalink to this heading">¶</a></h3>
+<p>One may want to reason about time. <em>PLEXIL</em> provides basic support for
 <em>date</em>, <em>time</em>, and <em>duration</em> types as defined by the ISO-8601
 standard. See <a class="reference external" href="http://en.wikipedia.org/wiki/ISO_8601">http://en.wikipedia.org/wiki/ISO_8601</a> for a detailed
 description of this standard and the date/duration formats, as these are
 covered only by example here.</p>
 <section id="date-and-duration-expressions">
-<span id="id27"></span><h4><a class="toc-backref" href="#id84" role="doc-backlink">Date and Duration expressions</a><a class="headerlink" href="#date-and-duration-expressions" title="Permalink to this heading">¶</a></h4>
-<p>PLEXIL expressions can have type <code class="docutils literal notranslate"><span class="pre">Date</span></code> or <code class="docutils literal notranslate"><span class="pre">Duration</span></code>. The former
+<span id="id34"></span><h4><a class="toc-backref" href="#id91" role="doc-backlink">Date and Duration expressions</a><a class="headerlink" href="#date-and-duration-expressions" title="Permalink to this heading">¶</a></h4>
+<p><em>PLEXIL</em> expressions can have type <code class="docutils literal notranslate"><span class="pre">Date</span></code> or <code class="docutils literal notranslate"><span class="pre">Duration</span></code>. The former
 includes <em>time</em> and combined <em>date/time</em> expressions. Dates and
 durations are encoded as <em>strings</em> in the ISO-8601 format. Here are some
 examples of Date and Duration variable declarations.</p>
@@ -1338,15 +1360,18 @@ starts on or after a given date, and runs for a specified duration:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Additional PLEXIL plans illustrating varied uses of dates and durations
-may be found in the directory <code class="docutils literal notranslate"><span class="pre">plexil/examples/temporal</span></code> in the PLEXIL
+<p>Additional <em>PLEXIL</em> plans illustrating varied uses of dates and durations
+may be found in the directory <code class="docutils literal notranslate"><span class="pre">plexil/examples/temporal</span></code> in the <em>PLEXIL</em>
 source code distribution.</p>
-<p><strong>CAVEATS:</strong> At present, date and duration literals are not checked for
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>At present, date and duration literals are not checked for
 valid syntax. Also, unspecified behavior will result if an arithmetic
 operation involving dates or durations yields a negative value.</p>
+</div>
 </section>
 <section id="operations-using-dates-and-durations">
-<span id="id28"></span><h4><a class="toc-backref" href="#id85" role="doc-backlink">Operations using Dates and Durations</a><a class="headerlink" href="#operations-using-dates-and-durations" title="Permalink to this heading">¶</a></h4>
+<span id="id35"></span><h4><a class="toc-backref" href="#id92" role="doc-backlink">Operations using Dates and Durations</a><a class="headerlink" href="#operations-using-dates-and-durations" title="Permalink to this heading">¶</a></h4>
 <p>The following arithmetic operations involving dates and durations are
 supported.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span>       <span class="o">-</span>   <span class="n">date</span>     <span class="o">=</span>  <span class="n">duration</span>
@@ -1364,35 +1389,38 @@ supported.</p>
 can Durations. Dates and Durations cannot be directly compared.</p>
 </section>
 <section id="date-and-duration-representation">
-<span id="id29"></span><h4><a class="toc-backref" href="#id86" role="doc-backlink">Date and Duration representation</a><a class="headerlink" href="#date-and-duration-representation" title="Permalink to this heading">¶</a></h4>
-<p>At present, dates and durations are not defined in Core PLEXIL. Recall
-that in Core PLEXIL, time is represented as a unitless real number,
+<span id="id36"></span><h4><a class="toc-backref" href="#id93" role="doc-backlink">Date and Duration representation</a><a class="headerlink" href="#date-and-duration-representation" title="Permalink to this heading">¶</a></h4>
+<p>At present, dates and durations are not defined in Core <em>PLEXIL</em>. Recall
+that in Core <em>PLEXIL</em>, time is represented as a unitless real number,
 whose actual unit is application defined.</p>
-<p>Expressions of type Date in the full PLEXIL language are translated into
-Core PLEXIL for execution, where they are converted to real numbers
+<p>Expressions of type Date in the full <em>PLEXIL</em> language are translated into
+Core <em>PLEXIL</em> for execution, where they are converted to real numbers
 representing absolute time as <em>seconds</em> since the Unix epoch of Jan 1,
 1970 (1970-01-01T00:00:00Z to be precise). This is a highly standard
-convention. At present, PLEXIL does not support the use of alternate
+convention. At present, <em>PLEXIL</em> does not support the use of alternate
 epochs.</p>
 <p>Similarly, Duration expressions are converted into real numbers
 representing seconds.</p>
-<p><strong>CAVEAT:</strong> A key limitation in the current Plexil executive is that it
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>A key limitation in the current Plexil executive is that it
 does not recognize dates and durations as distinct from other real
 numbers. Therefore, for example, if date or duration values are
 inspected or printed in a running plan, a unitless real number will be
-shown. The PLEXIL team hopes to remedy this and make dates and durations
+shown. The <em>PLEXIL</em> team hopes to remedy this and make dates and durations
 better supported in general.</p>
+</div>
 </section>
 </section>
 <section id="arrays">
-<h3><a class="toc-backref" href="#id87" role="doc-backlink">Arrays</a><a class="headerlink" href="#arrays" title="Permalink to this heading">¶</a></h3>
-<p>PLEXIL provides just one aggregate data type, the <em>array</em>. At present,
-the array type in PLEXIL is somewhat limited compared to what’s found in
-modern programming languages. PLEXIL arrays are homogenous and
+<h3><a class="toc-backref" href="#id94" role="doc-backlink">Arrays</a><a class="headerlink" href="#arrays" title="Permalink to this heading">¶</a></h3>
+<p><em>PLEXIL</em> provides just one aggregate data type, the <em>array</em>. At present,
+the array type in <em>PLEXIL</em> is somewhat limited compared to what’s found in
+modern programming languages. <em>PLEXIL</em> arrays are homogenous and
 one-dimensional: a sequence of values of a single scalar data type,
 indexed by integers beginning with 0. Specifically, arrays may of type
 Integer, Real, String, or Boolean only.</p>
-<p>PLEXIL provides both variables and literals of array type. Like other
+<p><em>PLEXIL</em> provides both variables and literals of array type. Like other
 variables, array variables must be declared prior to use. An array
 declaration specifies its name, type, maximum size (number of elements),
 and, optionally, initial values for some or all of the array’s elements.
@@ -1400,7 +1428,7 @@ The memory needed by an array is allocated (for its maximum size) when
 the array is declared. Unlike scalar variables, array variables are
 <em>not</em> initialized to the Unknown value by default; rather, each element
 of the array is initialized to Unknown. Array indices start with 0.</p>
-<p>The following examples illustrate the key properties of PLEXIL arrays.</p>
+<p>The following examples illustrate the key properties of <em>PLEXIL</em> arrays.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Boolean</span> <span class="n">flags</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 </pre></div>
 </div>
@@ -1418,10 +1446,10 @@ elements than its maximum size. (As an aside, the syntax for the array
 literal is taken from Common Lisp).</p>
 <p>Arrays support the following operations. Assume an array named X.</p>
 <ul class="simple">
-<li><p>Read an element: <code class="docutils literal notranslate"><span class="pre">X[</span></code><code class="docutils literal notranslate"><span class="pre">]</span></code>, where can be any integral
+<li><p>Read an element: <code class="docutils literal notranslate"><span class="pre">X[&lt;index&gt;]</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;index&gt;</span></code> can be any integral
 expression. Array elements are a kind of expression, and thus may be
 used in any place where expressions are allowed.</p></li>
-<li><p>Assign an element: <code class="docutils literal notranslate"><span class="pre">X[</span></code><code class="docutils literal notranslate"><span class="pre">]</span> <span class="pre">=</span></code>. Assignments can occur only in
+<li><p>Assign an element: <code class="docutils literal notranslate"><span class="pre">X[&lt;index&gt;]</span> <span class="pre">=``&lt;expressin&gt;</span></code> . Assignments can occur only in
 assignment nodes.</p></li>
 <li><p>Assign an entire array: <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">=</span> <span class="pre">Y</span></code>, where Y is either an array
 variable or an array literal. It is an error if <code class="docutils literal notranslate"><span class="pre">Y</span></code> represents an
@@ -1434,8 +1462,8 @@ where Y is an array-valued expression.</p></li>
 </ul>
 </section>
 <section id="node-state">
-<span id="id30"></span><h3><a class="toc-backref" href="#id88" role="doc-backlink">Node State</a><a class="headerlink" href="#node-state" title="Permalink to this heading">¶</a></h3>
-<p>A PLEXIL node can access its own internal state, or the internal state
+<span id="id37"></span><h3><a class="toc-backref" href="#id95" role="doc-backlink">Node State</a><a class="headerlink" href="#node-state" title="Permalink to this heading">¶</a></h3>
+<p>A <em>PLEXIL</em> node can access its own internal state, or the internal state
 of other nodes, but only those nodes which are its siblings, children,
 or parent. (The internal state of more distant relatives is not
 accessible).</p>
@@ -1452,7 +1480,7 @@ end times, which are of type <code class="docutils literal notranslate"><span cl
 performed with these values are comparison for equality or inequality
 with each other, or against a literal value.</p>
 <p>The syntax for referencing these types of information is the following,
-where is the node’s identifier.</p>
+where <code class="docutils literal notranslate"><span class="pre">&lt;Id&gt;</span></code> is the node’s identifier.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;.</span><span class="n">state</span>
 </pre></div>
 </div>
@@ -1461,11 +1489,11 @@ FAILING, FINISHING.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;.&lt;</span><span class="n">state</span><span class="o">&gt;.&lt;</span><span class="n">timepoint</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>where is one of the seven states listed above, and is one of START, END,
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;state&gt;</span></code> is one of the seven states listed above, and <code class="docutils literal notranslate"><span class="pre">&lt;timepoint&gt;</span></code> is one of START, END,
 will return the time elapsed (as a real number) since the given state
 started or ended (respectively) for the given node. If the requested
 timepoint has not occurred, the value of this variable is Unknown. For
-an explanation of time in PLEXIL, see the <a class="reference external" href="Overview">Overview</a>.</p>
+an explanation of time in <em>PLEXIL</em>, see the <a class="reference internal" href="PLEXILOverview.html#plexiloverview"><span class="std std-ref">Overview</span></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Id</span><span class="o">&gt;.</span><span class="n">outcome</span>
 </pre></div>
 </div>
@@ -1485,22 +1513,25 @@ COMMAND_RCVD_BY_SYSTEM, COMMAND_SENT_TO_SYSTEM, COMMAND_FAILED, or
 COMMAND_DENIED, if the node is executing (else it will return Unknown).</p>
 </section>
 <section id="external-state-lookups">
-<span id="id31"></span><h3><a class="toc-backref" href="#id89" role="doc-backlink">External State (Lookups)</a><a class="headerlink" href="#external-state-lookups" title="Permalink to this heading">¶</a></h3>
+<span id="id38"></span><h3><a class="toc-backref" href="#id96" role="doc-backlink">External State (Lookups)</a><a class="headerlink" href="#external-state-lookups" title="Permalink to this heading">¶</a></h3>
 <p>External state is read through <em>lookups</em>. Lookups access states using
 domain-specific measurement names. The syntax for a lookup is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Lookup</span><span class="p">(</span><span class="o">&lt;</span><span class="n">state_name</span><span class="o">&gt;</span> <span class="p">[(</span><span class="o">&lt;</span><span class="n">param</span><span class="o">&gt;*</span><span class="p">)]</span> <span class="p">[,</span> <span class="o">&lt;</span><span class="n">tolerance</span><span class="o">&gt;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>where is either an identifier or a string expression that evaluates to
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;state_name&gt;</span></code> is either an identifier or a string expression that evaluates to
 the desired state name. States can have parameters, which are specified
 by a comma-separated list of literal state names or string expressions
 that follow the state name. Tolerance, which is optional, must be a real
 number or real-valued variable; it specifies the granularity of accuracy
 for the lookup, and defaults to 0.0. Lookups may not be <em>overloaded</em> –
 only one Lookup with a given name may be used.</p>
-<p>NOTE: For the state name, literal names are unquoted, while string
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the state name, literal names are unquoted, while string
 expressions are parenthesized. For state parameters, literal names are
 double-quoted, while string expressions are given no special treatment.</p>
+</div>
 <p>Here are some basic examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Lookup</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>                       <span class="o">//</span> <span class="n">queries</span> <span class="n">the</span> <span class="n">state</span> <span class="n">named</span> <span class="s2">&quot;time&quot;</span>
 
@@ -1525,27 +1556,27 @@ represent is specified by the queried external system. The tolerance
 parameter is meaningless and ignored in certain contexts. See the
 following section for an explanation.</p>
 <section id="execution-of-lookups">
-<span id="id32"></span><h4><a class="toc-backref" href="#id90" role="doc-backlink">Execution of Lookups</a><a class="headerlink" href="#execution-of-lookups" title="Permalink to this heading">¶</a></h4>
+<span id="id39"></span><h4><a class="toc-backref" href="#id97" role="doc-backlink">Execution of Lookups</a><a class="headerlink" href="#execution-of-lookups" title="Permalink to this heading">¶</a></h4>
 <p>There are two contexts for lookups that are important to distinguish.
 One is the asynchronous context implied by a node’s gate conditions
 (Start, Skip, End, Repeat). These conditons passively “wait” to become
 true. Lookups found in these conditions are processed as <em>subscriptions</em>
 to the external system for updates to the requested states. It is only
 in this context that <em>tolerance</em> is meaningful. These Lookup forms are
-compiled into <em>LookupOnChange</em> in Core PLEXIL’s XML representation.</p>
+compiled into <em>LookupOnChange</em> in Core <em>PLEXIL</em>’s XML representation.</p>
 <p>The second context for lookups is the synchronous context implied by a
 node’s check conditions (Pre, Post, Invariant) and its body. In these
 contexts, a lookup is processed on demand, that is, its value is
 <em>fetched</em> at specific points in execution of the node. Tolerance is
 meaningless in this context, and ignored if specified. These Lookup
-forms are compiled into <em>LookupNow</em> in Core PLEXIL’s XML representation.</p>
+forms are compiled into <em>LookupNow</em> in Core <em>PLEXIL</em>’s XML representation.</p>
 </section>
 <section id="the-time-state">
-<span id="id33"></span><h4><a class="toc-backref" href="#id91" role="doc-backlink">The “time” state</a><a class="headerlink" href="#the-time-state" title="Permalink to this heading">¶</a></h4>
+<span id="id40"></span><h4><a class="toc-backref" href="#id98" role="doc-backlink">The “time” state</a><a class="headerlink" href="#the-time-state" title="Permalink to this heading">¶</a></h4>
 <p>The state name <code class="docutils literal notranslate"><span class="pre">time</span></code> is predefined in the Plexil executive. It
 returns the system time as a real number, which is compatible with the
 Date type. The units and epoch of the returned value are system
-dependent. On the typical platforms that support PLEXIL, they would be
+dependent. On the typical platforms that support <em>PLEXIL</em>, they would be
 in POSIX/Unix time, i.e. the number of seconds since January 1, 1970
 midnight UTC (1970-01-01T00:00:00.000Z).</p>
 <p>Even though <code class="docutils literal notranslate"><span class="pre">time</span></code> is predefined, it must still be declared in the
@@ -1554,17 +1585,18 @@ plan, in one of the following ways.</p>
 <span class="n">Real</span> <span class="n">Lookup</span> <span class="n">time</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>NOTE: Due to how the PLEXIL executive’s interface to the system clock is
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to how the <em>PLEXIL</em> executive’s interface to the system clock is
 implemented, a tolerance parameter is required for time lookups. E.g. to
 specify a tolerance of one time unit:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Lookup</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
+<p>Lookup(time, 1)</p>
 </div>
 </section>
 </section>
 </section>
 <section id="global-declarations">
-<span id="id34"></span><h2><a class="toc-backref" href="#id92" role="doc-backlink">Global Declarations</a><a class="headerlink" href="#global-declarations" title="Permalink to this heading">¶</a></h2>
+<span id="id41"></span><h2><a class="toc-backref" href="#id99" role="doc-backlink">Global Declarations</a><a class="headerlink" href="#global-declarations" title="Permalink to this heading">¶</a></h2>
 <p>If a plan contains calls to system commands (i.e. command nodes), uses
 library nodes, or queries world state using lookups, these <em>must</em> be
 pre-declared.</p>
@@ -1574,8 +1606,7 @@ lookups, and library nodes can be intermixed freely.</p>
 <p>Including global declarations as a standard practice has several
 advantages. First, it allows you to define and view your plan’s entire
 external interface in one place, rather than having it scattered
-throughout the plan. Second, it enables <a class="reference external" href="Plexil_Checker">static
-checking</a> of your plan. Static checks will insure
+throughout the plan. Second, it enables <a class="reference internal" href="../PLEXILTools/PLEXILChecker.html#plexilchecker"><span class="std std-ref">static checking</span></a> of your plan. Static checks will insure
 that your declarations are consistent and that all uses of declared
 items in the plan are correct.</p>
 <p>The following are examples of global declarations.</p>
@@ -1600,38 +1631,38 @@ items in the plan are correct.</p>
 </div>
 </section>
 <section id="programming-in-plexil">
-<span id="id35"></span><h2><a class="toc-backref" href="#id93" role="doc-backlink">Programming in Plexil</a><a class="headerlink" href="#programming-in-plexil" title="Permalink to this heading">¶</a></h2>
+<span id="id42"></span><h2><a class="toc-backref" href="#id100" role="doc-backlink">Programming in Plexil</a><a class="headerlink" href="#programming-in-plexil" title="Permalink to this heading">¶</a></h2>
 <section id="plexil-files">
-<span id="id36"></span><h3><a class="toc-backref" href="#id94" role="doc-backlink">Plexil Files</a><a class="headerlink" href="#plexil-files" title="Permalink to this heading">¶</a></h3>
+<span id="id43"></span><h3><a class="toc-backref" href="#id101" role="doc-backlink">Plexil Files</a><a class="headerlink" href="#plexil-files" title="Permalink to this heading">¶</a></h3>
 <p>A file containing Plexil code can have any name, though its extension
 must be <code class="docutils literal notranslate"><span class="pre">.ple</span></code>. A Plexil file must contain exactly one construct, i.e.
 a single node. Your application may comprise many Plexil files; in this
 case, one file will contain the <em>top level</em> node, and the rest will
 contain library nodes.</p>
-<p>We strongly recommend that the top level node in a Standard PLEXIL file
+<p>We strongly recommend that the top level node in a Standard <em>PLEXIL</em> file
 be named the same as the file, e.g. file HaltAndCatchFIre.ple should
 contain the top level node named <code class="docutils literal notranslate"><span class="pre">HaltAndCatchFire</span></code>.</p>
 </section>
 <section id="plexilc-the-plexil-translator">
-<span id="id37"></span><h3><a class="toc-backref" href="#id95" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">plexilc</span></code>, the Plexil translator</a><a class="headerlink" href="#plexilc-the-plexil-translator" title="Permalink to this heading">¶</a></h3>
+<span id="id44"></span><h3><a class="toc-backref" href="#id102" role="doc-backlink"><code class="docutils literal notranslate"><span class="pre">plexilc</span></code>, the Plexil translator</a><a class="headerlink" href="#plexilc-the-plexil-translator" title="Permalink to this heading">¶</a></h3>
 <p>Plexil plans and Plexilscript scripts must be translated into XML for
-execution by the PLEXIL Executive. The <code class="docutils literal notranslate"><span class="pre">plexilc</span></code> utility performs this
-translation for several different PLEXIL syntaxes.</p>
+execution by the <em>PLEXIL</em> Executive. The <code class="docutils literal notranslate"><span class="pre">plexilc</span></code> utility performs this
+translation for several different <em>PLEXIL</em> syntaxes.</p>
 <p>E.g. given a Plexil file <code class="docutils literal notranslate"><span class="pre">foo.ple</span></code>, translate it with the following
 command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilc</span> <span class="n">foo</span><span class="o">.</span><span class="n">ple</span>
 </pre></div>
 </div>
 <p>If <code class="docutils literal notranslate"><span class="pre">foo.ple</span></code> is free of errors, this command will create the Core
-PLEXIL XML file <code class="docutils literal notranslate"><span class="pre">foo.plx</span></code>.</p>
+<em>PLEXIL</em> XML file <code class="docutils literal notranslate"><span class="pre">foo.plx</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">plexilc</span></code> chooses the translator for its inputs based on the file
 name’s extension. Input languages supported by <code class="docutils literal notranslate"><span class="pre">plexilc</span></code> are:</p>
 <ul class="simple">
-<li><p>.ple - Standard PLEXIL</p></li>
-<li><p>.plp - Standard PLEXIL with preprocessing (see below)</p></li>
+<li><p>.ple - Standard <em>PLEXIL</em></p></li>
+<li><p>.plp - Standard <em>PLEXIL</em> with preprocessing (see below)</p></li>
 <li><p>.pst - Plexilscript, the scripting language for the Test Executive</p></li>
 <li><p>.pli - Plexilisp (deprecated), a Lisp-like syntax used prior to the
-development of the Standard PLEXIL language.</p></li>
+development of the Standard <em>PLEXIL</em> language.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">plexilc</span></code> supports the following command-line options (this list is
 obtainable by calling <code class="docutils literal notranslate"><span class="pre">plexilc</span></code> with no arguments):</p>
@@ -1654,23 +1685,19 @@ potentially serious errors in the program’s logic, so they should be
 inspected and dealt with.</p>
 </section>
 <section id="preprocessing-plexil-plans">
-<span id="id38"></span><h3><a class="toc-backref" href="#id96" role="doc-backlink">Preprocessing PLEXIL Plans</a><a class="headerlink" href="#preprocessing-plexil-plans" title="Permalink to this heading">¶</a></h3>
-<p>The Standard PLEXIL compiler as of release 4.5 now accepts C
+<span id="id45"></span><h3><a class="toc-backref" href="#id103" role="doc-backlink">Preprocessing PLEXIL Plans</a><a class="headerlink" href="#preprocessing-plexil-plans" title="Permalink to this heading">¶</a></h3>
+<p>The Standard <em>PLEXIL</em> compiler as of release 4.5 now accepts C
 preprocessor statements such as <code class="docutils literal notranslate"><span class="pre">#include</span></code> and <code class="docutils literal notranslate"><span class="pre">#define</span></code>. This is a
 convenient way to share (e.g.) Command, Lookup, and LibraryAction
-declarations, and constant definitions, across several PLEXIL source
+declarations, and constant definitions, across several <em>PLEXIL</em> source
 files.</p>
 <p><code class="docutils literal notranslate"><span class="pre">plexilc</span></code> automatically invokes the preprocessor when the input file
 name ends in <code class="docutils literal notranslate"><span class="pre">.plp</span></code></p>
 </section>
 <section id="executing-plexil-plans">
-<span id="id39"></span><h3><a class="toc-backref" href="#id97" role="doc-backlink">Executing PLEXIL Plans</a><a class="headerlink" href="#executing-plexil-plans" title="Permalink to this heading">¶</a></h3>
-<p>See the <a class="reference external" href="PLEXIL_Executive">PLEXIL Executive</a> page for details on
-executing PLEXIL plans.</p>
-<hr class="docutils" />
-<p><strong>Copyright (c) 2006-2021, Universities Space Research Association
-(USRA). All rights reserved.</strong></p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+<span id="id46"></span><h3><a class="toc-backref" href="#id104" role="doc-backlink">Executing PLEXIL Plans</a><a class="headerlink" href="#executing-plexil-plans" title="Permalink to this heading">¶</a></h3>
+<p>See the <a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html#plexilexecutive"><span class="std std-ref">PLEXIL Executive</span></a> page for details on
+executing <em>PLEXIL</em> plans.</p>
 </section>
 </section>
 </section>
@@ -1683,6 +1710,9 @@ executing PLEXIL plans.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
@@ -1711,6 +1741,7 @@ executing PLEXIL plans.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -1752,8 +1783,8 @@ executing PLEXIL plans.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

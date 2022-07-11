@@ -7,14 +7,14 @@ API Reference
 
 This chapter summarizes the C++ variables, functions, and classes that a
 developer might need to implement custom interfaces or applications for
-a PLEXIL executive.
+a |PLEXIL| executive.
 
 .. contents::
 
 Overview
 --------
 
-This is a quick reference for the API of the PLEXIL Application
+This is a quick reference for the API of the |PLEXIL| Application
 Framework. It is intended as a narrative overview. Where it differs from
 the source code, the source code should always be considered current and
 authoritative.
@@ -26,8 +26,8 @@ All symbols are in the ``PLEXIL`` namespace unless otherwise specified.
 Application Framework
 ---------------------
 
-The PLEXIL application framework is intended to facilitate
-implementation of custom interfaces and applications for the PLEXIL
+The |PLEXIL| application framework is intended to facilitate
+implementation of custom interfaces and applications for the |PLEXIL|
 executive.
 
 .. _global_variables:
@@ -39,14 +39,14 @@ These global variables replace the Singleton accessors used in previous
 releases.
 
 -  ``ExecConnector *g_exec`` - Pointer to the
-   `PlexilExec <#PlexilExec>`__ instance, cast to a pointer to its
-   abstract base class `ExecConnector <#ExecConnector>`__.
+   :ref:`PlexilExec <PlexilExec>` instance, cast to a pointer to its
+   abstract base class :ref:`ExecConnector <ExecConnector>`.
 -  ``AdapterConfiguration *g_configuration`` - Pointer to the
-   `AdapterConfiguration <#AdapterConfiguration>`__ instance.
+   :ref:`AdapterConfiguration <AdapterConfiguration>` instance.
 -  ``InterfaceManager *g_manager`` - Pointer to the
-   `InterfaceManager <#InterfaceManager>`__ instance.
+   :ref:`InterfaceManager <InterfaceManager>` instance.
 -  ``ExternalInterface *g_interface`` - Pointer to the
-   `InterfaceManager <#InterfaceManager>`__ instance, cast to a pointer
+   :ref:`InterfaceManager <InterfaceManager>` instance, cast to a pointer
    to its base class ``ExternalInterface``.
 
 Note that ``g_manager`` and ``g_interface`` should point to the same
@@ -60,8 +60,8 @@ Functions
 Plan parsing
 ^^^^^^^^^^^^
 
-PLEXIL plans are loaded in two stages. First, the XML text is read and
-parsed into the `pugixml <#pugixml>`__ representation. Then the pugixml
+|PLEXIL| plans are loaded in two stages. First, the XML text is read and
+parsed into the :ref:`pugixml <pugixml>` representation. Then the pugixml
 representation is used as a blueprint for constructing the plan.
 
 The two stages are separate because the library node facility uses the
@@ -81,18 +81,20 @@ caller is responsible for disposing of the return value when finished. A
     extern Node *parsePlan(pugi::xml_node const xml)
       throw (ParserException);
 
-Uses ``xml`` to construct a tree of PLEXIL Node instances, and returns a
+Uses ``xml`` to construct a tree of |PLEXIL| Node instances, and returns a
 pointer to the node at the root of the tree. The caller is responsible
 for disposing of the return value when finished. A ``ParserException``
-is thrown if the input cannot be parsed into a PLEXIL plan.
+is thrown if the input cannot be parsed into a |PLEXIL| plan.
 
 Classes
 ~~~~~~~
 
+.. _ExecConnector:
+
 ExecConnector
 ^^^^^^^^^^^^^
 
-An abstract base class defining the API of the PLEXIL executive engine.
+An abstract base class defining the API of the |PLEXIL| executive engine.
 The existence of this class facilitates unit testing.
 
 Relevant virtual member functions are:
@@ -122,7 +124,7 @@ Relevant virtual member functions are:
 PlexilExec
 ^^^^^^^^^^
 
-The concrete realization of the `ExecConnector <#ExecConnector>`__ API
+The concrete realization of the :ref:`ExecConnector <ExecConnector>` API
 as a plan execution engine.
 
 The default constructor and the destructor are the only relevant
@@ -247,6 +249,8 @@ Plan execution:
         * @note Acquires m_execMutex and holds until done.  
         */
        virtual bool stepUntilQuiescent();
+
+.. _AdapterConfiguration:
 
 AdapterConfiguration
 ^^^^^^^^^^^^^^^^^^^^
@@ -414,22 +418,26 @@ Plan and library loading path access:
      */
     void addPlanPath(const std::vector<std::string>& libdirs);
 
+.. _ExternalInterface:
+
 ExternalInterface
 ^^^^^^^^^^^^^^^^^
 
-An abstract base class defining the API used by the PLEXIL executive
+An abstract base class defining the API used by the |PLEXIL| executive
 engine to talk to the outside world.
 
 Application developers should have no need to interact directly with
 this class; use the member functions on
-`InterfaceManager <#InterfaceManager>`__ or
-`AdapterExecInterface <#AdapterExecInterface>`__ instead.
+:ref:`InterfaceManager <InterfaceManager>` or
+:ref:`AdapterExecInterface <AdapterExecInterface>` instead.
+
+.. _AdapterExecInterface:
 
 AdapterExecInterface
 ^^^^^^^^^^^^^^^^^^^^
 
 An abstract base class defining the API used by interface adapters to
-talk to the `InterfaceManager <#InterfaceManager>`__. Its existence as a
+talk to the :ref:`InterfaceManager <InterfaceManager>`. Its existence as a
 separate class is intended to hide knowledge of the interface manager
 internals from adapters.
 
@@ -505,17 +513,19 @@ InterfaceManager
 ^^^^^^^^^^^^^^^^
 
 The concrete realization of the
-`ExternalInterface <#ExternalInterface>`__ and
-`AdapterExecInterface <#AdapterExecInterface>`__ APIs.
+:ref:`ExternalInterface <ExternalInterface>` and
+:ref:`AdapterExecInterface <AdapterExecInterface>` APIs.
+
+.. _InterfaceAdapter:
 
 InterfaceAdapter
 ^^^^^^^^^^^^^^^^
 
 An abstract base class defining the API of external interfaces as seen
-by the `InterfaceManager <#InterfaceManager>`__.
+by the :ref:`InterfaceManager <InterfaceManager>`.
 
 The constructors require a reference to the
-`AdapterExecInterface <#AdapterExecInterface>`__ instance, which is
+:ref:`AdapterExecInterface <AdapterExecInterface>` instance, which is
 always an ``InterfaceManager``:
 
 ::
@@ -665,29 +675,33 @@ The planner update API:
      */
     virtual void sendPlannerUpdate(Update *update);
 
+.. _ExecListenerBase:
+
 ExecListenerBase
 ^^^^^^^^^^^^^^^^
 
 An abstract base class defining the API used by the
-`PlexilExec <#PlexilExec>`__ to notify the outside world of plan state
+:ref:`PlexilExec <PlexilExec>` to notify the outside world of plan state
 changes.
+
+.. _PlexilListener:
 
 PlexilListener
 ^^^^^^^^^^^^^^
 
 An abstract base class derived from
-`ExecListenerBase <#ExecListenerBase>`__, adding APIs used by the
-`InterfaceManager <#InterfaceManager>`__ to notify the outside world
+:ref:`ExecListenerBase <ExecListenerBase>`, adding APIs used by the
+:ref:`InterfaceManager <InterfaceManager>` to notify the outside world
 when new plans or libraries are loaded.
 
 ExecListener
 ^^^^^^^^^^^^
 
 An abstract base class derived from
-`PlexilListener <#PlexilListener>`__, which PLEXIL application
+:ref:`PlexilListener <PlexilListener>`, which |PLEXIL| application
 developers may extend to notify the outside world of events inside the
 executive. Optionally uses an instance of
-`ExecListenerFilter <#ExecListenerFilter>`__ to perform event filtering.
+:ref:`ExecListenerFilter <ExecListenerFilter>` to perform event filtering.
 
 The constructors:
 
@@ -705,9 +719,8 @@ The constructors:
     ExecListener(pugi::xml_node const xml);
 
 The ``setFilter()`` accessor may be used to install a custom
-`ExecListenerFilter <#ExecListenerFilter>`__ instance to select events
-for notification. Only applications which do not use the `interface
-configuration file <Interface_Configuration_File>`__ approach need to
+:ref:`ExecListenerFilter <ExecListenerFilter>` instance to select events
+for notification. Only applications which do not use the :ref:`interface configuration file <InterfaceConfigurationFile>` approach need to
 call this accessor.
 
 ::
@@ -805,12 +818,14 @@ access:
                                            std::string const & /* destName */,
                                            Value const & /* value */) const;
 
+.. _ExecListenerFilter:
+
 ExecListenerFilter
 ^^^^^^^^^^^^^^^^^^
 
-An abstract base class which PLEXIL application developers may extend to
+An abstract base class which |PLEXIL| application developers may extend to
 select the events reported by an instance of a class derived from
-`ExecListener <#ExecListener>`__.
+:ref:`ExecListener <ExecListener>`.
 
 ParserException
 ^^^^^^^^^^^^^^^
@@ -832,7 +847,7 @@ Several ways to invoke the constructor.
 -  ``filename`` is the name of the file in which the error was found, if
    available.
 -  ``offset`` is the number of bytes into the file at which the error
-   was found. (This is provided because the `pugixml <#pugixml>`__
+   was found. (This is provided because the :ref:`pugixml <pugixml>`
    doesn't maintain a line counter.)
 -  ``line`` and ``col`` are the line number and column number,
    respectively, of the error location.
@@ -865,12 +880,12 @@ Internal representations
 Basic Data Types
 ~~~~~~~~~~~~~~~~
 
-These are the representations used inside the PLEXIL Exec.
+These are the representations used inside the |PLEXIL| Exec.
 
 ValueType
 ^^^^^^^^^
 
-This is an enumeration which identifies the type of a PLEXIL value.
+This is an enumeration which identifies the type of a |PLEXIL| value.
 
 Boolean
 ^^^^^^^
@@ -902,11 +917,11 @@ A character string, implemented as the C++ Standard Library class
 Internal Node Values
 ^^^^^^^^^^^^^^^^^^^^
 
-The PLEXIL types ``NodeStateValue``, ``NodeOutcomeValue``,
+The |PLEXIL| types ``NodeStateValue``, ``NodeOutcomeValue``,
 ``NodeFailureValue``, and ``NodeCommandHandleValue`` are implemented as
 C enumerated types with non-overlapping ranges.
 
-In the PLEXIL implementation, internal node values are stored and passed
+In the |PLEXIL| implementation, internal node values are stored and passed
 as the C99 type ``uint16_t``, defined in standard header file stdint.h.
 
 .. _classes_1:
@@ -917,7 +932,7 @@ Classes
 Array
 ^^^^^
 
-A base class for homogeneous one-dimensional arrays of PLEXIL language
+A base class for homogeneous one-dimensional arrays of |PLEXIL| language
 data types ``Boolean``, ``Integer``, ``Real``, or ``String``.
 
 Each ``Array`` has a maximum size, and an element value type. Each
@@ -996,19 +1011,23 @@ Elements of the array can be set via the setElement methods:
     virtual void setElement(size_t index, double const &newVal) = 0;
     virtual void setElement(size_t index, std::string const &newVal) = 0;
 
-**NOTE:** A call to ``setElement`` with a numeric value that is not one
-of the specific types above (e.g. ``int``) may result in the ``bool``
-method being selected by the compiler. We recommend explicitly
-converting or casting values to one of the above types to be safe.
+.. note::
+
+    A call to ``setElement`` with a numeric value that is not one
+    of the specific types above (e.g. ``int``) may result in the ``bool``
+    method being selected by the compiler. We recommend explicitly
+    converting or casting values to one of the above types to be safe.
+
+.. _Value:
 
 Value
 ^^^^^
 
-A concrete class representing a typed value in the PLEXIL language.
-``Value`` instances can represent any legal value in the PLEXIL
+A concrete class representing a typed value in the |PLEXIL| language.
+``Value`` instances can represent any legal value in the |PLEXIL|
 language.
 
-The `AdapterExecInterface <#AdapterExecInterface>`__ members
+The :ref:`AdapterExecInterface <AdapterExecInterface>` members
 ``handleValueChange()`` and ``handleCommandReturn()`` take ``Value``
 instances as arguments.
 
@@ -1033,11 +1052,13 @@ Constructors:
     // Constructs the appropriate array type.
     Value(std::vector<Value> const &vals);
 
-**NOTE:** A call to a ``Value`` constructor with a numeric value that is
-not one of the specific types above (e.g. ``int``) may result in the
-``bool`` constructor being selected by the compiler. We recommend
-explicitly converting or casting values to one of the above types to be
-safe.
+.. note::
+
+    A call to a ``Value`` constructor with a numeric value that is
+    not one of the specific types above (e.g. ``int``) may result in the
+    ``bool`` constructor being selected by the compiler. We recommend
+    explicitly converting or casting values to one of the above types to be
+    safe.
 
 Assignment operators:
 
@@ -1056,11 +1077,13 @@ Assignment operators:
     Value &operator=(StringArray const &val);
     void setUnknown();
 
-**NOTE:** A call to a ``Value`` assignment operator with a numeric value
-that is not one of the specific types above (e.g. ``int``) may result in
-the ``bool`` method being selected by the compiler. We recommend
-explicitly converting or casting values to one of the above types to be
-safe.
+..note::
+
+    A call to a ``Value`` assignment operator with a numeric value
+    that is not one of the specific types above (e.g. ``int``) may result in
+    the ``bool`` method being selected by the compiler. We recommend
+    explicitly converting or casting values to one of the above types to be
+    safe.
 
 You can ask a ``Value`` what its type is, and if its value is known:
 
@@ -1120,11 +1143,13 @@ And the overloaded operator ``<<``:
 
     std::ostream &operator<<(std::ostream &, Value const &);
 
+.. _StateCacheEntry:
+
 StateCacheEntry
 ^^^^^^^^^^^^^^^
 
 A concrete class representing the current value of a Lookup in the
-PLEXIL language. They are managed by the executive.
+|PLEXIL| language. They are managed by the executive.
 
 The accessors (setters) below are the only member functions an interface
 developer should need:
@@ -1140,10 +1165,12 @@ developer should need:
     void update(double const &val);
     void update(std::string const &val);
 
-**NOTE:** A call to ``update`` with a numeric value that is not one of
-the specific types above (e.g. ``int``) may result in the ``bool``
-method being selected by the compiler. We recommend explicitly
-converting or casting values to one of the above types to be safe.
+.. note::
+
+    A call to ``update`` with a numeric value that is not one of
+    the specific types above (e.g. ``int``) may result in the ``bool``
+    method being selected by the compiler. We recommend explicitly
+    converting or casting values to one of the above types to be safe.
 
 ::
 
@@ -1213,7 +1240,7 @@ is true.
 Debug logging initialization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The PLEXIL Executive executables already enable debug logging (unless
+The |PLEXIL| Executive executables already enable debug logging (unless
 configured without it during the build). By default the pattern list is
 read from the file named ``Debug.cfg`` in the working directory from
 which the program was launched.
@@ -1298,19 +1325,15 @@ Classes
 Third-party code
 ----------------
 
-PLEXIL uses additional open-source libraries. For documentation of those
+|PLEXIL| uses additional open-source libraries. For documentation of those
 libraries, please use the links below.
+
+.. _pugixml:
 
 pugixml
 ~~~~~~~
 
-`pugixml <http://pugixml.org/>`__ is a lightweight, high-performance,
+`pugixml website <http://pugixml.org/>`_ is a lightweight, high-performance,
 cross-platform, DOM-style XML package coded in C++. pugixml is actively
 developed and maintained at this writing.
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

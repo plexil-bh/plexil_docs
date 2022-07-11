@@ -48,26 +48,26 @@
           <div class="body" role="main">
             
   <section id="installation">
-<span id="id1"></span><h1><a class="toc-backref" href="#id7" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1><a class="toc-backref" href="#id8" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
 <p><em>13 May 2021</em></p>
-<p>This page describes how to get and install PLEXIL. Familiarity with a
+<p>This page describes how to get and install <em>PLEXIL</em>. Familiarity with a
 Unix-like operating system (e.g. Linux, macOS) is assumed.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#installation" id="id7">Installation</a></p>
+<li><p><a class="reference internal" href="#installation" id="id8">Installation</a></p>
 <ul>
-<li><p><a class="reference internal" href="#getting-plexil" id="id8">Getting PLEXIL</a></p>
+<li><p><a class="reference internal" href="#getting-plexil" id="id9">Getting PLEXIL</a></p>
 <ul>
-<li><p><a class="reference internal" href="#tarball" id="id9">Tarball</a></p></li>
-<li><p><a class="reference internal" href="#git" id="id10">git</a></p></li>
-<li><p><a class="reference internal" href="#subversion-svn" id="id11">Subversion (svn)</a></p></li>
+<li><p><a class="reference internal" href="#tarball" id="id10">Tarball</a></p></li>
+<li><p><a class="reference internal" href="#git" id="id11">git</a></p></li>
+<li><p><a class="reference internal" href="#subversion-svn" id="id12">Subversion (svn)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#installing-plexil" id="id12">Installing PLEXIL</a></p>
+<li><p><a class="reference internal" href="#installing-plexil" id="id13">Installing PLEXIL</a></p>
 <ul>
-<li><p><a class="reference internal" href="#basic-installation" id="id13">Basic installation</a></p></li>
-<li><p><a class="reference internal" href="#advanced-installation" id="id14">Advanced installation</a></p></li>
+<li><p><a class="reference internal" href="#basic-installation" id="id14">Basic installation</a></p></li>
+<li><p><a class="reference internal" href="#advanced-installation" id="id15">Advanced installation</a></p></li>
 </ul>
 </li>
 </ul>
@@ -75,102 +75,104 @@ Unix-like operating system (e.g. Linux, macOS) is assumed.</p>
 </ul>
 </nav>
 <section id="getting-plexil">
-<span id="id2"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">Getting PLEXIL</a><a class="headerlink" href="#getting-plexil" title="Permalink to this heading">¶</a></h2>
-<p>There are two ways to get PLEXIL:</p>
+<span id="id2"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Getting PLEXIL</a><a class="headerlink" href="#getting-plexil" title="Permalink to this heading">¶</a></h2>
+<p>There are two ways to get <em>PLEXIL</em>:</p>
 <ul class="simple">
 <li><p>Download a compressed archive (<em>tarball</em>) of the sources and prebuilt
 Java jars.</p></li>
 <li><p>Clone the source code from the <code class="docutils literal notranslate"><span class="pre">git</span></code> repository hosted here on
 Sourceforge.</p></li>
 </ul>
-<p>In either case, the PLEXIL Executive must be compiled from source. The
-tarball format includes prebuilt Java jars for the Standard PLEXIL and
-Plexilscript compilers, the PLEXIL Viewer, and the PLEXIL static
+<p>In either case, the <em>PLEXIL</em> Executive must be compiled from source. The
+tarball format includes prebuilt Java jars for the Standard <em>PLEXIL</em> and
+Plexilscript compilers, the <em>PLEXIL</em> Viewer, and the <em>PLEXIL</em> static
 checker; therefore it is the recommended distribution format for
-exploring PLEXIL for the first time.</p>
+exploring <em>PLEXIL</em> for the first time.</p>
 <section id="tarball">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">Tarball</a><a class="headerlink" href="#tarball" title="Permalink to this heading">¶</a></h3>
+<span id="tarbal"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Tarball</a><a class="headerlink" href="#tarball" title="Permalink to this heading">¶</a></h3>
 <p>The most recent tarball (compressed source archive file) is available
 for download
 <a class="reference external" href="https://sourceforge.net/projects/plexil/files/latest/download">here</a>.
 It is built with the GNU <code class="docutils literal notranslate"><span class="pre">tar</span></code> utility.</p>
 <p>The archive may be expanded by the archive utility on your platform, or
 at the command line:</p>
-<p><code class="docutils literal notranslate"><span class="pre">tar xzf plexil-4.5.0RC3.tar.gz</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">xzf</span> <span class="n">plexil</span><span class="o">-</span><span class="mf">4.5.0</span><span class="n">RC3</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
 <p>This will expand to a directory named <code class="docutils literal notranslate"><span class="pre">plexil-4.5.0RC3</span></code> with all the
 source and example files. This is the directory to use as
-<code class="docutils literal notranslate"><span class="pre">PLEXIL_HOME</span></code> in the procedures
-<a class="reference external" href="Installation#Building_Plexil">below</a>.</p>
+<code class="docutils literal notranslate"><span class="pre">PLEXIL_HOME</span></code> in the procedures below.</p>
 <p>Note that as the released version number changes, the directory name in
 the archive will change accordingly.</p>
 </section>
 <section id="git">
-<h3><a class="toc-backref" href="#id10" role="doc-backlink">git</a><a class="headerlink" href="#git" title="Permalink to this heading">¶</a></h3>
-<p>PLEXIL source code may be checked out from the git repository on
+<span id="id3"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">git</a><a class="headerlink" href="#git" title="Permalink to this heading">¶</a></h3>
+<p><em>PLEXIL</em> source code may be checked out from the git repository on
 Sourceforge.</p>
 <p>The following command will get the latest stable version of the source
 code (currently the <code class="docutils literal notranslate"><span class="pre">releases/plexil-4</span></code> branch):</p>
-<p>`` git clone -b releases/plexil-4 <code class="docutils literal notranslate"><span class="pre">\</span> <span class="pre">```https://git.code.sf.net/p/plexil/git</span></code> &lt;<a class="reference external" href="https://git.code.sf.net/p/plexil/git">https://git.code.sf.net/p/plexil/git</a>&gt;`__`` plexil``</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">-</span><span class="n">b</span> <span class="n">releases</span><span class="o">/</span><span class="n">plexil</span><span class="o">-</span><span class="mi">4</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">plexil</span><span class="o">-</span><span class="n">group</span><span class="o">/</span><span class="n">plexil</span><span class="o">.</span><span class="n">git</span> <span class="n">plexil</span>
+</pre></div>
+</div>
 <p>This will create a directory named <code class="docutils literal notranslate"><span class="pre">plexil</span></code> with all the source files.</p>
 </section>
 <section id="subversion-svn">
-<span id="id3"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Subversion (svn)</a><a class="headerlink" href="#subversion-svn" title="Permalink to this heading">¶</a></h3>
+<span id="id4"></span><h3><a class="toc-backref" href="#id12" role="doc-backlink">Subversion (svn)</a><a class="headerlink" href="#subversion-svn" title="Permalink to this heading">¶</a></h3>
 <p>The original Subversion repository still exists, but has not been
 updated since the git repository was established. If you have been using
 SVN, we recommend you switch to git.</p>
 </section>
 </section>
 <section id="installing-plexil">
-<span id="id4"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Installing PLEXIL</a><a class="headerlink" href="#installing-plexil" title="Permalink to this heading">¶</a></h2>
-<p>The PLEXIL Executive and its examples are buildable with either <a class="reference external" href="https://www.gnu.org/software/make/">GNU
+<span id="id5"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Installing PLEXIL</a><a class="headerlink" href="#installing-plexil" title="Permalink to this heading">¶</a></h2>
+<p>The <em>PLEXIL</em> Executive and its examples are buildable with either <a class="reference external" href="https://www.gnu.org/software/make/">GNU
 Make</a> or
 <a class="reference external" href="https://cmake.org/">CMake</a>. The C and C++ code complies with the
-applicable language standards. See <a class="reference external" href="Requirements">Requirements</a> for
+applicable language standards. See <a class="reference internal" href="Requirements.html#requirements"><span class="std std-ref">Requirements</span></a> for
 details.</p>
 <p>The top level <code class="docutils literal notranslate"><span class="pre">README</span></code> has additional information on configuring,
-building, and running PLEXIL.</p>
+building, and running <em>PLEXIL</em>.</p>
 <section id="basic-installation">
-<span id="id5"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">Basic installation</a><a class="headerlink" href="#basic-installation" title="Permalink to this heading">¶</a></h3>
+<span id="id6"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Basic installation</a><a class="headerlink" href="#basic-installation" title="Permalink to this heading">¶</a></h3>
 <p>These instructions presume a POSIX-compliant shell and GNU make.</p>
 <ol class="arabic simple">
-<li><p>Unpack or clone the sources. See <a class="reference external" href="#Tarball">#Tarball</a> or
-<a class="reference external" href="#git">#git</a> above.</p></li>
+<li><p>Unpack or clone the sources. See <a class="reference internal" href="#tarball">Tarball</a> or
+<a class="reference internal" href="#git">git</a> above.</p></li>
 </ol>
-<p><em>NOTE: Plexil may not build correctly if installed in a directory that
-is a symbolic link, such as ``/tmp`` in macOS.</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Plexil may not build correctly if installed in a directory that
+is a symbolic link, such as <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in macOS.</p>
+</div>
 <ol class="arabic simple">
 <li><p>Change into the source directory.</p></li>
 <li><p>Set up the environment. (This is not strictly necessary for the
 build, but will be for running programs.)</p></li>
 </ol>
-<div class="line-block">
-<div class="line">`` PLEXIL_HOME=”$PWD”``</div>
-<div class="line">`` export PLEXIL_HOME``</div>
-<div class="line">`` source “$PLEXIL_HOME/scripts/plexil-setup.sh”``</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PLEXIL_HOME</span><span class="o">=</span><span class="s2">&quot;$PWD&quot;</span>
+<span class="n">export</span> <span class="n">PLEXIL_HOME</span>
+<span class="n">source</span> <span class="s2">&quot;$PLEXIL_HOME/scripts/plexil-setup.sh&quot;</span>
+</pre></div>
 </div>
 <ol class="arabic simple">
 <li><p>Build the desired components:</p>
 <ol class="arabic simple">
-<li><p>For the PLEXIL Executive (universalExec), TestExec, compilers,
-checker, and PLEXIL Viewer: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tools</span></code></p></li>
+<li><p>For the <em>PLEXIL</em> Executive (universalExec), TestExec, compilers,
+checker, and <em>PLEXIL</em> Viewer: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tools</span></code></p></li>
 <li><p>For all the above plus examples: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">everything</span></code></p></li>
 </ol>
 </li>
-<li><p>The PLEXIL Executive and related programs will be installed into
-$PLEXIL_HOME/bin ; libraries are installed into $PLEXIL_HOME/lib, and
-include files to $PLEXIL_HOME/include. There are additional scripts
-(e.g. plexilexec, plexilc) in $PLEXIL_HOME/scripts .</p></li>
+<li><p>The <em>PLEXIL</em> Executive and related programs will be installed into
+<code class="docutils literal notranslate"><span class="pre">$PLEXIL_HOME/bin</span></code> ; libraries are installed into <code class="docutils literal notranslate"><span class="pre">$PLEXIL_HOME/lib</span></code>, and
+include files to <code class="docutils literal notranslate"><span class="pre">$PLEXIL_HOME/include</span></code>. There are additional scripts
+(e.g. plexilexec, plexilc) in <code class="docutils literal notranslate"><span class="pre">$PLEXIL_HOME/scripts</span></code> .</p></li>
 </ol>
 </section>
 <section id="advanced-installation">
-<span id="id6"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Advanced installation</a><a class="headerlink" href="#advanced-installation" title="Permalink to this heading">¶</a></h3>
-<p>The PLEXIL Executive can be configured for a wide variety of
+<span id="id7"></span><h3><a class="toc-backref" href="#id15" role="doc-backlink">Advanced installation</a><a class="headerlink" href="#advanced-installation" title="Permalink to this heading">¶</a></h3>
+<p>The <em>PLEXIL</em> Executive can be configured for a wide variety of
 applications and environments using either the GNU autotools or CMake.
 See the top level README file for an outline.</p>
-<hr class="docutils" />
-<p><strong>Copyright (c) 2006-2021, Universities Space Research Association
-(USRA). All rights reserved.</strong></p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
 </section>
 </section>
 </section>
@@ -183,6 +185,9 @@ See the top level README file for an outline.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
@@ -211,6 +216,7 @@ See the top level README file for an outline.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -252,8 +258,8 @@ See the top level README file for an outline.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

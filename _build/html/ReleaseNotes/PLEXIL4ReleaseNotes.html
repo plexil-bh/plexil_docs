@@ -47,11 +47,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p>.._PLEXIL4ReleaseNotes:</p>
-<section id="plexil-4-release-notes">
-<h1><a class="toc-backref" href="#id15" role="doc-backlink">PLEXIL-4 Release Notes</a><a class="headerlink" href="#plexil-4-release-notes" title="Permalink to this heading">¶</a></h1>
+  <section id="plexil-4-release-notes">
+<span id="plexil4releasenotes"></span><h1><a class="toc-backref" href="#id15" role="doc-backlink">PLEXIL-4 Release Notes</a><a class="headerlink" href="#plexil-4-release-notes" title="Permalink to this heading">¶</a></h1>
 <p><em>11 June 2015</em></p>
-<p>PLEXIL 4 is a major release, with significant changes from previous
+<p><em>PLEXIL</em> 4 is a major release, with significant changes from previous
 releases. Here are some of the highlights.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
@@ -85,22 +84,21 @@ releases. Here are some of the highlights.</p>
 </nav>
 <section id="building-plexil-4">
 <span id="id1"></span><h2><a class="toc-backref" href="#id16" role="doc-backlink">Building PLEXIL 4</a><a class="headerlink" href="#building-plexil-4" title="Permalink to this heading">¶</a></h2>
-<p>The PLEXIL C++ source code should be compatible with most modern and
+<p>The <em>PLEXIL</em> C++ source code should be compatible with most modern and
 recent C++ compilers. It is regularly tested against <a class="reference external" href="http://gcc.gnu.org/">gcc and
 g++</a> and <a class="reference external" href="http://clang.llvm.org/">clang and
 clang++</a> on both Linux and Mac OS X.</p>
-<p>PLEXIL is now available for download as a gzip compressed <code class="docutils literal notranslate"><span class="pre">tar</span></code>
+<p><em>PLEXIL</em> is now available for download as a gzip compressed <code class="docutils literal notranslate"><span class="pre">tar</span></code>
 archive file (or <em>tarball</em>). Prebuilt packages for Linux and Mac OS X
 are no longer available due to lack of resources.</p>
-<p>Building PLEXIL from an SVN checkout now requires the GNU “autotools”
+<p>Building <em>PLEXIL</em> from an SVN checkout now requires the GNU “autotools”
 suite: <a class="reference external" href="https://www.gnu.org/software/libtool/">libtool</a>,
 <a class="reference external" href="https://www.gnu.org/software/automake/">automake</a>, and
 <a class="reference external" href="https://www.gnu.org/software/autoconf/">autoconf</a>. These programs
 should not be required in the tarball release, as they have already been
-run prior to archiving. Please see <a class="reference external" href="Installation#Software_Requirements">Software
-Requirements</a> for more
+run prior to archiving. Please see <a class="reference internal" href="../GettingStarted/Installation.html#installation"><span class="std std-ref">Software Requirements</span></a> for more
 information.</p>
-<p>It is again possible to build the PLEXIL suite from the top level
+<p>It is again possible to build the <em>PLEXIL</em> suite from the top level
 Makefile, whether downloaded as an archive or checked out from the
 repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">plexil</span><span class="o">-</span><span class="mi">4</span>
@@ -115,7 +113,7 @@ several example applications.</p>
 <p>The language has had the following functions added.</p>
 <section id="real-to-integer-conversion-functions">
 <span id="id3"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">Real-to-Integer Conversion Functions</a><a class="headerlink" href="#real-to-integer-conversion-functions" title="Permalink to this heading">¶</a></h3>
-<p>The PLEXIL language has added the following functions for converting
+<p>The <em>PLEXIL</em> language has added the following functions for converting
 Real numbers to Integer values:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">real_to_int(x)</span></code> - Converts a Real value which is exactly an
@@ -150,35 +148,35 @@ a as an Integer.</p></li>
 </section>
 <section id="plexil-executive">
 <span id="id6"></span><h2><a class="toc-backref" href="#id21" role="doc-backlink">PLEXIL Executive</a><a class="headerlink" href="#plexil-executive" title="Permalink to this heading">¶</a></h2>
-<p>The PLEXIL Executive’s performance has been significantly improved.
+<p>The <em>PLEXIL</em> Executive’s performance has been significantly improved.
 Major areas of improvement:</p>
 <ul class="simple">
 <li><p>The plan reader’s intermediate representation has been removed. XML
 is now translated directly into internal representations.</p></li>
 <li><p>Expression representations were reengineered from the ground up. See
-<a class="reference external" href="PLEXIL_4_Release_Notes#Expressions">Expressions</a> below for more
+<a class="reference internal" href="#expressions-release4"><span class="std std-ref">Expressions</span></a> below for more
 information.</p></li>
 <li><p>The innermost routines of the Executive have been streamlined.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">Id&lt;T&gt;</span></code> “smart pointer” template has been eliminated.</p></li>
 <li><p>The executive core no longer uses any hash tables.</p></li>
 </ul>
 <p>The result is much faster overall execution time - typically 2-5x faster
-than PLEXIL 3 for medium sized plans - and a smaller but still
+than <em>PLEXIL</em> 3 for medium sized plans - and a smaller but still
 significant improvement in memory usage. Many memory leaks have also
 been eliminated.</p>
 <section id="expressions">
-<h3><a class="toc-backref" href="#id22" role="doc-backlink">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this heading">¶</a></h3>
+<span id="expressions-release4"></span><h3><a class="toc-backref" href="#id22" role="doc-backlink">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this heading">¶</a></h3>
 <p>Previous versions of the Executive used double-precision floating point
-representation for all values in the language. PLEXIL 4 replaces this
+representation for all values in the language. <em>PLEXIL</em> 4 replaces this
 system with strongly typed <code class="docutils literal notranslate"><span class="pre">Expression</span></code> and <code class="docutils literal notranslate"><span class="pre">Value</span></code> objects.</p>
-<p>As a result the PLEXIL Executive is now much stricter about expression
+<p>As a result the <em>PLEXIL</em> Executive is now much stricter about expression
 types:</p>
 <ul class="simple">
 <li><p>Boolean is now a distinct type, incompatible with numeric types.</p></li>
 <li><p>The Executive will report an error if a Real value is assigned to an
 Integer variable.</p></li>
 </ul>
-<p>Since the PLEXIL language was originally designed to be a strongly typed
+<p>Since the <em>PLEXIL</em> language was originally designed to be a strongly typed
 language, this should have no effect on conformant plans. However,
 non-conforming plans which used to run in earlier releases due to lax
 type checking by the Executive may no longer work as before.</p>
@@ -186,7 +184,7 @@ type checking by the Executive may no longer work as before.</p>
 <section id="string-representation">
 <span id="id7"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">String Representation</a><a class="headerlink" href="#string-representation" title="Permalink to this heading">¶</a></h3>
 <p>String values were interned (stored in a symbol table) in previous
-versions of the PLEXIL Executive. String values are now treated just as
+versions of the <em>PLEXIL</em> Executive. String values are now treated just as
 any other value. Intermediate values in string expressions are now
 discarded, rather than stored permanently. Plans which do string
 manipulation will use less memory as a result.</p>
@@ -194,38 +192,37 @@ manipulation will use less memory as a result.</p>
 <section id="external-interfacing">
 <span id="id8"></span><h3><a class="toc-backref" href="#id24" role="doc-backlink">External Interfacing</a><a class="headerlink" href="#external-interfacing" title="Permalink to this heading">¶</a></h3>
 <p>The APIs for interfacing to external systems have changed significantly.</p>
-<p>This PLEXIL wiki now has much larger, and we hope much improved,
-documentation on interfacing to the PLEXIL executive. See the sidebar
-menu at left. The PLEXIL team eagerly seeks feedback on this
+<p>This <em>PLEXIL</em> wiki now has much larger, and we hope much improved,
+documentation on interfacing to the <em>PLEXIL</em> executive. See the sidebar
+menu at left. The <em>PLEXIL</em> team eagerly seeks feedback on this
 documentation.</p>
-<p>The new <code class="docutils literal notranslate"><span class="pre">Value</span></code> class can represent any PLEXIL value for input or
-output. See the <a class="reference external" href="PLEXIL_Application_Framework_API_Reference">API
-Reference</a> for details.</p>
+<p>The new <code class="docutils literal notranslate"><span class="pre">Value</span></code> class can represent any <em>PLEXIL</em> value for input or
+output. See the <a class="reference internal" href="../Interfacing/APIReference.html#apireference"><span class="std std-ref">API Reference</span></a> for details.</p>
 </section>
 </section>
 <section id="extended-plexil">
 <span id="id9"></span><h2><a class="toc-backref" href="#id25" role="doc-backlink">Extended PLEXIL</a><a class="headerlink" href="#extended-plexil" title="Permalink to this heading">¶</a></h2>
-<p>The Extended PLEXIL translator generates smaller and faster Core PLEXIL
+<p>The Extended <em>PLEXIL</em> translator generates smaller and faster Core <em>PLEXIL</em>
 XML for several common language features.</p>
 </section>
 <section id="standard-plexil-compiler">
 <span id="id10"></span><h2><a class="toc-backref" href="#id26" role="doc-backlink">Standard PLEXIL Compiler</a><a class="headerlink" href="#standard-plexil-compiler" title="Permalink to this heading">¶</a></h2>
-<p>The Standard PLEXIL compiler has added an optimization phase. Some
+<p>The Standard <em>PLEXIL</em> compiler has added an optimization phase. Some
 moderately high-value optimizations have already been implemented. More
 will be forthcoming.</p>
-<p>See <a class="reference external" href="PLEXIL_4_Release_Notes#PLEXIL_Language">PLEXIL Language</a> above
+<p>See <a class="reference internal" href="#plexil-language"><span class="std std-ref">PLEXIL Language</span></a> above
 for other changes.</p>
 </section>
 <section id="plexil-checker">
 <span id="id11"></span><h2><a class="toc-backref" href="#id27" role="doc-backlink">PLEXIL Checker</a><a class="headerlink" href="#plexil-checker" title="Permalink to this heading">¶</a></h2>
-<p>The PLEXIL Checker had not been updated in quite a while. It is now up
-to date with the current PLEXIL schema, and many bugs have been fixed.
+<p>The <em>PLEXIL</em> Checker had not been updated in quite a while. It is now up
+to date with the current <em>PLEXIL</em> schema, and many bugs have been fixed.
 The Checker now performs a schema conformance check before any semantic
 checks.</p>
 </section>
 <section id="plexil-viewer">
 <span id="id12"></span><h2><a class="toc-backref" href="#id28" role="doc-backlink">PLEXIL Viewer</a><a class="headerlink" href="#plexil-viewer" title="Permalink to this heading">¶</a></h2>
-<p>The PLEXIL Viewer had also suffered from a lack of maintenance in
+<p>The <em>PLEXIL</em> Viewer had also suffered from a lack of maintenance in
 previous releases. Many bugs have been fixed in the Viewer, and
 performance should be quite a bit better.</p>
 <p><strong>The PLEXIL Viewer now requires Java 8.</strong> Please let us know if you are
@@ -242,13 +239,10 @@ significantly improved.</p>
 </section>
 <section id="regression-tests-and-examples">
 <span id="id14"></span><h2><a class="toc-backref" href="#id30" role="doc-backlink">Regression Tests and Examples</a><a class="headerlink" href="#regression-tests-and-examples" title="Permalink to this heading">¶</a></h2>
-<p>Most, if not all, of the PLEXIL plans in the regression test suites and
+<p>Most, if not all, of the <em>PLEXIL</em> plans in the regression test suites and
 the examples directory have been checked for conformance with the
 current schema and fixed where necessary. Many of these plans had never
 been updated since early in development.</p>
-<hr class="docutils" />
-<p><strong>Copyright (c) 2006-2015, Universities Space Research Association
-(USRA). All rights reserved.</strong></p>
 </section>
 </section>
 
@@ -288,6 +282,7 @@ been updated since early in development.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -329,8 +324,8 @@ been updated since early in development.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

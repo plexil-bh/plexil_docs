@@ -5,8 +5,8 @@ Plan Persistence and Checkpoints
 
 *Apr 7, 2021*
 
-This chapter describes PLEXIL's Checkpoint Adapter, available for
-inclusion in any PLEXIL plan.
+This chapter describes |PLEXIL|'s Checkpoint Adapter, available for
+inclusion in any |PLEXIL| plan.
 
 .. contents::
 
@@ -50,7 +50,7 @@ Usage
 
 If the adapter is included in the configuration file, all lookups and
 commands will be available to the plan, and startup/shutdown behavior is
-enabled(as described below in `#Options <#Options>`__).
+enabled(as described below in :ref:`Options <Options>`).
 
 An example configuration follows:
 
@@ -64,6 +64,8 @@ An example configuration follows:
                  FlushOnStart="true"
                  UseTime="true" />
      </Adapter>
+
+.. _Options:
 
 Options
 -------
@@ -148,7 +150,7 @@ Structure
 
 The Checkpoint Adapter consists of three major components – the adapter
 itself, the underlying checkpoint system, and the save manager. The
-adapter receives commands from the PLEXIL executive, replaces missing
+adapter receives commands from the |PLEXIL| executive, replaces missing
 arguments with their default values, and calls the appropriate function
 in the checkpoint system. The checkpoint system maintains a data
 structure that tracks checkpoints and boots. After each command is
@@ -163,9 +165,8 @@ checkpoint adapter flexible for use in different environments. A diagram
 of the adapter is pictured below.
 
 .. figure:: ../_static/images/Command_Flow.png
-   :alt:  250px
+   :alt:  Command_Flow
 
-   250px
 
 Extending
 ---------
@@ -174,7 +175,7 @@ If a different saving strategy is desired, this can be done by extending
 the SaveManager class and changing which SaveManager is used in
 CheckpointSystem.hh
 
-The checkpoint adapter currently resides in plexil/examples/checkpoint
+The checkpoint adapter currently resides in ``plexil/examples/checkpoint``
 
 In the checkpoint adapter directory there are a number of tests,
 including a general usage test described in the README, and a fuzz-like
@@ -182,9 +183,3 @@ test of the SaveManager implementation in the testing directory. It is
 encouraged to run the fuzz-like test for a sufficiently long time if a
 different SaveManager extension is implemented.
 
---------------
-
-Copyright (c) 2020-2020, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

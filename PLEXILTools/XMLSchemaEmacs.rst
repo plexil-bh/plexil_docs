@@ -10,18 +10,18 @@ XML/Schema, Emacs
 Introduction
 ------------
 
-Core PLEXIL, the executable form of PLEXIL, is specified in the
-*Extensible Markup Language*, or XML. This XML representation of PLEXIL
+Core |PLEXIL|, the executable form of |PLEXIL|, is specified in the
+*Extensible Markup Language*, or XML. This XML representation of |PLEXIL|
 is hidden from the user in general use. This chapter provides
-information about PLEXIL's XML definition, and tools for inspecting and
+information about |PLEXIL|'s XML definition, and tools for inspecting and
 editing Plexil XML files, if the need should arise.
 
 Plexil may be coded in any text editor. The *Emacs* editor in particular
-has features suitable for PLEXIL, namely its powerful XML editing and
+has features suitable for |PLEXIL|, namely its powerful XML editing and
 validation capabilities, as well as being the platform for the
-alternative PLEXIL syntax `Plexilisp <Plexilisp>`__.
+alternative |PLEXIL| syntax :ref:`Plexilisp <Plexilisp>`.
 
-This chapter describes helpful XML and Emacs resources for PLEXIL.
+This chapter describes helpful XML and Emacs resources for |PLEXIL|.
 
 .. _plexil_xml_schema:
 
@@ -29,7 +29,7 @@ PLEXIL XML Schema
 -----------------
 
 An XML Schema is a file that defines the format for a particular kind of
-XML file. PLEXIL XML is defined by schema files found in the PLEXIL
+XML file. |PLEXIL| XML is defined by schema files found in the |PLEXIL|
 distribution, under ``plexil/schema``. See the README file in that
 directory for detailed information.
 
@@ -60,7 +60,7 @@ however, there are variants of Emacs available that are more featureful
 than these built-in versions.
 
 Emacs is helpful for viewing, validating, and, if desired, editing Core
-PLEXIL XML. Most versions of Emacs have some built-in support for
+|PLEXIL| XML. Most versions of Emacs have some built-in support for
 editing XML files. When you open or create a file with the extension
 ``.xml``, the resulting *buffer* will usually be in an XML-specific
 editing mode.
@@ -95,8 +95,7 @@ Schema Validation Using nXML Mode
 ---------------------------------
 
 It is possible to validate XML files against a schema within Emacs,
-using a freely available Emacs utility for XML called `nxml
-mode <http://www.thaiopensource.com/nxml-mode/>`__. It provides not only
+using a freely available Emacs utility for XML called :ref:`nxml mode <http://www.thaiopensource.com/nxml-mode/>`. It provides not only
 an easy means to edit XML (e.g. automatic indentation), but also a means
 for validating your XML against an XML schema interactively.
 
@@ -152,7 +151,7 @@ Once installed, any XML file you edit in Emacs will be done so in nXML
 mode.
 
 To validate against a schema using nXML, you'll need to have a schema in
-*Relaxed Compact NG* (RNC) format. The PLEXIL schemas are provided in
+*Relaxed Compact NG* (RNC) format. The |PLEXIL| schemas are provided in
 this format. The "XML" menu in Emacs provides various methods of
 validation, one of which requires you to specify a schema file. However,
 to have any XML file in a given directory be automatically validated by
@@ -171,9 +170,3 @@ as needed).
 
 There is more information about nXML in ``plexil/schema/Makefile``.
 
---------------
-
-Copyright (c) 2006-2014, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

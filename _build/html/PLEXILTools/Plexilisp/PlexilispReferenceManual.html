@@ -1,0 +1,1221 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Plexilisp Reference Manual &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/readable.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PLEXIL Checker" href="../PLEXILChecker.html" />
+    <link rel="prev" title="PlexiLisp Tutorial" href="PlexilispTutorial.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../PLEXILChecker.html" title="PLEXIL Checker"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PlexilispTutorial.html" title="PlexiLisp Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../main.html">PLEXIL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Plexilisp.html" accesskey="U">Plexilisp</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plexilisp Reference Manual</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexilisp-reference-manual">
+<span id="plexilispreferncemanual"></span><h1><a class="toc-backref" href="#id19" role="doc-backlink">Plexilisp Reference Manual</a><a class="headerlink" href="#plexilisp-reference-manual" title="Permalink to this heading">¶</a></h1>
+<p><em>This wiki was automatically generated from “plexil.el” on Mon Feb 17
+15:47:11 2014 for version 3.2. Do not edit!</em></p>
+<p>This is a complete reference for the Plexilisp language. It assumes a
+basic understanding of the <em>PLEXIL</em> language. Each construct in Plexilisp
+has at least two aliases (e.g. <code class="docutils literal notranslate"><span class="pre">CommandNode</span></code> and <code class="docutils literal notranslate"><span class="pre">command-node</span></code>).
+You may use whichever you prefer, or mix and match them.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plexilisp-reference-manual" id="id19">Plexilisp Reference Manual</a></p></li>
+<li><p><a class="reference internal" href="#plexil-plan" id="id20">PLEXIL Plan</a></p></li>
+<li><p><a class="reference internal" href="#global-declarations" id="id21">Global Declarations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nodes-and-node-types" id="id22">Nodes and Node Types</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#variable-declaration" id="id23">Variable Declaration</a></p></li>
+<li><p><a class="reference internal" href="#node-conditions" id="id24">Node Conditions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#variable-reference" id="id25">Variable Reference</a></p></li>
+<li><p><a class="reference internal" href="#interface-declaration" id="id26">Interface Declaration</a></p></li>
+<li><p><a class="reference internal" href="#boolean-comparisons" id="id27">Boolean Comparisons</a></p></li>
+<li><p><a class="reference internal" href="#logical-connectives" id="id28">Logical Connectives</a></p></li>
+<li><p><a class="reference internal" href="#numeric-operators" id="id29">Numeric Operators</a></p></li>
+<li><p><a class="reference internal" href="#lookups" id="id30">Lookups</a></p></li>
+<li><p><a class="reference internal" href="#literals" id="id31">Literals</a></p></li>
+<li><p><a class="reference internal" href="#node-state-outcome-and-failure-type" id="id32">Node State, Outcome, and Failure Type</a></p></li>
+<li><p><a class="reference internal" href="#conditionals-and-loops" id="id33">Conditionals and Loops</a></p></li>
+<li><p><a class="reference internal" href="#special-purpose-nodes" id="id34">Special Purpose Nodes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#resource-clauses" id="id35">Resource Clauses</a></p></li>
+<li><p><a class="reference internal" href="#miscellaneous-node-clauses" id="id36">Miscellaneous Node Clauses</a></p></li>
+<li><p><a class="reference internal" href="#miscellaneous-expressions" id="id37">Miscellaneous Expressions</a></p></li>
+<li><p><a class="reference internal" href="#plexil-simulation-script" id="id38">PLEXIL Simulation Script</a></p>
+<ul>
+<li><p><a class="reference internal" href="#simulation-script-shortcuts" id="id39">Simulation Script Shortcuts</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+</section>
+<section id="plexil-plan">
+<span id="id1"></span><h1><a class="toc-backref" href="#id20" role="doc-backlink">PLEXIL Plan</a><a class="headerlink" href="#plexil-plan" title="Permalink to this heading">¶</a></h1>
+<p>This section describes the forms (constructs) that comprise <em>PLEXIL</em>
+plans.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PlexilPlan</span> <span class="n">form</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">plexil</span><span class="o">-</span><span class="n">plan</span> <span class="n">form</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The top level form for a plan. A Plexilisp file must contain exactly one
+of these, and nothing else. A <code class="docutils literal notranslate"><span class="pre">PlexilPlan</span></code> form must contain forms in
+the following order. The first (optional) can be a
+<code class="docutils literal notranslate"><span class="pre">GlobalDeclarations</span></code>. The second (required) is the plan’s root node.
+Additional forms can only be <code class="docutils literal notranslate"><span class="pre">Comment</span></code>’s.</p>
+</section>
+<section id="global-declarations">
+<span id="id2"></span><h1><a class="toc-backref" href="#id21" role="doc-backlink">Global Declarations</a><a class="headerlink" href="#global-declarations" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">GlobalDeclarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="k">global</span><span class="o">-</span><span class="n">declarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Declarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">declarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The plan’s global declarations.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LibraryNodeDeclaration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">interface</span><span class="o">-</span><span class="n">declaration</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">library</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">declaration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">interface</span><span class="o">-</span><span class="n">declaration</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a library node (call). Following the name may be any number of
+interface declarations, which are either <code class="docutils literal notranslate"><span class="pre">In</span></code> or <code class="docutils literal notranslate"><span class="pre">InOut</span></code> forms.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StateDeclaration</span> <span class="n">name</span> <span class="nb">type</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">state</span><span class="o">-</span><span class="n">declaration</span> <span class="n">name</span> <span class="nb">type</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a state (lookup), specifying its type (as a Return form) and
+parameters (as Parameter forms).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandDeclaration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">returns</span><span class="o">-</span><span class="n">then</span><span class="o">-</span><span class="n">parameters</span><span class="o">-</span><span class="n">then</span><span class="o">-</span><span class="n">resource</span><span class="o">-</span><span class="n">lis</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">declaration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">returns</span><span class="o">-</span><span class="n">then</span><span class="o">-</span><span class="n">parameters</span><span class="o">-</span><span class="n">then</span><span class="o">-</span><span class="n">resource</span><span class="o">-</span><span class="n">lis</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a command. Following the name should be zero or more Return
+forms, then zero or more Parameter forms, then an optional ResourceList
+form. They cannot be intermixed.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Return</span> <span class="nb">type</span><span class="p">)</span>
+<span class="p">(</span><span class="k">return</span> <span class="nb">type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specify a return type. Argument must be one of ‘string’, ‘integer’,
+‘array’, ‘boolean’, ‘real’ (case insensitive).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Parameter</span> <span class="nb">type</span><span class="p">)</span>
+<span class="p">(</span><span class="n">parameter</span> <span class="nb">type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specify a parameter type. Argument must be one of ‘string’, ‘integer’,
+‘array’, ‘boolean’, ‘real’ (case doesn’t matter).</p>
+<section id="nodes-and-node-types">
+<span id="id3"></span><h2><a class="toc-backref" href="#id22" role="doc-backlink">Nodes and Node Types</a><a class="headerlink" href="#nodes-and-node-types" title="Permalink to this heading">¶</a></h2>
+<p>These are the forms for defining <em>PLEXIL</em> nodes. It takes at least two to
+fully define a node. An outer form declares the node. (e.g.
+<code class="docutils literal notranslate"><span class="pre">CommandNode</span></code>), and an inner form defines the action (e.g.
+<code class="docutils literal notranslate"><span class="pre">(command</span> <span class="pre">...)</span></code>). These forms must be compatible (more specifics in
+each entry below)</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ListNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">node</span><span class="o">-</span><span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="nb">list</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">node</span><span class="o">-</span><span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines a List Node. Must contain a <code class="docutils literal notranslate"><span class="pre">List</span></code> form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">List</span> <span class="p">[</span> <span class="n">node</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">list</span> <span class="p">[</span> <span class="n">node</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Required inside a <code class="docutils literal notranslate"><span class="pre">ListNode</span></code>, this form wraps its list of nodes.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines a Command Node. Must contain either a <code class="docutils literal notranslate"><span class="pre">Command</span></code> or
+<code class="docutils literal notranslate"><span class="pre">CommandWithReturn</span></code> form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Command</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Required inside a <code class="docutils literal notranslate"><span class="pre">CommandNode</span></code>, this form calls the specified
+command. command-name may be any string expression (literal, variable,
+concatenation, or lookup). If resources are specified, they must follow
+the command name.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandWithReturn</span> <span class="n">var</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="k">return</span> <span class="n">var</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is just like <code class="docutils literal notranslate"><span class="pre">Command</span></code> above, but a value returned from the
+command is assigned to the given variable, which must be declared in
+this node or one of its ancestors.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">UpdateNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">update</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines an Update Node. Must contain an <code class="docutils literal notranslate"><span class="pre">Update</span></code> form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Update</span> <span class="p">[</span> <span class="n">pair</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">update</span> <span class="p">[</span> <span class="n">pair</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Required inside an <code class="docutils literal notranslate"><span class="pre">UpdateNode</span></code>, this form defines the plan update.It
+must contain one or more <code class="docutils literal notranslate"><span class="pre">Pair</span></code> forms.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Pair</span> <span class="n">name</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">(</span><span class="n">pair</span> <span class="n">name</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Required inside an <code class="docutils literal notranslate"><span class="pre">Update</span></code>, this form defines a name/value pair.The
+<code class="docutils literal notranslate"><span class="pre">name</span></code> must be a string and the <code class="docutils literal notranslate"><span class="pre">value</span></code> may be any <em>PLEXIL</em> type.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">AssignmentNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">assignment</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines an Assignment Node. Must contain an <code class="docutils literal notranslate"><span class="pre">Assignment</span></code> form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Assignment</span> <span class="n">var</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">assignment</span> <span class="n">var</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Required inside an <code class="docutils literal notranslate"><span class="pre">AssignmentNode</span></code>, this form assigns a value (any
+<em>PLEXIL</em> type) to a variable that must be declared in this node or one of
+its ancestors.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LibraryCallNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">node</span><span class="o">-</span><span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">library</span><span class="o">-</span><span class="n">call</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">node</span><span class="o">-</span><span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>A Library Call Node. Must contain exactly one <code class="docutils literal notranslate"><span class="pre">call</span></code> form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Call</span> <span class="n">nodeid</span> <span class="p">[</span> <span class="n">aliase</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">call</span> <span class="n">nodeid</span> <span class="p">[</span> <span class="n">aliase</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A call to a library node.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Alias</span> <span class="n">parameter</span> <span class="n">value</span><span class="p">)</span>
+<span class="p">(</span><span class="n">alias</span> <span class="n">parameter</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In a library node call, this pairs a parameter of the node with a value.
+The parameter is an ncName, and the value must be either a literal or
+declared variable.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">EmptyNode</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">empty</span><span class="o">-</span><span class="n">node</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">clauses</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>An Empty Node.</p>
+</section>
+</section>
+<section id="variable-declaration">
+<span id="id4"></span><h1><a class="toc-backref" href="#id23" role="doc-backlink">Variable Declaration</a><a class="headerlink" href="#variable-declaration" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">VariableDeclarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">variable</span><span class="o">-</span><span class="n">declarations</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Variables</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">variables</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">DeclareVariables</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">declare</span><span class="o">-</span><span class="n">variables</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The node’s variable declarations. Must contain one or more of the
+declaration forms that follow.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Integer</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">integer</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare an integer variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Real</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">real</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a real variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Boolean</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">boolean</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a boolean variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">String</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">string</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a string variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Duration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">duration</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare an ISO 8601 duration variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Date</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">date</span> <span class="n">name</span> <span class="p">[</span> <span class="n">val</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare an ISO 8601 date variable, with optional initial value.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IntArray</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">int</span><span class="o">-</span><span class="n">array</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare an integer array with given name, size, and initial values.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StringArray</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">string</span><span class="o">-</span><span class="n">array</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a string array with given name, size, and initial values.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">BooleanArray</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">boolean</span><span class="o">-</span><span class="n">array</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a boolean array with given name, size, and initial values.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">RealArray</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">real</span><span class="o">-</span><span class="n">array</span> <span class="n">name</span> <span class="n">size</span> <span class="p">[</span> <span class="n">value</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare a real number array with given name, size, and initial values.</p>
+</section>
+<section id="node-conditions">
+<span id="id5"></span><h1><a class="toc-backref" href="#id24" role="doc-backlink">Node Conditions</a><a class="headerlink" href="#node-conditions" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Postcondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">postcondition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PostCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">post</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">EndCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ExitCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">exit</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">SkipCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">skip</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Precondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">precondition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PreCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">pre</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">RepeatCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">repeat</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StartCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">InvariantCondition</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">invariant</span><span class="o">-</span><span class="n">condition</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="variable-reference">
+<span id="id6"></span><h2><a class="toc-backref" href="#id25" role="doc-backlink">Variable Reference</a><a class="headerlink" href="#variable-reference" title="Permalink to this heading">¶</a></h2>
+<p>All variable references must take one of the following forms, which
+specifies the name of the variable as a string. The variable is assumed
+to be legally declared.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">BooleanVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">boolvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IntegerVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">intvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">RealVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">realvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StringVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">stringvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ArrayVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">arrayvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">DateVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">datevar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">DurationVariable</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">durvar</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">durationvar</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ArrayElement</span> <span class="n">name</span> <span class="n">index</span><span class="p">)</span>
+<span class="p">(</span><span class="n">array</span><span class="o">-</span><span class="n">element</span> <span class="n">name</span> <span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Reference a single array element by index (beginning with 0). Name must
+be a string (XML NCName precisely). Index must be a numeric expression.</p>
+</section>
+<section id="interface-declaration">
+<span id="id7"></span><h2><a class="toc-backref" href="#id26" role="doc-backlink">Interface Declaration</a><a class="headerlink" href="#interface-declaration" title="Permalink to this heading">¶</a></h2>
+<p>Plexilisp does not automatically generate any <code class="docutils literal notranslate"><span class="pre">Interface</span></code>
+declarations. They must be created explicitly with these forms.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Interface</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">interface</span> <span class="p">[</span> <span class="n">decl</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The Node’s interface. This must contain only <code class="docutils literal notranslate"><span class="pre">In</span></code> and <code class="docutils literal notranslate"><span class="pre">InOut</span></code> forms.
+They can be intermixed.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">In</span> <span class="p">[</span> <span class="n">var</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">in</span> <span class="p">[</span> <span class="n">var</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare input variables. Your must use the variable declaration forms
+defined above.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">InOut</span> <span class="p">[</span> <span class="n">var</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">inout</span> <span class="p">[</span> <span class="n">var</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declare input/ouput variables. Your must use the variable declaration
+forms defined above.</p>
+</section>
+<section id="boolean-comparisons">
+<span id="id8"></span><h2><a class="toc-backref" href="#id27" role="doc-backlink">Boolean Comparisons</a><a class="headerlink" href="#boolean-comparisons" title="Permalink to this heading">¶</a></h2>
+<p>These return true or false.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">=</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">eq</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">!=</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">ne</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following work with all numeric types.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">&gt;</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">gt</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">&gt;=</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">ge</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">&lt;</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lt</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">&lt;=</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">le</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="logical-connectives">
+<span id="id9"></span><h2><a class="toc-backref" href="#id28" role="doc-backlink">Logical Connectives</a><a class="headerlink" href="#logical-connectives" title="Permalink to this heading">¶</a></h2>
+<p>These return true, false, or unknown.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Or</span> <span class="p">[</span> <span class="n">disjunct</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">or</span> <span class="p">[</span> <span class="n">disjunct</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Permits 0 or more disjuncts. <code class="docutils literal notranslate"><span class="pre">(Or)</span></code> = <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">And</span> <span class="p">[</span> <span class="n">conjunct</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">and</span> <span class="p">[</span> <span class="n">conjunct</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Permits 0 or more conjuncts. <code class="docutils literal notranslate"><span class="pre">(And)</span></code> = <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Not</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">not</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="numeric-operators">
+<span id="id10"></span><h2><a class="toc-backref" href="#id29" role="doc-backlink">Numeric Operators</a><a class="headerlink" href="#numeric-operators" title="Permalink to this heading">¶</a></h2>
+<p>These should be self-explanatory. They work with integer or real values.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">+</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">add</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">-</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">sub</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">mul</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">/</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">div</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="n">mod</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Max</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">max</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Min</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">min</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Abs</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">abs</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Sqrt</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="n">sqrt</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="lookups">
+<h2><a class="toc-backref" href="#id30" role="doc-backlink">Lookups</a><a class="headerlink" href="#lookups" title="Permalink to this heading">¶</a></h2>
+<p>The new form Lookup (and its variant LookupWithTolerance) is a
+convenient substitute for the Core <em>PLEXIL</em> forms LookupNow and
+LookupOnChange. It can be used anywhere, though note that ‘tolerance’ is
+valid only in gate conditions (Start, End, Repeat, Skip) and otherwise
+ignored.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Lookup</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lookup</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Queries for the value of the given state with given arguments.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LookupWithTolerance</span> <span class="n">state</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">tolerance</span> <span class="n">state</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like the above, but uses the specified tolerance. The tolerance is a
+real number or (name of a) real variable.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LookupNow</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">now</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Queries for the value of the given state with given arguments. Valid
+only in node bodies and check conditions (Pre, Post, Invariant, Exit).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LookupOnChange</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">change</span> <span class="n">state</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Subscribes for updates to the given state with given arguments.Valid
+only in gate conditions (Start, End, Repeat, Skip).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">LookupOnChangeWithTolerance</span> <span class="n">state</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">change</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">tolerance</span> <span class="n">state</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">arg</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like the above, but uses the specified tolerance. The tolerance is a
+real number or real variable.</p>
+</section>
+<section id="literals">
+<h2><a class="toc-backref" href="#id31" role="doc-backlink">Literals</a><a class="headerlink" href="#literals" title="Permalink to this heading">¶</a></h2>
+<p>Most of these are not needed, because Plexilisp automatically infers
+types of literals. For example, 5.5 would be a real, 5 would be an
+integer, “foo” a string, <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code> a boolean. Date and
+Duration literals are a strong exception.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IntegerValue</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">intval</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Integer value</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">RealValue</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">realval</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Real value</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">BooleanValue</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">boolval</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Valid arguments are 0, 1, and UNKNOWN. More simply, the symbols
+<code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, and <code class="docutils literal notranslate"><span class="pre">unknown</span></code> may be used instead of this form.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StringValue</span> <span class="nb">str</span> <span class="p">[</span> <span class="nb">str</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">stringval</span> <span class="nb">str</span> <span class="p">[</span> <span class="nb">str</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Concatenates its arguments into one string. For long strings, this makes
+your file more readable.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">DateValue</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">dateval</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ISO-8601 date value</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">DurationValue</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">durationval</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">(</span><span class="n">durval</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ISO-8601 duration value</p>
+</section>
+<section id="node-state-outcome-and-failure-type">
+<span id="id11"></span><h2><a class="toc-backref" href="#id32" role="doc-backlink">Node State, Outcome, and Failure Type</a><a class="headerlink" href="#node-state-outcome-and-failure-type" title="Permalink to this heading">¶</a></h2>
+<p>Predicates for querying the state, outcome, and failure type of actions.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Finished</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">finished</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isFinished</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">finished</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the given action in state FINISHED?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IterationEnded</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">iteration</span><span class="o">-</span><span class="n">ended</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isIterationEnded</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">iteration</span><span class="o">-</span><span class="n">ended</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the given node in state ITERATION_ENDED?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Executing</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">executing</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isExecuting</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">executing</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the given action in state EXECUTING?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Waiting</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">waiting</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isWaiting</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">waiting</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the given action in state WAITING?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Inactive</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">inactive</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isInactive</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">inactive</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the given action in state INACTIVE?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Successful</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">successful</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isSuccessful</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">successful</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the given action finish successfully?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IterationSuccessful</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">iteration</span><span class="o">-</span><span class="n">successful</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the last iteration of the given action finish successfully?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">IterationFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">iteration</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the last iteration of the given action fail?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Failed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the given action fail?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Skipped</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">skipped</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">isSkipped</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">skipped</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Was the given action skipped?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">InvariantFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">invariant</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the invariant condition of the given action fail?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PostConditionFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">PostconditionFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">postcondition</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">post</span><span class="o">-</span><span class="n">condition</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the postcondition of the given action fail?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PreConditionFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">PreconditionFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">precondition</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">pre</span><span class="o">-</span><span class="n">condition</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the precondition of the given action fail?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ParentFailed</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">parent</span><span class="o">-</span><span class="n">failed</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the parent of the given action fail?</p>
+</section>
+<section id="conditionals-and-loops">
+<span id="id12"></span><h2><a class="toc-backref" href="#id33" role="doc-backlink">Conditionals and Loops</a><a class="headerlink" href="#conditionals-and-loops" title="Permalink to this heading">¶</a></h2>
+<p>These are high level syntax extensions of <em>PLEXIL</em> (syntactic sugar). They
+expand into node structures.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">If</span> <span class="n">condition</span> <span class="n">then</span><span class="o">-</span><span class="n">part</span> <span class="p">[</span> <span class="k">else</span><span class="o">-</span><span class="n">part</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="k">if</span> <span class="n">condition</span> <span class="n">then</span><span class="o">-</span><span class="n">part</span> <span class="p">[</span> <span class="k">else</span><span class="o">-</span><span class="n">part</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>If-then-else. The <code class="docutils literal notranslate"><span class="pre">then-part</span></code> and <code class="docutils literal notranslate"><span class="pre">else-part</span></code> may be nodes or other
+actions. The <code class="docutils literal notranslate"><span class="pre">else-part</span></code> is optional.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">While</span> <span class="n">condition</span> <span class="n">action</span><span class="p">)</span>
+<span class="p">(</span><span class="k">while</span> <span class="n">condition</span> <span class="n">action</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>While loop.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">for</span> <span class="n">declaration</span> <span class="n">condition</span> <span class="n">update</span> <span class="n">action</span><span class="p">)</span>
+<span class="p">(</span><span class="n">For</span> <span class="n">declaration</span> <span class="n">condition</span> <span class="n">update</span> <span class="n">action</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For Loop. The declaration should look like a variable declaration. i.e
+<code class="docutils literal notranslate"><span class="pre">(type</span> <span class="pre">name</span> <span class="pre">[init])</span></code>, where <code class="docutils literal notranslate"><span class="pre">type</span></code> must be either <code class="docutils literal notranslate"><span class="pre">integer</span></code> or
+<code class="docutils literal notranslate"><span class="pre">real</span></code> and the initial value <code class="docutils literal notranslate"><span class="pre">init</span></code> is optional (though generally
+useful). <code class="docutils literal notranslate"><span class="pre">condition</span></code> is a boolean expression that will terminate the
+loop when it is false. <code class="docutils literal notranslate"><span class="pre">update</span></code> is a numeric expression that expresses
+a new value for the declared variable.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Sequence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">sequence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Each action starts after the previous succeeds. If an action fails, the
+sequence terminates immediately with failure.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">UncheckedSequence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">unchecked</span><span class="o">-</span><span class="n">sequence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Each action starts after the previous finishes, regardless of success or
+failure.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Concurrence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">concurrence</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">Concurrently</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">concurrently</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes forms concurrently. Basically a List node.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Try</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="k">try</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes actions sequentially, stopping after the an action succeeds.
+Fails if and only if no action succeeds.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">OnMessage</span> <span class="n">message</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">on</span><span class="o">-</span><span class="n">message</span> <span class="n">message</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifies an action for responding to a given message (string).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">OnCommand</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="n">arg</span><span class="o">-</span><span class="n">decls</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">on</span><span class="o">-</span><span class="n">command</span> <span class="n">command</span><span class="o">-</span><span class="n">name</span> <span class="n">arg</span><span class="o">-</span><span class="n">decls</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifies an action for responding to a given command. command-name must
+be a string, arg-decls a list of variable declarations (e.g., (real “x”)
+(integer “y”) (boolean “z”) (real-array “m” 4), etc.). If this is action
+should return a value, send it using the command SendReturnValue. See
+the Plexil manual (plexil.sourceforge.net) for more information.</p>
+</section>
+<section id="special-purpose-nodes">
+<span id="id13"></span><h2><a class="toc-backref" href="#id34" role="doc-backlink">Special Purpose Nodes</a><a class="headerlink" href="#special-purpose-nodes" title="Permalink to this heading">¶</a></h2>
+<p>These forms expand into nodes that perform convenient functions.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Action</span> <span class="n">name</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">action</span> <span class="n">name</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifies any kind of action. The specified forms can include any node
+clauses (except NodeId, which is given by <code class="docutils literal notranslate"><span class="pre">name</span></code>, as well as any
+number of actions. The actions form the body of the generated List Node.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(Nothing ``)
+(nothing ``)
+</pre></div>
+</div>
+<p>An action that does nothing. This becomes an anonymous empty node.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">When</span> <span class="n">condition</span> <span class="n">action</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">when</span> <span class="n">condition</span> <span class="n">action</span> <span class="p">[</span> <span class="n">action</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes actions (concurrently) when condition becomes true. This is
+essentially a <em>monitor</em>.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Wait</span> <span class="n">units</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">wait</span> <span class="n">units</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Waits given number of time units.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">WaitWithTolerance</span> <span class="n">units</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">wait</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">tolerance</span> <span class="n">units</span> <span class="n">tolerance</span> <span class="p">[</span> <span class="n">name</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Waits given number of time units with given tolerance.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">SynchronousCommand</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">synchronous</span><span class="o">-</span><span class="n">command</span> <span class="p">[</span> <span class="n">name</span><span class="o">-</span><span class="ow">or</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">form</span> <span class="p">]</span> <span class="p">[</span> <span class="o">&amp;</span><span class="n">rest</span> <span class="p">]</span> <span class="p">[</span> <span class="n">forms</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The Synchronous Command action, which waits for its return value or
+status handle</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">timeout</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Timeout</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specify a timeout clause, whose argument should be a numeric expression.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">tolerance</span> <span class="n">exp</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Tolerance</span> <span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specify a tolerance value, whose argument should be a real number or
+variable.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">let</span> <span class="nb">vars</span> <span class="n">form</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Let</span> <span class="nb">vars</span> <span class="n">form</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Declares variables that are lexically scoped to the enclosing forms,
+similar to LET in Lisp.</p>
+</section>
+</section>
+<section id="resource-clauses">
+<span id="id14"></span><h1><a class="toc-backref" href="#id35" role="doc-backlink">Resource Clauses</a><a class="headerlink" href="#resource-clauses" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ResourceList</span> <span class="p">[</span> <span class="n">resource</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">resource</span><span class="o">-</span><span class="nb">list</span> <span class="p">[</span> <span class="n">resource</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">Resources</span> <span class="p">[</span> <span class="n">resource</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">resources</span> <span class="p">[</span> <span class="n">resource</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>List of Resource specifications.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Resource</span> <span class="n">name</span> <span class="n">priority</span> <span class="p">[</span> <span class="n">clause</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">resource</span> <span class="n">name</span> <span class="n">priority</span> <span class="p">[</span> <span class="n">clause</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A Resource specification. Name and priority are required. The remaining
+clauses can be <code class="docutils literal notranslate"><span class="pre">ResourceUpperBound</span></code> or <code class="docutils literal notranslate"><span class="pre">ResourceLowerBound</span></code></p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ResourceUpperBound</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="n">resource</span><span class="o">-</span><span class="n">upper</span><span class="o">-</span><span class="n">bound</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A resource upper bound.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ResourceLowerBound</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">(</span><span class="n">resource</span><span class="o">-</span><span class="n">lower</span><span class="o">-</span><span class="n">bound</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A resource lower bound.</p>
+</section>
+<section id="miscellaneous-node-clauses">
+<span id="id15"></span><h1><a class="toc-backref" href="#id36" role="doc-backlink">Miscellaneous Node Clauses</a><a class="headerlink" href="#miscellaneous-node-clauses" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">NodeComment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">comment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A comment for the node. (The sentences will be concatenated.)</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Permissions</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">(</span><span class="n">permissions</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The node’s permissions.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Comment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">comment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This creates a comment in the XML, and may occur in any number within a
+node. It is useful for commenting your plan in a way that will also be
+reflected in the XML.</p>
+</section>
+<section id="miscellaneous-expressions">
+<span id="id16"></span><h1><a class="toc-backref" href="#id37" role="doc-backlink">Miscellaneous Expressions</a><a class="headerlink" href="#miscellaneous-expressions" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Concat</span> <span class="p">[</span> <span class="n">expr</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">concat</span> <span class="p">[</span> <span class="n">expr</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A string expression is either a string literal, StringValue expression,
+string variable, lookup, or another Concat expression. The Concat form
+takes 0 or more of these and returns a string that is the concatenation
+of the evaluated expressions. Concat() is the empty string. Concat(x) =
+x</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">TimepointValue</span> <span class="n">nodeid</span> <span class="n">node</span><span class="o">-</span><span class="n">state</span><span class="o">-</span><span class="n">value</span> <span class="n">timepoint</span><span class="p">)</span>
+<span class="p">(</span><span class="n">timepoint</span><span class="o">-</span><span class="n">value</span> <span class="n">nodeid</span> <span class="n">node</span><span class="o">-</span><span class="n">state</span><span class="o">-</span><span class="n">value</span> <span class="n">timepoint</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns the amount of time since the specified state of the specified
+node has either started or ended. node-state-value must be one of
+INACTIVE, WAITING, FINISHED, ITERATION_ENDED, EXECUTING, FAILING,
+FINISHING. Timepoint must be one of START, END.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">StartTime</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">time</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Time when given node started executing.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">EndTime</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">time</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Time when given node stopped executing.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PendingStart</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">pending</span><span class="o">-</span><span class="n">start</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the given node started executing?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PendingEnd</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">pending</span><span class="o">-</span><span class="n">end</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Did the given node finish?</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">NodeState</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">state</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifies the state of the node with the given ID.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">NodeOutcome</span> <span class="n">nodeid</span><span class="p">)</span>
+<span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">outcome</span> <span class="n">nodeid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifies the outcome of the node with the given ID.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">isKnown</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">(</span><span class="n">IsKnown</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">(</span><span class="ow">is</span><span class="o">-</span><span class="n">known</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns true or false depending on whether the value of the given
+declared variable, node state variable, node outcome variable, or node
+timepoint value is known.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">starts</span><span class="o">-</span><span class="n">after</span><span class="o">-</span><span class="n">start</span> <span class="n">d1</span> <span class="n">d2</span> <span class="nb">id</span><span class="p">)</span>
+<span class="p">(</span><span class="n">StartsAfterStart</span> <span class="n">d1</span> <span class="n">d2</span> <span class="nb">id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A boolean expression stating a start time that is [d1 d2] after the
+start of action named ID.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(current-time ``)
+(CurrentTime ``)
+</pre></div>
+</div>
+<p>Lookup the time.</p>
+</section>
+<section id="plexil-simulation-script">
+<span id="id17"></span><h1><a class="toc-backref" href="#id38" role="doc-backlink">PLEXIL Simulation Script</a><a class="headerlink" href="#plexil-simulation-script" title="Permalink to this heading">¶</a></h1>
+<p>This section describes the forms (constructs) that comprise simulation
+.scripts, which are used to test plans with the <em>PLEXIL</em> Test Executive.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PlexilScript</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">plexil</span><span class="o">-</span><span class="n">script</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The top level form for a script. A script must contain exactly one of
+these, and nothing else.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">InitialState</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">initial</span><span class="o">-</span><span class="n">state</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines the initial state section of the script, which is optional. It
+consists of <code class="docutils literal notranslate"><span class="pre">State</span></code> forms.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Script</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">script</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines the “script” section of the script, which is required. It
+consists of any of the following forms.</p>
+<p>NOTE: In the following 5 forms that have a <code class="docutils literal notranslate"><span class="pre">value</span></code> or <code class="docutils literal notranslate"><span class="pre">result</span></code>
+argument, the argument may be either a single value or a list of values.
+The list must not be quoted, e.g. <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">2</span> <span class="pre">3)</span></code>. A list indicates that
+that return value or result is an array. Its elements must all be of the
+same type. For boolean arrays, you must use 0 and 1 for true and false,
+respectively.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">State</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">value</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">state</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">value</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sets the state of given name and type and parameters to the given
+value(s).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandAck</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">ack</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Acknowledges the named command with given parameters, returning the
+given result(s) of given type.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Command</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simulates the completion of the named command with given parameters
+returning the given result(s) of given type.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandAbort</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">abort</span> <span class="n">name</span> <span class="nb">type</span> <span class="n">result</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simulates the abort of the named command with given parameters returning
+the given result(s) of given type.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Param</span> <span class="n">value</span> <span class="p">[</span> <span class="nb">type</span> <span class="p">]</span> <span class="p">)</span>
+<span class="p">(</span><span class="n">param</span> <span class="n">value</span> <span class="p">[</span> <span class="nb">type</span> <span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Defines a parameter <em>value</em>, with optional type.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">ParamString</span> <span class="nb">str</span> <span class="p">[</span> <span class="nb">str</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">param</span><span class="o">-</span><span class="n">string</span> <span class="nb">str</span> <span class="p">[</span> <span class="nb">str</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Like the above, but useful for long strings (they are concatenated).</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">UpdateAck</span> <span class="n">name</span><span class="p">)</span>
+<span class="p">(</span><span class="n">update</span><span class="o">-</span><span class="n">ack</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Acknowledges a plan update.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Simultaneous</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">simultaneous</span> <span class="p">[</span> <span class="n">form</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Wraps script actions that should occur simultaneously.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Comment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">comment</span> <span class="p">[</span> <span class="n">sentence</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This creates a comment in the XML, and may occur in any number within a
+script. It is useful for commenting your script in a way that will also
+be reflected in the XML.</p>
+<section id="simulation-script-shortcuts">
+<span id="id18"></span><h2><a class="toc-backref" href="#id39" role="doc-backlink">Simulation Script Shortcuts</a><a class="headerlink" href="#simulation-script-shortcuts" title="Permalink to this heading">¶</a></h2>
+<p>This section describes various shortcuts for simulation scripts. They
+each expand into some combination of the forms in the previous section.</p>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">CommandSuccess</span> <span class="n">name</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+<span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">success</span> <span class="n">name</span> <span class="p">[</span> <span class="n">param</span> <span class="p">]</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sends a COMMAND_SUCCESS handle for the given command invocation. NOTE:
+If your plan is awaiting a return value from the command itself, you
+must return this (using the <code class="docutils literal notranslate"><span class="pre">Command</span></code> form) <em>before</em> this handle.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

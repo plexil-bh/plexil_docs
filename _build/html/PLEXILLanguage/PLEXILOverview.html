@@ -83,10 +83,10 @@
 <span id="id1"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">What is PLEXIL?</a><a class="headerlink" href="#what-is-plexil" title="Permalink to this heading">¶</a></h2>
 <p>Plan execution is a cornerstone in autonomy applications, such as
 robotics, unmanned vehicles and habitats, and systems or simulations
-involving intelligent software agents. PLEXIL (<em>PL</em>an E<em>x</em>ecution
+involving intelligent software agents. <em>PLEXIL</em> (<em>PL</em>an E<em>x</em>ecution
 <em>I</em>nterchange <em>L</em>anguage) is a language for representing plans for
 automation.</p>
-<p>PLEXIL was designed to meet the requirements of flexible, efficient and
+<p><em>PLEXIL</em> was designed to meet the requirements of flexible, efficient and
 reliable plan execution in space mission operations. It is compact,
 semantically clear, and deterministic given the same sequence of events
 from the external world. At the same time, the language is quite
@@ -95,13 +95,13 @@ activities, concurrent activities, sequences, and temporal constraints.
 The core syntax of the language is simple and uniform, making plan
 interpretation simple and efficient, while enabling the application of
 validation and testing techniques.</p>
-<p>Accompanying PLEXIL is an execution engine, or <em>executive</em>, which
-implements efficiently the PLEXIL language and provides interfaces to
+<p>Accompanying <em>PLEXIL</em> is an execution engine, or <em>executive</em>, which
+implements efficiently the <em>PLEXIL</em> language and provides interfaces to
 controlled systems as well as decision support systems from which plans
-may be sent. The PLEXIL software suite also includes a graphical plan
+may be sent. The <em>PLEXIL</em> software suite also includes a graphical plan
 execution viewer, a static plan checker, and two different plan
 simulators.</p>
-<p>PLEXIL was originally developed as a collaborative effort between
+<p><em>PLEXIL</em> was originally developed as a collaborative effort between
 researchers at NASA and Carnegie Mellon University, funded by NASA’s
 Mars Technology Program through the Research Institute for Advanced
 Computer Science (RIACS) in the Universities Space Research Association
@@ -109,38 +109,42 @@ Computer Science (RIACS) in the Universities Space Research Association
 NASA projects, which have included the control of prototype planetary
 rovers and habitats, drilling equipment, and demonstration of adjustable
 automation for International Space Station operations. See the
-<a class="reference external" href="References">References</a> for more information on the background and
-applications of PLEXIL.</p>
+<a class="reference internal" href="../Appendices/References.html#references"><span class="std std-ref">References</span></a> for more information on the background and
+applications of <em>PLEXIL</em>.</p>
 </section>
 <section id="overview">
 <span id="id2"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
-<p>This section is a short overview of the PLEXIL language. It describes
-abstractly the main features of PLEXIL, and explains how one programs in
-PLEXIL. The next chapter, <a class="reference external" href="Plexil_Reference">Plexil Reference</a>,
-describes in detail the programming constructs of PLEXIL. The <a class="reference external" href="Detailed_Semantics">Detailed
-Semantics</a> chapter covers PLEXIL execution in
+<p>This section is a short overview of the <em>PLEXIL</em> language. It describes
+abstractly the main features of <em>PLEXIL</em>, and explains how one programs in
+<em>PLEXIL</em>. The next chapter, <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">PLEXIL Reference</span></a>,
+describes in detail the programming constructs of <em>PLEXIL</em>. The <a class="reference internal" href="PLEXILSemantics.html#plexilsemantics"><span class="std std-ref">Detailed Semantics</span></a>
+chapter covers <em>PLEXIL</em> execution in
 greater depth.</p>
 <section id="nodes">
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">Nodes</a><a class="headerlink" href="#nodes" title="Permalink to this heading">¶</a></h3>
-<p>A PLEXIL plan is built from <em>nodes</em> (NOTE: <em>nodes</em> were once called
-<em>actions</em>). An node specifies something to do, either within the plan
+<p>A <em>PLEXIL</em> plan is built from <em>nodes</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>nodes</em> were once called <em>actions</em></p>
+</div>
+<p>A node specifies something to do, either within the plan
 itself, or to the external world. Nodes are the composable building
 blocks from which arbitrarily complex behaviors can be specified. There
-are many kinds of nodes in PLEXIL, and each is a programming construct
+are many kinds of nodes in <em>PLEXIL</em>, and each is a programming construct
 specifying a certain behavior.</p>
-<p>A PLEXIL plan is a tree of nodes with a single root node. This tree
+<p>A <em>PLEXIL</em> plan is a tree of nodes with a single root node. This tree
 represents a hierarchical decomposition of tasks. High level tasks are
 closer to the root node, while leaf nodes represent primitive behaviors
 such as assigning to a variable or sending a command to the external
 system.</p>
 <p>The following diagram exemplifies a simple hierarchical plan. Its
-representation in PLEXIL would have a similar tree structure.</p>
+representation in <em>PLEXIL</em> would have a similar tree structure.</p>
 <figure class="align-default">
 <img alt="../_images/Sample-plan.png" src="../_images/Sample-plan.png" />
 </figure>
 <hr class="docutils" />
 <p>Let’s meet the nodes. The following UML diagram illustrates the essence
-of PLEXIL.</p>
+of <em>PLEXIL</em>.</p>
 <figure class="align-default">
 <img alt="../_images/Plexil-uml.jpg" src="../_images/Plexil-uml.jpg" />
 </figure>
@@ -156,25 +160,24 @@ names.</p></li>
 <li><p>The <em>OnMessage</em> and <em>OnCommand</em> nodes are used in multi-executive
 applications and specify response policies.</p></li>
 </ul>
-<p>Nodes are described in greater detail in the <a class="reference external" href="Plexil_Reference">Plexil
-Reference</a> chapter.</p>
+<p>Nodes are described in greater detail in the <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">Plexil Reference</span></a> chapter.</p>
 </section>
 <section id="core-plexil">
 <span id="id3"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Core PLEXIL</a><a class="headerlink" href="#core-plexil" title="Permalink to this heading">¶</a></h3>
 <p>The bottom row of nodes in the diagram above are <em>simple nodes</em> and
 constitute a subset of the language called <em>Core PLEXIL</em>. These six
-nodes provide all the computational power of PLEXIL. In fact, all the
+nodes provide all the computational power of <em>PLEXIL</em>. In fact, all the
 compound nodes described above and shown on the right side of the
 diagram are translated into a tree of simple nodes prior to execution.
-Only Core PLEXIL is directly executed by the PLEXIL executive; the final
+Only Core <em>PLEXIL</em> is directly executed by the <em>PLEXIL</em> executive; the final
 plan executed is a single tree of simple nodes.</p>
-<p>Historical note: Originally, Core PLEXIL was the entire PLEXIL language.
-Core PLEXIL was too primitive to write non-trivial plans, so it was
+<p>Historical note: Originally, Core <em>PLEXIL</em> was the entire <em>PLEXIL</em> language.
+Core <em>PLEXIL</em> was too primitive to write non-trivial plans, so it was
 extended with higher level constructs, essentially “macros” that
-translated into Core PLEXIL for execution; this extended language was
+translated into Core <em>PLEXIL</em> for execution; this extended language was
 called <em>Extended PLEXIL</em>. Today, the full language is simply called
 PLEXIL (or Plexil).</p>
-<p>There are six types of nodes comprising Core PLEXIL. The interior nodes
+<p>There are six types of nodes comprising Core <em>PLEXIL</em>. The interior nodes
 in a plan are <em>List nodes</em>. List nodes have <em>child nodes</em> (or
 “children”) which can be of any type. A List node is called the <em>parent
 node</em> (or “parent”) of its child nodes. The remaining nodes are leaf
@@ -232,7 +235,7 @@ INTERRUPTED. The Exit condition can be used to effect deliberate plan
 cancellation. It is effectively the dual of the Invariant condition,
 which when false has the same effect but with a failure outcome.</p></li>
 </ul>
-<p>Each condition specifies a logical expression. PLEXIL employs a
+<p>Each condition specifies a logical expression. <em>PLEXIL</em> employs a
 <em>ternary</em> logic in which logical expressions evaluate to one of True,
 False, or Unknown.</p>
 </section>
@@ -247,34 +250,34 @@ the next chapter.</p>
 <section id="state-outcome-and-introspection">
 <span id="id4"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">State, Outcome, and Introspection</a><a class="headerlink" href="#state-outcome-and-introspection" title="Permalink to this heading">¶</a></h3>
 <p>A node is always in one of seven states, and always terminates with one
-of four outcomes. The exact semantics for this behavior in Core PLEXIL
-is given in the <a class="reference external" href="Node_State_Transition_Diagrams">Node State Transition
-Diagrams</a>. A node can (e.g. in one of
+of four outcomes. The exact semantics for this behavior in Core <em>PLEXIL</em>
+is given in the <a class="reference internal" href="../Appendices/NodeStateDiagrams.html#nodestatediagrams"><span class="std std-ref">Node State Transition Diagrams</span></a>.
+A node can (e.g. in one of
 its conditions) query the state and outcome of itself, its parent,
 children, and siblings, but no other nodes; it can also query the start
 and end times of any given state of these nodes.</p>
 </section>
 <section id="external-world">
 <span id="id5"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">External World</a><a class="headerlink" href="#external-world" title="Permalink to this heading">¶</a></h3>
-<p>PLEXIL reads the state of the external world or system through
-<em>lookups</em>, which come in several varieties. PLEXIL can affect the state
+<p><em>PLEXIL</em> reads the state of the external world or system through
+<em>lookups</em>, which come in several varieties. <em>PLEXIL</em> can affect the state
 of the external world or system through <em>commands</em>, which are sent
 asynchronously.</p>
 </section>
 <section id="time">
 <h3><a class="toc-backref" href="#id19" role="doc-backlink">Time</a><a class="headerlink" href="#time" title="Permalink to this heading">¶</a></h3>
 <p>Time (durations, elapsed time, clock time, etc) is often an essential
-concept in automated and simulated systems. PLEXIL has no native concept
-of time, per se. Time in PLEXIL is just another external state, and
-PLEXIL has predefined the state named <code class="docutils literal notranslate"><span class="pre">time</span></code> for its operations that
-involve time. The expressions in PLEXIL that <em>imply</em> time, i.e. those
+concept in automated and simulated systems. <em>PLEXIL</em> has no native concept
+of time, per se. Time in <em>PLEXIL</em> is just another external state, and
+<em>PLEXIL</em> has predefined the state named <code class="docutils literal notranslate"><span class="pre">time</span></code> for its operations that
+involve time. The expressions in <em>PLEXIL</em> that <em>imply</em> time, i.e. those
 that give the start and end times of node states, rely on the <code class="docutils literal notranslate"><span class="pre">time</span></code>
 external variable, which at present is a unitless real number.</p>
 </section>
 <section id="resources">
 <h3><a class="toc-backref" href="#id20" role="doc-backlink">Resources</a><a class="headerlink" href="#resources" title="Permalink to this heading">¶</a></h3>
-<p>PLEXIL has a simple resource model, described in detail in <a class="reference external" href="Resource_Model">Chapter
-5</a>. In short, resource requirements for commands
+<p><em>PLEXIL</em> has a simple resource model, described in detail in <a class="reference internal" href="ResourceModel.html#resourcemodel"><span class="std std-ref">Chapter 5</span></a>.
+In short, resource requirements for commands
 (only) can be specified in command nodes, and these requirements are
 checked during execution via a resource arbitration mechanism. Simple
 models of unary, non-unary, hierarchical, and renewable resources are
@@ -284,29 +287,27 @@ supported.</p>
 <span id="id6"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Programming in PLEXIL</a><a class="headerlink" href="#programming-in-plexil" title="Permalink to this heading">¶</a></h3>
 <section id="standard-plexil">
 <span id="id7"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">Standard Plexil</a><a class="headerlink" href="#standard-plexil" title="Permalink to this heading">¶</a></h4>
-<p>There are several means of programming in PLEXIL. The executable form of
-PLEXIL is its XML representation. While many external applications have
-<em>generated</em> PLEXIL code in its XML form, the XML form is not practical
-for authoring PLEXIL directly.</p>
-<p>The standard programming syntax for PLEXIL is described in this manual.
+<p>There are several means of programming in <em>PLEXIL</em>. The executable form of
+<em>PLEXIL</em> is its XML representation. While many external applications have
+<em>generated</em> <em>PLEXIL</em> code in its XML form, the XML form is not practical
+for authoring <em>PLEXIL</em> directly.</p>
+<p>The standard programming syntax for <em>PLEXIL</em> is described in this manual.
 It is simply called Plexil, or sometimes <em>standard Plexil</em>. A translator
-for Plexil, which converts user programs into Core PLEXIL XML, is
-described in the <a class="reference external" href="Plexil_Reference#Programming_in_Plexil">next
-chapter</a>.</p>
+for Plexil, which converts user programs into Core <em>PLEXIL</em> XML, is
+described in the <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">next chapter</span></a>.</p>
 <p>Note that the terms “PLEXIL” and “Plexil” can refer to the abstract
-PLEXIL language (nodes) and/or to its standard programming syntax.</p>
+<em>PLEXIL</em> language (nodes) and/or to its standard programming syntax.</p>
 </section>
 </section>
 <section id="plexil-and-xml">
 <span id="id8"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">PLEXIL and XML</a><a class="headerlink" href="#plexil-and-xml" title="Permalink to this heading">¶</a></h3>
-<p>As mentioned in the previous section, the executable form of PLEXIL is
+<p>As mentioned in the previous section, the executable form of <em>PLEXIL</em> is
 represented in XML (Extensible Markup Language), a widely used standard
-for information modeling. Although a PLEXIL user does not normally need
+for information modeling. Although a <em>PLEXIL</em> user does not normally need
 to be concerned with XML, it is important to note that the formal
-specification of PLEXIL’s syntax is given at the XML level. Core PLEXIL
-is specified by <em>XML schemas</em>. More information about PLEXIL XML is
-given in the chapter titled “<a class="reference external" href="PLEXIL,_XML,_and_Emacs">PLEXIL, XML, and
-Emacs</a>”.</p>
+specification of <em>PLEXIL</em>’s syntax is given at the XML level. Core <em>PLEXIL</em>
+is specified by <em>XML schemas</em>. More information about <em>PLEXIL</em> XML is
+given in the chapter titled <a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html#xmlschemaemacs"><span class="std std-ref">PLEXIL, XML, and Emacs</span></a>.</p>
 </section>
 </section>
 <section id="the-plexil-community">
@@ -314,16 +315,11 @@ Emacs</a>”.</p>
 <p>We have two mailing lists:</p>
 <ul class="simple">
 <li><p><em>plexil-discussion</em> email will be sent to anyone interested in
-PLEXIL.</p></li>
-<li><p><em>plexil-support</em> email will be sent only to the PLEXIL developers.</p></li>
+<em>PLEXIL</em>.</p></li>
+<li><p><em>plexil-support</em> email will be sent only to the <em>PLEXIL</em> developers.</p></li>
 </ul>
 <p>Please feel free to add yourself to <em>plexil-discussion</em> using the
-<a class="reference external" href="https://sourceforge.net/projects/plexil/support">Sourceforge mailing
-lists</a></p>
-<hr class="docutils" />
-<p>Copyright (c) 2006-2021, Universities Space Research Association (USRA).
-All rights reserved.</p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
+<a class="reference external" href="https://sourceforge.net/projects/plexil/support">Sourceforge mailing lists</a></p>
 </section>
 </section>
 
@@ -363,6 +359,7 @@ All rights reserved.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -404,8 +401,8 @@ All rights reserved.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

@@ -5,16 +5,16 @@ ResourceArbiter
 
 *10/4/10*
 
-This chapter describes in greater detail PLEXIL's *resource arbiter*,
-which was introduced in the `Resource Model <Resource_Model>`__ chapter.
+This chapter describes in greater detail |PLEXIL|'s *resource arbiter*,
+which was introduced in the :ref:`Resource Model <ResourceModel>` chapter.
 
 .. contents::
 
 Design
 ------
 
-The PLEXIL language provides constructs to list resource requirements
-for a command. The Resource Arbiter, which is part of the PLEXIL
+The |PLEXIL| language provides constructs to list resource requirements
+for a command. The Resource Arbiter, which is part of the |PLEXIL|
 Executive, implements the necessary logic that keeps track of the
 resources consumed and also performs the task of accepting or rejecting
 commands based on the available resource level. This schematic shown
@@ -101,20 +101,13 @@ arbiter. This file must be named ``resource.data`` and filed in the
 directory from which the executive is run; see an example in
 ``plexil/exampes/resource.data``.
 
-| Such a configuration file at the minimum can contain information such
-  as the maximum consumable and renewable levels. In addition the
-  configuration can also capture interdependencies between resources.
-  Currently the resource arbiter can handle resource dependencies that
-  can be represented in the form of a weighted Directed Acyclic Graph.
-  The schematic shown below shows the general structure of such a graphs
-  and the format of the configuration file. The weights represent the
-  absolute value of the resource usage.
+Such a configuration file at the minimum can contain information such
+as the maximum consumable and renewable levels. In addition the
+configuration can also capture interdependencies between resources.
+Currently the resource arbiter can handle resource dependencies that
+can be represented in the form of a weighted Directed Acyclic Graph.
+The schematic shown below shows the general structure of such a graphs
+and the format of the configuration file. The weights represent the
+absolute value of the resource usage.
   
 .. figure:: ../_static/images/Dagresources3.jpg
-
---------------
-
-Copyright (c) 2006-2014, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

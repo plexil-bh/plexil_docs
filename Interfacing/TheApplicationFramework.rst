@@ -5,7 +5,7 @@ The Application Framework
 
 *21 May 2015*
 
-This section gives a high-level overview of the PLEXIL Application
+This section gives a high-level overview of the |PLEXIL| Application
 Framework.
 
 .. contents::
@@ -13,7 +13,7 @@ Framework.
 Overview
 --------
 
-The core of the PLEXIL Executive is general and abstract by design. No
+The core of the |PLEXIL| Executive is general and abstract by design. No
 top-level loop is provided, nor are any interfaces to external systems
 implemented in the core.
 
@@ -27,7 +27,7 @@ interface adapter classes is provided.
 This application framework is intended to support a wide range of uses
 with little or no custom code. However, some applications may require
 the developer to implement a custom framework. This is beyond the scope
-of this document. Please contact the PLEXIL team if you have such an
+of this document. Please contact the |PLEXIL| team if you have such an
 application.
 
 The following diagram illustrates the main classes of the application
@@ -37,7 +37,6 @@ remainder of this chapter.
 .. figure:: ../_static/images/Interfacing-PLEXIL-4.png
    :alt: _Interfacing-PLEXIL-4.png
 
-   \_Interfacing-PLEXIL-4.png
 
 .. _the_universalexec_application:
 
@@ -45,27 +44,27 @@ The universalExec Application
 -----------------------------
 
 The ``universalExec`` application is a flexible main program for
-applications of the PLEXIL Executive which have straightforward
+applications of the |PLEXIL| Executive which have straightforward
 interfacing requirements. Interfaces can be specified at startup time by
-an `interface configuration file <Interface_Configuration_File>`__.
+an :ref:`interface configuration file <InterfaceConfigurationFile>`.
 
 The ``universalExec`` application is comprised of the following:
 
-#. The `PlexilExec <#PlexilExec>`__ class, which implements the core
+#. The :ref:`PlexilExec <PlexilExec>` class, which implements the core
    plan execution logic of the Executive;
-#. The `AdapterConfiguration <#AdapterConfiguration>`__ class,
+#. The :ref:`AdapterConfiguration <AdapterConfiguration>` class,
    responsible for routing interface requests to the appropriate
    interface adapter;
-#. The `InterfaceManager <#InterfaceManager>`__ class, which implements
+#. The :ref:`InterfaceManager <InterfaceManager>` class, which implements
    the high-level external interface required by the Executive core;
-#. The `ExecApplication <#ExecApplication>`__ class, responsible for
+#. The :ref:`ExecApplication <ExecApplication>` class, responsible for
    startup, shutdown, and (where appropriate) threading;
 #. A small ``main()`` program to parse the command line, set up the
    framework, start execution, wait for execution to end, and clean up
    at exit.
 
 The source code of the ``universalExec`` application is in the directory
-$PLEXIL_HOME/src/universal-exec in the PLEXIL distribution. For
+``$PLEXIL_HOME/src/universal-exec`` in the |PLEXIL| distribution. For
 applications needing more control over initialization and shutdown, the
 source code in this directory can be used as a template.
 
@@ -81,12 +80,12 @@ Adapters, Listeners, and Listener Filters
 
 Users can interface the Executive to a wide variety of external systems
 through the APIs defined by the abstract base classes
-`InterfaceAdapter <#InterfaceAdapter>`__,
-`ExecListener <#ExecListener>`__, and
-`ExecListenerFilter <#ExecListenerFilter>`__
+:ref:`InterfaceAdapter <InterfaceAdapter>`,
+:ref:`ExecListener <ExecListener>`, and
+:ref:`ExecListenerFilter <ExecListenerFilter>`
 
 *Interface adapters* serve as intermediaries between the
-`InterfaceManager <#InterfaceManager>`__ instance and the outside world.
+:ref:`InterfaceManager <InterfaceManager>` instance and the outside world.
 They direct commands, lookup requests, and planner updates to the
 appropriate external modules or devices, and translate their results
 back into the internal representations.
@@ -100,9 +99,9 @@ can select the events to report.
 The Lifecycle Model
 -------------------
 
-The PLEXIL application framework divides the application and interface
+The |PLEXIL| application framework divides the application and interface
 lifecycle into several phases. The
-`ExecApplication <PLEXIL_Application_Framework_API_Reference#ExecApplication>`__
+:ref:`ExecApplication <ExecApplication>`
 class manages the phases as follows.
 
 Uninitialized
@@ -158,8 +157,10 @@ is finished.
 Concrete Classes
 ----------------
 
-These are the predefined classes which establish the PLEXIL Application
+These are the predefined classes which establish the |PLEXIL| Application
 Framework.
+
+.. _PlexilExec:
 
 PlexilExec
 ~~~~~~~~~~
@@ -177,15 +178,16 @@ to interface adapters, and to load, query, and modify the list of exec
 listeners. It implements *abstract factories* for adapters and
 listeners.
 
-In the `PLEXIL Executive <PLEXIL_Executive>`__ and many applications
+In the :ref:`PLEXIL Executive <PLEXILExecutive>` and many applications
 derived from the framework, the ``AdapterConfiguration`` instance is
-responsible for loading configuration data from the `interface
-configuration file <Interface_Configuration_File>`__, and using the
+responsible for loading configuration data from the :ref:`interface configuration file <InterfaceConfigurationFile>`, and using the
 abstract factories to construct the adapters and listeners.
 
 In other applications, a user-defined program can construct adapter and
 listener objects as required, and configure routing to them through
 imperative ``AdapterConfiguration`` method calls.
+
+.. _InterfaceManager:
 
 InterfaceManager
 ~~~~~~~~~~~~~~~~
@@ -196,11 +198,13 @@ the ``AdapterConfiguration`` instance for routing information, sends
 them to the appropriate Interface adapters, and enqueues the results for
 use by the ``PlexilExec``.
 
+.. _ExecApplication:
+
 ExecApplication
 ~~~~~~~~~~~~~~~
 
 The ``ExecApplication`` class implements the essential features
-necessary for a PLEXIL application, and implements a top-level loop,
+necessary for a |PLEXIL| application, and implements a top-level loop,
 including optional multithreaded operations for platforms with
 POSIX-compliant threading facilities (*pthreads*).
 
@@ -209,14 +213,14 @@ POSIX-compliant threading facilities (*pthreads*).
 Abstract Base Classes
 ---------------------
 
-The PLEXIL Application Framework defines the external interface API via
-two *abstract base classes*, `InterfaceAdapter <#InterfaceAdapter>`__
-and `ExecListener <#ExecListener>`__. A third abstract base class,
-`ExecListenerFilter <#ExecListenerFilter>`__, defines an API for
+The |PLEXIL| Application Framework defines the external interface API via
+two *abstract base classes*, :ref:`InterfaceAdapter <InterfaceAdapter>`
+and :ref:`ExecListener <ExecListener>`. A third abstract base class,
+:ref:`ExecListenerFilter <ExecListenerFilter>`, defines an API for
 ExecListener instances to selectively filter their reporting.
 
 An *interface adapter* is responsible for taking the command, lookup, or
-planner update call from the `InterfaceManager <#InterfaceManager>`__
+planner update call from the :ref:`InterfaceManager <InterfaceManager>`
 instance, and communicating that to the world outside the Executive.
 
 An *exec listener* notifies the outside world of an internal state
@@ -240,6 +244,8 @@ from ``InterfaceAdapter`` can be associated with specific commands,
 functions, and lookups by name, and these associations can be changed at
 run time, through the ``AdapterConfiguration`` interface.
 
+.. _ExecListener:
+
 ExecListener
 ~~~~~~~~~~~~
 
@@ -252,10 +258,3 @@ ExecListenerFilter
 
 The abstract base class ``ExecListenerFilter`` defines the API for
 selecting the events an exec listener instance will report.
-
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

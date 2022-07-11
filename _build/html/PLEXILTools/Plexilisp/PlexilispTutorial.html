@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PlexiLisp Tutorial &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/readable.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Plexilisp Reference Manual" href="PlexilispReferenceManual.html" />
+    <link rel="prev" title="Plexilisp" href="../Plexilisp.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PlexilispReferenceManual.html" title="Plexilisp Reference Manual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Plexilisp.html" title="Plexilisp"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../main.html">PLEXIL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../Plexilisp.html" accesskey="U">Plexilisp</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PlexiLisp Tutorial</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexilisp-tutorial">
+<span id="plexilisptutorial"></span><h1>PlexiLisp Tutorial<a class="headerlink" href="#plexilisp-tutorial" title="Permalink to this heading">¶</a></h1>
+<p>See the <a class="reference internal" href="../Plexilisp.html#plexilisp"><span class="std std-ref">Programming in Plexilisp</span></a> chapter
+for an introduction to Plexilisp. Before we continue, it’s assumed you
+are using Emacs on a Unix-like system, and that you have checked out the
+latest <code class="docutils literal notranslate"><span class="pre">plexil_exec</span></code> module from SVN.</p>
+<section id="emacs-setup">
+<span id="id1"></span><h2>Emacs Setup<a class="headerlink" href="#emacs-setup" title="Permalink to this heading">¶</a></h2>
+<p>In order to have Plexilisp automatically compiled (when needed) and
+loaded every time you start Emacs, the file
+<code class="docutils literal notranslate"><span class="pre">plexil/src/plexilisp/emacs.el</span></code> should be automatically loaded. This
+file depends on the Unix environment variable <code class="docutils literal notranslate"><span class="pre">PLEXIL_HOME</span></code> to find
+things, so it must be set prior to loading the file. The easiest way to
+make all this happen is to insert the following two lines into your
+<code class="docutils literal notranslate"><span class="pre">.emacs</span></code> file. (If you don’t have a <code class="docutils literal notranslate"><span class="pre">.emacs</span></code> file, create one in
+your home directory):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setenv</span> <span class="s2">&quot;PLEXIL_HOME&quot;</span> <span class="s2">&quot;/home/fred/plexil&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">load</span> <span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">getenv</span> <span class="s2">&quot;PLEXIL_HOME&quot;</span><span class="p">)</span> <span class="s2">&quot;/src/plexilisp/emacs.el&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Of course, please edit the pathname <code class="docutils literal notranslate"><span class="pre">/home/fred/plexil</span></code> as needed.
+Using the full pathname of your <code class="docutils literal notranslate"><span class="pre">plexil</span></code> directory, and not the <code class="docutils literal notranslate"><span class="pre">~/</span></code>
+shortcut for your home directory, may be necessary, as the tilde
+character is not always handled correctly in this context.</p>
+</section>
+<section id="first-example">
+<span id="id2"></span><h2>First Example<a class="headerlink" href="#first-example" title="Permalink to this heading">¶</a></h2>
+<p>We’re now ready to get our feet wet. Open the file
+<code class="docutils literal notranslate"><span class="pre">plexilisp/examples/simple-assignment.pli</span></code>, which looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">plexil</span><span class="o">-</span><span class="n">plan</span>
+ <span class="p">(</span><span class="n">assignment</span><span class="o">-</span><span class="n">node</span> <span class="s2">&quot;SimpleAssignment&quot;</span>
+  <span class="p">(</span><span class="n">variables</span> <span class="p">(</span><span class="n">integer</span> <span class="s2">&quot;foo&quot;</span> <span class="mi">0</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">assignment</span> <span class="p">(</span><span class="n">intvar</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span> <span class="mi">3</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>This is a trivial single-node PLEXIL plan that is just an assignment
+node. It declares an integer variable named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and assigns 3 to it.</p>
+<p>You might notice that this looks like Lisp. However, it is not Lisp, and
+it is impossible to invoke any Lisp though Plexilisp. If you prefer, you
+may use the Capitalized and “<code class="docutils literal notranslate"><span class="pre">CamelCase</span></code>” variants of all the
+Plexilisp constructs. Look at the file <code class="docutils literal notranslate"><span class="pre">SimpleAssignment.pli</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PlexilPlan</span>
+ <span class="p">(</span><span class="n">AssignmentNode</span> <span class="s2">&quot;SimpleAssignment&quot;</span>
+  <span class="p">(</span><span class="n">Variables</span> <span class="p">(</span><span class="n">Integer</span> <span class="s2">&quot;foo&quot;</span> <span class="mi">0</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">Assignment</span> <span class="p">(</span><span class="n">IntegerVariable</span> <span class="s2">&quot;foo&quot;</span><span class="p">)</span> <span class="mi">3</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>It differs only in the typecase of the Plexilisp identifiers, and is
+functionally equivalent to the first plan.</p>
+</section>
+<section id="compiling-plexilisp">
+<span id="id3"></span><h2>Compiling Plexilisp<a class="headerlink" href="#compiling-plexilisp" title="Permalink to this heading">¶</a></h2>
+<p>Now, let’s generate some PLEXIL XML. Put your cursor in either of the
+buffers you created above, and either type ‘’’<code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">plexil</span></code>’’’ or
+‘’’Control-C Control-C’’’ (the latter is a shortcut for the former).</p>
+<p>Plexilisp goes through a two-step “compilation” process. The first
+generates an <a class="reference internal" href="../../PLEXILLanguage/PLEXILReferences.html#plexilreferences"><span class="std std-ref">Extended PLEXIL</span></a> file, which has a
+file extension of <code class="docutils literal notranslate"><span class="pre">.epx</span></code>. The second step compiles the Extended PLEXIL
+into Core PLEXIL, creating a <code class="docutils literal notranslate"><span class="pre">.plx</span></code> file. Buffers for both these files
+will be appear in your Emacs.</p>
+<p>In this case a new buffer named <code class="docutils literal notranslate"><span class="pre">simple-assignment.plx</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">SimpleAssignment.plx</span></code>) should appear, after a brief delay. Directly
+“underneath” this buffer will be one for the <code class="docutils literal notranslate"><span class="pre">.epx</span></code> file. The Core
+PLEXIL buffer should contain XML code that looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+ &lt;!-- Generated by PlexiLisp --&gt;
+ &lt;PlexilPlan&gt;
+   &lt;Node NodeType=&quot;Assignment&quot;&gt;
+     &lt;NodeId&gt;SimpleAssignment&lt;/NodeId&gt;
+     &lt;VariableDeclarations&gt;
+       &lt;DeclareInteger&gt;
+         &lt;IntegerVariable&gt;foo&lt;/IntegerVariable&gt;
+         &lt;IntegerValue&gt;0&lt;/IntegerValue&gt;
+       &lt;/DeclareInteger&gt;
+     &lt;/VariableDeclarations&gt;
+     &lt;NodeBody&gt;
+       &lt;Assignment&gt;
+         &lt;IntegerVariable&gt;foo&lt;/IntegerVariable&gt;
+         &lt;NumericRHS&gt;
+           &lt;IntegerValue&gt;3&lt;/IntegerValue&gt;
+         &lt;/NumericRHS&gt;
+       &lt;/Assignment&gt;
+     &lt;/NodeBody&gt;
+   &lt;/Node&gt;
+ &lt;/PlexilPlan&gt;
+</pre></div>
+</div>
+</section>
+<section id="simulation-script">
+<span id="id4"></span><h2>Simulation Script<a class="headerlink" href="#simulation-script" title="Permalink to this heading">¶</a></h2>
+<p>If you’d like to run this plan with the PLEXIL Test Executive, you’ll
+need a <em>simulation script</em>. Since this plan does not interact with an
+external world, an empty script will do. We can create scripts with
+Plexilisp as well. There’s an empty script in your <code class="docutils literal notranslate"><span class="pre">examples</span></code>
+directory. Open one of <code class="docutils literal notranslate"><span class="pre">empty-script.pli</span></code> or <code class="docutils literal notranslate"><span class="pre">EmptyScript.pli</span></code>,
+whichever looks prettier to you.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">plexil</span><span class="o">-</span><span class="n">script</span>
+  <span class="p">(</span><span class="n">script</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Type <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">plexil</span></code> (or type ‘’’Control-C Control-C’’’) again, which
+should give you the <code class="docutils literal notranslate"><span class="pre">.plx</span></code> version of the file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!-- Generated by PlexiLisp --&gt;
+&lt;PLEXILScript&gt;
+  &lt;Script&gt;&lt;/Script&gt;
+&lt;/PLEXILScript&gt;
+</pre></div>
+</div>
+</section>
+<section id="more-examples">
+<span id="id5"></span><h2>More Examples<a class="headerlink" href="#more-examples" title="Permalink to this heading">¶</a></h2>
+<p>We’ll look at one more example plan, the “simple drive” plan that has
+two equivalent versions in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PlexilPlan</span>
+ <span class="p">(</span><span class="n">ListNode</span> <span class="s2">&quot;SimpleDrive&quot;</span>
+   <span class="p">(</span><span class="n">EndCondition</span> <span class="p">(</span><span class="n">NodeFinished</span> <span class="s2">&quot;TakeSample&quot;</span><span class="p">))</span>
+   <span class="p">(</span><span class="n">PostCondition</span> <span class="p">(</span><span class="n">NodeSuccessful</span> <span class="s2">&quot;TakeSample&quot;</span><span class="p">))</span>
+   <span class="p">(</span><span class="n">List</span>
+    <span class="p">(</span><span class="n">CommandNode</span> <span class="s2">&quot;Drive&quot;</span>
+      <span class="p">(</span><span class="n">Precondition</span> <span class="p">(</span><span class="o">=</span> <span class="p">(</span><span class="n">LookupNow</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)</span> <span class="n">false</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">RepeatCondition</span> <span class="p">(</span><span class="o">=</span> <span class="n">false</span> <span class="p">(</span><span class="n">LookupOnChange</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)))</span>
+      <span class="p">(</span><span class="n">Command</span> <span class="s2">&quot;drive&quot;</span> <span class="mf">1.0</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">CommandNode</span> <span class="s2">&quot;TakeSample&quot;</span>
+      <span class="p">(</span><span class="n">StartCondition</span> <span class="p">(</span><span class="n">NodeFinished</span> <span class="s2">&quot;Drive&quot;</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">InvariantCondition</span> <span class="p">(</span><span class="o">=</span> <span class="n">true</span> <span class="p">(</span><span class="n">LookupOnChange</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)))</span>
+      <span class="p">(</span><span class="n">Command</span> <span class="s2">&quot;takeSample&quot;</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="n">plexil</span><span class="o">-</span><span class="n">plan</span>
+ <span class="p">(</span><span class="nb">list</span><span class="o">-</span><span class="n">node</span> <span class="s2">&quot;SimpleDrive&quot;</span>
+   <span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">condition</span> <span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">finished</span> <span class="s2">&quot;TakeSample&quot;</span><span class="p">))</span>
+   <span class="p">(</span><span class="n">postcondition</span> <span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">successful</span> <span class="s2">&quot;TakeSample&quot;</span><span class="p">))</span>
+   <span class="p">(</span><span class="nb">list</span>
+    <span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">node</span> <span class="s2">&quot;Drive&quot;</span>
+      <span class="p">(</span><span class="n">precondition</span> <span class="p">(</span><span class="o">=</span> <span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">now</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)</span> <span class="n">false</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">repeat</span><span class="o">-</span><span class="n">condition</span> <span class="p">(</span><span class="o">=</span> <span class="n">false</span> <span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">change</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)))</span>
+      <span class="p">(</span><span class="n">command</span> <span class="s2">&quot;drive&quot;</span> <span class="mf">1.0</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">command</span><span class="o">-</span><span class="n">node</span> <span class="s2">&quot;TakeSample&quot;</span>
+      <span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">condition</span> <span class="p">(</span><span class="n">node</span><span class="o">-</span><span class="n">finished</span> <span class="s2">&quot;Drive&quot;</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">invariant</span><span class="o">-</span><span class="n">condition</span> <span class="p">(</span><span class="o">=</span> <span class="n">true</span> <span class="p">(</span><span class="n">lookup</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">change</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)))</span>
+      <span class="p">(</span><span class="n">command</span> <span class="s2">&quot;takeSample&quot;</span><span class="p">)))))</span>
+</pre></div>
+</div>
+<p>This plan translates into about 100 lines of PLEXIL XML, so we won’t
+show that here. But try it yourself! The corresponding simulation script
+is found in <code class="docutils literal notranslate"><span class="pre">simple-drive-script.pli</span></code>/<code class="docutils literal notranslate"><span class="pre">SimpleDriveScript.pli</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">PlexilScript</span>
+ <span class="p">(</span><span class="n">InitialState</span>
+  <span class="p">(</span><span class="n">State</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;bool&quot;</span> <span class="mi">0</span> <span class="p">(</span><span class="n">Param</span> <span class="s2">&quot;Rock&quot;</span><span class="p">)))</span>
+ <span class="p">(</span><span class="n">Script</span>
+  <span class="p">(</span><span class="n">State</span> <span class="s2">&quot;At&quot;</span> <span class="s2">&quot;bool&quot;</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Param</span> <span class="s2">&quot;Rock&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">CommandAck</span> <span class="s2">&quot;drive&quot;</span> <span class="s2">&quot;bool&quot;</span> <span class="mi">1</span> <span class="p">(</span><span class="n">Param</span> <span class="mf">1.0</span> <span class="s2">&quot;real&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">CommandAck</span> <span class="s2">&quot;takeSample&quot;</span> <span class="s2">&quot;bool&quot;</span> <span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Its translation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!-- Generated by PlexiLisp  --&gt;
+&lt;PLEXILScript&gt;
+  &lt;InitialState&gt;
+    &lt;State name=&quot;At&quot; type=&quot;bool&quot;&gt;
+      &lt;Param&gt;Rock&lt;/Param&gt;
+      &lt;Value&gt;0&lt;/Value&gt;
+    &lt;/State&gt;
+  &lt;/InitialState&gt;
+  &lt;Script&gt;
+    &lt;State name=&quot;At&quot; type=&quot;bool&quot;&gt;
+      &lt;Param&gt;Rock&lt;/Param&gt;
+      &lt;Value&gt;1&lt;/Value&gt;
+    &lt;/State&gt;
+    &lt;CommandAck name=&quot;drive&quot; type=&quot;bool&quot;&gt;
+      &lt;Param type=&quot;real&quot;&gt;1.0&lt;/Param&gt;
+      &lt;Result&gt;1&lt;/Result&gt;
+    &lt;/CommandAck&gt;
+    &lt;CommandAck name=&quot;takeSample&quot; type=&quot;bool&quot;&gt;
+      &lt;Result&gt;1&lt;/Result&gt;
+    &lt;/CommandAck&gt;
+  &lt;/Script&gt;
+&lt;/PLEXILScript&gt;
+</pre></div>
+</div>
+<p>A substantial Plexilisp plan example is found in <code class="docutils literal notranslate"><span class="pre">examples/3209.pli</span></code>.
+This is the actual ISS Procedure 3.209 that runs with the
+<code class="docutils literal notranslate"><span class="pre">ISS-In-A-Box</span></code> simulator.</p>
+<p>For a comprehensive look at Plexilisp, see the <a class="reference internal" href="PlexilispReferenceManual.html#plexilispreferncemanual"><span class="std std-ref">Plexilisp Reference Manual</span></a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

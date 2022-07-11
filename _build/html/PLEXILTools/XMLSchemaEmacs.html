@@ -76,21 +76,21 @@
 </nav>
 <section id="introduction">
 <h2><a class="toc-backref" href="#id9" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
-<p>Core PLEXIL, the executable form of PLEXIL, is specified in the
-<em>Extensible Markup Language</em>, or XML. This XML representation of PLEXIL
+<p>Core <em>PLEXIL</em>, the executable form of <em>PLEXIL</em>, is specified in the
+<em>Extensible Markup Language</em>, or XML. This XML representation of <em>PLEXIL</em>
 is hidden from the user in general use. This chapter provides
-information about PLEXIL’s XML definition, and tools for inspecting and
+information about <em>PLEXIL</em>’s XML definition, and tools for inspecting and
 editing Plexil XML files, if the need should arise.</p>
 <p>Plexil may be coded in any text editor. The <em>Emacs</em> editor in particular
-has features suitable for PLEXIL, namely its powerful XML editing and
+has features suitable for <em>PLEXIL</em>, namely its powerful XML editing and
 validation capabilities, as well as being the platform for the
-alternative PLEXIL syntax <a class="reference external" href="Plexilisp">Plexilisp</a>.</p>
-<p>This chapter describes helpful XML and Emacs resources for PLEXIL.</p>
+alternative <em>PLEXIL</em> syntax <a class="reference internal" href="Plexilisp.html#plexilisp"><span class="std std-ref">Plexilisp</span></a>.</p>
+<p>This chapter describes helpful XML and Emacs resources for <em>PLEXIL</em>.</p>
 </section>
 <section id="plexil-xml-schema">
 <span id="id1"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink">PLEXIL XML Schema</a><a class="headerlink" href="#plexil-xml-schema" title="Permalink to this heading">¶</a></h2>
 <p>An XML Schema is a file that defines the format for a particular kind of
-XML file. PLEXIL XML is defined by schema files found in the PLEXIL
+XML file. <em>PLEXIL</em> XML is defined by schema files found in the <em>PLEXIL</em>
 distribution, under <code class="docutils literal notranslate"><span class="pre">plexil/schema</span></code>. See the README file in that
 directory for detailed information.</p>
 </section>
@@ -115,7 +115,7 @@ usually comes standard on Unix-based systems such as Linux and Mac OS,
 however, there are variants of Emacs available that are more featureful
 than these built-in versions.</p>
 <p>Emacs is helpful for viewing, validating, and, if desired, editing Core
-PLEXIL XML. Most versions of Emacs have some built-in support for
+<em>PLEXIL</em> XML. Most versions of Emacs have some built-in support for
 editing XML files. When you open or create a file with the extension
 <code class="docutils literal notranslate"><span class="pre">.xml</span></code>, the resulting <em>buffer</em> will usually be in an XML-specific
 editing mode.</p>
@@ -140,8 +140,7 @@ substitute <code class="docutils literal notranslate"><span class="pre">nxml-mod
 <section id="schema-validation-using-nxml-mode">
 <span id="id4"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Schema Validation Using nXML Mode</a><a class="headerlink" href="#schema-validation-using-nxml-mode" title="Permalink to this heading">¶</a></h2>
 <p>It is possible to validate XML files against a schema within Emacs,
-using a freely available Emacs utility for XML called <a class="reference external" href="http://www.thaiopensource.com/nxml-mode/">nxml
-mode</a>. It provides not only
+using a freely available Emacs utility for XML called <span class="xref std std-ref">nxml mode</span>. It provides not only
 an easy means to edit XML (e.g. automatic indentation), but also a means
 for validating your XML against an XML schema interactively.</p>
 <section id="getting-nxml">
@@ -182,7 +181,7 @@ system.</p>
 <p>Once installed, any XML file you edit in Emacs will be done so in nXML
 mode.</p>
 <p>To validate against a schema using nXML, you’ll need to have a schema in
-<em>Relaxed Compact NG</em> (RNC) format. The PLEXIL schemas are provided in
+<em>Relaxed Compact NG</em> (RNC) format. The <em>PLEXIL</em> schemas are provided in
 this format. The “XML” menu in Emacs provides various methods of
 validation, one of which requires you to specify a schema file. However,
 to have any XML file in a given directory be automatically validated by
@@ -198,10 +197,6 @@ as needed).</p>
 </pre></div>
 </div>
 <p>There is more information about nXML in <code class="docutils literal notranslate"><span class="pre">plexil/schema/Makefile</span></code>.</p>
-<hr class="docutils" />
-<p>Copyright (c) 2006-2014, Universities Space Research Association (USRA).
-All rights reserved.</p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
 </section>
 </section>
 </section>
@@ -214,6 +209,9 @@ All rights reserved.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
@@ -242,6 +240,7 @@ All rights reserved.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">XML/Schema, Emacs</a></li>
 </ul>
@@ -283,8 +282,8 @@ All rights reserved.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

@@ -11,25 +11,23 @@ PLEXIL Simulators
 Introduction
 ------------
 
-In order to be useful, PLEXIL plans need an external world, or
-simulation thereof, to operate within and upon. The PLEXIL Executive
-executes PLEXIL plans, but it is the executive's `external
-interface <Interfacing_Overview>`__ that connects the executive to
+In order to be useful, |PLEXIL| plans need an external world, or
+simulation thereof, to operate within and upon. The |PLEXIL| Executive
+executes |PLEXIL| plans, but it is the executive's :ref:`external interface <InterfacingOverview>` that connects the executive to
 external systems, thus realizing a *PLEXIL application*.
 
-The PLEXIL distribution provides several example applications. This
+The |PLEXIL| distribution provides several example applications. This
 chapter describes two of them: two different simulators for modeling an
-external world with which a PLEXIL plan can interact.
+external world with which a |PLEXIL| plan can interact.
 
 The *Test Executive* is a simple simulator which interleaves events
-specified in a script file with nodes coded in a PLEXIL plan. The
+specified in a script file with nodes coded in a |PLEXIL| plan. The
 *PLEXIL Simulator* is an application that uses a more powerful
 simulation script and has its simulator running as a separate process
-from the PLEXIL Executive, providing a more realistic representation of
-an external system. Additionally, it is possible to use a PLEXIL
+from the |PLEXIL| Executive, providing a more realistic representation of
+an external system. Additionally, it is possible to use a |PLEXIL|
 executive itself as a simulator for another executive; this topic is
-covered in the chapter on `Inter-Executive
-Communication <Inter-Executive_Communication>`__.
+covered in the chapter on :ref:`Inter-Executive Communication <Inter-ExecutiveCommunication>`.
 
 .. _test_executive:
 
@@ -44,9 +42,9 @@ external world or system, the plan is executed against this script.
 More precisely, *the script drives the execution of the plan*. The
 script has two parts, an initial state and an event list. First, the
 initial state (external variable values) is read and the executive
-advanced one `step <Detailed_Semantics#Macro_Steps>`__. Then, events are
+advanced one :ref:`step <micro_steps_macro_steps_and_the_quiescence_cycle>`. Then, events are
 read from the script one at a time, advancing the executive one
-`step <Detailed_Semantics#Macro_Steps>`__ after each event. Note that if
+:ref:`step <micro_steps_macro_steps_and_the_quiescence_cycle>` after each event. Note that if
 the script runs out while there are still nodes waiting to execute, the
 plan will terminate in an unfinished state.
 
@@ -78,8 +76,7 @@ as follows.
     plexiltest -plan foo.plx -script world.psx
     plexiltest -p foo.plx -s world.psx
 
-If your plan uses libraries (discussed in `Plexil
-Reference <Plexil_Reference>`__), they may be specified as well. In the
+If your plan uses libraries (discussed in :ref:`Plexil Reference <PlexilReferences>`), they may be specified as well. In the
 following example, assume two library files named ``lib1.plx`` and
 ``lib2.plx``.
 
@@ -91,14 +88,13 @@ following example, assume two library files named ``lib1.plx`` and
 There are many more command line options available; type
 ``plexiltest -help`` to see a listing. We provide a few pointers here.
 
--  The ``-check`` (or ``-ch``) option runs Plexil's `static type
-   checker <Plexil_Checker>`__ on the plan prior to having it loaded.
+-  The ``-check`` (or ``-ch``) option runs Plexil's :ref:`static type checker <PlexilChecker>` on the plan prior to having it loaded.
 -  The ``-debug`` (or ``-d``) option specifies a Debug Configuration
    file (see next section).
 -  The ``-quiet`` (or ``-q``) option suppresses a leading printed
    summary and default debug messages during execution.
 
-The `Plexil viewer <Viewing_Plan_Execution>`__ chapter describes options
+The :ref:`Plexil viewer <PLEXILViewer>` chapter describes options
 that bring up a graphical plan viewer, which can be very useful.
 
 Examples
@@ -228,7 +224,7 @@ See the following section for important information about scripting
 command handles.
 
 There are more examples of simulation scripts in the following
-directories of the PLEXIL distribution:
+directories of the |PLEXIL| distribution:
 
 ::
 
@@ -241,7 +237,7 @@ Scripting Commmand Handles and Return Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The example in the previous section illustrates the scripting of
-`command handles <Resource_Model#Command_Handles>`__.
+:ref:`command handles <command_handles>`.
 
 There is an important aspect of scripting command handles when the
 command *also* returns a value. Namely, the handle must occur *after*
@@ -288,12 +284,14 @@ Here is the syntax for Test Executive simulation scripts:
    type = bool | int | real | string
         | bool-array | int-array | real-array | string-array
 
-NOTE: **** as included in the kinds of values above, is a literal. It
-extends all PLEXIL types, and allows the scripting of a lookup or
-command to return the UNKNOWN value to PLEXIL. Recall that UNKNOWN has
-no literal representation in PLEXIL itself -- a value can only be tested
-using the **isKnown** expression. For examples of the scripting of
-UNKNOWN values, see:
+.. note::
+
+    **`<unknown>`** as included in the kinds of values above, is a literal. It
+    extends all |PLEXIL| types, and allows the scripting of a lookup or
+    command to return the UNKNOWN value to |PLEXIL|. Recall that UNKNOWN has
+    no literal representation in |PLEXIL| itself -- a value can only be tested
+    using the **isKnown** expression. For examples of the scripting of
+    UNKNOWN values, see:
 
 ::
 
@@ -305,7 +303,7 @@ UNKNOWN values, see:
 Plexil Simulator
 ----------------
 
-The Plexil Simulator is a PLEXIL application that uses a simple,
+The Plexil Simulator is a |PLEXIL| application that uses a simple,
 stateless, non-graphical simulator. (Formerly, this simulator was called
 the Standalone Simulator, or SAS). The Plexil Simulator can be used for
 testing Plexil plans and capabilities of the Plexil Executive. This
@@ -328,8 +326,7 @@ desired behavior such as responding with *Success* or *Failure* values
 after a time delay for various navigation and science tasks.
 
 The remainder of this section is a guide for using the Plexil Simulator.
-A description of its architecture is given in `Appendix
-D <Standalone_Simulator_Architecture_and_Application_Development>`__.
+A description of its architecture is given in :ref:`Appendix D <SimulatorNotes>`.
 
 See the ``plexil/src/apps/StandaloneSimulator/PlexilSimulator/test``
 directory and its ``README`` file for a simple example usage of the
@@ -399,8 +396,7 @@ script is required for the Plexil Simulator -- there is no default.
 
 Many other useful command line options are available. Type
 ``plexilsim -help`` for a listing. For a description of the most useful
-options, please see the section above on the `plexiltest
-script <Executing_Plans#Test_Executive>`__, which shares the same
+options, please see the section above on the :ref:`plexiltest script <test_executive>`, which shares the same
 options.
 
 .. _advanced_usage:
@@ -432,8 +428,7 @@ simulator as a standalone component:
 
 
 3. Also in their own shells, start the Plexil Executive(s) last, using
-the ``plexilexec`` script. See the `PLEXIL
-Executive <PLEXIL_Executive>`__ chapter for instructions on this script.
+the ``plexilexec`` script. See the :ref:`PLEXIL Executive <PLEXILExecutive>` chapter for instructions on this script.
 You'll need an interface configuration file that specifies the IPC
 Adapter for commands and lookups; see
 ``/Users/kdalal/plexil/src/apps/StandAloneSimulator/PlexilSimulator/test/config.xml``
@@ -452,8 +447,10 @@ keyword) for each kind of specification. More than one simulation script
 can be used, and multiple script files are the equivalent of their
 concatenation.
 
-**NOTE**: Currently, command responses and telemetry values are
-restricted to numbers (integers or real).
+.. note::
+
+    Currently, command responses and telemetry values are
+    restricted to numbers (integers or real).
 
 A Plexil Simulator script is a text file, completely distinct from the
 Test Executive scripts described above. There is no requirement for the
@@ -465,7 +462,9 @@ Command/Response
 A simulation script can itemizes the commands that need to be simulated.
 This specification begins with the keyword
 
-`` BEGIN_COMMANDS``
+::
+
+    BEGIN_COMMANDS
 
 and is followed by entries having the following format.
 
@@ -579,9 +578,3 @@ seconds computed with respect to the start of the simulator.
    RobotState 7.0
    500.1 500.2 500.3
 
---------------
-
-Copyright (c) 2006-2021, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

@@ -12,33 +12,37 @@ PLEXIL References
 About this chapter
 ------------------
 
-This chapter documents the Standard PLEXIL programming language, and how
+This chapter documents the Standard |PLEXIL| programming language, and how
 to create and compile Plexil files for execution.
 
-We explain PLEXIL primarily though examples, using Standard PLEXIL
+We explain |PLEXIL| primarily though examples, using Standard |PLEXIL|
 syntax.
 
-This is not a rigorous treatment of PLEXIL, but hopefully -- in
-combination with the `Example PLEXIL Plans <Example_PLEXIL_Plans>`__ --
-provides enough to enable you to program in PLEXIL effectively.
+This is not a rigorous treatment of |PLEXIL|, but hopefully -- in
+combination with the :ref:`Example PLEXIL Plans <ExamplePlans>`
+provides enough to enable you to program in |PLEXIL| effectively.
 
-The PLEXIL langauge is summarized briefly in the previous chapter,
-`Overview <Overview>`__. Its execution semantics are explained more
-deeply in the following chapter, `Detailed
-Semantics <Detailed_Semantics>`__, which cites papers that provide a
-rigorous formal definition of the language. The PLEXIL syntax is
+The |PLEXIL| langauge is summarized briefly in the previous chapter,
+:ref:`Overview <PLEXILOverview>`. Its execution semantics are explained more
+deeply in the following chapter, :ref:`Detailed Semantics <PLEXILSemantics>`,
+which cites papers that provide a
+rigorous formal definition of the language. The |PLEXIL| syntax is
 formalized in XML schemas found in the software distribution.
 
-NOTE: Although this chapter focuses on the Standard PLEXIL language and
-its semantics, as independent from the exact behavior of a particular
-implementation of Plexil, explanations of how the supplied Plexil
-Executive behaves have been provided in places we felt this information
-helpful.
+.. note::
+
+    Although this chapter focuses on the Standard |PLEXIL| language and
+    its semantics, as independent from the exact behavior of a particular
+    implementation of Plexil, explanations of how the supplied Plexil
+    Executive behaves have been provided in places we felt this information
+    helpful.
+
+.. _nodes:
 
 Nodes
 -----
 
-A Standard PLEXIL plan consists of one *node*, which may have child
+A Standard |PLEXIL| plan consists of one *node*, which may have child
 nodes. A node is a structure specifying a certain kind of behavior.
 
 A node is notated by a pair of curly braces containing the node's
@@ -60,7 +64,7 @@ colon preceding the opening brace, is optional. An anonymous (nameless)
 node is valid, though it cannot be referenced anywhere explicitly,
 except within the node itself (by using the ``Self`` keyword, described
 below). In practice, every node has a name; an anonymous node is
-assigned a unique name when compiled into PLEXIL's XML form for
+assigned a unique name when compiled into |PLEXIL|'s XML form for
 execution.
 
 A node and its parent, immediate children, and siblings (this structure
@@ -69,7 +73,7 @@ across more distant relationships in a plan is not required, especially
 since these nodes cannot reference each other (more on referencing scope
 below).
 
-Standard PLEXIL is case-sensitive, but whitespace-insensitive, so the
+Standard |PLEXIL| is case-sensitive, but whitespace-insensitive, so the
 ``DoNothing`` plan above can also be written, for example, in either of
 the following ways:
 
@@ -106,6 +110,8 @@ some have specific default values. When attributes are specified, they
 must occur *first* in node's form, i.e. immediately following the
 opening curly brace.
 
+.. _variables:
+
 Variables
 ~~~~~~~~~
 
@@ -123,7 +129,7 @@ types are as follows.
 
 These examples of variable declarations do not specify initial values
 for the variables. Uninitialized variables of all types except arrays
-are given the value `Unknown <#Data_Types_and_Expressions>`__. Here are
+are given the value :ref:`Unknown <data_types_and_expressions>`. Here are
 the same variable declarations with initial values specified. Initial
 values must be literals -- expressions are not allowed.
 
@@ -164,9 +170,11 @@ introduced the other nodes. The example above is illustrative but would
 serve no practical purpose, since its variables cannot be used in any
 way.
 
-*NOTE: Variable declarations and interface declarations (described in
-the following section) must occur prior to any other kinds of attributes
-in a node definition. They may be intermixed.*
+.. note::
+
+    Variable declarations and interface declarations (described in
+    the following section) must occur prior to any other kinds of attributes
+    in a node definition. They may be intermixed.
 
 Interface
 ~~~~~~~~~
@@ -202,16 +210,19 @@ A node's interface variables are also called its *parameters*. It is an
 error for a node to declare a variable having the same name as a
 variable that appears in its interface.
 
-*NOTE: Variable declarations (described in the previous section) and
-interface declarations must occur prior to any other kinds of attributes
-in a node definition. They can be intermixed.*
+.. note::
+
+    Variable declarations (described in the previous section) and
+    interface declarations must occur prior to any other kinds of attributes
+    in a node definition. They can be intermixed.
+
+.. _conditions:
 
 Conditions
 ~~~~~~~~~~
 
 A node can specify up to eight *conditions* that govern precisely how
-the node is executed. Exact details are described in the `Node State
-Transition Diagrams <Node_State_Transition_Diagrams>`__ document.
+the node is executed. Exact details are described in the :ref:`Node State Transition Diagrams <NodeStateDiagrams>` document.
 
 ::
 
@@ -225,7 +236,7 @@ Transition Diagrams <Node_State_Transition_Diagrams>`__ document.
     InvariantCondition  // Node will fail if this is false while node is executing
 
 A condition specifies a Plexil *Boolean expression*. Expressions are
-described in a section `below <#Data_Types_and_Expressions>`__. Here are
+described in a section :ref:`below <data_types_and_expressions>`. Here are
 some varied examples of conditions:
 
 ::
@@ -270,9 +281,9 @@ condition (expressed here through the invariant condition).
 Comments
 ~~~~~~~~
 
-There are two kinds of comments in a Standard PLEXIL plan. The source
+There are two kinds of comments in a Standard |PLEXIL| plan. The source
 code can include comments to help document the code but that are not
-preserved in the translated Core PLEXIL XML output. These are notated in
+preserved in the translated Core |PLEXIL| XML output. These are notated in
 the C/C++ style syntax for block and single line comments. Examples of
 each are as follows.
 
@@ -301,14 +312,14 @@ the plan, unlike other comments.
 Leaf Nodes
 ----------
 
-As described in the `Overview <Overview>`__, PLEXIL has many kinds of
+As described in the :ref:`Overview <PLEXILOverview>`, |PLEXIL| has many kinds of
 nodes. The type of a given node is identified by the node's *body*. A
 node's body is what immediately follows its attributes (described in the
 previous sections).
 
 Nodes that do not contain or decompose into child nodes form the leaves
-in a PLEXIL plan tree. These nodes are called *nodes* and are part of
-Core PLEXIL, which is the subset of PLEXIL that is executed directly.
+in a |PLEXIL| plan tree. These nodes are called *nodes* and are part of
+Core |PLEXIL|, which is the subset of |PLEXIL| that is executed directly.
 
 .. _empty_node:
 
@@ -338,10 +349,10 @@ An assignment to a declared variable has the following form:
 
      <variable> = <expression>;
 
-The part of the assignment, referred to as its left-hand side (LHS),
+The ``<variable>`` part of the assignment, referred to as its left-hand side (LHS),
 must be a writable variable in the node's interface. The ``expression``,
 referred to as the right-hand side (RHS) of the assignment, can be any
-PLEXIL expression. Expressions are described below. The type of the
+|PLEXIL| expression. Expressions are described below. The type of the
 expression must match the type of the variable.
 
 An *assignment node*, is one that contains only an expression of this
@@ -375,10 +386,10 @@ braces and/or names. The preceding examples could be rewritten as:
 Assignments and Concurrency
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If two nodes in a PLEXIL plan attempt to assign the same variable
-simultaneously, this is an error condition. The PLEXIL compiler does not
+If two nodes in a |PLEXIL| plan attempt to assign the same variable
+simultaneously, this is an error condition. The |PLEXIL| compiler does not
 detect the possibility of concurrent assignment, and unfortunately the
-current PLEXIL executive behaves ungracefully when it is attempted: it
+current |PLEXIL| executive behaves ungracefully when it is attempted: it
 issues a message about the conflict and then aborts. If your plan
 contains such nodes, this contention problem can be resolved with the
 ``Priority`` clause. Here's a trivial contrived example:
@@ -409,6 +420,8 @@ first, then B, and the final value of ``x`` will be 1. Though it's
 possible that the ``Priority`` clause may have a legitimate application,
 it is probably best to design your plans such that potentially
 conflicting assignments are avoided.
+
+.. _command:
 
 Command
 ~~~~~~~
@@ -480,9 +493,9 @@ examples:
    Command print(...);
 
 By default, a command node finishes when the executive receives a
-*command handle* for its command, via the PLEXIL external interface (see
-the Interfacing section of this manual). See `Resource
-Model <Resource_Model>`__ for a description of command handles.
+*command handle* for its command, via the |PLEXIL| external interface (see
+the Interfacing section of this manual). See :ref:`Resource Model <ResourceModel>`
+for a description of command handles.
 
 Note that the finishing of the command node is distinct from the
 finishing of the command itself; command execution may be ongoing even
@@ -523,11 +536,11 @@ However, this idiom is cumbersome to code and difficult or impossible to
 get right in the general case. For example, if a command assigns to a
 variable that already has a value, the ``isKnown`` test is unhelpful.
 Fortunately, Plexil provides a convenient form for *synchronous*
-commanding -- see the `section <#Synchronous_Command>`__ below.
+commanding -- see the `section <#Synchronous_Command>`_ below.
 
 Optionally, command nodes may specify resource requirements for the
 affected command. The syntax and semantics for this is described in the
-`Resource Model <Resource_Model>`__ chapter.
+:ref:`Resource Model <ResourceModel>` chapter.
 
 .. _utility_commands:
 
@@ -535,7 +548,7 @@ Utility Commands
 ^^^^^^^^^^^^^^^^
 
 Several convenient utilities, in the form of commands, are available in
-Plexil. Currently there are two commands that print PLEXIL expressions
+Plexil. Currently there are two commands that print |PLEXIL| expressions
 to the standard output stream (e.g. the Unix terminal).
 
 -  ``print (exp1, exp2, ...)`` prints expressions without any added
@@ -545,9 +558,9 @@ to the standard output stream (e.g. the Unix terminal).
    newline.
 
 The utility commands are automatically available when running Plexil
-through the `Test Executive <Executing_Plans#Test_Executive>`__.
+through the `Test Executive <Executing_Plans#Test_Executive>`_.
 Otherwise they are available by including the `Utility
-Adapter <Standard_Interface_Libraries#Utility_Adapter>`__.
+Adapter <Standard_Interface_Libraries#Utility_Adapter>`_.
 
 Update
 ~~~~~~
@@ -556,7 +569,7 @@ An Update node serves to relay information outside the executive. For
 example, it can be used to update a planner or other system that has
 invoked the executive, with status about execution of the plan. The
 manner in which this information is sent is determined by the `external
-interface <Interfacing_Overview>`__ for the executive. An update
+interface <Interfacing_Overview>`_ for the executive. An update
 consists of name/value pairs; an update should include one or more such
 pairs. The **``Update``** keyword identifies an Update node, and has the
 form:
@@ -594,7 +607,7 @@ A ``Library Call`` node has the following form as its body.
 
     LibraryCall <Id> [<alias_list>];
 
-where is the ID of the invoked *library node*. The is an optional list
+where ``<Id>`` is the ID of the invoked *library node*. The ``<alias_list>`` is an optional list
 of *aliases*, which are pairs of the form
 
 ::
@@ -607,14 +620,18 @@ declared variable.
 
 Here's a contrived example of a call to trivial library node. The first
 file defines the library node ``F``, and the second file contains a node
-that calls ``F``. NOTE: These examples contain a declaration of the
-library node using the historic
+that calls ``F``. 
+
+.. note::
+
+    These examples contain a declaration of the
+    library node using the historic
 
 ::
 
    LibraryAction
 
-form. A newer version of PLEXIL (not yet released) aliases this with
+form. A newer version of |PLEXIL| (not yet released) aliases this with
 
 ::
 
@@ -677,7 +694,7 @@ Compound Nodes
 --------------
 
 Compound nodes are translated into simple (Core PLEXIL) nodes prior to
-execution. A Core PLEXIL plan is a tree consisting of the leaf nodes
+execution. A Core |PLEXIL| plan is a tree consisting of the leaf nodes
 described in the previous section, plus the List Node, described in this
 section under Concurrence.
 
@@ -697,13 +714,15 @@ behavior of a plan, the ``Sequence`` keyword is optional:
      <nodeN>;
    }
 
-**Note:** Sequence is currently an alias for CheckedSequence. Because of
-the overhead of checking for child node success, and the default
-behavior in other sequential languages is to continue sequential
-execution after a child node fails (e.g. shell scripting), future PLEXIL
-release may instead alias it to UncheckedSequence. To ensure your plans
-do not change behavior, please consider explicitly using either
-CheckedSequence or UncheckedSequence.
+.. note:: 
+
+    Sequence is currently an alias for CheckedSequence. Because of
+    the overhead of checking for child node success, and the default
+    behavior in other sequential languages is to continue sequential
+    execution after a child node fails (e.g. shell scripting), future |PLEXIL|
+    release may instead alias it to UncheckedSequence. To ensure your plans
+    do not change behavior, please consider explicitly using either
+    CheckedSequence or UncheckedSequence.
 
 CheckedSequence
 ~~~~~~~~~~~~~~~
@@ -750,7 +769,7 @@ A Concurrence encloses zero or more child nodes, which are executed
 child nodes other than those imposed by explicit conditions (those found
 in each child node as well as in the Concurrence form itself).
 
-Concurrence translates directly to a Core PLEXIL List node.
+Concurrence translates directly to a Core |PLEXIL| List node.
 
 ::
 
@@ -809,11 +828,13 @@ they can start immediately. The Commence node waits for Init to finish
 before it can start. After it finishes, either InformSuccess or
 InformFailure will execute, depending on the result.
 
-NOTE: If more than one child node is eligible for execution at a given
-moment, and PLEXIL is being executed on a sequential machine, the actual
-order of execution is *unspecified*. In any context where the exact
-execution order of nodes really matters, it must be encoded explicitly
-in the plan.
+.. note::
+
+    If more than one child node is eligible for execution at a given
+    moment, and |PLEXIL| is being executed on a sequential machine, the actual
+    order of execution is *unspecified*. In any context where the exact
+    execution order of nodes really matters, it must be encoded explicitly
+    in the plan.
 
 Try
 ~~~
@@ -822,7 +843,7 @@ In a Try sequence, the child nodes are executed in sequence, *until* one
 succeeds. The remaining nodes are skipped. A Try succeeds if and only if
 one of its nodes succeed. An empty Try always fails.
 
-The PLEXIL Try is distinct from the try-catch idiom found in many
+The |PLEXIL| Try is distinct from the try-catch idiom found in many
 popular programming languages.
 
 ::
@@ -846,10 +867,12 @@ they are evaluated in the order listed until one condition succeeds. The
 optional ``else`` clause provides a default node which is executed if
 none of the conditions evaluates to true.
 
-**Note:** Previous versions of the PLEXIL compiler required an ``endif``
-keyword to terminate the ``if`` node. This requirement has been
-eliminated since PLEXIL 4.5. The ``endif`` keyword is still accepted by
-the compiler for backwards compatibility.
+.. note::
+
+    Previous versions of the |PLEXIL| compiler required an ``endif``
+    keyword to terminate the ``if`` node. This requirement has been
+    eliminated since |PLEXIL| 4.5. The ``endif`` keyword is still accepted by
+    the compiler for backwards compatibility.
 
 Each clause may have multiple child nodes.
 
@@ -862,7 +885,7 @@ Each clause may have multiple child nodes.
    [else
      <node-3> ]
 
-where C1, C2 are `Boolean expressions <#Boolean_Expressions>`__.
+where C1, C2 are `Boolean expressions <#Boolean_Expressions>`_.
 Specifically, if C1 evaluates true, node-1 will be executed. If C1 is
 false or *unknown*, C2 is then evaluated, etc. If an ``if`` statement
 has no true conditions, and does not supply an ``else`` clause, it will
@@ -901,7 +924,7 @@ This is a traditional *while* loop.
    while C
      <node>
 
-where C is a `Boolean expression <#Boolean_Expressions>`__. Example:
+where C is a `Boolean expression <#Boolean_Expressions>`_. Example:
 
 ::
 
@@ -920,7 +943,7 @@ This is a traditional *do-while* loop.
    do <node>
    while C
 
-where C is a `Boolean expression <#Boolean_Expressions>`__. Example:
+where C is a `Boolean expression <#Boolean_Expressions>`_. Example:
 
 ::
 
@@ -942,7 +965,7 @@ This is a traditional For loop, limited to a numeric variant.
 
 where T is either ``Integer`` or ``Real``, V is a variable name, Z is a
 numeric expression for the initial value of V, C is a `Boolean
-expression <#Boolean_Expressions>`__ indicating when to continue the
+expression <#Boolean_Expressions>`_ indicating when to continue the
 loop, and E is a numeric expression for updating V after each iteration.
 Examples:
 
@@ -971,17 +994,18 @@ sent by another executive. It has the following syntax.
 
 where:
 
--   is a string expression naming the command to be handled;
--   is an optional list of zero or more comma-separated variable
-   declarations for parameters; and
--   is an action to be performed upon receiving the command.
+-   ``<command-name>`` is a string expression naming the command to be handled;
+-   ``<parameter-declaration>`` is an optional list of zero or more comma-separated variable
+    declarations for parameters; and
+-   ``<node>`` is an action to be performed upon receiving the command.
 
 Example:
 
 ::
 
     OnCommand "Sum" (Integer a, Integer b)
-      Increment: { SendReturnValue(a + b); }
+     Increment: { SendReturnValue(a + b); }
+
 
 Requirements
 ^^^^^^^^^^^^
@@ -998,13 +1022,16 @@ Requirements
    acknowledgement of ``COMMAND_SUCCESS``.
 -  ``Command SendReturnValue(String handle, Any return_val)`` -
    publishes return_val as the result of the command referenced by the
-   handle argument. (**Note:** The ``OnCommand`` macro automatically
-   provides the handle value; it should not be supplied by the user.)
-   The external system **must** respond with a command acknowledgement.
+   handle argument. 
+   
+.. caution::
+   
+    The ``OnCommand`` macro automatically provides the handle value; it should not be supplied by the user.   
+    The external system **must** respond with a command acknowledgement.
 
-The *IpcAdapter* interface module provided with the PLEXIL distribution
-implements these commands; see `Inter-Executive
-Communication <Inter-Executive_Communication>`__. But any PLEXIL
+The *IpcAdapter* interface module provided with the |PLEXIL| distribution
+implements these commands; see :ref:`Inter-Executive Communication <Inter-ExecutiveCommunication>`. 
+But any |PLEXIL|
 application which implements these commands as specified here can use
 ``OnCommand``.
 
@@ -1022,26 +1049,29 @@ and a failure type of ``INVARIANT_CONDITION_FAILED``.
 Returning a value from the command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Important:** Every ``OnCommand`` node is required to call the command
+.. important::
 
-::
+    Every ``OnCommand`` node is required to call the command
 
-     SendReturnValue(<value>)
+    ::
 
-where can be any legal PLEXIL expression with a known value.
+        SendReturnValue(<value>)
+
+    where <value> can be any legal |PLEXIL| expression with a known value.
 
 If a ``SendReturnValue`` command is not present in the body, a
 ``SendReturnValue(true)`` command is automatically generated, and runs
 after the body node has finished executing.
 
-**If the ``SendReturnValue`` command is not acknowledged, the
-``OnCommand`` node will never finish.**
+.. caution::
+
+    If the ``SendReturnValue`` command is not acknowledged, the
+    ``OnCommand`` node will never finish.
 
 The requirement to issue, and acknowledge, a ``SendReturnValue`` command
-may be removed in a future release of the PLEXIL Executive.
+may be removed in a future release of the |PLEXIL| Executive.
 
-For more information, see `Inter-Executive
-Communication <Inter-Executive_Communication>`__.
+For more information, see :ref:`Inter-Executive Communication <Inter-ExecutiveCommunication>`.
 
 OnMessage
 ~~~~~~~~~
@@ -1056,12 +1086,13 @@ by the command ``SendMessage``, and may not have parameters.
 
 Where:
 
--   is a string expression; and
--   is an action to be performed upon receiving that message.
+-   ``<message>`` is a string expression; and
+-   ``<node>`` is an action to be performed upon receiving that message.
 
 Example:
 
 ::
+
     OnMessage “ConnectionEstablished”
        BeginProcess();
 
@@ -1097,8 +1128,7 @@ In the event of an interfacing error, the ``OnMessage`` node will have
 an outcome of ``FAILURE`` and a failure type of
 ``INVARIANT_CONDITION_FAILED``.
 
-For more information, see `Inter-Executive
-Communication <Inter-Executive_Communication>`__.
+For more information, see :ref:`Inter-Executive Communication <Inter-ExecutiveCommunication>`.
 
 .. _synchronous_command:
 
@@ -1140,11 +1170,11 @@ with tolerance of 0.1 (i.e. check the time every 0.1 units if possible).
 
      SynchronousCommand x = foo() Timeout 2.0, 0.1;
 
-This section begs elaboration of several aspects of PLEXIL not yet
+This section begs elaboration of several aspects of |PLEXIL| not yet
 discussed in detail.
 
--  Time. As mentioned in the `Overview <Overview>`__, time is not a
-   special concept in PLEXIL -- it's just an external world state;
+-  Time. As mentioned in the :ref:`Overview <PLEXILOverview>`, time is not a
+   special concept in |PLEXIL| -- it's just an external world state;
    specifically, a real-valued state variable named ``time``. This
    variable may be referenced explicitly, e.g. ``Lookup (time, 1)``,
    though in most cases it is used implicitly: the Plexil executive
@@ -1154,11 +1184,9 @@ discussed in detail.
    timeout is simply the tolerance given to the Lookup that queries
    ``time`` for this node.
 
--  Command Handles. These are described in the `Resource
-   Model <Resource_Model>`__ chapter, but we must note here that
+-  Command Handles. These are described in the :ref:`Resource Model <ResourceModel>` chapter, but we must note here that
    instances of SynchronousCommand without return values *require* that
-   certain command handles are supported by the `Plexil
-   application <PLEXIL_Executive>`__. Specifically, for
+   certain command handles are supported by the :ref:`Plexil application <PLEXILExecutive>`. Specifically, for
    SynchronousCommand to work, the application *must* return one of the
    following handles for the command invoked: COMMAND_SUCCESS,
    COMMAND_FAILED, COMMAND_DENIED.
@@ -1173,7 +1201,7 @@ to pass:
 
      Wait <time-units> [<tolerance>]
 
-where is a unitless real number (the time unit this actually represents
+where ``<time-units>`` is a unitless real number (the time unit this actually represents
 is application-specific), and so is ``tolerance``. Tolerance, which is
 optional and defaults to the , specifies the minimum amount of time that
 is of significance in the wait. Real-valued variables can also be used.
@@ -1196,12 +1224,12 @@ Examples:
 Data Types and Expressions
 --------------------------
 
-PLEXIL supports the following data types: integer, real, string, Boolean
+|PLEXIL| supports the following data types: integer, real, string, Boolean
 (logical expressions), and arrays (homogeneous arrays of any type except
-array itself). PLEXIL provides a variety of operations on each of these
+array itself). |PLEXIL| provides a variety of operations on each of these
 types.
 
-An *expression* in PLEXIL is either a literal value, a variable, a
+An *expression* in |PLEXIL| is either a literal value, a variable, a
 lookup, or a combination of any of these formed by operators. In
 particular, expressions can contain expressions (i.e. they can be
 arbitrarily complex). Expressions can occur within node conditions, the
@@ -1210,7 +1238,7 @@ target of assignments, and resource specifications.
 Unknown/isKnown
 ~~~~~~~~~~~~~~~
 
-Each PLEXIL type is extended by a special value ``UNKNOWN``, i.e. any
+Each |PLEXIL| type is extended by a special value ``UNKNOWN``, i.e. any
 expression can evaluate to ``UNKNOWN``. The unknown value occurs in the
 following cases.
 
@@ -1222,7 +1250,7 @@ following cases.
 -  It is a valid value for Plexil logical expressions.
 
 The ``UNKNOWN`` value is *not* a literal -- it may not be used in a
-PLEXIL plan. It is tested solely through the ``isKnown`` operator, which
+|PLEXIL| plan. It is tested solely through the ``isKnown`` operator, which
 returns false if its argument evaluates to ``UNKNOWN``, and true
 otherwise. An example of the use of ``isKnown`` is found in the section
 above on Command nodes.
@@ -1294,9 +1322,9 @@ UNKNOWN if the supplied Real is not exactly an integer value.
 Boolean Expressions
 ~~~~~~~~~~~~~~~~~~~
 
-PLEXIL employs a *ternary* logic, extending the usual Boolean logic with
+|PLEXIL| employs a *ternary* logic, extending the usual Boolean logic with
 a third value, Unknown, described in a section above. Though strictly a
-misnomer, the term Boolean is used throughout this manual and PLEXIL
+misnomer, the term Boolean is used throughout this manual and |PLEXIL|
 itself to describe operators, expressions, and values in this ternary
 logic.
 
@@ -1304,7 +1332,7 @@ Logical expressions include the Boolean literals ``true`` and ``false``,
 ``Boolean``-typed variables, lookups, comparisons, logical operations,
 array elements (of ``Boolean`` arrays), and the ``isKnown`` operator.
 
-The logical connectives, their syntax in PLEXIL, and arity (number of
+The logical connectives, their syntax in |PLEXIL|, and arity (number of
 operands allowed) are as follows:
 
 ::
@@ -1315,8 +1343,8 @@ operands allowed) are as follows:
    Exclusive Or       XOR         2
 
 When restricted to Boolean (``true`` or ``false``) values in their
-constituents, logical expressions in PLEXIL follow the standard rules of
-Boolean logic. Here is how PLEXIL handles the Unknown value, again a
+constituents, logical expressions in |PLEXIL| follow the standard rules of
+Boolean logic. Here is how |PLEXIL| handles the Unknown value, again a
 standard interpretation.
 
 ::
@@ -1368,9 +1396,11 @@ Here are varied examples of logical expressions.
    isKnown(val)  /* where val is any variable */
    node3.state == FINISHED && node3.outcome == SUCCESS
 
-NOTE: Precedence and associativity rules for these operators are
-consistent with the standard rules for C and C++. Parentheses can be
-used to make explicit the intended semantics.
+.. note::
+
+    Precedence and associativity rules for these operators are
+    consistent with the standard rules for C and C++. Parentheses can be
+    used to make explicit the intended semantics.
 
 .. _string_expressions:
 
@@ -1399,7 +1429,7 @@ The ``strlen`` operator returns the length of a String as an Integer.
 Dates and Durations
 ~~~~~~~~~~~~~~~~~~~
 
-One may want to reason about time. PLEXIL provides basic support for
+One may want to reason about time. |PLEXIL| provides basic support for
 *date*, *time*, and *duration* types as defined by the ISO-8601
 standard. See http://en.wikipedia.org/wiki/ISO_8601 for a detailed
 description of this standard and the date/duration formats, as these are
@@ -1410,7 +1440,7 @@ covered only by example here.
 Date and Duration expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PLEXIL expressions can have type ``Date`` or ``Duration``. The former
+|PLEXIL| expressions can have type ``Date`` or ``Duration``. The former
 includes *time* and combined *date/time* expressions. Dates and
 durations are encoded as *strings* in the ISO-8601 format. Here are some
 examples of Date and Duration variable declarations.
@@ -1450,13 +1480,15 @@ starts on or after a given date, and runs for a specified duration:
        End   Lookup(time, 1) >= Self.EXECUTING.START + Lookup(duration);
    }
 
-Additional PLEXIL plans illustrating varied uses of dates and durations
-may be found in the directory ``plexil/examples/temporal`` in the PLEXIL
+Additional |PLEXIL| plans illustrating varied uses of dates and durations
+may be found in the directory ``plexil/examples/temporal`` in the |PLEXIL|
 source code distribution.
 
-**CAVEATS:** At present, date and duration literals are not checked for
-valid syntax. Also, unspecified behavior will result if an arithmetic
-operation involving dates or durations yields a negative value.
+.. caution::
+
+    At present, date and duration literals are not checked for
+    valid syntax. Also, unspecified behavior will result if an arithmetic
+    operation involving dates or durations yields a negative value.
 
 .. _operations_using_dates_and_durations:
 
@@ -1486,38 +1518,40 @@ can Durations. Dates and Durations cannot be directly compared.
 Date and Duration representation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-At present, dates and durations are not defined in Core PLEXIL. Recall
-that in Core PLEXIL, time is represented as a unitless real number,
+At present, dates and durations are not defined in Core |PLEXIL|. Recall
+that in Core |PLEXIL|, time is represented as a unitless real number,
 whose actual unit is application defined.
 
-Expressions of type Date in the full PLEXIL language are translated into
-Core PLEXIL for execution, where they are converted to real numbers
+Expressions of type Date in the full |PLEXIL| language are translated into
+Core |PLEXIL| for execution, where they are converted to real numbers
 representing absolute time as *seconds* since the Unix epoch of Jan 1,
 1970 (1970-01-01T00:00:00Z to be precise). This is a highly standard
-convention. At present, PLEXIL does not support the use of alternate
+convention. At present, |PLEXIL| does not support the use of alternate
 epochs.
 
 Similarly, Duration expressions are converted into real numbers
 representing seconds.
 
-**CAVEAT:** A key limitation in the current Plexil executive is that it
-does not recognize dates and durations as distinct from other real
-numbers. Therefore, for example, if date or duration values are
-inspected or printed in a running plan, a unitless real number will be
-shown. The PLEXIL team hopes to remedy this and make dates and durations
-better supported in general.
+.. caution::
+
+    A key limitation in the current Plexil executive is that it
+    does not recognize dates and durations as distinct from other real
+    numbers. Therefore, for example, if date or duration values are
+    inspected or printed in a running plan, a unitless real number will be
+    shown. The |PLEXIL| team hopes to remedy this and make dates and durations
+    better supported in general.
 
 Arrays
 ~~~~~~
 
-PLEXIL provides just one aggregate data type, the *array*. At present,
-the array type in PLEXIL is somewhat limited compared to what's found in
-modern programming languages. PLEXIL arrays are homogenous and
+|PLEXIL| provides just one aggregate data type, the *array*. At present,
+the array type in |PLEXIL| is somewhat limited compared to what's found in
+modern programming languages. |PLEXIL| arrays are homogenous and
 one-dimensional: a sequence of values of a single scalar data type,
 indexed by integers beginning with 0. Specifically, arrays may of type
 Integer, Real, String, or Boolean only.
 
-PLEXIL provides both variables and literals of array type. Like other
+|PLEXIL| provides both variables and literals of array type. Like other
 variables, array variables must be declared prior to use. An array
 declaration specifies its name, type, maximum size (number of elements),
 and, optionally, initial values for some or all of the array's elements.
@@ -1526,7 +1560,7 @@ the array is declared. Unlike scalar variables, array variables are
 *not* initialized to the Unknown value by default; rather, each element
 of the array is initialized to Unknown. Array indices start with 0.
 
-The following examples illustrate the key properties of PLEXIL arrays.
+The following examples illustrate the key properties of |PLEXIL| arrays.
 
 ::
 
@@ -1549,10 +1583,10 @@ literal is taken from Common Lisp).
 
 Arrays support the following operations. Assume an array named X.
 
--  Read an element: ``X[``\ \ ``]``, where can be any integral
+-  Read an element: ``X[<index>]``, where ``<index>`` can be any integral
    expression. Array elements are a kind of expression, and thus may be
    used in any place where expressions are allowed.
--  Assign an element: ``X[``\ \ ``] =``\ . Assignments can occur only in
+-  Assign an element: ``X[<index>] =``<expressin>`` . Assignments can occur only in
    assignment nodes.
 -  Assign an entire array: ``X = Y``, where Y is either an array
    variable or an array literal. It is an error if ``Y`` represents an
@@ -1568,7 +1602,7 @@ Arrays support the following operations. Assume an array named X.
 Node State
 ~~~~~~~~~~
 
-A PLEXIL node can access its own internal state, or the internal state
+A |PLEXIL| node can access its own internal state, or the internal state
 of other nodes, but only those nodes which are its siblings, children,
 or parent. (The internal state of more distant relatives is not
 accessible).
@@ -1587,7 +1621,7 @@ performed with these values are comparison for equality or inequality
 with each other, or against a literal value.
 
 The syntax for referencing these types of information is the following,
-where is the node's identifier.
+where ``<Id>`` is the node's identifier.
 
 ::
 
@@ -1600,11 +1634,11 @@ FAILING, FINISHING.
 
      <Id>.<state>.<timepoint>
 
-where is one of the seven states listed above, and is one of START, END,
+where ``<state>`` is one of the seven states listed above, and ``<timepoint>`` is one of START, END,
 will return the time elapsed (as a real number) since the given state
 started or ended (respectively) for the given node. If the requested
 timepoint has not occurred, the value of this variable is Unknown. For
-an explanation of time in PLEXIL, see the `Overview <Overview>`__.
+an explanation of time in |PLEXIL|, see the :ref:`Overview <PLEXILOverview>`.
 
 ::
 
@@ -1641,7 +1675,7 @@ domain-specific measurement names. The syntax for a lookup is:
 
      Lookup(<state_name> [(<param>*)] [, <tolerance>])
 
-where is either an identifier or a string expression that evaluates to
+where ``<state_name>`` is either an identifier or a string expression that evaluates to
 the desired state name. States can have parameters, which are specified
 by a comma-separated list of literal state names or string expressions
 that follow the state name. Tolerance, which is optional, must be a real
@@ -1649,9 +1683,11 @@ number or real-valued variable; it specifies the granularity of accuracy
 for the lookup, and defaults to 0.0. Lookups may not be *overloaded* --
 only one Lookup with a given name may be used.
 
-NOTE: For the state name, literal names are unquoted, while string
-expressions are parenthesized. For state parameters, literal names are
-double-quoted, while string expressions are given no special treatment.
+.. note::
+
+    For the state name, literal names are unquoted, while string
+    expressions are parenthesized. For state parameters, literal names are
+    double-quoted, while string expressions are given no special treatment.
 
 Here are some basic examples:
 
@@ -1692,14 +1728,14 @@ One is the asynchronous context implied by a node's gate conditions
 true. Lookups found in these conditions are processed as *subscriptions*
 to the external system for updates to the requested states. It is only
 in this context that *tolerance* is meaningful. These Lookup forms are
-compiled into *LookupOnChange* in Core PLEXIL's XML representation.
+compiled into *LookupOnChange* in Core |PLEXIL|'s XML representation.
 
 The second context for lookups is the synchronous context implied by a
 node's check conditions (Pre, Post, Invariant) and its body. In these
 contexts, a lookup is processed on demand, that is, its value is
 *fetched* at specific points in execution of the node. Tolerance is
 meaningless in this context, and ignored if specified. These Lookup
-forms are compiled into *LookupNow* in Core PLEXIL's XML representation.
+forms are compiled into *LookupNow* in Core |PLEXIL|'s XML representation.
 
 .. _the_time_state:
 
@@ -1709,7 +1745,7 @@ The "time" state
 The state name ``time`` is predefined in the Plexil executive. It
 returns the system time as a real number, which is compatible with the
 Date type. The units and epoch of the returned value are system
-dependent. On the typical platforms that support PLEXIL, they would be
+dependent. On the typical platforms that support |PLEXIL|, they would be
 in POSIX/Unix time, i.e. the number of seconds since January 1, 1970
 midnight UTC (1970-01-01T00:00:00.000Z).
 
@@ -1721,13 +1757,15 @@ plan, in one of the following ways.
    Date Lookup time;
    Real Lookup time;
 
-NOTE: Due to how the PLEXIL executive's interface to the system clock is
-implemented, a tolerance parameter is required for time lookups. E.g. to
-specify a tolerance of one time unit:
+.. note::
 
-::
+    Due to how the |PLEXIL| executive's interface to the system clock is
+    implemented, a tolerance parameter is required for time lookups. E.g. to
+    specify a tolerance of one time unit:
 
-   Lookup(time, 1)
+    ::
+
+    Lookup(time, 1)
 
 .. _global_declarations:
 
@@ -1745,8 +1783,7 @@ lookups, and library nodes can be intermixed freely.
 Including global declarations as a standard practice has several
 advantages. First, it allows you to define and view your plan's entire
 external interface in one place, rather than having it scattered
-throughout the plan. Second, it enables `static
-checking <Plexil_Checker>`__ of your plan. Static checks will insure
+throughout the plan. Second, it enables :ref:`static checking <PLEXILChecker>` of your plan. Static checks will insure
 that your declarations are consistent and that all uses of declared
 items in the plan are correct.
 
@@ -1788,7 +1825,7 @@ a single node. Your application may comprise many Plexil files; in this
 case, one file will contain the *top level* node, and the rest will
 contain library nodes.
 
-We strongly recommend that the top level node in a Standard PLEXIL file
+We strongly recommend that the top level node in a Standard |PLEXIL| file
 be named the same as the file, e.g. file HaltAndCatchFIre.ple should
 contain the top level node named ``HaltAndCatchFire``.
 
@@ -1798,8 +1835,8 @@ contain the top level node named ``HaltAndCatchFire``.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Plexil plans and Plexilscript scripts must be translated into XML for
-execution by the PLEXIL Executive. The ``plexilc`` utility performs this
-translation for several different PLEXIL syntaxes.
+execution by the |PLEXIL| Executive. The ``plexilc`` utility performs this
+translation for several different |PLEXIL| syntaxes.
 
 E.g. given a Plexil file ``foo.ple``, translate it with the following
 command:
@@ -1809,16 +1846,16 @@ command:
      plexilc foo.ple
 
 If ``foo.ple`` is free of errors, this command will create the Core
-PLEXIL XML file ``foo.plx``.
+|PLEXIL| XML file ``foo.plx``.
 
 ``plexilc`` chooses the translator for its inputs based on the file
 name's extension. Input languages supported by ``plexilc`` are:
 
--  .ple - Standard PLEXIL
--  .plp - Standard PLEXIL with preprocessing (see below)
+-  .ple - Standard |PLEXIL|
+-  .plp - Standard |PLEXIL| with preprocessing (see below)
 -  .pst - Plexilscript, the scripting language for the Test Executive
 -  .pli - Plexilisp (deprecated), a Lisp-like syntax used prior to the
-   development of the Standard PLEXIL language.
+   development of the Standard |PLEXIL| language.
 
 ``plexilc`` supports the following command-line options (this list is
 obtainable by calling ``plexilc`` with no arguments):
@@ -1849,10 +1886,10 @@ inspected and dealt with.
 Preprocessing PLEXIL Plans
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Standard PLEXIL compiler as of release 4.5 now accepts C
+The Standard |PLEXIL| compiler as of release 4.5 now accepts C
 preprocessor statements such as ``#include`` and ``#define``. This is a
 convenient way to share (e.g.) Command, Lookup, and LibraryAction
-declarations, and constant definitions, across several PLEXIL source
+declarations, and constant definitions, across several |PLEXIL| source
 files.
 
 ``plexilc`` automatically invokes the preprocessor when the input file
@@ -1863,12 +1900,6 @@ name ends in ``.plp``
 Executing PLEXIL Plans
 ~~~~~~~~~~~~~~~~~~~~~~
 
-See the `PLEXIL Executive <PLEXIL_Executive>`__ page for details on
-executing PLEXIL plans.
+See the :ref:`PLEXIL Executive <PLEXILExecutive>` page for details on
+executing |PLEXIL| plans.
 
---------------
-
-**Copyright (c) 2006-2021, Universities Space Research Association
-(USRA). All rights reserved.**
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

@@ -5,7 +5,7 @@ Inter-Executive Communication
 
 *19 May 2015*
 
-This chapter describes how multiple interacting PLEXIL executives can be
+This chapter describes how multiple interacting |PLEXIL| executives can be
 realized.
 
 .. contents::
@@ -13,22 +13,22 @@ realized.
 Overview
 --------
 
-In many cases, it is useful to have multiple PLEXIL executives work
+In many cases, it is useful to have multiple |PLEXIL| executives work
 together to execute a plan. For instance, in a distributed environment
-with many sub-systems, it is more efficient to have PLEXIL plans and
+with many sub-systems, it is more efficient to have |PLEXIL| plans and
 executives on each sub-system than to have a single system containing
 all plans, which may rely on the network to send out low-level commands.
 By distributing plans and executives among sub-systems, the amount of
 network traffic can be limited to high-level communication and the
 system becomes more easily maintainable.
 
-The PLEXIL executive can communicate with another executive via
+The |PLEXIL| executive can communicate with another executive via
 messages, commands, and lookups. An executive can be set up to receive
 messages, commands, and lookups via the interface configuration and the
 extended plexil constructs described below.
 
 The communication framework utilizes Carnegie Mellon University's
-`Inter-Process Communication (IPC) <http://www.cs.cmu.edu/~IPC/>`__
+`Inter-Process Communication (IPC) <http://www.cs.cmu.edu/~IPC/>`_
 package (See *plexil/third-party/ipc*, for more information and the
 latest distribution of the IPC package).
 
@@ -50,7 +50,7 @@ command, and commands and lookups are published via the normal methods
 of communicating with an external system. This allows executives to
 emulate external systems and act as simulators. These simulators can
 then be swapped out for a real application or more complex simulator
-with no change to the controlling plan. See the `example <#example>`__
+with no change to the controlling plan. See the example
 section for an example plan that communicates with another executive.
 
 .. _incoming_communication:
@@ -80,15 +80,13 @@ state, canceling the request to handle new incoming actions.
 OnCommand and OnMessage
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-For detailed semantics of the OnCommand and OnMessage Extended PLEXIL
-constructs used for receiving commands and messages, see the `Plexil
-Reference <Plexil_Reference>`__.
+For detailed semantics of the OnCommand and OnMessage Extended |PLEXIL|
+constructs used for receiving commands and messages, see the :ref:`Plexil Reference <PlexilReferences>`.
 
 Lookups
 ~~~~~~~
 
-Lookups are defined in the `interface
-configuration <Interface_Configuration_File>`__ for the IpcAdapter, and
+Lookups are defined in the :ref:`interface configuration <InterfaceConfigurationFile>` for the IpcAdapter, and
 are updated via the command 'UpdateLookup'.
 
 Lookup definitions are specified in the following format within the
@@ -103,7 +101,7 @@ Lookup definitions are specified in the following format within the
 where:
 
 -  **``lookup``\ ````\ ``name``** is the name of the lookup to implement
--  **``variable``\ ````\ ``type``** is a PLEXIL data type (e.g.
+-  **``variable``\ ````\ ``type``** is a |PLEXIL| data type (e.g.
    ``Integer``, ``String``, etc.)
 -  **``initial``\ ````\ ``value``** is the initial value of the lookup
 
@@ -132,7 +130,7 @@ Setup
 -----
 
 To enable inter-exec communication, the IpcAdapter must be set up
-correctly in the interface config file that is given to the PLEXIL
+correctly in the interface config file that is given to the |PLEXIL|
 Executive.
 
 As a prerequisite for any communication, the IPC Central process must be
@@ -175,8 +173,7 @@ Lookups
 
 To enable the handling of incoming lookups, specify each lookup to be
 handled in an ``<ExternalLookups>`` block. Within this block, each
-lookup to be handled is specified in a ``<Lookup>`` element. For more
-information and an example, see `Lookups <#Lookups>`__.
+lookup to be handled is specified in a ``<Lookup>`` element.
 
 Example
 -------
@@ -254,7 +251,7 @@ Limitations
 
 Although not inherent in the system, the related problem of presence
 guarantees still remains. While a normal simulator interface directly
-connects to the simulator or is the simulator, a PLEXIL simulator
+connects to the simulator or is the simulator, a |PLEXIL| simulator
 operates on a subscription model. Because of this, there is no built-in
 way to check to ensure that one and only one simulator is going to
 process commands that are being broadcast.
@@ -294,7 +291,7 @@ element:
    required attributes:
 
    -  ``name`` is the name of the lookup;
-   -  ``type`` is the PLEXIL data type of the value returned, one of
+   -  ``type`` is the |PLEXIL| data type of the value returned, one of
       ``Boolean``, ``Integer``, ``Real``, or ``String``;
    -  ``value`` is the initial value of this lookup.
 
@@ -326,9 +323,3 @@ controller might look like this:
      <CommandNames>report_fault</LookupNames>
     </Adapter>
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

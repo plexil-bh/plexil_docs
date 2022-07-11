@@ -5,8 +5,8 @@ Interface Configuration File
 
 *15 May 2015*
 
-The *interface configuration file* tells the `PLEXIL
-Executive <PLEXIL_Executive>`__ how to route commands, lookups, and
+The *interface configuration file* tells the :ref:`PLEXIL Executive <PLEXILExecutive>` 
+how to route commands, lookups, and
 planner updates to the appropriate interface adapters and exec
 listeners.
 
@@ -18,7 +18,7 @@ Interface Configuration Format
 ------------------------------
 
 The *interface configuration file* is an XML file supplied to the
-`PLEXIL Executive <PLEXIL_Executive>`__ that describes all adapters and
+:ref:`PLEXIL Executive <PLEXILExecutive>` that describes all adapters and
 listeners available to the Executive, and (optionally) the mapping
 between command and lookup names, and the adapters which implement those
 commands and lookups.
@@ -38,7 +38,7 @@ environment in any way.
 
 The outline of a typical interface configuration file is:
 
-.. code-block:: html 
+.. code-block::
 
     <Interfaces>
      <Adapter AdapterType="adapter_type" ... more attributes as required ... >
@@ -66,7 +66,7 @@ constructed. There is one required attribute, ``AdapterType``.
 
 -  ``LibPath`` - names the shared library file containing the adapter
    implementation. The library file name defaults to
-   lib\ *AdapterType*.so on Linux and lib\ *AdapterType*.dylib on Mac OS
+   lib \ *AdapterType*.so on Linux and lib \ *AdapterType*.dylib on Mac OS
    X.
 
 All ``Adapter`` elements may contain one or more of the following
@@ -113,7 +113,7 @@ This specifies what kind of exec listener will be constructed.
    has one required attribute, ``FilterType``.
 -  ``LibPath`` - names the shared library file containing the listener
    implementation. The library file name defaults to
-   lib\ *ListenerType*.so on Linux and lib\ *ListenerType*.dylib on Mac
+   lib \ *ListenerType*.so on Linux and lib \ *ListenerType*.dylib on Mac
    OS X.
 
 ``Listener`` and ``Filter`` elements may contain additional attributes
@@ -123,7 +123,7 @@ Example
 ~~~~~~~
 
 Here is an example of a simple interface configuration file. Several
-others can be found in the examples directory of the PLEXIL
+others can be found in the examples directory of the |PLEXIL|
 distribution.
 
 .. code-block:: html 
@@ -136,8 +136,3 @@ distribution.
      <Listener ListenerType="LuvListener" />
      <Listener ListenerType="PlanDebugListener" />
     </Interfaces>
-
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.

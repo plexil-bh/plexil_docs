@@ -5,11 +5,11 @@ PLEXIL Viewer
 
 *8 May 2015*
 
-NOTE: As of May 22, 2019, the current version of the PLEXIL viewer is
+NOTE: As of May 22, 2019, the current version of the |PLEXIL| viewer is
 broken -- it has a number of startup and usage bugs. We hope to have
 someone working on this soon, but cannot guarantee anything. In the mean
-time, please use PLEXIL in its command-line form. If you are inclined to
-debug the viewer, the PLEXIL community welcomes any contributions!
+time, please use |PLEXIL| in its command-line form. If you are inclined to
+debug the viewer, the |PLEXIL| community welcomes any contributions!
 Please contact plexil-support@lists.sourceforge.net.
 
 .. contents::
@@ -19,18 +19,18 @@ Introduction
 
 The Plexil Viewer (formerly "**L**\ ightweight **U**\ niversal Executive
 **V**\ iewer", or LUV), is a graphical interface for visualizing
-execution of Plexil plans. It allows you to specify a desired PLEXIL
+execution of Plexil plans. It allows you to specify a desired |PLEXIL|
 application, load plans and other supporting files, and monitor
 execution of a plan while being able to set breakpoints and
 interactively pause and resume the execution.
 
-The PLEXIL Viewer allows you to execute Plexil plans using any of the
-three Plexil applications provided in the PLEXIL software distribution:
+The |PLEXIL| Viewer allows you to execute Plexil plans using any of the
+three Plexil applications provided in the |PLEXIL| software distribution:
 
--  The `Test Executive <Simulating_Plan_Execution#Test_Executive>`__
--  The `Plexil Simulator <Simulating_Plan_Execution#Plexil_Simulator>`__
--  The `PLEXIL Executive <PLEXIL_Executive>`__
--  External PLEXIL applications running independently of the Viewer
+-  The :ref:`Test Executive <TestExecutive>`
+-  The :ref:`Plexil Simulator <PLEXILSimulator>`
+-  The :ref:`PLEXIL Executive <PLEXILExecutive>`
+-  External |PLEXIL| applications running independently of the Viewer
    *(documentation to be supplied)*
 
 Here is an example of what plan execution looks like in the viewer.
@@ -42,18 +42,17 @@ Here is an example of what plan execution looks like in the viewer.
 Using the PLEXIL Viewer
 -----------------------
 
-There are two different ways to use the PLEXIL viewer.
+There are two different ways to use the |PLEXIL| viewer.
 
-#. *Command line*: Run the PLEXIL application from the Unix command
+#. *Command line*: Run the |PLEXIL| application from the Unix command
    line, specifying the viewer as command line options.
-#. *Graphical*: Start the PLEXIL viewer, and from here select and run
+#. *Graphical*: Start the |PLEXIL| viewer, and from here select and run
    the desired application.
 
 The following sections describe both the command line and graphical
-means for running PLEXIL applications. We give detailed instructions for
-running the `Test
-Executive <Simulating_Plan_Execution#Test_Executive>`__ application. The
-process for running the other PLEXIL applications with the PLEXIL viewer
+means for running |PLEXIL| applications. We give detailed instructions for
+running the :ref:`Test Executive <test_executive>` application. The
+process for running the other |PLEXIL| applications with the |PLEXIL| viewer
 is almost identical.
 
 .. _executing_plans_with_the_test_executive:
@@ -61,7 +60,7 @@ is almost identical.
 Executing Plans with the Test Executive
 ---------------------------------------
 
-See the `PLEXIL Simulators <Simulating_Plan_Execution>`__ chapter for an
+See the :ref:`PLEXIL Simulators <PLEXILSimulator>` chapter for an
 introduction to the Test Executive and ``plexiltest`` command.
 
 .. _command_line_approach:
@@ -83,7 +82,7 @@ The ``-viewer`` or ``-v`` option says to open a viewer.
 The ``-blocking`` or ``-b`` option says to open the viewer in *blocking*
 mode, which means that plan execution is controlled interactively: the
 space bar advances the plan by one
-`step <Detailed_Semantics#Macro_Steps>`__, and the return key pauses and
+:ref:`step <micro_steps_macro_steps_and_the_quiescence_cycle>`, and the return key pauses and
 resumes plan execution. This option is also required to allow setting
 breakpoints in the plan. Note that use of this option significantly
 slows the execution of the plan.
@@ -115,15 +114,15 @@ Graphical approach
 .. figure:: ../_static/images/Config-dialog.png
    :alt: config-dialog.png
 
-   config-dialog.png
+   config-dialog
 
 .. _starting_the_plexil_viewer:
 
 Starting the PLEXIL Viewer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The PLEXIL viewer is started by typing ``plexil`` at a Unix shell
-prompt. A single window will appear, showing the PLEXIL logo. On Linux
+The |PLEXIL| viewer is started by typing ``plexil`` at a Unix shell
+prompt. A single window will appear, showing the |PLEXIL| logo. On Linux
 systems, the top of this window will have a set of pulldown menu
 selections. Under MacOS, the pulldown menus appear in application menu
 bar at the top of the computer screen.
@@ -133,7 +132,7 @@ bar at the top of the computer screen.
 Executing Plans with the Plexil Executive
 -----------------------------------------
 
-See the `PLEXIL Executive <PLEXIL_Executive>`__ chapter for an
+See the :ref:`PLEXIL Executive <PLEXILExecutive>` chapter for an
 introduction to the Plexil Executive and ``plexilexec`` command.
 
 .. _command_line_approach_1:
@@ -170,7 +169,7 @@ click ``Use Default`` to select the default (dummy) configuration.
 Executing Plans with the Plexil Simulator
 -----------------------------------------
 
-See `Plexil Simulator <Simulating_Plan_Execution#Plexil_Simulator>`__
+See :ref:`Plexil Simulator <PLEXILSimulator>`
 for an introduction to the Plexil Simulator and ``plexilsim`` command.
 
 .. _command_line_approach_2:
@@ -220,7 +219,7 @@ Selecting a port number
 
 The Plexil viewer connects with the Plexil executive using a Unix
 *port*. There are a series of consecutive *port numbers* (starting with
-49100) that the PLEXIL software dedicates to this connection. Port
+49100) that the |PLEXIL| software dedicates to this connection. Port
 selection is managed automatically such that multiple executives, each
 with a viewer, should be able to run concurrently on the same machine.
 There are several cases in which this automatic selection will not work,
@@ -253,7 +252,7 @@ practice should be all one line. Here's the abbreviated form:
 Saved Settings
 --------------
 
-The last settings used by the PLEXIL viewer are automatically stored in
+The last settings used by the |PLEXIL| viewer are automatically stored in
 the hidden file ``$HOME/.luv``. There is normally no reason to inspect
 this file, as it is managed by the viewer. Note that this setting file
 will hold the last settings made in the *last* Plexil viewer that was
@@ -267,7 +266,7 @@ Viewer Features
 ---------------
 
 The following sections provide brief descriptions and snapshots of
-various PLEXIL viewer features.
+various |PLEXIL| viewer features.
 
 .. _expand_plan_view:
 
@@ -397,7 +396,7 @@ Temporal Plan Viewer
 --------------------
 
 The Gantt/Timeline Temporal Plan Viewer (distinct from the Plexil Viewer
-described above) allows for the post-execution visualization of PLEXIL
+described above) allows for the post-execution visualization of |PLEXIL|
 plans over time via a Gantt chart or a series of timelines. The viewer
 can be used with plans run via the plexilsim or plexilexec executives.
 The ``plexiltest`` executive does not allow for this feature.
@@ -407,7 +406,7 @@ The ``plexiltest`` executive does not allow for this feature.
 Using the viewer
 ~~~~~~~~~~~~~~~~
 
-#. Add **** to an interface configuration XML file associated with any
+#. Add **<Listener ListenerType="GanttListener" />** to an interface configuration XML file associated with any
    plan(s) you wish to test with the viewer.
 #. Run the plans you want to test with the viewer via ``plexilexec`` or
    ``plexilsim``.
@@ -480,13 +479,12 @@ formatted set of JSON tokens and displaying tokens on timelines through
 use of this parsed data. The JSON tokens are generated in a single file
 by the Gantt Listener interface that gathers information from nodes when
 they reach their *Executing*, *Finished* or *Failed* states within a
-plan's execution. Below is a screenshot of the viewer (`see
-larger <Media:GanttViewer.png>`__):
+plan's execution. Below is a screenshot of the viewer:
 
 .. figure:: ../_static/images/GanttViewer.png
    :alt: 800 px|alt=PLEXIL Gantt/Timeline Temporal Plan Viewer
 
-   800 px|alt=PLEXIL Gantt/Timeline Temporal Plan Viewer
+   Timeline Temporal Plan Viewer
 
 The root node of a plan has a blue token line, while its immediate
 children have green token lines. All other nodes have brown token lines.
@@ -509,7 +507,7 @@ description of each button's functionality:
 -  Close all dialogs - Closes any open dialog windows that are displayed
    node information (three are open in the screenshot above).
 -  Toggle generated nodes - Displays or hides nodes that are generated
-   by the PLEXIL executive during runtime; these are nodes that have
+   by the |PLEXIL| executive during runtime; these are nodes that have
    names that are prefaced with *ep2cp\_*, *plexilisp\_*, or
    *\__CHILD_\_*. By default, generated nodes are hidden.
 -  Toggle timeline/expanded - Switches between an expanded Gantt-style
@@ -530,9 +528,3 @@ description of each button's functionality:
    each node or use the wildcard \* character to represent a sequence of
    any characters. Separate node names with commas.
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

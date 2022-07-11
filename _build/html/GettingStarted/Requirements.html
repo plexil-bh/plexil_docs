@@ -51,7 +51,7 @@
 <span id="id1"></span><h1><a class="toc-backref" href="#id8" role="doc-backlink">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h1>
 <p><em>13 May 2021</em></p>
 <p>This page describes the hardware and software required to build and run
-the PLEXIL Executive and its supporting programs.</p>
+the <em>PLEXIL</em> Executive and its supporting programs.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -77,41 +77,40 @@ the PLEXIL Executive and its supporting programs.</p>
 <section id="development-environment">
 <span id="id2"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Development environment</a><a class="headerlink" href="#development-environment" title="Permalink to this heading">¶</a></h2>
 <p>Any modern Unix-like system with the required development software
-should be able to build and run the PLEXIL Executive and its associated
+should be able to build and run the <em>PLEXIL</em> Executive and its associated
 programs.</p>
 <p>The source distribution requires about 200 MB of file system space to
 build fully.</p>
 <section id="operating-systems">
 <span id="id3"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Operating systems</a><a class="headerlink" href="#operating-systems" title="Permalink to this heading">¶</a></h3>
-<p>The development team regularly builds and maintains PLEXIL on the
+<p>The development team regularly builds and maintains <em>PLEXIL</em> on the
 following operating systems:</p>
 <ul class="simple">
 <li><p>Linux (Red Hat Enterprise Linux, versions 5 and newer; Ubuntu
 releases since 12.04 LTS) on Intel x86-64 and AMD64 hardware</p></li>
 <li><p>macOS versions 10.8 and newer, on x86-64 Macs</p></li>
 </ul>
-<p>The PLEXIL Executive has been successfully built on these additional
+<p>The <em>PLEXIL</em> Executive has been successfully built on these additional
 platforms.</p>
 <ul class="simple">
-<li><p>Windows Subsystem for Linux 2 (WSL 2); see the <a class="reference external" href="Media:Using_PLEXIL_with_WSL_2_Install_Instructions.pdf">detailed
-instructions</a>
+<li><p>Windows Subsystem for Linux 2 (WSL 2); see the <a class="reference download internal" download="" href="../_downloads/fff50d85303105ff7abd79fda2fbb602/Using_PLEXIL_with_WSL_2_Install_Instructions.pdf"><code class="xref download docutils literal notranslate"><span class="pre">detailed</span> <span class="pre">instructions</span></code></a>
 (PDF).</p></li>
 <li><p><a class="reference external" href="https://www.freebsd.org/">FreeBSD</a></p></li>
 <li><p><a class="reference external" href="http://cygwin.com/">Cygwin</a> Unix-like development environment on
 Microsoft Windows.</p></li>
 </ul>
-<p>The PLEXIL development team welcomes feedback and patches from users of
+<p>The <em>PLEXIL</em> development team welcomes feedback and patches from users of
 platforms other than Linux and macOS. While we make every effort to
 assure portability, we may not be able to offer support for alternative
 platforms.</p>
 </section>
 <section id="development-software">
 <span id="id4"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Development software</a><a class="headerlink" href="#development-software" title="Permalink to this heading">¶</a></h3>
-<p>The PLEXIL Executive and the StandAlone Simulator are written in C++.
-PLEXIL C and C++ code from the PLEXIL-4 releases should be buildable on
+<p>The <em>PLEXIL</em> Executive and the StandAlone Simulator are written in C++.
+<em>PLEXIL</em> C and C++ code from the <em>PLEXIL</em>-4 releases should be buildable on
 any C++03 and C99 compliant compiler, and should run unmodified in most
 POSIX-compliant environments. A C++11 compliant compiler is required for
-the forthcoming PLEXIL 6 release. The ‘develop’ branch requires a C++14
+the forthcoming <em>PLEXIL</em> 6 release. The ‘develop’ branch requires a C++14
 compiler.</p>
 <p>The following compiler suites are actively used in development, and
 known to work across multiple releases and platforms:</p>
@@ -122,12 +121,12 @@ known to work across multiple releases and platforms:</p>
 <p>There are no known issues on desktop systems using either GNU
 libc/libcpp/libstdc++ or LLVM libc++, the standard libraries associated
 with the compiler suites above.</p>
-<p>Other development tools required by PLEXIL can be found in a typical
+<p>Other development tools required by <em>PLEXIL</em> can be found in a typical
 Linux or macOS development environment. The ones that aren’t
 preinstalled are often available through native package managers on
 Linux distributions, <a class="reference external" href="https://www.macports.org/">MacPorts</a> or
 <a class="reference external" href="https://brew.sh/">Homebrew</a> on macOS, or the ports systems on BSDs.</p>
-<p>The following are required to build PLEXIL from the tarball releases:</p>
+<p>The following are required to build <em>PLEXIL</em> from the tarball releases:</p>
 <ul class="simple">
 <li><p>POSIX-compliant ‘tar’ utility with support for gzip compression</p></li>
 <li><p>POSIX-compliant shell (e.g. <a class="reference external" href="https://www.gnu.org/software/bash/">GNU
@@ -149,18 +148,21 @@ utility</p></li>
 <a class="reference external" href="https://www.gnu.org/software/automake/">automake</a>, and
 <a class="reference external" href="https://www.gnu.org/software/libtool/">libtool</a></p></li>
 </ul>
-<p><strong>Caution: The ``libtool`` utility provided with
-Apple’s</strong><a class="reference external" href="https://developer.apple.com/xcode/">Xcode</a><strong>development
-tools is not GNU libtool.</strong> You must install GNU libtool if you are
-planning to build PLEXIL from a Git clone.</p>
-<p>The PLEXIL compilers, PLEXIL Viewer, and other development tools are
-written in portable Java. A Java 8 or newer runtime is required. PLEXIL
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">libtool</span></code> utility provided with
+Apple’s <a class="reference external" href="https://developer.apple.com/xcode/">Xcode</a> development
+tools is not GNU libtool. You must install GNU libtool if you are
+planning to build <em>PLEXIL</em> from a Git clone.</p>
+</div>
+<p>The <em>PLEXIL</em> compilers, <em>PLEXIL</em> Viewer, and other development tools are
+written in portable Java. A Java 8 or newer runtime is required. <em>PLEXIL</em>
 is regularly tested with the following Java JDK environments:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://jdk.java.net/">OpenJDK</a> - Oracle licensed</p></li>
 <li><p><a class="reference external" href="https://adoptopenjdk.net/">AdoptOpenJDK</a> - open source</p></li>
 </ul>
-<p>The following software packages are required for building PLEXIL Java
+<p>The following software packages are required for building <em>PLEXIL</em> Java
 software from source:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://ant.apache.org/">Apache ant</a> version 1.7 or newer -
@@ -183,8 +185,8 @@ Toolkit) and its development header files</p></li>
 </section>
 <section id="runtime-environment">
 <span id="id5"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Runtime environment</a><a class="headerlink" href="#runtime-environment" title="Permalink to this heading">¶</a></h2>
-<p>Any environment capable of building the PLEXIL Executive should be able
-to run it. In addition, the PLEXIL Executive has been successfully
+<p>Any environment capable of building the <em>PLEXIL</em> Executive should be able
+to run it. In addition, the <em>PLEXIL</em> Executive has been successfully
 ported to several embedded runtime environments.</p>
 <section id="hardware">
 <h3><a class="toc-backref" href="#id13" role="doc-backlink">Hardware</a><a class="headerlink" href="#hardware" title="Permalink to this heading">¶</a></h3>
@@ -197,12 +199,12 @@ architectures with minimal effort.</p>
 floating point library is available.</p>
 <p>Runtime memory requirements vary by platform and application. The
 Executive should run adequately on most systems with at least 16 MB of
-RAM, including embedded platforms. Large PLEXIL plans may require more
+RAM, including embedded platforms. Large <em>PLEXIL</em> plans may require more
 RAM.</p>
 </section>
 <section id="operating-systems-1">
 <span id="id6"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Operating systems</a><a class="headerlink" href="#operating-systems-1" title="Permalink to this heading">¶</a></h3>
-<p>The PLEXIL Executive has been demonstrated on these embedded platforms:</p>
+<p>The <em>PLEXIL</em> Executive has been demonstrated on these embedded platforms:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.windriver.com/products/vxworks">VxWorks</a> real time
 operating system on 32-bit PowerPC</p></li>
@@ -213,7 +215,7 @@ operating system on 32-bit PowerPC</p></li>
 <span id="id7"></span><h3><a class="toc-backref" href="#id15" role="doc-backlink">Required libraries</a><a class="headerlink" href="#required-libraries" title="Permalink to this heading">¶</a></h3>
 <p>The default C and C++ runtimes are GNU libc and libstdc++, or LLVM
 libc++ when the Clang compiler is used.</p>
-<p>The PLEXIL Executive has run on embedded Linux platforms using
+<p>The <em>PLEXIL</em> Executive has run on embedded Linux platforms using
 <a class="reference external" href="https://www.uclibc-ng.org/">uClibc-ng</a>, a lightweight open-source
 libc implementation, and on the standard VxWorks C runtime, both with
 minor modifications to the source.</p>
@@ -233,7 +235,6 @@ fashion.</p></li>
 interface libraries during development, dynamic loading is not
 required.</p></li>
 </ul>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
 </section>
 </section>
 </section>
@@ -274,6 +275,7 @@ required.</p></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -315,8 +317,8 @@ required.</p></li>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

@@ -91,7 +91,7 @@
 </nav>
 <section id="udp-adapter-user-s-guide">
 <span id="udp-adapter-users-guide"></span><h2><a class="toc-backref" href="#id18" role="doc-backlink">UDP Adapter User’s Guide</a><a class="headerlink" href="#udp-adapter-user-s-guide" title="Permalink to this heading">¶</a></h2>
-<p>The UDP Adapter gives access to UDP messages/commands in PLEXIL plans.</p>
+<p>The UDP Adapter gives access to UDP messages/commands in <em>PLEXIL</em> plans.</p>
 <p>There is a working example which uses the UdpAdapter in
 <code class="docutils literal notranslate"><span class="pre">plexil/examples/multi-exec/udp</span></code>. This example illustrates how to
 configure and load the UdpAdapter (<code class="docutils literal notranslate"><span class="pre">udp.xml</span></code>) and how to use it in the
@@ -111,7 +111,7 @@ demonstration.</p>
 % make demo
 </pre></div>
 </div>
-<p>This will make sure that the PLEXIL Executive and its supporting
+<p>This will make sure that the <em>PLEXIL</em> Executive and its supporting
 programs and libraries are built, that the two test plans
 (<code class="docutils literal notranslate"><span class="pre">test-recv.ple</span></code> and <code class="docutils literal notranslate"><span class="pre">test-send.ple</span></code>) are compiled, and will call
 the <code class="docutils literal notranslate"><span class="pre">run-agents</span></code> script to run them.</p>
@@ -176,7 +176,7 @@ file, which has several useful keywords in it which can be commented in
 to provide a fair amount of additional output. In addition, for the
 purposes of demonstration, some of the very low level UDP machinery
 debugging is turned on for the benefit of new users. To turn this low
-level debugging off, change the <code class="docutils literal notranslate"><span class="pre">debug=&quot;true&quot;</span></code> attribute of the
+level debugging off, change the <code class="docutils literal notranslate"><span class="pre">debug=&quot;true&quot;</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">&lt;Adapter</span> <span class="pre">AdapterType=&quot;UdpAdapter&quot;/&gt;</span></code>
 element in the adapter configuration <code class="docutils literal notranslate"><span class="pre">udp.xml</span></code> file to
 <code class="docutils literal notranslate"><span class="pre">debug=&quot;false&quot;</span></code>.</p>
 </section>
@@ -216,7 +216,7 @@ therein with the UdpAdapter must be defined in the Plexil XML
 communication configuration file. For the UdpAdapter, this file
 declares:</p>
 <ul class="simple">
-<li><p>the adapter itself: , including</p>
+<li><p>the adapter itself: <code class="docutils literal notranslate"><span class="pre">&lt;Adapter</span> <span class="pre">AdapterType=&quot;UdpAdapter&quot;/&gt;</span></code>, including</p>
 <ul>
 <li><p>the required adapter type: <code class="docutils literal notranslate"><span class="pre">AdapterType=&quot;UdpAdapter&quot;</span></code></p></li>
 <li><p>one optional default remote peer:
@@ -227,7 +227,7 @@ declares:</p>
 debugging output: <code class="docutils literal notranslate"><span class="pre">debug=&quot;true&quot;</span></code></p></li>
 </ul>
 </li>
-<li><p>each of the messages/commands of interest: , including</p>
+<li><p>each of the messages/commands of interest: <code class="docutils literal notranslate"><span class="pre">&lt;Message</span> <span class="pre">name=&quot;acfs_state&quot;/&gt;</span></code>, including</p>
 <ul>
 <li><p>a required name (which must match the name given in the plan):
 <code class="docutils literal notranslate"><span class="pre">name=&quot;ack_msg&quot;</span></code></p></li>
@@ -238,13 +238,13 @@ debugging output: <code class="docutils literal notranslate"><span class="pre">d
 </li>
 <li><p>one or more optional message/command specifications, including</p>
 <ul>
-<li><p>a required type: <code class="docutils literal notranslate"><span class="pre">type=&quot;</span></code><code class="docutils literal notranslate"><span class="pre">&quot;</span></code> attribute, where
-<code class="docutils literal notranslate"><span class="pre">:=</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">string</span> <span class="pre">|</span> <span class="pre">int-array</span> <span class="pre">|</span> <span class="pre">float-arry</span> <span class="pre">|</span> <span class="pre">bool-array</span> <span class="pre">|</span> <span class="pre">string-array</span></code></p></li>
-<li><p>a required element encoding length in bytes: <code class="docutils literal notranslate"><span class="pre">bytes=&quot;</span></code><code class="docutils literal notranslate"><span class="pre">&quot;</span></code>
-where <code class="docutils literal notranslate"><span class="pre">:=</span> <span class="pre">1</span> <span class="pre">|</span> <span class="pre">2</span> <span class="pre">|</span> <span class="pre">4</span> <span class="pre">|</span></code>, depending on the type (see
-<a class="reference external" href="#Plexil_and_UDP_Data_Types">below</a>),</p></li>
+<li><p>a required type: <code class="docutils literal notranslate"><span class="pre">type=&quot;&lt;type&gt;&quot;</span></code> attribute, where
+<code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span> <span class="pre">:=</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">string</span> <span class="pre">|</span> <span class="pre">int-array</span> <span class="pre">|</span> <span class="pre">float-arry</span> <span class="pre">|</span> <span class="pre">bool-array</span> <span class="pre">|</span> <span class="pre">string-array</span></code></p></li>
+<li><p>a required element encoding length in bytes: <code class="docutils literal notranslate"><span class="pre">bytes=&quot;&lt;n&gt;&quot;</span></code>
+where <code class="docutils literal notranslate"><span class="pre">:=</span> <span class="pre">1</span> <span class="pre">|</span> <span class="pre">2</span> <span class="pre">|</span> <span class="pre">4</span> <span class="pre">|</span> <span class="pre">&lt;n&gt;</span></code>, depending on the type (see
+<a class="reference internal" href="#plexil-and-udp-data-types"><span class="std std-ref">below</span></a>),</p></li>
 <li><p>for arrays, a required array length attribute:
-<code class="docutils literal notranslate"><span class="pre">elements=&quot;</span></code><code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, which is the number of elements in the
+<code class="docutils literal notranslate"><span class="pre">elements=&quot;&lt;n&gt;&quot;</span></code>, which <code class="docutils literal notranslate"><span class="pre">&lt;n&gt;</span></code> is the number of elements in the
 array,</p></li>
 <li><p>an optional parameter description: <code class="docutils literal notranslate"><span class="pre">desc=&quot;blah&quot;</span></code></p></li>
 </ul>
@@ -280,7 +280,7 @@ array,</p></li>
 <code class="docutils literal notranslate"><span class="pre">local_port</span></code> taking precedence. Similarly, for any message/command to
 be sent, either the <code class="docutils literal notranslate"><span class="pre">default_peer</span></code> or <code class="docutils literal notranslate"><span class="pre">peer</span></code> and either the
 <code class="docutils literal notranslate"><span class="pre">default_peer_port</span></code> or <code class="docutils literal notranslate"><span class="pre">peer_port</span></code> must be defined, with the more
-specific setting taking precedence. As a last resort, if neither
+specific <code class="docutils literal notranslate"><span class="pre">&lt;Parameter/&gt;</span></code> setting taking precedence. As a last resort, if neither
 <code class="docutils literal notranslate"><span class="pre">default_peer</span></code> nor <code class="docutils literal notranslate"><span class="pre">peer</span></code> are defined, “localhost” will be used.</p>
 <p>Unfortunately, there is at this time no way to represent this
 information directly in the plan, which means that the plan can not
@@ -368,35 +368,27 @@ messages, and the <code class="docutils literal notranslate"><span class="pre">O
 incoming UDP messages. This interface follows the example of the
 IpcAdapter for usage.</p>
 <p>Once a UDP message has been defined in the XML configuration file (see
-<a class="reference external" href="#UDP_Message_Definition">above</a>), it can be used either to send or
+<a class="reference internal" href="#udp-message-definition"><span class="std std-ref">above</span></a>), it can be used either to send or
 to receive that message. In the following examples, we will be using a
 simpler definition of <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code>, which is given here:</p>
-<dl>
-<dt>::</dt><dd><dl>
-<dt>&lt;Interfaces&gt;</dt><dd><p>&lt;Adapter AdapterType=”Utility”/&gt;
-&lt;Adapter AdapterType=”OSNativeTime”/&gt;
-&lt;Adapter AdapterType=”UdpAdapter” debug=”true” default_local_port=”9876” default_peer_port=”9876”&gt;</p>
-<blockquote>
-<div><dl class="simple">
-<dt>&lt;Message name=”test_udp_msg” local_port=”8032” peer_port=”8032”&gt;</dt><dd><p>&lt;Parameter type=”string” bytes=”3” desc=”message id”/&gt;
-&lt;Parameter type=”bool” bytes=”1” desc=”send ack flag”/&gt;
-&lt;Parameter type=”int” bytes=”4” desc=”num_widgets”/&gt;
-&lt;Parameter type=”float” bytes=”4” desc=”arg4”/&gt;</p>
-</dd>
-</dl>
-<p>&lt;/Message&gt;</p>
-</div></blockquote>
-<p>&lt;/Adapter&gt;</p>
-</dd>
-</dl>
-<p>&lt;/Interfaces&gt;</p>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+ <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;Utility&quot;</span><span class="o">/&gt;</span>
+ <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;OSNativeTime&quot;</span><span class="o">/&gt;</span>
+ <span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;UdpAdapter&quot;</span> <span class="n">debug</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="n">default_local_port</span><span class="o">=</span><span class="s2">&quot;9876&quot;</span> <span class="n">default_peer_port</span><span class="o">=</span><span class="s2">&quot;9876&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">Message</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;test_udp_msg&quot;</span> <span class="n">local_port</span><span class="o">=</span><span class="s2">&quot;8032&quot;</span> <span class="n">peer_port</span><span class="o">=</span><span class="s2">&quot;8032&quot;</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">Parameter</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span> <span class="nb">bytes</span><span class="o">=</span><span class="s2">&quot;3&quot;</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;message id&quot;</span><span class="o">/&gt;</span>
+   <span class="o">&lt;</span><span class="n">Parameter</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span> <span class="nb">bytes</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;send ack flag&quot;</span><span class="o">/&gt;</span>
+   <span class="o">&lt;</span><span class="n">Parameter</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span> <span class="nb">bytes</span><span class="o">=</span><span class="s2">&quot;4&quot;</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;num_widgets&quot;</span><span class="o">/&gt;</span>
+   <span class="o">&lt;</span><span class="n">Parameter</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;float&quot;</span> <span class="nb">bytes</span><span class="o">=</span><span class="s2">&quot;4&quot;</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;arg4&quot;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;/</span><span class="n">Message</span><span class="o">&gt;</span>
+ <span class="o">&lt;/</span><span class="n">Adapter</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">Interfaces</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 <section id="the-command-interface">
 <span id="id7"></span><h4><a class="toc-backref" href="#id26" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">Command</span></code> Interface</a><a class="headerlink" href="#the-command-interface" title="Permalink to this heading">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">Command</span></code> interface is used to send a UDP message. For example,
-for the definition of <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code> <a class="reference external" href="#Using_UDP_Messages/Commands_in_a_Plexil_Plan">immediately
-above</a>, the
+for the definition of <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code> <a class="reference internal" href="#using-udp-messagescommands-in-a-plexil-plan"><span class="std std-ref">immediately above</span></a>, the
 <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code> command can be called thus:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Command</span> <span class="n">test_udp_msg</span> <span class="p">(</span><span class="s2">&quot;UDP&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.14159</span><span class="p">);</span>
 </pre></div>
@@ -408,13 +400,13 @@ populated, like this:</p>
 </div>
 <p>All of the usual Plexil language idioms and restrictions apply. For
 example, using “-” instead of “_” in the message name will fail during
-translation if you are using Standard PLEXIL.</p>
+translation if you are using Standard <em>PLEXIL</em>.</p>
 </section>
 <section id="the-oncommand-interface">
 <span id="id8"></span><h4><a class="toc-backref" href="#id27" role="doc-backlink">The <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> Interface</a><a class="headerlink" href="#the-oncommand-interface" title="Permalink to this heading">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code> interface works in a similar manner. For example,
 given the message definition
-<a class="reference external" href="#Using_UDP_Messages/Commands_in_a_Plexil_Plan">above</a>, the handler
+<a class="reference internal" href="#using-udp-messagescommands-in-a-plexil-plan"><span class="std std-ref">above</span></a>, the handler
 for a <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code> command can be invoked thus:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OnCommand</span> <span class="n">test_udp_msg</span> <span class="p">(</span><span class="n">String</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">Boolean</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">arg3</span><span class="p">,</span> <span class="n">Real</span> <span class="n">arg4</span><span class="p">);</span>
 </pre></div>
@@ -439,7 +431,7 @@ adapter. Also note that the versions of the plan given here may not
 match those in <code class="docutils literal notranslate"><span class="pre">plexil/examples/multi-exec/udp</span></code> – those plans may
 include additional types and test code.</p>
 <p>Using the definition of <code class="docutils literal notranslate"><span class="pre">test_udp_msg</span></code> given
-<a class="reference external" href="#Using_UDP_Messages/Commands_in_a_Plexil_Plan">above</a>:</p>
+<a class="reference internal" href="#using-udp-messagescommands-in-a-plexil-plan"><span class="std std-ref">above</span></a>:</p>
 <p><code class="docutils literal notranslate"><span class="pre">test-recv.ple</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">-</span><span class="n">recv</span><span class="p">:</span>
 <span class="p">{</span>
@@ -571,10 +563,6 @@ this, if the planner has used too many parameters for a particular
 <code class="docutils literal notranslate"><span class="pre">OnCommand</span></code>, it can only be discovered at run time and handled by and
 assert. It is also possible to detect too few parameters; the unused
 parameters simply go unused.</p>
-<hr class="docutils" />
-<p><strong>Copyright (c) 2006-2015, Universities Space Research Association
-(USRA). All rights reserved.</strong></p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
 </section>
 </section>
 </section>
@@ -615,6 +603,7 @@ parameters simply go unused.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -656,8 +645,8 @@ parameters simply go unused.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

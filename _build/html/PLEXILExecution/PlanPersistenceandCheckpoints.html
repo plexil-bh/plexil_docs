@@ -16,7 +16,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PLEXIL Checker" href="../PLEXILTools/PLEXILChecker.html" />
+    <link rel="next" title="Plexilisp" href="../PLEXILTools/Plexilisp.html" />
     <link rel="prev" title="ResourceArbiter" href="ResourceArbiter.html" />
    
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -32,7 +32,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../PLEXILTools/PLEXILChecker.html" title="PLEXIL Checker"
+          <a href="../PLEXILTools/Plexilisp.html" title="Plexilisp"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ResourceArbiter.html" title="ResourceArbiter"
@@ -50,8 +50,8 @@
   <section id="plan-persistence-and-checkpoints">
 <span id="planpersistenceandcheckpoints"></span><h1><a class="toc-backref" href="#id3" role="doc-backlink">Plan Persistence and Checkpoints</a><a class="headerlink" href="#plan-persistence-and-checkpoints" title="Permalink to this heading">¶</a></h1>
 <p><em>Apr 7, 2021</em></p>
-<p>This chapter describes PLEXIL’s Checkpoint Adapter, available for
-inclusion in any PLEXIL plan.</p>
+<p>This chapter describes <em>PLEXIL</em>’s Checkpoint Adapter, available for
+inclusion in any <em>PLEXIL</em> plan.</p>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -99,7 +99,7 @@ time-dependent values will be set to Unknown.</p>
 <h2><a class="toc-backref" href="#id5" role="doc-backlink">Usage</a><a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
 <p>If the adapter is included in the configuration file, all lookups and
 commands will be available to the plan, and startup/shutdown behavior is
-enabled(as described below in <a class="reference external" href="#Options">#Options</a>).</p>
+enabled(as described below in <a class="reference internal" href="#options"><span class="std std-ref">Options</span></a>).</p>
 <p>An example configuration follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;CheckpointAdapter&quot;</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="n">SaveConfiguration</span> <span class="n">Directory</span><span class="o">=</span><span class="s2">&quot;./saves&quot;</span>
@@ -113,7 +113,7 @@ enabled(as described below in <a class="reference external" href="#Options">#Opt
 </div>
 </section>
 <section id="options">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">Options</a><a class="headerlink" href="#options" title="Permalink to this heading">¶</a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">Options</a><a class="headerlink" href="#options" title="Permalink to this heading">¶</a></h2>
 <p>The adapter has multiple settings which can be modified in the interface
 configuration file. See the example in examples/checkpoints for the
 exact layout.</p>
@@ -136,7 +136,7 @@ exact layout.</p>
 </div>
 </section>
 <section id="api-reference">
-<span id="id1"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
 <p>The Lookups are as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">NumberOfTotalBoots</span> <span class="p">()</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">boots</span> <span class="n">ever</span> <span class="n">logged</span>
 
@@ -186,7 +186,7 @@ exact layout.</p>
 <h2><a class="toc-backref" href="#id8" role="doc-backlink">Structure</a><a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
 <p>The Checkpoint Adapter consists of three major components – the adapter
 itself, the underlying checkpoint system, and the save manager. The
-adapter receives commands from the PLEXIL executive, replaces missing
+adapter receives commands from the <em>PLEXIL</em> executive, replaces missing
 arguments with their default values, and calls the appropriate function
 in the checkpoint system. The checkpoint system maintains a data
 structure that tracks checkpoints and boots. After each command is
@@ -198,11 +198,8 @@ memory.</p>
 persistent memory other than during a Flush command, making the
 checkpoint adapter flexible for use in different environments. A diagram
 of the adapter is pictured below.</p>
-<figure class="align-default" id="id2">
-<img alt="250px" src="../_images/Command_Flow.png" />
-<figcaption>
-<p><span class="caption-text">250px</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
+<figure class="align-default">
+<img alt="Command_Flow" src="../_images/Command_Flow.png" />
 </figure>
 </section>
 <section id="extending">
@@ -210,16 +207,12 @@ of the adapter is pictured below.</p>
 <p>If a different saving strategy is desired, this can be done by extending
 the SaveManager class and changing which SaveManager is used in
 CheckpointSystem.hh</p>
-<p>The checkpoint adapter currently resides in plexil/examples/checkpoint</p>
+<p>The checkpoint adapter currently resides in <code class="docutils literal notranslate"><span class="pre">plexil/examples/checkpoint</span></code></p>
 <p>In the checkpoint adapter directory there are a number of tests,
 including a general usage test described in the README, and a fuzz-like
 test of the SaveManager implementation in the testing directory. It is
 encouraged to run the fuzz-like test for a sufficiently long time if a
 different SaveManager extension is implemented.</p>
-<hr class="docutils" />
-<p>Copyright (c) 2020-2020, Universities Space Research Association (USRA).
-All rights reserved.</p>
-<p><a class="reference external" href="Category:PLEXIL_REFERENCE_MANUAL">Category:PLEXIL REFERENCE MANUAL</a></p>
 </section>
 </section>
 
@@ -259,6 +252,7 @@ All rights reserved.</p>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
 </ul>
@@ -300,8 +294,8 @@ All rights reserved.</p>
       <div class="clearer"></div>
     </div>
   <div class="footer">
-    &copy; Copyright Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved..
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.1.
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
   </div>
   
   </body>

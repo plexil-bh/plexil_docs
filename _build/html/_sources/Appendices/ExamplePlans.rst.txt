@@ -5,7 +5,7 @@ Example Plans
 
 *10 Apr 2021*
 
-This chapter explains a few PLEXIL plan examples, which are found in the
+This chapter explains a few |PLEXIL| plan examples, which are found in the
 directory ``plexil/examples/basic``.
 
 .. contents::
@@ -34,7 +34,7 @@ this value.
 Example 2: Drive to Target
 --------------------------
 
-Our second PLEXIL plan, ``DriveToTarget.ple`` is one for controlling a
+Our second |PLEXIL| plan, ``DriveToTarget.ple`` is one for controlling a
 rover. In this contrived example, a rover is commanded to drive until
 either a target is in view, or time has reached 10. If the target comes
 into view, an image is taken using the Pancam. If the time limit is
@@ -162,9 +162,3 @@ More Examples
 More sophisticated plans, and their associated simulation scripts, are
 found in the various subdirectories of ``plexil/examples``
 
---------------
-
-Copyright (c) 2006-2021, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

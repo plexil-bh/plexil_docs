@@ -5,7 +5,7 @@ Standard Libraries
 
 *13 May 2015*
 
-These are the interface libraries which are part of the PLEXIL
+These are the interface libraries which are part of the |PLEXIL|
 distribution.
 
 .. contents::
@@ -15,7 +15,7 @@ distribution.
 Predefined Adapters
 -------------------
 
-There are five adapters currently included with PLEXIL. These are the
+There are five adapters currently included with |PLEXIL|. These are the
 Dummy, OSNativeTime, Utility, IpcAdapter, and UdpAdapter adapters.
 
 .. _dummy_adapter:
@@ -37,9 +37,11 @@ The ``OSNativeTime`` adapter uses the native operating system's
 real-time clock facility for lookups of the ``time`` state. Both
 ``LookupNow`` and ``LookupOnChange`` are supported.
 
-**IMPORTANT NOTE: LookupOnChange of ``time`` requires a non-zero
-tolerance. Omitting a tolerance, or explicitly providing a zero
-tolerance value, will result in a run-time exception.**
+.. important::
+
+    LookupOnChange of ``time`` requires a non-zero
+    tolerance. Omitting a tolerance, or explicitly providing a zero
+    tolerance value, will result in a run-time exception.
 
 .. _utility_adapter:
 
@@ -47,50 +49,46 @@ Utility Adapter
 ~~~~~~~~~~~~~~~
 
 The ``Utility`` adapter provides the ``print`` and ``pprint`` commands,
-as described in the `PLEXIL
-Reference <Plexil_Reference#Utility_Commands>`__. See the directory
+as described in the :ref:`PLEXIL Reference <utility_commands>`. See the directory
 ``plexil/src/apps/sample`` for example usage of this adapter.
 
 IpcAdapter
 ~~~~~~~~~~
 
-The IpcAdapter supports collaboration between multiple PLEXIL Executives
-and other systems, using the `IPC <http://www.cs.cmu.edu/~IPC/>`__
+The IpcAdapter supports collaboration between multiple |PLEXIL| Executives
+and other systems, using the `IPC <http://www.cs.cmu.edu/~IPC/>`_
 (Inter-Process Communication) package from Carnegie Mellon University to
 implement publish-subscribe communications.
 
-For detailed documentation, please see `Inter-Executive
-Communication <Inter-Executive_Communication>`__.
+For detailed documentation, please see :ref:`Inter-Executive Communication <Inter-ExecutiveCommunication>`.
 
 UdpAdapter
 ~~~~~~~~~~
 
-The UdpAdapter supports collaboration between multiple PLEXIL Executives
+The UdpAdapter supports collaboration between multiple |PLEXIL| Executives
 and other systems, using the standard UDP Datagram protocol over
 Internet. The UdpAdapter provides point-to-point communications.
 
-For detailed documentation, please see `UDP Adapter <UDP_Adapter>`__.
+For detailed documentation, please see :ref:`UDP Adapter <UDPAdapter>`.
 
 .. _predefined_listeners:
 
 Predefined Listeners
 --------------------
 
-There are two predefined Listeners available to all PLEXIL applications.
+There are two predefined Listeners available to all |PLEXIL| applications.
 
 LuvListener
 ~~~~~~~~~~~
 
 The ``LuvListener`` implements a TCP socket-based connection to the
-PLEXIL Viewer. For detailed information, please see `PLEXIL
-Viewer <Viewing_Plan_Execution>`__.
+|PLEXIL| Viewer. For detailed information, please see :ref:`PLEXIL Viewer <PLEXILViewer>`.
 
 PlanDebugListener
 ~~~~~~~~~~~~~~~~~
 
 The ``PlanDebugListener`` causes a debug message to be generated for the
-``Node:clock`` `debug
-flag <PLEXIL_Executive#Output_and_the_Debug_Configuration_File>`__ every
+``Node:clock`` :ref:`debug flag <output_and_the_debug_configuration_file>` every
 time a node enters the ``EXECUTING`` or ``FINISHED`` state.
 
 .. _predefined_listener_filters:
@@ -98,7 +96,7 @@ time a node enters the ``EXECUTING`` or ``FINISHED`` state.
 Predefined Listener Filters
 ---------------------------
 
-One listener filter is provided to all PLEXIL applications.
+One listener filter is provided to all |PLEXIL| applications.
 
 .. _nodestate_filter:
 
@@ -114,8 +112,8 @@ Interface Configuration Reference
 ---------------------------------
 
 This documents the interface configuration information required to use
-the above interface libraries. Please see `Interface Configuration
-File <Interface_Configuration_File>`__ for an overview of how to use
+the above interface libraries. Please see :ref:`Interface Configuration File <InterfaceConfigurationFile>` 
+for an overview of how to use
 configuration data.
 
 .. _configuring_adapters:
@@ -164,8 +162,7 @@ element.
 IpcAdapter Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Please see `IPC Configuration
-Reference <Inter-Executive_Communication#Configuration_Reference>`__.
+Please see :ref:`IPC Configuration Reference <configuration_reference>`.
 
 .. _time_adapter_configuration:
 
@@ -208,9 +205,13 @@ element, with a ``Message`` element for each different message type.
 -  ``local_port`` and ``peer_port`` are optional. If supplied, they
    should be valid UDP port numbers (range 1-65535). If not supplied,
    they default to the value of ``default_local_port`` and
-   ``default_peer_port`` respectively. **NOTE: If neither a default port
-   nor message port are supplied, the interface will crash with a
-   runtime exception. One or the other must be supplied.**
+   ``default_peer_port`` respectively. 
+   
+   .. note:: 
+   
+    If neither a default port
+    nor message port are supplied, the interface will crash with a
+    runtime exception. One or the other must be supplied.
 
 The format of a message is defined by ``Parameter`` elements inside the
 ``Message`` element. ``Parameter`` takes the following attributes:
@@ -221,7 +222,7 @@ The format of a message is defined by ``Parameter`` elements inside the
 -  ``type`` (required) is the type of the parameter, which must be one
    of the following:
 
-   -  ``int`` for the PLEXIL ``Integer`` type;
+   -  ``int`` for the |PLEXIL| ``Integer`` type;
    -  ``float`` for the ``Real`` type;
    -  ``bool`` for the ``Boolean`` type;
    -  ``string`` for the ``String`` type;
@@ -297,8 +298,7 @@ An example of a custom ``LuvListener`` configuration:
 
     <Listener ListenerType="LuvListener" Blocking="true" HostName="test_console" Port="13579" />
 
-Note that as of PLEXIL 4, parameters supplied at the `PLEXIL
-Executive <PLEXIL_Executive>`__ command line will override the
+Note that as of |PLEXIL| 4, parameters supplied at the :ref:`PLEXIL Executive <PLEXILExecutive>` command line will override the
 ``LuvListener`` parameters in an interface configuration file.
 
 .. _plandebuglistener_1:
@@ -339,8 +339,3 @@ Example:
    <States>EXECUTING, FAILING, FINISHING, ITERATION_ENDED</States>
   </Filter>
  </ExecListener>
-
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.

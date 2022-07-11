@@ -5,8 +5,8 @@ Resource Model
 
 *16 Aug 2021*
 
-This chapter describes the resource model of PLEXIL and its associated
-language constructs. See the `Resource Arbiter <Resource_Arbiter>`__
+This chapter describes the resource model of |PLEXIL| and its associated
+language constructs. See the :ref:`Resource Arbiter <ResourceArbiter>`
 chapter for execution-related aspects of this model.
 
 .. contents::
@@ -14,11 +14,13 @@ chapter for execution-related aspects of this model.
 Introduction
 ------------
 
-**NOTE: A number of serious problems have been identified in the
-resource model described herein. This section should be considered
-deprecated; it will be superseded in some future release.**
+.. note::
 
-Currently applicable only to *command* nodes, the PLEXIL resource model
+    A number of serious problems have been identified in the
+    resource model described herein. This section should be considered
+    deprecated; it will be superseded in some future release.
+
+Currently applicable only to *command* nodes, the |PLEXIL| resource model
 allows resource requirements for commands to be specified in the plan,
 and provides a mechanism to check and enforce these requirements during
 plan execution.
@@ -57,9 +59,9 @@ their effect persist after completion.
 Approach
 --------
 
-Resource handling in PLEXIL has three aspects.
+Resource handling in |PLEXIL| has three aspects.
 
-#. Specification of resource requirements in the PLEXIL plan. This
+#. Specification of resource requirements in the |PLEXIL| plan. This
    includes all the necessary constructs needed to specify the resources
    that a command needs. Since a command might need more than one
    resource, we should be able to specify a list of resources.
@@ -75,7 +77,7 @@ Resource handling in PLEXIL has three aspects.
 Resource Specification
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The resource requirements for a command are specified in a PLEXIL plan
+The resource requirements for a command are specified in a |PLEXIL| plan
 in the following way.
 
 ::
@@ -132,7 +134,7 @@ Resource Arbitration
 ~~~~~~~~~~~~~~~~~~~~
 
 Commands are currently issued only at the end of
-`quiescence <Detailed_Semantics#Macro_Steps_and_Quiescence>`__. All the
+:ref:`quiescence <micro_steps_macro_steps_and_the_quiescence_cycle>`. All the
 commands identified for execution at the end of the quiescence cycle
 will be sent to the *resource arbiter* instead of the sub-system (i.e
 external world)) directly. The arbiter will consider each of the
@@ -141,12 +143,11 @@ the sub-system based on resource availability. The commands accepted by
 the arbiter will be forwarded to the external sub system by the external
 interface while the ones that are rejected will be acknowledged as so by
 the external interface by setting the appropriate value in the command
-handle (enumerated in the next section). Note that the PLEXIL plan can
+handle (enumerated in the next section). Note that the |PLEXIL| plan can
 specify the next course of action in case a command gets rejected, for
 example, the command could be reissued, etc.
 
-The resource arbiter is explained in further detail in `Chapter
-10 <Resource_Arbiter>`__.
+The resource arbiter is explained in further detail in :ref:`Chapter 10 <ResourceArbiter>`.
 
 .. _command_handles:
 
@@ -186,7 +187,7 @@ When the resource arbiter rejects a command due to inadequate resources,
 its command handle is set to COMMAND_DENIED.
 
 When a command is issued by the executive, the interface may send any
-legal command handle value as feedback. The PLEXIL Exec doesn't put any
+legal command handle value as feedback. The |PLEXIL| Exec doesn't put any
 interpretation on these values, with the exception of COMMAND_DENIED and
 COMMAND_FAILED.
 
@@ -245,30 +246,35 @@ A command may be *aborted* when its Command node fails (i.e. the
 InvariantCondition of the node or any of its direct ancestors becomes
 ``False``) or is interrupted (the ExitCondition of the node or its
 direct ancestors becomes ``True``). How a command abort is actually
-handled is determined by the interface adaptor for the given PLEXIL
+handled is determined by the interface adaptor for the given |PLEXIL|
 application. See the the section on
-`interfacing <Interfacing_Overview>`__ for more information.
+:ref:`interfacing <InterfacingOverview>` for more information.
 
 The command handle is ignored in the event of an abort. A Boolean status
 variable, the *abort acknowledgment variable*, is used to determine when
 the abort is complete. The Command node transitions to *Iteration_Ended*
 when the abort has been acknowledged by the interface adapter.
 
-Examples
---------
+.. _examples:
 
--  Example 1: `Simple unary resources <Simple_unary_resources>`__
--  Example 2: `Non-unary resources <Non-unary_resources>`__ is a
+Examples
+-------------
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   Simple Unary Resources <ResourceModel/SimpleUnaryResources>
+   Non-Unary Resources <ResourceModel/NonUnaryResources>
+   Renewable Resources <ResourceModel/RenewableResources>
+   Hierarchial Resources <ResourceModel/HierarchialResources>
+
+-  Example 1: :ref:`Simple unary resources <SimpleUnaryResources>`
+-  Example 2: :ref:`Non-unary resources <NonUnaryResources>` is a
    variation of the previous example with one of the resources
    represented as a non-unary resource.
--  Example 3: `Hierarchical resources <Hierarchical_resources>`__
+-  Example 3: :ref:`Hierarchical resources <HierarchialResources>`
    illustrates a command with interrelated resources.
--  Example 4: `Renewable resources <Renewable_resources>`__ illustrates
+-  Example 4: :ref:`Renewable resources <RenewableResources>` illustrates
    a command that *generates* resources (as opposed to consuming them).
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

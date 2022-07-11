@@ -125,11 +125,3 @@ Misc
 *[DP95]* Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides.
 Design Patterns. Addison-Wesley, 1995.
 
-| 
-
---------------
-
-Copyright (c) 2006-2022, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

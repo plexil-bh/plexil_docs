@@ -8,16 +8,16 @@ Implementing Custom Applications
 *27 April 2015*
 
 This chapter outlines the reasons one might need a custom application of
-the PLEXIL Executive, how to implement such an application, and
+the |PLEXIL| Executive, how to implement such an application, and
 considerations for the design of that application.
 
 Overview
 --------
 
-The `PLEXIL Executive <PLEXIL_Executive>`__ is a general purpose plan
+The :ref:`PLEXIL Executive <PLEXILExecutive>` is a general purpose plan
 execution engine, with provisions for loading user-specified interfacing
 code at startup time. But some applications have requirements which the
-PLEXIL Executive cannot meet. Such requirements may include:
+|PLEXIL| Executive cannot meet. Such requirements may include:
 
 -  A need to launch the Exec as a subroutine of a larger program;
 -  Lack of run-time facilities for loading interface shared libraries;
@@ -47,7 +47,7 @@ The ``universalExec`` main program simply does the following:
 #. Destroy framework objects.
 #. Exit.
 
-Embedded PLEXIL executive applications will need to perform many of
+Embedded |PLEXIL| executive applications will need to perform many of
 these same steps.
 
 .. _plexil_application_framework_lifecycle_model:
@@ -55,15 +55,14 @@ these same steps.
 PLEXIL Application Framework Lifecycle Model
 --------------------------------------------
 
-For an overview of the lifecycle states, please see `The Lifecycle
-Model <Introduction_to_PLEXIL_Application_Framework#The_Lifecycle_Model>`__.
+For an overview of the lifecycle states, please see :ref:`The Lifecycle Model <the_lifecycle_model>`.
 
 .. _interface_setup:
 
 Interface Setup
 ---------------
 
-The PLEXIL application is responsible for setting up the
+The |PLEXIL| application is responsible for setting up the
 AdapterConfiguration instance to route interface requests to the
 appropriate objects. AdapterConfiguration has the capability to read
 user-supplied XML, load the appropriate libraries, and construct the
@@ -76,9 +75,7 @@ ways explicitly directed by the application.
 Interface Configuration via XML
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The
-`AdapterConfiguration <PLEXIL_Application_Framework_API_Reference#AdapterConfiguration>`__
-member function
+The :ref:`AdapterConfiguration <AdapterConfiguration>` member function
 ``AdapterConfiguration::constructInterfaces(pugi::xml_node const)``
 parses configuration XML and constructs the interface adapters and exec
 listeners specified in it. The application developer only needs to open
@@ -106,14 +103,8 @@ The Top-Level Loop
 Multi-Threaded versus Single-Threaded Operation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The PLEXIL Application Framework can run as a multi-threaded
+The |PLEXIL| Application Framework can run as a multi-threaded
 application, or as a single thread.
 
 *more to be supplied*
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

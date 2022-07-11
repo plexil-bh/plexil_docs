@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Non-Unary Resources &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/readable.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Renewable Resources" href="RenewableResources.html" />
+    <link rel="prev" title="Simple Unary Resources" href="SimpleUnaryResources.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="RenewableResources.html" title="Renewable Resources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="SimpleUnaryResources.html" title="Simple Unary Resources"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../main.html">PLEXIL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../ResourceModel.html" accesskey="U">Resource Model</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Non-Unary Resources</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="non-unary-resources">
+<span id="nonunaryresources"></span><h1>Non-Unary Resources<a class="headerlink" href="#non-unary-resources" title="Permalink to this heading">¶</a></h1>
+<p><em>12 May 2015</em></p>
+<p>This example (filed in <code class="docutils literal notranslate"><span class="pre">plexil/examples/resource2.ple</span></code>) is similar to the
+unary resource example expect that the resource sys_memory is not
+treated as a unary resource. This is because of the manner in which the
+resource usage is specified, Including the lower and upper bounds
+implies that the resource is not unary. In particular,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">C1</span></code> requires <code class="docutils literal notranslate"><span class="pre">&lt;arm,</span> <span class="pre">10&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;sys_memory,</span> <span class="pre">20,</span> <span class="pre">0.5,</span> <span class="pre">0.5&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C2</span></code> requires <code class="docutils literal notranslate"><span class="pre">&lt;sys_memory,</span> <span class="pre">30,</span> <span class="pre">0.3,</span> <span class="pre">0.3&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">C3</span></code> requires <code class="docutils literal notranslate"><span class="pre">&lt;vision_system,</span> <span class="pre">10&gt;</span></code></p></li>
+</ul>
+<p>where the integer value in the resource pair denotes the priority (lower
+number implies higher priority) and the last two real values are the
+lower and upper bounds of the memory needed by the command. In our
+example, <code class="docutils literal notranslate"><span class="pre">C1</span></code> requires 0.5 units of memory and <code class="docutils literal notranslate"><span class="pre">C2</span></code> 0.3 units. By
+default let us assume that the maximum value is 1.0.</p>
+<p>The resulting outcome will be to accept commands all the commands
+since the cumulative memory requirements of <code class="docutils literal notranslate"><span class="pre">C1</span></code> and <code class="docutils literal notranslate"><span class="pre">C2</span></code> is less
+than 1.0.</p>
+<figure class="align-default">
+<img alt="../../_images/Nonunaryresource3.jpg" src="../../_images/Nonunaryresource3.jpg" />
+</figure>
+<p>The entire PLEXIL plan is given below;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">Command</span> <span class="n">c1</span><span class="p">;</span>
+<span class="n">Integer</span> <span class="n">Command</span> <span class="n">c2</span><span class="p">;</span>
+<span class="n">Integer</span> <span class="n">Command</span> <span class="n">c3</span><span class="p">;</span>
+
+<span class="n">SimpleTask</span><span class="p">:</span>
+<span class="n">Concurrence</span>
+<span class="p">{</span>
+  <span class="n">C1</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">Integer</span> <span class="n">returnValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">EndCondition</span> <span class="n">returnValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">PostCondition</span> <span class="n">C1</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_SUCCESS</span><span class="p">;</span>
+    <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;sys_memory&quot;</span><span class="p">,</span>
+      <span class="n">LowerBound</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+      <span class="n">UpperBound</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+      <span class="n">Priority</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;arm&quot;</span><span class="p">,</span>
+      <span class="n">Priority</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="n">returnValue</span> <span class="o">=</span> <span class="n">c1</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">C2</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">Integer</span> <span class="n">mem_priority</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+    <span class="n">Integer</span> <span class="n">returnValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">RepeatCondition</span> <span class="n">C2</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_DENIED</span><span class="p">;</span>
+    <span class="n">PostCondition</span> <span class="n">C2</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_SUCCESS</span><span class="p">;</span>
+    <span class="n">EndCondition</span> <span class="n">returnValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;sys_memory&quot;</span><span class="p">,</span>
+      <span class="n">LowerBound</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+      <span class="n">UpperBound</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+      <span class="n">Priority</span> <span class="o">=</span> <span class="n">mem_priority</span><span class="p">;</span>
+    <span class="n">returnValue</span> <span class="o">=</span> <span class="n">c2</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">C3</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">Integer</span> <span class="n">returnValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">Integer</span> <span class="n">vision_priority</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">PostCondition</span> <span class="n">C3</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_SUCCESS</span><span class="p">;</span>
+    <span class="n">EndCondition</span> <span class="n">returnValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;vision_system&quot;</span><span class="p">,</span>
+      <span class="n">Priority</span> <span class="o">=</span> <span class="n">vision_priority</span><span class="p">;</span>
+    <span class="n">returnValue</span> <span class="o">=</span> <span class="n">c3</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

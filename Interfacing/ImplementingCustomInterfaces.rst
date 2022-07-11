@@ -7,7 +7,7 @@ Implementing Custom Interfaces
 
 *30 Apr 2015*
 
-This chapter outlines how the Plexil Executive can be interfaced to
+This chapter outlines how the |PLEXIL| Executive can be interfaced to
 arbitrary external systems through the addition of custom *interface
 adapters* and *exec listeners*.
 
@@ -30,26 +30,27 @@ they are required to implement the lifecycle API below to manage
 initialization, activation, deactivation, and shutdown.
 
 The abstract base class
-`InterfaceAdapter <PLEXIL_Application_Framework_API_Reference#InterfaceAdapter>`__
+:ref:`InterfaceAdapter <InterfaceAdapter>`
 declares the API which interface developers must implement.
 
 Lifecycle
 ~~~~~~~~~
 
-Please see `The Lifecycle
-Model <Introduction_to_PLEXIL_Application_Framework#The_Lifecycle_Model>`__
+Please see :ref:`The Lifecycle Model <the_lifecycle_model>`
 for an overview of the phases of application execution.
 
 Interface adapter classes must implement the following lifecycle
 management methods, whose prototypes are declared in the
-`InterfaceAdapter <PLEXIL_Application_Framework_API_Reference#InterfaceAdapter>`__
+:ref:`InterfaceAdapter <InterfaceAdapter>`
 abstract base class:
 
--  bool initialize(); // set up internal data structures
--  bool start(); // start communicating
--  bool stop(); // stop communicating
--  bool reset(); // reset to initialized state
--  bool shutdown(); // release any resources and prepare to be deleted
+::
+
+    bool initialize(); // set up internal data structures
+    bool start(); // start communicating
+    bool stop(); // stop communicating
+    bool reset(); // reset to initialized state
+    bool shutdown(); // release any resources and prepare to be deleted
 
 The return value for each method is a ``bool`` value representing
 whether the method succeeded or failed. Success is indicated by a
@@ -68,7 +69,7 @@ like this example:
 Data Flow and Threading
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-In the `PLEXIL Executive <PLEXIL_Executive>`__, there is a thread
+In the :ref:`PLEXIL Executive <PLEXILExecutive>`, there is a thread
 dedicated to running the execution engine. Adapter methods called by the
 exec are called from this thread.
 
@@ -92,12 +93,12 @@ overhead, and other application dependent factors.
 Lookups
 ~~~~~~~
 
-The PLEXIL language defines two external state query operators,
+The |PLEXIL| language defines two external state query operators,
 LookupNow and LookupOnChange. LookupNow largely means what it says:
 "give me the current value of this external state." LookupOnChange means
 "give me the current value, AND tell me when the value changes."
 
-Lookups in the PLEXIL exec are implemented with the aid of a *state
+Lookups in the |PLEXIL| exec are implemented with the aid of a *state
 cache*, a table of state names and their most recent values with
 timestamps. Putting a value in the state cache when there is no active
 lookup for that state name is permitted.
@@ -113,37 +114,47 @@ LookupOnChange:
 -  void lookupNow(State const &state, StateCacheEntry &cacheEntry);
 
 ``lookupNow()`` returns the requested value by updating the
-`StateCacheEntry <PLEXIL_Application_Framework_API_Reference#StateCacheEntry>`__
+:ref:`StateCacheEntry <StateCacheEntry>`
 object supplied in the call.
 
-**VERY IMPORTANT!** This member function is called synchronously inside
-the PLEXIL exec's main decision-making loop. Blocking (e.g. waiting for
-another process, or another system, to respond) during a ``lookupNow()``
-call should be avoided whenever possible, as it delays plan execution.
+.. important::
+
+    This member function is called synchronously inside
+    the |PLEXIL| exec's main decision-making loop. Blocking (e.g. waiting for
+    another process, or another system, to respond) during a ``lookupNow()``
+    call should be avoided whenever possible, as it delays plan execution.
 
 LookupOnChange can be implemented by the following member functions:
 
--  void subscribe(const State& state);
+::
+
+    void subscribe(const State& state);
 
 Tells the interface adapter to notify the exec whenever a new value for
 the state arrives.
 
--  void unsubscribe(const State& state);
+::
+
+    void unsubscribe(const State& state);
 
 Tells the interface adapter to stop notifying the exec of new values for
 this state.
 
-LookupOnChange of rapidly varying numeric quantities can be optimized
+``LookupOnChange`` of rapidly varying numeric quantities can be optimized
 with the following optional member functions:
 
--  void setThresholds(const State& state, double hi, double lo);
--  void setThresholds(const State& state, int32_t hi, int32_t lo);
+::
+
+    void setThresholds(const State& state, double hi, double lo);
+    void setThresholds(const State& state, int32_t hi, int32_t lo);
 
 These tell the adapter to ignore changes in the state's value until they
 meet or exceed the supplied thresholds.
 
-**NOTE:** Any adapter for the ``time`` state MUST implement
-``setThresholds()``.
+.. note::
+
+    Any adapter for the ``time`` state MUST implement
+    ``setThresholds()``.
 
 .. _statecacheentry_member_functions:
 
@@ -151,36 +162,46 @@ StateCacheEntry member functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The
-`StateCacheEntry <PLEXIL_Application_Framework_API_Reference#StateCacheEntry>`__
+:ref:`StateCacheEntry <StateCacheEntry>`
 class provides the following member functions for implementing return
 values from LookupNow:
 
--  void setUnknown();
+::
 
-Returns an UNKNOWN value.
+    void setUnknown();
 
--  void update(bool const &val);
--  void update(int32_t const &val);
--  void update(double const &val);
--  void update(std::string const &val);
+Returns an **UNKNOWN** value.
+
+::
+
+    void update(bool const &val);
+    void update(int32_t const &val);
+    void update(double const &val);
+    void update(std::string const &val);
 
 These return a Boolean, Integer, Real, or String value respectively.
 
--  void updatePtr(std::string const \*valPtr);
+::
+
+    void updatePtr(std::string const *valPtr);
 
 This returns a String value.
 
--  void updatePtr(BooleanArray const \*valPtr);
--  void updatePtr(IntegerArray const \*valPtr);
--  void updatePtr(RealArray const \*valPtr);
--  void updatePtr(StringArray const \*valPtr);
+::
+
+    void updatePtr(BooleanArray const *valPtr);
+    void updatePtr(IntegerArray const *valPtr);
+    void updatePtr(RealArray const *valPtr);
+    void updatePtr(StringArray const *valPtr);
 
 These are used to return array values.
 
--  void update(Value const &val);
+::
+
+    void update(Value const &val);
 
 This is the generic version for returning a
-`Value <PLEXIL_Application_Framework_API_Reference#Value>`__ instance.
+:ref:`Value <Value>` instance.
 
 .. _adapterexecinterface_member_functions:
 
@@ -191,11 +212,15 @@ These member functions are used to return values from LookupOnChange, or
 to post values to the state cache asynchronously, independent of any
 queries.
 
--  void handleValueChange(State const &state, const Value& value);
+::
+
+    void handleValueChange(State const &state, const Value& value);
 
 Enqueues a state value update entry in the interface manager's queue.
 
--  void notifyOfExternalEvent();
+::
+
+    void notifyOfExternalEvent();
 
 Tells the interface manager to wake up the exec and process the entries
 in the queue. Several ``handleValueChange()`` and other calls can be
@@ -212,12 +237,16 @@ Adapter methods
 Adapter classes must implement the following methods to support
 commands.
 
--  void executeCommand(Command \*cmd);
+::
+
+    void executeCommand(Command *cmd);
 
 Send the command to the external system. At the very least this method
 must cause a *command handle value* to be sent back to the exec.
 
--  void invokeAbort(Command \*cmd);
+::
+
+    void invokeAbort(Command *cmd);
 
 Abort the specified command. Called when a Command node is prematurely
 ended. This method must at minimum cause an abort acknowledgment to be
@@ -230,11 +259,15 @@ Command member functions
 
 These are functions for extracting information from a Command object.
 
--  std::string const &getName() const;
+::
+
+    std::string const &getName() const;
 
 Get the command's name as a string.
 
--  std::vector const &getArgValues() const;
+::
+
+    std::vector<Value> const &getArgValues() const;
 
 Get a vector of the argument values.
 
@@ -246,20 +279,28 @@ AdapterExecInterface member functions
 These are the interface manager member functions for responding to a
 command.
 
--  void handleCommandAck(Command \* cmd, CommandHandleValue value);
+::
+
+    void handleCommandAck(Command * cmd, CommandHandleValue value);
 
 Enqueues the command handle (acknowledgment) value in the interface
 manager's queue.
 
--  void handleCommandReturn(Command \* cmd, Value const& value);
+::
+
+    void handleCommandReturn(Command * cmd, Value const& value);
 
 Enqueues the command's return value in the interface manager's queue.
 
--  void handleCommandAbortAck(Command \* cmd, bool ack);
+::
+
+    void handleCommandAbortAck(Command * cmd, bool ack);
 
 Enqueues the abort acknowledgment in the interface manager's queue.
 
--  void notifyOfExternalEvent();
+::
+
+    void notifyOfExternalEvent();
 
 As with lookups, tells the interface manager to wake up the exec and
 process the queue. Also as with lookups, several enqueued responses can
@@ -299,10 +340,10 @@ register your Update handler:
 
    g_configuration->registerPlannerUpdateHandler(OwAdapter::myPlannerUpdate);
 
-Note that ``g_configuration`` is a global variable defined in the PLEXIL
+Note that ``g_configuration`` is a global variable defined in the |PLEXIL|
 header ``AdapterConfiguration.hh``, which you may need to include.
 
-4. In your interface configuration (``.xml`` file), in the element, add
+4. In your interface configuration (``.xml`` file), in the ``<Adapter AdapterType="...">`` element, add
 the following (empty) element:
 
 ::
@@ -313,7 +354,7 @@ Registration
 ~~~~~~~~~~~~
 
 Interface adapters must be registered with the
-`AdapterConfiguration <PLEXIL_Application_Framework_API_Reference#AdapterConfiguration>`__
+:ref:`AdapterConfiguration <AdapterConfiguration>`
 object. There are several ways to handle this.
 
 *more to be supplied*
@@ -332,9 +373,3 @@ Integrating Interface Code as a Shared Library
 
 *to be supplied*
 
---------------
-
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

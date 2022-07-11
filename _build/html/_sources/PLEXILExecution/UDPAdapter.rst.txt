@@ -12,7 +12,7 @@ UDP Adapter
 UDP Adapter User's Guide
 ------------------------
 
-The UDP Adapter gives access to UDP messages/commands in PLEXIL plans.
+The UDP Adapter gives access to UDP messages/commands in |PLEXIL| plans.
 
 There is a working example which uses the UdpAdapter in
 ``plexil/examples/multi-exec/udp``. This example illustrates how to
@@ -43,7 +43,7 @@ demonstration.
     % cd examples/multi-exec/udp
     % make demo
 
-This will make sure that the PLEXIL Executive and its supporting
+This will make sure that the |PLEXIL| Executive and its supporting
 programs and libraries are built, that the two test plans
 (``test-recv.ple`` and ``test-send.ple``) are compiled, and will call
 the ``run-agents`` script to run them.
@@ -120,7 +120,7 @@ file, which has several useful keywords in it which can be commented in
 to provide a fair amount of additional output. In addition, for the
 purposes of demonstration, some of the very low level UDP machinery
 debugging is turned on for the benefit of new users. To turn this low
-level debugging off, change the ``debug="true"`` attribute of the
+level debugging off, change the ``debug="true"`` attribute of the ``<Adapter AdapterType="UdpAdapter"/>``
 element in the adapter configuration ``udp.xml`` file to
 ``debug="false"``.
 
@@ -167,7 +167,7 @@ therein with the UdpAdapter must be defined in the Plexil XML
 communication configuration file. For the UdpAdapter, this file
 declares:
 
--  the adapter itself: , including
+-  the adapter itself: ``<Adapter AdapterType="UdpAdapter"/>``, including
 
    -  the required adapter type: ``AdapterType="UdpAdapter"``
    -  one optional default remote peer:
@@ -177,7 +177,7 @@ declares:
    -  an optional "debug" flag to turn on some internal UdpAdapter
       debugging output: ``debug="true"``
 
--  each of the messages/commands of interest: , including
+-  each of the messages/commands of interest: ``<Message name="acfs_state"/>``, including
 
    -  a required name (which must match the name given in the plan):
       ``name="ack_msg"``
@@ -187,13 +187,13 @@ declares:
 
 -  one or more optional message/command specifications, including
 
-   -  a required type: ``type="``\ \ ``"`` attribute, where
-      \ ``:= int | float | bool | string | int-array | float-arry | bool-array | string-array``
-   -  a required element encoding length in bytes: ``bytes="``\ \ ``"``
-      where \ ``:= 1 | 2 | 4 |``\ , depending on the type (see
-      `below <#Plexil_and_UDP_Data_Types>`__),
+   -  a required type: ``type="<type>"`` attribute, where
+      \ ``<type> := int | float | bool | string | int-array | float-arry | bool-array | string-array``
+   -  a required element encoding length in bytes: ``bytes="<n>"``
+      where \ ``:= 1 | 2 | 4 | <n>``\ , depending on the type (see
+      :ref:`below <plexil_and_udp_data_types>`),
    -  for arrays, a required array length attribute:
-      ``elements="``\ \ ``"``, which is the number of elements in the
+      ``elements="<n>"``, which ``<n>`` is the number of elements in the
       array,
    -  an optional parameter description: ``desc="blah"``
 
@@ -229,7 +229,7 @@ For any message/command to be received by OnCommand, either the
 ``local_port`` taking precedence. Similarly, for any message/command to
 be sent, either the ``default_peer`` or ``peer`` and either the
 ``default_peer_port`` or ``peer_port`` must be defined, with the more
-specific setting taking precedence. As a last resort, if neither
+specific ``<Parameter/>`` setting taking precedence. As a last resort, if neither
 ``default_peer`` nor ``peer`` are defined, "localhost" will be used.
 
 Unfortunately, there is at this time no way to represent this
@@ -311,23 +311,25 @@ incoming UDP messages. This interface follows the example of the
 IpcAdapter for usage.
 
 Once a UDP message has been defined in the XML configuration file (see
-`above <#UDP_Message_Definition>`__), it can be used either to send or
+:ref:`above <udp_message_definition>`), it can be used either to send or
 to receive that message. In the following examples, we will be using a
 simpler definition of ``test_udp_msg``, which is given here:
 
 ::
- <Interfaces>
-  <Adapter AdapterType="Utility"/>
-  <Adapter AdapterType="OSNativeTime"/>
-  <Adapter AdapterType="UdpAdapter" debug="true" default_local_port="9876" default_peer_port="9876">
-    <Message name="test_udp_msg" local_port="8032" peer_port="8032">
-      <Parameter type="string" bytes="3" desc="message id"/>
-      <Parameter type="bool" bytes="1" desc="send ack flag"/>
-      <Parameter type="int" bytes="4" desc="num_widgets"/>
-      <Parameter type="float" bytes="4" desc="arg4"/>
-    </Message>
-  </Adapter>
- </Interfaces>
+
+    <Interfaces>
+     <Adapter AdapterType="Utility"/>
+     <Adapter AdapterType="OSNativeTime"/>
+     <Adapter AdapterType="UdpAdapter" debug="true" default_local_port="9876" default_peer_port="9876">
+      <Message name="test_udp_msg" local_port="8032" peer_port="8032">
+       <Parameter type="string" bytes="3" desc="message id"/>
+       <Parameter type="bool" bytes="1" desc="send ack flag"/>
+       <Parameter type="int" bytes="4" desc="num_widgets"/>
+       <Parameter type="float" bytes="4" desc="arg4"/>
+      </Message>
+     </Adapter>
+    </Interfaces>
+    
 
 .. _the_command_interface:
 
@@ -335,8 +337,7 @@ The ``Command`` Interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``Command`` interface is used to send a UDP message. For example,
-for the definition of ``test_udp_msg`` `immediately
-above <#Using_UDP_Messages/Commands_in_a_Plexil_Plan>`__, the
+for the definition of ``test_udp_msg`` :ref:`immediately above <using_udp_messagescommands_in_a_plexil_plan>`, the
 ``test_udp_msg`` command can be called thus:
 
 ::
@@ -352,7 +353,7 @@ populated, like this:
 
 All of the usual Plexil language idioms and restrictions apply. For
 example, using "-" instead of "_" in the message name will fail during
-translation if you are using Standard PLEXIL.
+translation if you are using Standard |PLEXIL|.
 
 .. _the_oncommand_interface:
 
@@ -361,7 +362,7 @@ The ``OnCommand`` Interface
 
 The ``OnCommand`` interface works in a similar manner. For example,
 given the message definition
-`above <#Using_UDP_Messages/Commands_in_a_Plexil_Plan>`__, the handler
+:ref:`above <using_udp_messagescommands_in_a_plexil_plan>`, the handler
 for a ``test_udp_msg`` command can be invoked thus:
 
 ::
@@ -393,7 +394,7 @@ match those in ``plexil/examples/multi-exec/udp`` -- those plans may
 include additional types and test code.
 
 Using the definition of ``test_udp_msg`` given
-`above <#Using_UDP_Messages/Commands_in_a_Plexil_Plan>`__:
+:ref:`above <using_udp_messagescommands_in_a_plexil_plan>`:
 
 ``test-recv.ple``
 
@@ -553,9 +554,3 @@ this, if the planner has used too many parameters for a particular
 assert. It is also possible to detect too few parameters; the unused
 parameters simply go unused.
 
---------------
-
-**Copyright (c) 2006-2015, Universities Space Research Association
-(USRA). All rights reserved.**
-
-`Category:PLEXIL REFERENCE MANUAL <Category:PLEXIL_REFERENCE_MANUAL>`__

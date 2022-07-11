@@ -8,14 +8,12 @@ Tutorial
 .. contents::
 
 
-`Plexil <http://plexil.sourceforge.net/wiki/index.php/Main_Page>`__
-(Plan Execution Interchange Language) is a language used to represent
+|PLEXIL| is a language used to represent
 plans of automation. To help new users learn the language without having
 a system to automate, we have created the Robosim simulator. This
-tutorial will guide you through learning Plexil using this simulator.
+tutorial will guide you through learning |PLEXIL| using this simulator.
 
-Throughout this tutorial links to the `Plexil
-Documentation <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference>`__
+Throughout this tutorial links to the :ref:`PLEXIL Documentation <PLEXILReferences>`
 will be provided so you can read more about the topics we explore.  
 
 .. _starting_the_simulation:
@@ -23,9 +21,7 @@ will be provided so you can read more about the topics we explore.  
 1. Starting the simulation
 --------------------------
 
-Once you have Plexil
-`installed <http://plexil.sourceforge.net/wiki/index.php/Installation>`__
-you can navigate to ``$PLEXIL_HOME/examples/robosim`` and run:
+Once you have |PLEXIL| :ref:`installed <Installation>` you can navigate to ``$PLEXIL_HOME/examples/robosim`` and run:
 
 ::
 
@@ -70,12 +66,12 @@ in one of these two locations:
 2. Your first node and command
 ------------------------------
 
-Let's start by making a Plexil file. inside
+Let's start by making a |PLEXIL| file. inside
 ``$PLEXIL_HOME/examples/robosim/plans``, create a new file called
 ``Drive.ple``.
 
-A Plexil program is made up of nodes that consist of a pair of curly
-braces: ``{ }``. Each Plexil plan should have one root node, let's
+A |PLEXIL| program is made up of nodes that consist of a pair of curly
+braces: ``{ }``. Each |PLEXIL| plan should have one root node, let's
 create it now.
 
 ::
@@ -86,7 +82,7 @@ create it now.
    }
 
 We named this node ``Drive``. Now lets make our program do something!
-Plexil programs interact with their environment using commands provided
+|PLEXIL| programs interact with their environment using commands provided
 by the system you are automating. Let's declare and use the utility
 command ``pprint()``.
 
@@ -106,7 +102,7 @@ command ``pprint()``.
 3. Compile and run a PLEXIL plan
 --------------------------------
 
-To run a Plexil program you must first compile it:
+To run a |PLEXIL| program you must first compile it:
 
 ::
 
@@ -133,8 +129,7 @@ You should see ``'Hello World'`` printed to the terminal.
 Robots first step:
 ~~~~~~~~~~~~~~~~~~
 
-Now let's start working with the
-`robosim <http://plexil.sourceforge.net/wiki/index.php/Example_application:_RoboSim>`__.
+Now let's start working with the :ref:`robosim <RoboSim>`.
 Start by declaring and using the move command
 
 ::
@@ -153,19 +148,16 @@ Let's make sure we understand whats going on in each line:
    Integer Command Move(String name, Integer direction);
 
 Here we declare the command that tells the simulator to move the robot.
-You can read more about commands
-`here <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#Command>`__,
-and see the commands supported by the robosim
-`here <http://plexil.sourceforge.net/wiki/index.php/Example_application:_RoboSim#Commanding_Robots>`__
+You can read more about commands :ref:`here <command>`,
+and see the commands supported by the robosim :ref:`here <commanding_robots>`.
 
 ::
 
    String robotName = "RobotYellow";
 
 Next we declare and initialize a variable of type String to hold the
-name of the robot we want to control. Plexil supports several data types
-that can be found
-`here <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#Variables>`__.
+name of the robot we want to control. |PLEXIL| supports several data types
+that can be found :ref:`here <variables>`.
 
 ::
 
@@ -188,9 +180,9 @@ Continuous motion:
 
 So how do we move the robot more than once? There are two options; one
 is to use a
-`loop <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#While_Loop>`__,
+:ref:`loop <while_loop>`,
 the second is to use a
-`RepeatCondition <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#Conditions>`__.
+:ref:`RepeatCondition <conditions>`.
 Lets look at a while loop.
 
 ::
@@ -216,9 +208,7 @@ Lets look at a while loop.
 We can see that the robot will continue to move until the move fails.
 This can happen if the robot hits an obstacle, or runs out of battery.
 Feel free to try both methods and learn about
-`conditions <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#Conditions>`__
-and
-`loops <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#While_Loop>`__.
+:ref:`RepeatCondition <conditions>` and :ref:`loop <while_loop>`.
 
  
 
@@ -389,15 +379,14 @@ by pressing 'e' the goal by pressing 'g' and the flags by pressing 'f'.
 ----------------
 
 Abstraction is a key idea when programming that allows the creation of
-more organized less error prone code. In Plexil abstraction is achieved
-through `library
-calls <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#Library_Call>`__.
+more organized less error prone code. In |PLEXIL| abstraction is achieved
+through :ref:`library calls <library_call>`.
 In our example we would like our robot to move to several different
 objects, the energy sources, the flags, and the goals. To avoid copied
 code we will write a library node that determines the best direction to
 go for any of these objects.
 
-Because each Plexil file may only have one top level node we will write
+Because each |PLEXIL| file may only have one top level node we will write
 our library node in a new file called ``BestDirection.ple``.
 
 ::
@@ -642,17 +631,11 @@ Now it's time to explore the language on your own...
 
 -  Can you make the robot pick up the flag and take it to the goal?
 -  Can you control two robots at once?
--  Explore some more advanced feature of the language like
-   `lookups <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#External_State_.28Lookups.29>`__
+-  Explore some more advanced feature of the language like :ref:`lookups <external_state_lookups>`
    or the other types of
-   `nodes <http://plexil.sourceforge.net/wiki/index.php/Plexil_Reference#High-level_Nodes>`__
+   :ref:`nodes <nodes>`
    not covered here.
 
  
 
 Originally Written by Bryce Campbell (2020)
-
---------------
-
-Copyright (c) 2020-2021, Universities Space Research Association (USRA).
-All rights reserved.

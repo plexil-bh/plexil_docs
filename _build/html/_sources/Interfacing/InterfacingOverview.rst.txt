@@ -6,7 +6,7 @@ Interfacing Overview
 *27 April 2015*
 
 This chapter provides a high-level overview of how to use and extend the
-external interfaces of the `PLEXIL Executive <PLEXIL_Executive>`__.
+external interfaces of the :ref:`PLEXIL Executive <PLEXILExecutive>`.
 
 .. contents::
 
@@ -14,8 +14,8 @@ Overview
 --------
 
 The PLEXIL Application Framework provides a flexible mechanism for
-adding external interfaces to the `PLEXIL
-Executive <PLEXIL_Executive>`__, and to applications built on the PLEXIL
+adding external interfaces to the :ref:`PLEXIL Executive <PLEXILExecutive>`,
+and to applications built on the PLEXIL
 Application Framework.
 
 .. _plexil_executive_facilities:
@@ -23,12 +23,12 @@ Application Framework.
 PLEXIL Executive facilities
 ---------------------------
 
-These artifacts are required to enable interaction between the `PLEXIL
-Executive <PLEXIL_Executive>`__ and an external system or environment:
+These artifacts are required to enable interaction between the :ref:`PLEXIL Executive <PLEXILExecutive>`
+and an external system or environment:
 
 #. One or more shared library files which implement interface adapters
    and/or exec listeners (C++ code).
-#. An `interface configuration file <#Configuration_File>`__ describing
+#. An :ref:`interface configuration file <InterfaceConfigurationFile>` describing
    the adapters and listeners to be used.
 
 .. _standard_interfaces:
@@ -37,15 +37,14 @@ Standard Interfaces
 ~~~~~~~~~~~~~~~~~~~
 
 The PLEXIL distribution comes with several standard interface adapters
-and exec listeners; see `Standard
-Libraries <Standard_Interface_Libraries>`__ for a summary.
+and exec listeners; see :ref:`Standard Libraries <StandardLibraries>` for a summary.
 
 .. _configuration_file:
 
 Configuration File
 ~~~~~~~~~~~~~~~~~~
 
-See `Interface Configuration File <Interface_Configuration_File>`__ for
+See :ref:`Interface Configuration File <InterfaceConfigurationFile>` for
 details.
 
 .. _custom_interfaces:
@@ -54,8 +53,7 @@ Custom Interfaces
 -----------------
 
 For an overview of developing your own custom adapters and listeners,
-please see `Implementing Custom
-Interfaces <Implementing_PLEXIL_Interfaces>`__.
+please see :ref:`Implementing Custom Interfaces <ImplementingCustomInterfaces>`.
 
 .. _writing_your_own_application:
 
@@ -70,10 +68,6 @@ control of a real-time OS, in a particular threading enviroment.
 
 In situations like these, it is straightforward to build a dedicated C++
 executable which does exactly what the application requires. The process
-is outlined in `Implementing Custom PLEXIL
-Applications <Implementing_Custom_PLEXIL_Applications>`__.
+is outlined in :ref:`Implementing Custom PLEXIL Applications <ImplementingCustomApplications>`.
 
---------------
 
-Copyright (c) 2006-2015, Universities Space Research Association (USRA).
-All rights reserved.
