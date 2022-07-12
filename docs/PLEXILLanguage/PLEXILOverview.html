@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PLEXIL Overview &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PLEXIL References" href="PLEXILReferences.html" />
+    <link rel="prev" title="Licensing" href="../GettingStarted/Licensing.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PLEXILReferences.html" title="PLEXIL References"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../GettingStarted/Licensing.html" title="Licensing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PLEXIL Overview</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexil-overview">
+<span id="plexiloverview"></span><h1><a class="toc-backref" href="#id10" role="doc-backlink">PLEXIL Overview</a><a class="headerlink" href="#plexil-overview" title="Permalink to this heading">¶</a></h1>
+<p><em>10 Apr 2021</em></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plexil-overview" id="id10">PLEXIL Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#what-is-plexil" id="id11">What is PLEXIL?</a></p></li>
+<li><p><a class="reference internal" href="#overview" id="id12">Overview</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nodes" id="id13">Nodes</a></p></li>
+<li><p><a class="reference internal" href="#core-plexil" id="id14">Core PLEXIL</a></p></li>
+<li><p><a class="reference internal" href="#conditions" id="id15">Conditions</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id16">Variables</a></p></li>
+<li><p><a class="reference internal" href="#state-outcome-and-introspection" id="id17">State, Outcome, and Introspection</a></p></li>
+<li><p><a class="reference internal" href="#external-world" id="id18">External World</a></p></li>
+<li><p><a class="reference internal" href="#time" id="id19">Time</a></p></li>
+<li><p><a class="reference internal" href="#resources" id="id20">Resources</a></p></li>
+<li><p><a class="reference internal" href="#programming-in-plexil" id="id21">Programming in PLEXIL</a></p>
+<ul>
+<li><p><a class="reference internal" href="#standard-plexil" id="id22">Standard Plexil</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#plexil-and-xml" id="id23">PLEXIL and XML</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-plexil-community" id="id24">The PLEXIL Community</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="what-is-plexil">
+<span id="id1"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">What is PLEXIL?</a><a class="headerlink" href="#what-is-plexil" title="Permalink to this heading">¶</a></h2>
+<p>Plan execution is a cornerstone in autonomy applications, such as
+robotics, unmanned vehicles and habitats, and systems or simulations
+involving intelligent software agents. <em>PLEXIL</em> (<em>PL</em>an E<em>x</em>ecution
+<em>I</em>nterchange <em>L</em>anguage) is a language for representing plans for
+automation.</p>
+<p><em>PLEXIL</em> was designed to meet the requirements of flexible, efficient and
+reliable plan execution in space mission operations. It is compact,
+semantically clear, and deterministic given the same sequence of events
+from the external world. At the same time, the language is quite
+expressive and can represent branches, loops, time- and event- driven
+activities, concurrent activities, sequences, and temporal constraints.
+The core syntax of the language is simple and uniform, making plan
+interpretation simple and efficient, while enabling the application of
+validation and testing techniques.</p>
+<p>Accompanying <em>PLEXIL</em> is an execution engine, or <em>executive</em>, which
+implements efficiently the <em>PLEXIL</em> language and provides interfaces to
+controlled systems as well as decision support systems from which plans
+may be sent. The <em>PLEXIL</em> software suite also includes a graphical plan
+execution viewer, a static plan checker, and two different plan
+simulators.</p>
+<p><em>PLEXIL</em> was originally developed as a collaborative effort between
+researchers at NASA and Carnegie Mellon University, funded by NASA’s
+Mars Technology Program through the Research Institute for Advanced
+Computer Science (RIACS) in the Universities Space Research Association
+(USRA). Since then it has continually evolved through application on
+NASA projects, which have included the control of prototype planetary
+rovers and habitats, drilling equipment, and demonstration of adjustable
+automation for International Space Station operations. See the
+<a class="reference internal" href="../Appendices/References.html#references"><span class="std std-ref">References</span></a> for more information on the background and
+applications of <em>PLEXIL</em>.</p>
+</section>
+<section id="overview">
+<span id="id2"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>This section is a short overview of the <em>PLEXIL</em> language. It describes
+abstractly the main features of <em>PLEXIL</em>, and explains how one programs in
+<em>PLEXIL</em>. The next chapter, <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">PLEXIL Reference</span></a>,
+describes in detail the programming constructs of <em>PLEXIL</em>. The <a class="reference internal" href="PLEXILSemantics.html#plexilsemantics"><span class="std std-ref">Detailed Semantics</span></a>
+chapter covers <em>PLEXIL</em> execution in
+greater depth.</p>
+<section id="nodes">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Nodes</a><a class="headerlink" href="#nodes" title="Permalink to this heading">¶</a></h3>
+<p>A <em>PLEXIL</em> plan is built from <em>nodes</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>nodes</em> were once called <em>actions</em></p>
+</div>
+<p>A node specifies something to do, either within the plan
+itself, or to the external world. Nodes are the composable building
+blocks from which arbitrarily complex behaviors can be specified. There
+are many kinds of nodes in <em>PLEXIL</em>, and each is a programming construct
+specifying a certain behavior.</p>
+<p>A <em>PLEXIL</em> plan is a tree of nodes with a single root node. This tree
+represents a hierarchical decomposition of tasks. High level tasks are
+closer to the root node, while leaf nodes represent primitive behaviors
+such as assigning to a variable or sending a command to the external
+system.</p>
+<p>The following diagram exemplifies a simple hierarchical plan. Its
+representation in <em>PLEXIL</em> would have a similar tree structure.</p>
+<figure class="align-default">
+<img alt="../_images/Sample-plan.png" src="../_images/Sample-plan.png" />
+</figure>
+<hr class="docutils" />
+<p>Let’s meet the nodes. The following UML diagram illustrates the essence
+of <em>PLEXIL</em>.</p>
+<figure class="align-default">
+<img alt="../_images/Plexil-uml.jpg" src="../_images/Plexil-uml.jpg" />
+</figure>
+<p>Stacked in a column on the right side of the diagram are the kinds of
+<em>compound nodes</em>, which specify high level behaviors.</p>
+<ul class="simple">
+<li><p>The <em>Concurrence</em> node groups child nodes to be executed in parallel.</p></li>
+<li><p>The <em>Sequence</em>, <em>Unchecked Sequence</em>, and <em>Try</em> nodes group child
+nodes to be executed in the order listed, in various different ways.</p></li>
+<li><p>The <em>IfThenElse</em>, <em>Do</em>, <em>While</em>, and <em>For</em> nodes provide conditional
+and iterative execution of their child nodes as implied by their
+names.</p></li>
+<li><p>The <em>OnMessage</em> and <em>OnCommand</em> nodes are used in multi-executive
+applications and specify response policies.</p></li>
+</ul>
+<p>Nodes are described in greater detail in the <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">Plexil Reference</span></a> chapter.</p>
+</section>
+<section id="core-plexil">
+<span id="id3"></span><h3><a class="toc-backref" href="#id14" role="doc-backlink">Core PLEXIL</a><a class="headerlink" href="#core-plexil" title="Permalink to this heading">¶</a></h3>
+<p>The bottom row of nodes in the diagram above are <em>simple nodes</em> and
+constitute a subset of the language called <em>Core PLEXIL</em>. These six
+nodes provide all the computational power of <em>PLEXIL</em>. In fact, all the
+compound nodes described above and shown on the right side of the
+diagram are translated into a tree of simple nodes prior to execution.
+Only Core <em>PLEXIL</em> is directly executed by the <em>PLEXIL</em> executive; the final
+plan executed is a single tree of simple nodes.</p>
+<p>Historical note: Originally, Core <em>PLEXIL</em> was the entire <em>PLEXIL</em> language.
+Core <em>PLEXIL</em> was too primitive to write non-trivial plans, so it was
+extended with higher level constructs, essentially “macros” that
+translated into Core <em>PLEXIL</em> for execution; this extended language was
+called <em>Extended PLEXIL</em>. Today, the full language is simply called
+PLEXIL (or Plexil).</p>
+<p>There are six types of nodes comprising Core <em>PLEXIL</em>. The interior nodes
+in a plan are <em>List nodes</em>. List nodes have <em>child nodes</em> (or
+“children”) which can be of any type. A List node is called the <em>parent
+node</em> (or “parent”) of its child nodes. The remaining nodes are leaf
+nodes in a plan.</p>
+<ul class="simple">
+<li><p>An <em>empty node</em> can contain only attributes and performs no action.</p></li>
+<li><p>An <em>assignment node</em> performs a local computation, whose value is
+assigned to a variable.</p></li>
+<li><p>A <em>command node</em> issues commands to the system being operated on.</p></li>
+<li><p>An <em>update node</em> provides information to the planning and
+decision-support interface.</p></li>
+<li><p>A <em>library call node</em> invoke nodes located in an external library.</p></li>
+</ul>
+</section>
+<section id="conditions">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Conditions</a><a class="headerlink" href="#conditions" title="Permalink to this heading">¶</a></h3>
+<p>A node can specify up to eight <em>conditions</em>, which determine its
+execution and outcome. There are nominal control conditions that specify
+when the node should start executing, when it should finish executing,
+when it should be repeated, and when it can be “skipped”. These are
+referred to collectively as the node’s <em>gate conditions</em>.</p>
+<ul class="simple">
+<li><p>A <em>start condition</em> specifies when the node should start execution.</p></li>
+<li><p>An <em>end condition</em> specifies when the node should finish its
+execution.</p></li>
+<li><p>A <em>repeat condition</em> specifies when the node should be made eligible
+for a repeat execution.</p></li>
+<li><p>A <em>skip condition</em> specifies when the node’s execution should be
+bypassed altogether.</p></li>
+</ul>
+<p>Next, there are failure conditions that identify when execution is not
+successful, and these are referred to collectively as a node’s <em>check
+conditions</em>.</p>
+<ul class="simple">
+<li><p>A <em>precondition</em> is checked immediately after the start condition
+becomes true. If this check fails, the node will be aborted and have
+an outcome of failure. Preconditions are often used to verify that it
+is “safe” to execute the node.</p></li>
+<li><p>A <em>postcondition</em> is checked after the node has completed execution.
+If this check fails, the node has an outcome of failure.
+Postconditions are often used to verify that a node had the intended
+effect.</p></li>
+<li><p>An <em>invariant condition</em> is checked during node execution, and if it
+fails at any point, the node will be aborted and have an outcome of
+failure. Invariant conditions are often used to monitor conditions
+that are needed for the safe continued execution of the node.</p></li>
+</ul>
+<p>Finally, there is a condition that says when to terminate a node
+“prematurely” (i.e. before its end condition is satisfied), though
+intentionally.</p>
+<ul class="simple">
+<li><p>An <em>exit condition</em> is checked during node execution, and if it is
+satisfied at any point, the node will be terminate with an outcome of
+INTERRUPTED. The Exit condition can be used to effect deliberate plan
+cancellation. It is effectively the dual of the Invariant condition,
+which when false has the same effect but with a failure outcome.</p></li>
+</ul>
+<p>Each condition specifies a logical expression. <em>PLEXIL</em> employs a
+<em>ternary</em> logic in which logical expressions evaluate to one of True,
+False, or Unknown.</p>
+</section>
+<section id="variables">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">Variables</a><a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
+<p>A node may declare variables, which have <em>lexical scope</em>, i.e. they are
+accessible to the node and all its descendants, but not siblings or
+ancestors. Access to variables (for reading or writing) can be
+restricted by use of <em>interfaces</em> in nodes. Interfaces are described in
+the next chapter.</p>
+</section>
+<section id="state-outcome-and-introspection">
+<span id="id4"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">State, Outcome, and Introspection</a><a class="headerlink" href="#state-outcome-and-introspection" title="Permalink to this heading">¶</a></h3>
+<p>A node is always in one of seven states, and always terminates with one
+of four outcomes. The exact semantics for this behavior in Core <em>PLEXIL</em>
+is given in the <a class="reference internal" href="../Appendices/NodeStateDiagrams.html#nodestatediagrams"><span class="std std-ref">Node State Transition Diagrams</span></a>.
+A node can (e.g. in one of
+its conditions) query the state and outcome of itself, its parent,
+children, and siblings, but no other nodes; it can also query the start
+and end times of any given state of these nodes.</p>
+</section>
+<section id="external-world">
+<span id="id5"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink">External World</a><a class="headerlink" href="#external-world" title="Permalink to this heading">¶</a></h3>
+<p><em>PLEXIL</em> reads the state of the external world or system through
+<em>lookups</em>, which come in several varieties. <em>PLEXIL</em> can affect the state
+of the external world or system through <em>commands</em>, which are sent
+asynchronously.</p>
+</section>
+<section id="time">
+<h3><a class="toc-backref" href="#id19" role="doc-backlink">Time</a><a class="headerlink" href="#time" title="Permalink to this heading">¶</a></h3>
+<p>Time (durations, elapsed time, clock time, etc) is often an essential
+concept in automated and simulated systems. <em>PLEXIL</em> has no native concept
+of time, per se. Time in <em>PLEXIL</em> is just another external state, and
+<em>PLEXIL</em> has predefined the state named <code class="docutils literal notranslate"><span class="pre">time</span></code> for its operations that
+involve time. The expressions in <em>PLEXIL</em> that <em>imply</em> time, i.e. those
+that give the start and end times of node states, rely on the <code class="docutils literal notranslate"><span class="pre">time</span></code>
+external variable, which at present is a unitless real number.</p>
+</section>
+<section id="resources">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Resources</a><a class="headerlink" href="#resources" title="Permalink to this heading">¶</a></h3>
+<p><em>PLEXIL</em> has a simple resource model, described in detail in <a class="reference internal" href="ResourceModel.html#resourcemodel"><span class="std std-ref">Chapter 5</span></a>.
+In short, resource requirements for commands
+(only) can be specified in command nodes, and these requirements are
+checked during execution via a resource arbitration mechanism. Simple
+models of unary, non-unary, hierarchical, and renewable resources are
+supported.</p>
+</section>
+<section id="programming-in-plexil">
+<span id="id6"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Programming in PLEXIL</a><a class="headerlink" href="#programming-in-plexil" title="Permalink to this heading">¶</a></h3>
+<section id="standard-plexil">
+<span id="id7"></span><h4><a class="toc-backref" href="#id22" role="doc-backlink">Standard Plexil</a><a class="headerlink" href="#standard-plexil" title="Permalink to this heading">¶</a></h4>
+<p>There are several means of programming in <em>PLEXIL</em>. The executable form of
+<em>PLEXIL</em> is its XML representation. While many external applications have
+<em>generated</em> <em>PLEXIL</em> code in its XML form, the XML form is not practical
+for authoring <em>PLEXIL</em> directly.</p>
+<p>The standard programming syntax for <em>PLEXIL</em> is described in this manual.
+It is simply called Plexil, or sometimes <em>standard Plexil</em>. A translator
+for Plexil, which converts user programs into Core <em>PLEXIL</em> XML, is
+described in the <a class="reference internal" href="PLEXILReferences.html#plexilreferences"><span class="std std-ref">next chapter</span></a>.</p>
+<p>Note that the terms “PLEXIL” and “Plexil” can refer to the abstract
+<em>PLEXIL</em> language (nodes) and/or to its standard programming syntax.</p>
+</section>
+</section>
+<section id="plexil-and-xml">
+<span id="id8"></span><h3><a class="toc-backref" href="#id23" role="doc-backlink">PLEXIL and XML</a><a class="headerlink" href="#plexil-and-xml" title="Permalink to this heading">¶</a></h3>
+<p>As mentioned in the previous section, the executable form of <em>PLEXIL</em> is
+represented in XML (Extensible Markup Language), a widely used standard
+for information modeling. Although a <em>PLEXIL</em> user does not normally need
+to be concerned with XML, it is important to note that the formal
+specification of <em>PLEXIL</em>’s syntax is given at the XML level. Core <em>PLEXIL</em>
+is specified by <em>XML schemas</em>. More information about <em>PLEXIL</em> XML is
+given in the chapter titled <a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html#xmlschemaemacs"><span class="std std-ref">PLEXIL, XML, and Emacs</span></a>.</p>
+</section>
+</section>
+<section id="the-plexil-community">
+<span id="id9"></span><h2><a class="toc-backref" href="#id24" role="doc-backlink">The PLEXIL Community</a><a class="headerlink" href="#the-plexil-community" title="Permalink to this heading">¶</a></h2>
+<p>We have two mailing lists:</p>
+<ul class="simple">
+<li><p><em>plexil-discussion</em> email will be sent to anyone interested in
+<em>PLEXIL</em>.</p></li>
+<li><p><em>plexil-support</em> email will be sent only to the <em>PLEXIL</em> developers.</p></li>
+</ul>
+<p>Please feel free to add yourself to <em>plexil-discussion</em> using the
+<a class="reference external" href="https://sourceforge.net/projects/plexil/support">Sourceforge mailing lists</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

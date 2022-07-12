@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>XML/Schema, Emacs &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interfacing Overview" href="../Interfacing/InterfacingOverview.html" />
+    <link rel="prev" title="PLEXIL Checker" href="PLEXILChecker.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Interfacing/InterfacingOverview.html" title="Interfacing Overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PLEXILChecker.html" title="PLEXIL Checker"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">XML/Schema, Emacs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="xml-schema-emacs">
+<span id="xmlschemaemacs"></span><h1><a class="toc-backref" href="#id8" role="doc-backlink">XML/Schema, Emacs</a><a class="headerlink" href="#xml-schema-emacs" title="Permalink to this heading">¶</a></h1>
+<p><em>10/14/10</em></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#xml-schema-emacs" id="id8">XML/Schema, Emacs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id9">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#plexil-xml-schema" id="id10">PLEXIL XML Schema</a></p></li>
+<li><p><a class="reference internal" href="#schema-validation" id="id11">Schema Validation</a></p></li>
+<li><p><a class="reference internal" href="#emacs" id="id12">Emacs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#emacs-setup" id="id13">Emacs Setup</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#schema-validation-using-nxml-mode" id="id14">Schema Validation Using nXML Mode</a></p>
+<ul>
+<li><p><a class="reference internal" href="#getting-nxml" id="id15">Getting nXML</a></p></li>
+<li><p><a class="reference internal" href="#installing-nxml" id="id16">Installing nXML</a></p></li>
+<li><p><a class="reference internal" href="#using-nxml" id="id17">Using nXML</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Core <em>PLEXIL</em>, the executable form of <em>PLEXIL</em>, is specified in the
+<em>Extensible Markup Language</em>, or XML. This XML representation of <em>PLEXIL</em>
+is hidden from the user in general use. This chapter provides
+information about <em>PLEXIL</em>’s XML definition, and tools for inspecting and
+editing Plexil XML files, if the need should arise.</p>
+<p>Plexil may be coded in any text editor. The <em>Emacs</em> editor in particular
+has features suitable for <em>PLEXIL</em>, namely its powerful XML editing and
+validation capabilities, as well as being the platform for the
+alternative <em>PLEXIL</em> syntax <a class="reference internal" href="Plexilisp.html#plexilisp"><span class="std std-ref">Plexilisp</span></a>.</p>
+<p>This chapter describes helpful XML and Emacs resources for <em>PLEXIL</em>.</p>
+</section>
+<section id="plexil-xml-schema">
+<span id="id1"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink">PLEXIL XML Schema</a><a class="headerlink" href="#plexil-xml-schema" title="Permalink to this heading">¶</a></h2>
+<p>An XML Schema is a file that defines the format for a particular kind of
+XML file. <em>PLEXIL</em> XML is defined by schema files found in the <em>PLEXIL</em>
+distribution, under <code class="docutils literal notranslate"><span class="pre">plexil/schema</span></code>. See the README file in that
+directory for detailed information.</p>
+</section>
+<section id="schema-validation">
+<span id="id2"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Schema Validation</a><a class="headerlink" href="#schema-validation" title="Permalink to this heading">¶</a></h2>
+<p>An XML file may be <em>validated</em> against an XML schema. There are many
+tools for this. Both Linux and Mac OS provide <code class="docutils literal notranslate"><span class="pre">xmllint</span></code>, a Unix
+command line schema validator. Several commercial graphical tools, such
+as <em>Oxygen</em> are also available. Schema validation can also be done
+interactively using Emacs; this is described below.</p>
+</section>
+<section id="emacs">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Emacs</a><a class="headerlink" href="#emacs" title="Permalink to this heading">¶</a></h2>
+<p>For decades Emacs has been a popular text editor for programming. It is
+a featureful and highly customizable editor and integrated work
+environment, available for every common computer platform.</p>
+<p>This document does not provide detailed instructions for Emacs, and
+largely assumes the reader to be already fairly comfortable with Emacs.
+If you are just starting out with Emacs, or interested, please consult
+the abundance of introductory material available on the Web. Emacs
+usually comes standard on Unix-based systems such as Linux and Mac OS,
+however, there are variants of Emacs available that are more featureful
+than these built-in versions.</p>
+<p>Emacs is helpful for viewing, validating, and, if desired, editing Core
+<em>PLEXIL</em> XML. Most versions of Emacs have some built-in support for
+editing XML files. When you open or create a file with the extension
+<code class="docutils literal notranslate"><span class="pre">.xml</span></code>, the resulting <em>buffer</em> will usually be in an XML-specific
+editing mode.</p>
+<section id="emacs-setup">
+<span id="id3"></span><h3><a class="toc-backref" href="#id13" role="doc-backlink">Emacs Setup</a><a class="headerlink" href="#emacs-setup" title="Permalink to this heading">¶</a></h3>
+<p>When Emacs starts, it loads the file <code class="docutils literal notranslate"><span class="pre">~/.emacs</span></code>, which is where user
+customizations are generally placed. The following code will make Emacs
+more Plexil-friendly. You’ll need to customize the pathnames for your
+environment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;;;</span> <span class="n">Set</span> <span class="n">the</span> <span class="n">required</span> <span class="n">PLEXIL_HOME</span> <span class="n">environment</span> <span class="n">variable</span> <span class="k">with</span> <span class="n">Emacs</span><span class="o">.</span> <span class="p">(</span><span class="n">Although</span> <span class="n">it</span> <span class="p">;;;</span> <span class="n">may</span> <span class="n">already</span> <span class="n">be</span> <span class="nb">set</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">Unix</span> <span class="n">environment</span><span class="p">,</span> <span class="n">Emacs</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">always</span> <span class="n">read</span> <span class="n">this</span> <span class="p">;;;</span> <span class="n">setting</span><span class="o">.</span>
+<span class="p">(</span><span class="n">setenv</span> <span class="s2">&quot;PLEXIL_HOME&quot;</span> <span class="s2">&quot;/users/fred/plexil&quot;</span><span class="p">)</span>
+
+<span class="p">;;;</span> <span class="n">Edit</span> <span class="o">.</span><span class="n">plx</span> <span class="n">files</span> <span class="k">as</span> <span class="n">XML</span><span class="o">.</span>
+  <span class="p">(</span><span class="n">setq</span> <span class="n">auto</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">alist</span>
+    <span class="p">(</span><span class="n">cons</span> <span class="s1">&#39;(&quot;</span><span class="se">\\</span><span class="s1">(plx</span><span class="se">\\</span><span class="s1">)</span><span class="se">\\</span><span class="s1">&#39;</span><span class="s2">&quot; . xml-mode) auto-mode-alist))</span>
+</pre></div>
+</div>
+<p>NOTE: if you install <strong>nXML</strong> (described below), you’ll want to
+substitute <code class="docutils literal notranslate"><span class="pre">nxml-mode</span></code> for <code class="docutils literal notranslate"><span class="pre">xml-mode</span></code>.</p>
+</section>
+</section>
+<section id="schema-validation-using-nxml-mode">
+<span id="id4"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink">Schema Validation Using nXML Mode</a><a class="headerlink" href="#schema-validation-using-nxml-mode" title="Permalink to this heading">¶</a></h2>
+<p>It is possible to validate XML files against a schema within Emacs,
+using a freely available Emacs utility for XML called <span class="xref std std-ref">nxml mode</span>. It provides not only
+an easy means to edit XML (e.g. automatic indentation), but also a means
+for validating your XML against an XML schema interactively.</p>
+<section id="getting-nxml">
+<span id="id5"></span><h3><a class="toc-backref" href="#id15" role="doc-backlink">Getting nXML</a><a class="headerlink" href="#getting-nxml" title="Permalink to this heading">¶</a></h3>
+<p>First, check if your Emacs already has nXML. Open or create an XML file
+and see if the <em>mode line</em> (text bar at bottom of the buffer) contains
+“(nXML …)”. If not, see if the following command is available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M</span><span class="o">-</span><span class="n">x</span> <span class="n">nxml</span><span class="o">-</span><span class="n">mode</span>
+</pre></div>
+</div>
+<p>If not, you’ll need to download nXML. Information can be found at the
+following web sites.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">thaiopensource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nxml</span><span class="o">-</span><span class="n">mode</span><span class="o">/</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">emacswiki</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">cgi</span><span class="o">-</span><span class="nb">bin</span><span class="o">/</span><span class="n">wiki</span><span class="o">/</span><span class="n">NxmlMode</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-nxml">
+<span id="id6"></span><h3><a class="toc-backref" href="#id16" role="doc-backlink">Installing nXML</a><a class="headerlink" href="#installing-nxml" title="Permalink to this heading">¶</a></h3>
+<p>To automate the loading of nXML and ease its use, the following code can
+be added to your .emacs file. Edit the file path as needed for your
+system.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">;;;</span> <span class="n">Load</span> <span class="n">NXML</span> <span class="n">mode</span>
+ <span class="p">(</span><span class="n">load</span> <span class="s2">&quot;/Applications/nxml-mode-20041004/rng-auto.el&quot;</span><span class="p">)</span>
+
+ <span class="p">;;;</span> <span class="n">Make</span> <span class="n">standard</span> <span class="n">XML</span> <span class="n">file</span> <span class="n">extensions</span> <span class="n">engage</span> <span class="n">nxml</span><span class="o">-</span><span class="n">mode</span>
+ <span class="p">(</span><span class="n">setq</span> <span class="n">auto</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">alist</span>
+ <span class="p">(</span><span class="n">cons</span> <span class="s1">&#39;(&quot;</span><span class="se">\\</span><span class="s1">(xml</span><span class="se">\\</span><span class="s1">|xsd</span><span class="se">\\</span><span class="s1">|xsl</span><span class="se">\\</span><span class="s1">|rng</span><span class="se">\\</span><span class="s1">|xhtml</span><span class="se">\\</span><span class="s1">)</span><span class="se">\\</span><span class="s1">&#39;</span><span class="s2">&quot; . nxml-mode)</span>
+ <span class="n">auto</span><span class="o">-</span><span class="n">mode</span><span class="o">-</span><span class="n">alist</span><span class="p">))</span>
+
+ <span class="p">;;;</span> <span class="n">Make</span> <span class="n">nxml</span><span class="o">-</span><span class="n">mode</span> <span class="n">override</span> <span class="n">Emacs</span><span class="s1">&#39;s native xml-mode</span>
+ <span class="p">(</span><span class="n">push</span> <span class="s1">&#39;(&quot;</span><span class="se">\\</span><span class="s1">`&lt;</span><span class="se">\\</span><span class="s1">?xml&quot; . nxml-mode) magic-mode-alist)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-nxml">
+<span id="id7"></span><h3><a class="toc-backref" href="#id17" role="doc-backlink">Using nXML</a><a class="headerlink" href="#using-nxml" title="Permalink to this heading">¶</a></h3>
+<p>Once installed, any XML file you edit in Emacs will be done so in nXML
+mode.</p>
+<p>To validate against a schema using nXML, you’ll need to have a schema in
+<em>Relaxed Compact NG</em> (RNC) format. The <em>PLEXIL</em> schemas are provided in
+this format. The “XML” menu in Emacs provides various methods of
+validation, one of which requires you to specify a schema file. However,
+to have any XML file in a given directory be automatically validated by
+the same schema file, create a file called <code class="docutils literal notranslate"><span class="pre">schemas.xml</span></code> in this
+directory, with the following contents (change the schema file pathname
+as needed).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;locatingRules xmlns=&quot;http://thaiopensource.com/ns/locating-rules/1.0&quot;&gt;
+
+ &lt;default uri=&quot;../../schema/extended-plexil.rnc&quot;/&gt;
+
+&lt;/locatingRules&gt;
+</pre></div>
+</div>
+<p>There is more information about nXML in <code class="docutils literal notranslate"><span class="pre">plexil/schema/Makefile</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

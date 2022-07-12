@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>PLEXIL Executive &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PLEXIL Simulators" href="PLEXILSimulators.html" />
+    <link rel="prev" title="Hierarchial Resources" href="../PLEXILLanguage/ResourceModel/HierarchialResources.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PLEXILSimulators.html" title="PLEXIL Simulators"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../PLEXILLanguage/ResourceModel/HierarchialResources.html" title="Hierarchial Resources"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">PLEXIL Executive</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexil-executive">
+<span id="plexilexecutive"></span><h1><a class="toc-backref" href="#id6" role="doc-backlink">PLEXIL Executive</a><a class="headerlink" href="#plexil-executive" title="Permalink to this heading">¶</a></h1>
+<p><em>11 May 2015</em></p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plexil-executive" id="id6">PLEXIL Executive</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id7">Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#plexil-application" id="id8">PLEXIL Application</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#running-the-executive" id="id9">Running the Executive</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-plexilexec-script" id="id10">The plexilexec script</a></p></li>
+<li><p><a class="reference internal" href="#the-universalexec-executable" id="id11">The universalExec executable</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#output-and-the-debug-configuration-file" id="id12">Output and the Debug Configuration File</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>The <em>PLEXIL Executive</em> (formerly called the Universal Executive, or UE),
+is an implementation of the <em>PLEXIL</em> language. It is also a runtime
+environment that provides or facilitates the following capabilities:</p>
+<ul class="simple">
+<li><p>loading and execution of <em>PLEXIL</em> plans and libraries</p></li>
+<li><p>commanding and querying state of external systems</p></li>
+<li><p>notifications about execution status:</p>
+<ul>
+<li><p>to the <a class="reference internal" href="PLEXILViewer.html#plexilviewer"><span class="std std-ref">Plexil Viewer</span></a></p></li>
+<li><p>to <a class="reference internal" href="../Interfacing/InterfacingOverview.html#interfacingoverview"><span class="std std-ref">external systems</span></a></p></li>
+</ul>
+</li>
+</ul>
+<section id="plexil-application">
+<span id="id1"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink">PLEXIL Application</a><a class="headerlink" href="#plexil-application" title="Permalink to this heading">¶</a></h3>
+<p>The <em>PLEXIL</em> Executive, often referred to simply as the “executive”, is,
+strictly speaking, a software library written in C++. To use the
+executive, it must run as part of a <em>PLEXIL application</em>. <em>PLEXIL</em>
+applications consist of an executive, one or more <em>interface adapters</em>,
+and one or more external systems or simulators. External interfacing is
+discussed at length elsewhere. This chapter describes how to operate the
+executive itself within the context of a <em>PLEXIL</em> application; namely, how
+to start the executive and specify its application configuration,
+operating parameters, and textual debugging output.</p>
+<p>If you are new to <em>PLEXIL</em>, we suggest you start with the simulators
+described in <span class="xref std std-ref">Simulating Plan Execution</span>.</p>
+</section>
+</section>
+<section id="running-the-executive">
+<span id="id2"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Running the Executive</a><a class="headerlink" href="#running-the-executive" title="Permalink to this heading">¶</a></h2>
+<p>There are two ways to start the <em>PLEXIL</em> Executive: the <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code>
+script, and the <code class="docutils literal notranslate"><span class="pre">universalExec</span></code> executable.</p>
+<section id="the-plexilexec-script">
+<span id="id3"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">The plexilexec script</a><a class="headerlink" href="#the-plexilexec-script" title="Permalink to this heading">¶</a></h3>
+<p>The most flexible way to start the <em>PLEXIL</em> Executive is by running the
+<code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> shell script. <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> can launch a graphical user
+interface, run various checks on a plan file, and actually run the plan.</p>
+<p>Let’s assume you have a Plexil plan filed as <code class="docutils literal notranslate"><span class="pre">foo.plx</span></code>. The most basic
+invocation of the script at Unix command line is as follows. (The second
+line is an abbreviated form of the first).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilexec</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span>
+<span class="n">plexilexec</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span>
+</pre></div>
+</div>
+<p>An <a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html#interfaceconfigurationfile"><span class="std std-ref">interface configuration file</span></a> is
+required to run the Plexil executive, and defaults to a “dummy”
+configuration filed as <code class="docutils literal notranslate"><span class="pre">plexil/examples/dummy-config.xml</span></code>. You can
+specify an interface configuration file (call it <code class="docutils literal notranslate"><span class="pre">my-config.xml</span></code>) as
+follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilexec</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">config</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">plexilexec</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">c</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>If your plan uses libraries (discussed in <a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html#plexilreferences"><span class="std std-ref">Plexil Reference</span></a>), they may be specified as well. In the
+following example, assume two library files named <code class="docutils literal notranslate"><span class="pre">lib1.plx</span></code> and
+<code class="docutils literal notranslate"><span class="pre">lib2.plx</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plexilexec</span> <span class="o">-</span><span class="n">plan</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">config</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">library</span> <span class="n">lib1</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">library</span> <span class="n">lib2</span><span class="o">.</span><span class="n">plx</span>
+<span class="n">plexilexec</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">c</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib1</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib2</span><span class="o">.</span><span class="n">plx</span>
+</pre></div>
+</div>
+<p>There are many more command line options available; type
+<code class="docutils literal notranslate"><span class="pre">plexilexec</span> <span class="pre">-help</span></code> to see a listing. We provide a few pointers here:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-check</span></code> (or <code class="docutils literal notranslate"><span class="pre">-ch</span></code>) option runs Plexil’s <a class="reference internal" href="../PLEXILTools/PLEXILChecker.html#plexilchecker"><span class="std std-ref">static type checker</span></a> on the plan prior to having it loaded.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-debug</span></code> (or <code class="docutils literal notranslate"><span class="pre">-d</span></code>) option specifies a Debug Configuration
+file (see next section).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">-quiet</span></code> (or <code class="docutils literal notranslate"><span class="pre">-q</span></code>) option suppresses a leading printed
+summary and default debug messages during execution.</p></li>
+</ul>
+<p>The <a class="reference internal" href="PLEXILViewer.html#plexilviewer"><span class="std std-ref">PLEXIL Viewer</span></a> chapter describes
+additional options that launch the plan viewer, which allows monitoring
+of plan execution down to the microstep level.</p>
+</section>
+<section id="the-universalexec-executable">
+<span id="id4"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">The universalExec executable</a><a class="headerlink" href="#the-universalexec-executable" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">universalExec</span></code> executable is the actual <em>PLEXIL</em> Executive program.
+Unlike the <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code> script, all it does is run plans.</p>
+<p><code class="docutils literal notranslate"><span class="pre">universalExec</span></code> accepts the following command line options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code><em>``config_file``</em> - interface configuration file; if not
+supplied, a basic configuration is auto-generated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span></code><em>``debug_file``</em> - debug configuration file; default is
+Debug.cfg in the current directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-l</span></code><em>``library_name_or_file``</em> - library to preload; this option
+can appear multiple times</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-L</span></code><em>``library_directory``</em> - directory to search for libraries;
+this option can appear multiple times</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code><em>``plan_file``</em> - the plan file to run</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code> - connect to a <em>PLEXIL</em> Viewer; suboptions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span></code> - allow Viewer to block execution (e.g. for breakpoints);
+default is non-blocking</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-h</span></code><em>``hostname_or_ip_addr``</em> - the host running the Viewer;
+default is localhost</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code><em>``port_number``</em> - the TCP port number of the Viewer;
+default is 49100</p></li>
+</ul>
+</li>
+</ul>
+<p>Using the examples above, typical invocations might look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">universalExec</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">c</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">universalExec</span> <span class="o">-</span><span class="n">p</span> <span class="n">foo</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">c</span> <span class="n">my</span><span class="o">-</span><span class="n">config</span><span class="o">.</span><span class="n">xml</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib1</span><span class="o">.</span><span class="n">plx</span> <span class="o">-</span><span class="n">l</span> <span class="n">lib2</span><span class="o">.</span><span class="n">plx</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="output-and-the-debug-configuration-file">
+<span id="id5"></span><h2><a class="toc-backref" href="#id12" role="doc-backlink">Output and the Debug Configuration File</a><a class="headerlink" href="#output-and-the-debug-configuration-file" title="Permalink to this heading">¶</a></h2>
+<p>The <em>PLEXIL</em> Executive can generate optional text output. This output can
+be used to debug a plan or simply study its behavior. To have such
+output printed as the executive runs, a <em>debug configuration</em> file (or
+<em>debug file</em> for short) is needed. This file must exist in the directory
+from which the executive is started (which is not necessarily the same
+directory as that of the plan). By default, a file named <code class="docutils literal notranslate"><span class="pre">Debug.cfg</span></code>,
+if it exists, is used. A debug file with another name can be specified
+using the <code class="docutils literal notranslate"><span class="pre">-debug</span></code> or <code class="docutils literal notranslate"><span class="pre">-d</span></code> command line option to <code class="docutils literal notranslate"><span class="pre">plexilexec</span></code>
+(described in previous section), or the similar commands <code class="docutils literal notranslate"><span class="pre">plexiltest</span></code>
+and <code class="docutils literal notranslate"><span class="pre">plexilsim</span></code> described in the <span class="xref std std-ref">simulator chapter</span>.</p>
+<p>The debug file is a text file. Lines should start with either a comment
+character (‘#’) or a colon, after which should be the <em>tag</em>. A tag is an
+ad-hoc string, consisting of words separated by colons, with no spaces.
+Debugging messages encoded in the executive that match any of the tags
+in the file will be printed to the standard output (i.e. the terminal in
+which the executive runs) as the plan is executed.</p>
+<p>The following are some useful entries to place in this file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">Node</span><span class="p">:</span><span class="n">outcome</span>
+</pre></div>
+</div>
+<p>This prints the final outcome of every node.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">Node</span><span class="p">:</span><span class="n">clock</span>
+</pre></div>
+</div>
+<p>This prints the start and end times (along with outcome) of every node.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">Node</span><span class="p">:</span><span class="n">transition</span>
+</pre></div>
+</div>
+<p>This prints the state transitions of every node. It can be quite
+verbose.</p>
+<p>Unfortunately, the debug file possibilities are not well documented. An
+incomplete, though fairly current, listing of possible debug tags is
+found in the file <code class="docutils literal notranslate"><span class="pre">plexil/doc/CompleteDebugFlags.cfg</span></code>. A somewhat less
+complete listing of debug tag explanations is found in
+<code class="docutils literal notranslate"><span class="pre">plexil/doc/DebugFlagDefinitions.txt</span></code>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

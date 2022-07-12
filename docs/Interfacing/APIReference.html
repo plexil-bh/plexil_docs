@@ -1,0 +1,1340 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>API Reference &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PLEXIL-4 Release Notes" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html" />
+    <link rel="prev" title="Implementing Custom Applications" href="ImplementingCustomApplications.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../ReleaseNotes/PLEXIL4ReleaseNotes.html" title="PLEXIL-4 Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ImplementingCustomApplications.html" title="Implementing Custom Applications"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API Reference</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="api-reference">
+<span id="apireference"></span><h1><a class="toc-backref" href="#id27" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h1>
+<p><em>28 April 2015</em></p>
+<p>This chapter summarizes the C++ variables, functions, and classes that a
+developer might need to implement custom interfaces or applications for
+a <em>PLEXIL</em> executive.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#api-reference" id="id27">API Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id28">Overview</a></p></li>
+<li><p><a class="reference internal" href="#application-framework" id="id29">Application Framework</a></p>
+<ul>
+<li><p><a class="reference internal" href="#global-variables" id="id30">Global Variables</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id31">Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#plan-parsing" id="id32">Plan parsing</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#classes" id="id33">Classes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#execconnector" id="id34">ExecConnector</a></p></li>
+<li><p><a class="reference internal" href="#plexilexec" id="id35">PlexilExec</a></p></li>
+<li><p><a class="reference internal" href="#execapplication" id="id36">ExecApplication</a></p></li>
+<li><p><a class="reference internal" href="#adapterconfiguration" id="id37">AdapterConfiguration</a></p></li>
+<li><p><a class="reference internal" href="#externalinterface" id="id38">ExternalInterface</a></p></li>
+<li><p><a class="reference internal" href="#adapterexecinterface" id="id39">AdapterExecInterface</a></p></li>
+<li><p><a class="reference internal" href="#interfacemanager" id="id40">InterfaceManager</a></p></li>
+<li><p><a class="reference internal" href="#interfaceadapter" id="id41">InterfaceAdapter</a></p></li>
+<li><p><a class="reference internal" href="#execlistenerbase" id="id42">ExecListenerBase</a></p></li>
+<li><p><a class="reference internal" href="#plexillistener" id="id43">PlexilListener</a></p></li>
+<li><p><a class="reference internal" href="#execlistener" id="id44">ExecListener</a></p></li>
+<li><p><a class="reference internal" href="#execlistenerfilter" id="id45">ExecListenerFilter</a></p></li>
+<li><p><a class="reference internal" href="#parserexception" id="id46">ParserException</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#internal-representations" id="id47">Internal representations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basic-data-types" id="id48">Basic Data Types</a></p>
+<ul>
+<li><p><a class="reference internal" href="#valuetype" id="id49">ValueType</a></p></li>
+<li><p><a class="reference internal" href="#boolean" id="id50">Boolean</a></p></li>
+<li><p><a class="reference internal" href="#integer" id="id51">Integer</a></p></li>
+<li><p><a class="reference internal" href="#real" id="id52">Real</a></p></li>
+<li><p><a class="reference internal" href="#string" id="id53">String</a></p></li>
+<li><p><a class="reference internal" href="#internal-node-values" id="id54">Internal Node Values</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#classes-1" id="id55">Classes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#array" id="id56">Array</a></p></li>
+<li><p><a class="reference internal" href="#value" id="id57">Value</a></p></li>
+<li><p><a class="reference internal" href="#statecacheentry" id="id58">StateCacheEntry</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-utilities" id="id59">Other utilities</a></p>
+<ul>
+<li><p><a class="reference internal" href="#debug-logging" id="id60">Debug logging</a></p>
+<ul>
+<li><p><a class="reference internal" href="#debug-macros" id="id61">Debug macros</a></p></li>
+<li><p><a class="reference internal" href="#debug-logging-initialization" id="id62">Debug logging initialization</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#macros" id="id63">Macros</a></p></li>
+<li><p><a class="reference internal" href="#functions-1" id="id64">Functions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#finalization-utility" id="id65">Finalization utility</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#classes-2" id="id66">Classes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#third-party-code" id="id67">Third-party code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pugixml" id="id68">pugixml</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id28" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>This is a quick reference for the API of the <em>PLEXIL</em> Application
+Framework. It is intended as a narrative overview. Where it differs from
+the source code, the source code should always be considered current and
+authoritative.</p>
+<p>All symbols are in the <code class="docutils literal notranslate"><span class="pre">PLEXIL</span></code> namespace unless otherwise specified.</p>
+</section>
+<section id="application-framework">
+<span id="id1"></span><h2><a class="toc-backref" href="#id29" role="doc-backlink">Application Framework</a><a class="headerlink" href="#application-framework" title="Permalink to this heading">¶</a></h2>
+<p>The <em>PLEXIL</em> application framework is intended to facilitate
+implementation of custom interfaces and applications for the <em>PLEXIL</em>
+executive.</p>
+<section id="global-variables">
+<span id="id2"></span><h3><a class="toc-backref" href="#id30" role="doc-backlink">Global Variables</a><a class="headerlink" href="#global-variables" title="Permalink to this heading">¶</a></h3>
+<p>These global variables replace the Singleton accessors used in previous
+releases.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ExecConnector</span> <span class="pre">*g_exec</span></code> - Pointer to the
+<a class="reference internal" href="TheApplicationFramework.html#plexilexec"><span class="std std-ref">PlexilExec</span></a> instance, cast to a pointer to its
+abstract base class <a class="reference internal" href="#execconnector"><span class="std std-ref">ExecConnector</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AdapterConfiguration</span> <span class="pre">*g_configuration</span></code> - Pointer to the
+<a class="reference internal" href="#adapterconfiguration"><span class="std std-ref">AdapterConfiguration</span></a> instance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InterfaceManager</span> <span class="pre">*g_manager</span></code> - Pointer to the
+<a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a> instance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ExternalInterface</span> <span class="pre">*g_interface</span></code> - Pointer to the
+<a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a> instance, cast to a pointer
+to its base class <code class="docutils literal notranslate"><span class="pre">ExternalInterface</span></code>.</p></li>
+</ul>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">g_manager</span></code> and <code class="docutils literal notranslate"><span class="pre">g_interface</span></code> should point to the same
+<code class="docutils literal notranslate"><span class="pre">InterfaceManager</span></code> instance at all times.</p>
+</section>
+<section id="functions">
+<h3><a class="toc-backref" href="#id31" role="doc-backlink">Functions</a><a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h3>
+<section id="plan-parsing">
+<span id="id3"></span><h4><a class="toc-backref" href="#id32" role="doc-backlink">Plan parsing</a><a class="headerlink" href="#plan-parsing" title="Permalink to this heading">¶</a></h4>
+<p><em>PLEXIL</em> plans are loaded in two stages. First, the XML text is read and
+parsed into the <a class="reference internal" href="#pugixml"><span class="std std-ref">pugixml</span></a> representation. Then the pugixml
+representation is used as a blueprint for constructing the plan.</p>
+<p>The two stages are separate because the library node facility uses the
+XML DOM to represent uninstantiated library node templates.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">pugi</span><span class="p">::</span><span class="n">xml_document</span> <span class="o">*</span><span class="n">loadXmlFile</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">filename</span><span class="p">)</span>
+  <span class="n">throw</span> <span class="p">(</span><span class="n">ParserException</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Parses the named XML file. Returns a <code class="docutils literal notranslate"><span class="pre">pugi::xml_document</span></code> pointer. The
+caller is responsible for disposing of the return value when finished. A
+<code class="docutils literal notranslate"><span class="pre">ParserException</span></code> is thrown if the input is not valid XML.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">Node</span> <span class="o">*</span><span class="n">parsePlan</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">xml</span><span class="p">)</span>
+  <span class="n">throw</span> <span class="p">(</span><span class="n">ParserException</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Uses <code class="docutils literal notranslate"><span class="pre">xml</span></code> to construct a tree of <em>PLEXIL</em> Node instances, and returns a
+pointer to the node at the root of the tree. The caller is responsible
+for disposing of the return value when finished. A <code class="docutils literal notranslate"><span class="pre">ParserException</span></code>
+is thrown if the input cannot be parsed into a <em>PLEXIL</em> plan.</p>
+</section>
+</section>
+<section id="classes">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">Classes</a><a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h3>
+<section id="execconnector">
+<span id="id4"></span><h4><a class="toc-backref" href="#id34" role="doc-backlink">ExecConnector</a><a class="headerlink" href="#execconnector" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class defining the API of the <em>PLEXIL</em> executive engine.
+The existence of this class facilitates unit testing.</p>
+<p>Relevant virtual member functions are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">plan</span> <span class="n">under</span> <span class="n">the</span> <span class="n">node</span> <span class="n">named</span> <span class="n">by</span> <span class="n">the</span> <span class="n">parent</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">root</span> <span class="n">The</span> <span class="n">internal</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">succesful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">addPlan</span><span class="p">(</span><span class="n">Node</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Begins</span> <span class="n">a</span> <span class="n">single</span> <span class="s2">&quot;macro step&quot;</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">the</span> <span class="n">entire</span> <span class="n">quiescence</span> <span class="n">cycle</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">step</span><span class="p">(</span><span class="n">double</span> <span class="n">startTime</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">the</span> <span class="n">Exec</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">stepped</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">needsStep</span><span class="p">()</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setExecListener</span><span class="p">(</span><span class="n">ExecListenerBase</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">deleteFinishedPlans</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">allPlansFinished</span><span class="p">()</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="plexilexec">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">PlexilExec</a><a class="headerlink" href="#plexilexec" title="Permalink to this heading">¶</a></h4>
+<p>The concrete realization of the <a class="reference internal" href="#execconnector"><span class="std std-ref">ExecConnector</span></a> API
+as a plan execution engine.</p>
+<p>The default constructor and the destructor are the only relevant
+additions to the ExecConnector members above.</p>
+</section>
+<section id="execapplication">
+<h4><a class="toc-backref" href="#id36" role="doc-backlink">ExecApplication</a><a class="headerlink" href="#execapplication" title="Permalink to this heading">¶</a></h4>
+<p>A concrete class which ties together the executive and its interfaces
+into a runnable application, manages the life cycle of interfaces, and
+optionally provides support for threading.</p>
+<p>The constructor and destructor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExecApplication</span><span class="p">();</span>
+<span class="n">virtual</span> <span class="o">~</span><span class="n">ExecApplication</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>These are the application life cycle members:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Initialize</span> <span class="nb">all</span> <span class="n">internal</span> <span class="n">data</span> <span class="n">structures</span> <span class="ow">and</span> <span class="n">interfaces</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">configXml</span> <span class="n">Configuration</span> <span class="n">data</span> <span class="n">to</span> <span class="n">use</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">The</span> <span class="n">caller</span> <span class="n">must</span> <span class="n">ensure</span> <span class="n">that</span> <span class="nb">all</span> <span class="n">adapter</span> <span class="ow">and</span> <span class="n">listener</span> <span class="n">factories</span>
+  <span class="o">*</span>       <span class="n">have</span> <span class="n">been</span> <span class="n">created</span> <span class="ow">and</span> <span class="n">registered</span> <span class="n">before</span> <span class="n">this</span> <span class="n">call</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">initialize</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">configXml</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Start</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">interfaces</span> <span class="n">prior</span> <span class="n">to</span> <span class="n">execution</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">startInterfaces</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Runs</span> <span class="n">the</span> <span class="n">initialized</span> <span class="n">Exec</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">run</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Suspends</span> <span class="n">the</span> <span class="n">running</span> <span class="n">Exec</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">Can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">suspended</span> <span class="kn">from</span> <span class="nn">APP_RUNNING</span> <span class="n">state</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">suspend</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Resumes</span> <span class="n">a</span> <span class="n">suspended</span> <span class="n">Exec</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">Can</span> <span class="n">only</span> <span class="n">resume</span> <span class="kn">from</span> <span class="nn">suspended</span> <span class="n">state</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span>
+  <span class="o">*</span>   <span class="n">application</span> <span class="n">state</span> <span class="ow">is</span> <span class="n">APP_READY</span> <span class="ow">and</span> <span class="n">isSuspended</span><span class="p">()</span> <span class="ow">is</span> <span class="n">true</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">resume</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Stops</span> <span class="n">the</span> <span class="n">Exec</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">stop</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Resets</span> <span class="n">a</span> <span class="n">stopped</span> <span class="n">Exec</span> <span class="n">so</span> <span class="n">that</span> <span class="n">it</span> <span class="n">can</span> <span class="n">be</span> <span class="n">run</span> <span class="n">again</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">reset</span><span class="p">();</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Shuts</span> <span class="n">down</span> <span class="n">a</span> <span class="n">stopped</span> <span class="n">Exec</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">shutdown</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Plan and library loading:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">a</span> <span class="n">plan</span> <span class="k">as</span> <span class="n">an</span> <span class="n">XML</span> <span class="n">document</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">addPlan</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_document</span><span class="o">*</span> <span class="n">planXml</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">name</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">library</span> <span class="n">node</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdir</span> <span class="n">The</span> <span class="n">directory</span> <span class="n">name</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addLibraryPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">libdir</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">names</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">library</span> <span class="n">node</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdirs</span> <span class="n">The</span> <span class="n">vector</span> <span class="n">of</span> <span class="n">directory</span> <span class="n">names</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addLibraryPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">libdirs</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">a</span> <span class="n">library</span> <span class="k">as</span> <span class="n">an</span> <span class="n">XML</span> <span class="n">document</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">addLibrary</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_document</span><span class="o">*</span> <span class="n">libXml</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Load</span> <span class="n">the</span> <span class="n">named</span> <span class="n">library</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">library</span> <span class="n">path</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">name</span> <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">library</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">loadLibrary</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">name</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Plan execution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Step</span> <span class="n">the</span> <span class="n">Exec</span> <span class="n">until</span> <span class="n">the</span> <span class="n">queue</span> <span class="ow">is</span> <span class="n">empty</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">called</span> <span class="ow">in</span> <span class="n">APP_READY</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Can</span> <span class="n">be</span> <span class="n">called</span> <span class="n">when</span> <span class="n">application</span> <span class="ow">is</span> <span class="n">suspended</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Acquires</span> <span class="n">m_execMutex</span> <span class="ow">and</span> <span class="n">holds</span> <span class="n">until</span> <span class="n">done</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">stepUntilQuiescent</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="adapterconfiguration">
+<span id="id5"></span><h4><a class="toc-backref" href="#id37" role="doc-backlink">AdapterConfiguration</a><a class="headerlink" href="#adapterconfiguration" title="Permalink to this heading">¶</a></h4>
+<p>A class which provides registration and lookup services for external
+interfacing objects.</p>
+<p>The application life cycle API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Performs</span> <span class="n">basic</span> <span class="n">initialization</span> <span class="n">of</span> <span class="n">the</span> <span class="n">interface</span> <span class="ow">and</span> <span class="nb">all</span> <span class="n">adapters</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">initialize</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Prepares</span> <span class="n">the</span> <span class="n">interface</span> <span class="ow">and</span> <span class="n">adapters</span> <span class="k">for</span> <span class="n">execution</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">start</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Halts</span> <span class="nb">all</span> <span class="n">interfaces</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">stop</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Resets</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">prior</span> <span class="n">to</span> <span class="n">restarting</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">reset</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Shuts</span> <span class="n">down</span> <span class="n">the</span> <span class="n">interface</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">shutdown</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Member functions which may be useful to application developers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">an</span> <span class="n">externally</span> <span class="n">constructed</span> <span class="n">interface</span> <span class="n">adapter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">adapter</span> <span class="n">The</span> <span class="n">adapter</span> <span class="n">ID</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addInterfaceAdapter</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">adapter</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">an</span> <span class="n">externally</span> <span class="n">constructed</span> <span class="n">ExecListener</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">listener</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">listener</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addExecListener</span><span class="p">(</span><span class="n">PlexilListener</span> <span class="o">*</span><span class="n">listener</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Member functions which are useful to application and interface
+developers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">adapter</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">be</span> <span class="n">registered</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">defaultRegisterAdapter</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">adapter</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">for</span> <span class="n">this</span> <span class="n">command</span><span class="o">.</span>
+ <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="o">.</span>  <span class="n">Fails</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">false</span>
+ <span class="n">iff</span> <span class="n">the</span> <span class="n">command</span> <span class="n">name</span> <span class="n">already</span> <span class="n">has</span> <span class="n">an</span> <span class="n">adapter</span> <span class="n">registered</span>
+          <span class="ow">or</span> <span class="n">setting</span> <span class="n">a</span> <span class="n">command</span> <span class="n">interface</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">implemented</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">commandName</span> <span class="n">The</span> <span class="n">command</span> <span class="n">to</span> <span class="nb">map</span> <span class="n">to</span> <span class="n">this</span> <span class="n">adapter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">this</span> <span class="n">command</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">registerCommandInterface</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">commandName</span><span class="p">,</span>
+                              <span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">for</span> <span class="n">lookups</span> <span class="n">to</span> <span class="n">this</span> <span class="n">state</span><span class="o">.</span>
+ <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="o">.</span>  <span class="n">Fails</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">false</span>
+ <span class="k">if</span> <span class="n">the</span> <span class="n">state</span> <span class="n">name</span> <span class="n">already</span> <span class="n">has</span> <span class="n">an</span> <span class="n">adapter</span> <span class="n">registered</span>
+          <span class="ow">or</span> <span class="n">registering</span> <span class="n">a</span> <span class="n">lookup</span> <span class="n">interface</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">implemented</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">stateName</span> <span class="n">The</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">state</span> <span class="n">to</span> <span class="nb">map</span> <span class="n">to</span> <span class="n">this</span> <span class="n">adapter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">this</span> <span class="n">lookup</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">registerLookupInterface</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">stateName</span><span class="p">,</span>
+                             <span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">for</span> <span class="n">planner</span> <span class="n">updates</span><span class="o">.</span>
+          <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="o">.</span>  <span class="n">Fails</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">false</span>
+          <span class="n">iff</span> <span class="n">an</span> <span class="n">adapter</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">registered</span>
+          <span class="ow">or</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">default</span> <span class="n">planner</span> <span class="n">update</span> <span class="n">interface</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">implemented</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">planner</span> <span class="n">updates</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">registerPlannerUpdateInterface</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">lookups</span> <span class="ow">and</span> <span class="n">commands</span>
+ <span class="n">which</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">have</span> <span class="n">a</span> <span class="n">specific</span> <span class="n">adapter</span><span class="o">.</span>  <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="o">.</span>
+ <span class="n">Fails</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">false</span> <span class="k">if</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">a</span> <span class="n">default</span> <span class="n">adapter</span> <span class="n">registered</span>
+          <span class="ow">or</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">default</span> <span class="n">interface</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">implemented</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">use</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">setDefaultInterface</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span> <span class="k">for</span> <span class="n">lookups</span><span class="o">.</span>
+         <span class="n">This</span> <span class="n">interface</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">lookups</span> <span class="n">which</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">have</span>
+      <span class="n">a</span> <span class="n">specific</span> <span class="n">adapter</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">use</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="k">if</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">a</span> <span class="n">default</span> <span class="n">adapter</span> <span class="n">registered</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">setDefaultLookupInterface</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">the</span> <span class="n">given</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span> <span class="k">for</span> <span class="n">commands</span><span class="o">.</span>
+          <span class="n">This</span> <span class="n">interface</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">commands</span> <span class="n">which</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">have</span>
+      <span class="n">a</span> <span class="n">specific</span> <span class="n">adapter</span><span class="o">.</span>
+      <span class="n">Fails</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">false</span> <span class="k">if</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">a</span> <span class="n">default</span> <span class="n">command</span> <span class="n">adapter</span> <span class="n">registered</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">intf</span> <span class="n">The</span> <span class="n">interface</span> <span class="n">adapter</span> <span class="n">to</span> <span class="n">use</span> <span class="k">as</span> <span class="n">the</span> <span class="n">default</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="k">if</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">already</span> <span class="n">a</span> <span class="n">default</span> <span class="n">adapter</span> <span class="n">registered</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="nb">bool</span> <span class="n">setDefaultCommandInterface</span><span class="p">(</span><span class="n">InterfaceAdapter</span> <span class="o">*</span><span class="n">intf</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Plan and library loading path access:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Get</span> <span class="n">the</span> <span class="n">search</span> <span class="n">path</span> <span class="k">for</span> <span class="n">library</span> <span class="n">nodes</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">A</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">library</span> <span class="n">search</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">getLibraryPath</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Get</span> <span class="n">the</span> <span class="n">search</span> <span class="n">path</span> <span class="k">for</span> <span class="n">plan</span> <span class="n">files</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">A</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">plan</span> <span class="n">search</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">getPlanPath</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">name</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">library</span> <span class="n">node</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdir</span> <span class="n">The</span> <span class="n">directory</span> <span class="n">name</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addLibraryPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">libdir</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">names</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">library</span> <span class="n">node</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdirs</span> <span class="n">The</span> <span class="n">vector</span> <span class="n">of</span> <span class="n">directory</span> <span class="n">names</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addLibraryPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">libdirs</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">name</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plan</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdir</span> <span class="n">The</span> <span class="n">directory</span> <span class="n">name</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addPlanPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">libdir</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Add</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">directory</span> <span class="n">names</span> <span class="n">to</span> <span class="n">the</span> <span class="n">end</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plan</span> <span class="n">loading</span> <span class="n">path</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">libdirs</span> <span class="n">The</span> <span class="n">vector</span> <span class="n">of</span> <span class="n">directory</span> <span class="n">names</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">addPlanPath</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">libdirs</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="externalinterface">
+<span id="id6"></span><h4><a class="toc-backref" href="#id38" role="doc-backlink">ExternalInterface</a><a class="headerlink" href="#externalinterface" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class defining the API used by the <em>PLEXIL</em> executive
+engine to talk to the outside world.</p>
+<p>Application developers should have no need to interact directly with
+this class; use the member functions on
+<a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a> or
+<a class="reference internal" href="#adapterexecinterface"><span class="std std-ref">AdapterExecInterface</span></a> instead.</p>
+</section>
+<section id="adapterexecinterface">
+<span id="id7"></span><h4><a class="toc-backref" href="#id39" role="doc-backlink">AdapterExecInterface</a><a class="headerlink" href="#adapterexecinterface" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class defining the API used by interface adapters to
+talk to the <a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a>. Its existence as a
+separate class is intended to hide knowledge of the interface manager
+internals from adapters.</p>
+<p>Member functions relevant to interface adapters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">of</span> <span class="n">the</span> <span class="n">availability</span> <span class="n">of</span> <span class="n">a</span> <span class="n">new</span> <span class="n">value</span> <span class="k">for</span> <span class="n">a</span> <span class="n">lookup</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">state</span> <span class="n">The</span> <span class="n">state</span> <span class="k">for</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">value</span> <span class="n">The</span> <span class="n">new</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleValueChange</span><span class="p">(</span><span class="n">State</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">state</span><span class="p">,</span> <span class="n">const</span> <span class="n">Value</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">of</span> <span class="n">the</span> <span class="n">availability</span> <span class="n">of</span> <span class="n">a</span> <span class="n">command</span> <span class="n">handle</span> <span class="n">value</span> <span class="k">for</span> <span class="n">a</span> <span class="n">command</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">cmd</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Command</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">value</span> <span class="n">The</span> <span class="n">new</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleCommandAck</span><span class="p">(</span><span class="n">Command</span> <span class="o">*</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">CommandHandleValue</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">of</span> <span class="n">the</span> <span class="n">availability</span> <span class="n">of</span> <span class="n">a</span> <span class="k">return</span> <span class="n">value</span> <span class="k">for</span> <span class="n">a</span> <span class="n">command</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">cmd</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Command</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">value</span> <span class="n">The</span> <span class="n">new</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleCommandReturn</span><span class="p">(</span><span class="n">Command</span> <span class="o">*</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">of</span> <span class="n">the</span> <span class="n">availability</span> <span class="n">of</span> <span class="n">a</span> <span class="n">command</span> <span class="n">abort</span> <span class="n">acknowledgment</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">cmd</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Command</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">ack</span> <span class="n">The</span> <span class="n">acknowledgment</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleCommandAbortAck</span><span class="p">(</span><span class="n">Command</span> <span class="o">*</span> <span class="n">cmd</span><span class="p">,</span> <span class="nb">bool</span> <span class="n">ack</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">of</span> <span class="n">the</span> <span class="n">availability</span> <span class="n">of</span> <span class="n">a</span> <span class="n">planner</span> <span class="n">update</span> <span class="n">acknowledgment</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">upd</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Update</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">ack</span> <span class="n">The</span> <span class="n">acknowledgment</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleUpdateAck</span><span class="p">(</span><span class="n">Update</span> <span class="o">*</span> <span class="n">upd</span><span class="p">,</span> <span class="nb">bool</span> <span class="n">ack</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">the</span> <span class="n">executive</span> <span class="n">of</span> <span class="n">a</span> <span class="n">new</span> <span class="n">plan</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">planXml</span> <span class="n">The</span> <span class="n">pugixml</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">plan</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleAddPlan</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">planXml</span><span class="p">)</span>
+  <span class="n">throw</span> <span class="p">(</span><span class="n">ParserException</span><span class="p">)</span>
+  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">the</span> <span class="n">executive</span> <span class="n">of</span> <span class="n">a</span> <span class="n">new</span> <span class="n">library</span> <span class="n">node</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">planXml</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">XML</span> <span class="n">document</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">new</span> <span class="n">library</span> <span class="n">node</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Deletion</span> <span class="n">of</span> <span class="n">the</span> <span class="n">XML</span> <span class="n">document</span> <span class="n">will</span> <span class="n">be</span> <span class="n">handled</span> <span class="n">by</span> <span class="n">the</span> <span class="n">interface</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">handleAddLibrary</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_document</span> <span class="o">*</span><span class="n">planXml</span><span class="p">)</span>
+  <span class="n">throw</span> <span class="p">(</span><span class="n">ParserException</span><span class="p">)</span>
+  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">the</span> <span class="n">executive</span> <span class="n">that</span> <span class="n">it</span> <span class="n">should</span> <span class="n">run</span> <span class="n">one</span> <span class="n">cycle</span><span class="o">.</span>  <span class="n">This</span> <span class="n">should</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">after</span>
+ <span class="n">each</span> <span class="n">batch</span> <span class="n">of</span> <span class="n">lookup</span> <span class="ow">and</span> <span class="n">command</span> <span class="k">return</span> <span class="n">data</span><span class="o">.</span>
+<span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">notifyOfExternalEvent</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Run</span> <span class="n">the</span> <span class="n">exec</span> <span class="ow">and</span> <span class="n">wait</span> <span class="n">until</span> <span class="nb">all</span> <span class="n">events</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">queue</span> <span class="n">have</span> <span class="n">been</span> <span class="n">processed</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Only</span> <span class="n">implemented</span> <span class="n">when</span> <span class="n">thread</span> <span class="n">support</span> <span class="ow">is</span> <span class="n">enabled</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="n">the</span> <span class="n">preprocessor</span> <span class="n">macro</span> <span class="n">PLEXIL_WITH_THREADS</span> <span class="ow">is</span> <span class="n">defined</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">notifyAndWaitForCompletion</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="interfacemanager">
+<h4><a class="toc-backref" href="#id40" role="doc-backlink">InterfaceManager</a><a class="headerlink" href="#interfacemanager" title="Permalink to this heading">¶</a></h4>
+<p>The concrete realization of the
+<a class="reference internal" href="#externalinterface"><span class="std std-ref">ExternalInterface</span></a> and
+<a class="reference internal" href="#adapterexecinterface"><span class="std std-ref">AdapterExecInterface</span></a> APIs.</p>
+</section>
+<section id="interfaceadapter">
+<span id="id8"></span><h4><a class="toc-backref" href="#id41" role="doc-backlink">InterfaceAdapter</a><a class="headerlink" href="#interfaceadapter" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class defining the API of external interfaces as seen
+by the <a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a>.</p>
+<p>The constructors require a reference to the
+<a class="reference internal" href="#adapterexecinterface"><span class="std std-ref">AdapterExecInterface</span></a> instance, which is
+always an <code class="docutils literal notranslate"><span class="pre">InterfaceManager</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Constructor</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">execInterface</span> <span class="n">Reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">parent</span> <span class="n">AdapterExecInterface</span> <span class="nb">object</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">InterfaceAdapter</span><span class="p">(</span><span class="n">AdapterExecInterface</span><span class="o">&amp;</span> <span class="n">execInterface</span><span class="p">);</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Constructor</span> <span class="kn">from</span> <span class="nn">configuration</span> <span class="n">XML</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">execInterface</span> <span class="n">Reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">parent</span> <span class="n">AdapterExecInterface</span> <span class="nb">object</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@param</span> <span class="n">xml</span> <span class="n">The</span> <span class="n">XML</span> <span class="n">element</span> <span class="n">describing</span> <span class="n">this</span> <span class="n">adapter</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">The</span> <span class="n">instance</span> <span class="n">maintains</span> <span class="n">a</span> <span class="n">shared</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">the</span> <span class="n">XML</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">InterfaceAdapter</span><span class="p">(</span><span class="n">AdapterExecInterface</span><span class="o">&amp;</span> <span class="n">execInterface</span><span class="p">,</span>
+                  <span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">xml</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The base class provides these accessors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Get</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">XML</span> <span class="k">for</span> <span class="n">this</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">getXml</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Get</span> <span class="n">the</span> <span class="n">AdapterExecInterface</span> <span class="k">for</span> <span class="n">this</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">AdapterExecInterface</span><span class="o">&amp;</span> <span class="n">getExecInterface</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The base class also implements this method for registering the adapter
+with the AdapterConfiguration. Derived classes may override it if
+desired:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Register</span> <span class="n">this</span> <span class="n">adapter</span> <span class="n">based</span> <span class="n">on</span> <span class="n">its</span> <span class="n">XML</span> <span class="n">configuration</span> <span class="n">data</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">The</span> <span class="n">adapter</span> <span class="ow">is</span> <span class="n">presumed</span> <span class="n">to</span> <span class="n">be</span> <span class="n">fully</span> <span class="n">initialized</span> <span class="ow">and</span> <span class="n">working</span> <span class="n">at</span> <span class="n">the</span> <span class="n">time</span> <span class="n">of</span> <span class="n">this</span> <span class="n">call</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">default</span> <span class="n">method</span><span class="p">;</span> <span class="n">adapters</span> <span class="n">are</span> <span class="n">free</span> <span class="n">to</span> <span class="n">override</span> <span class="n">it</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">registerAdapter</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><strong>Below this line are the methods which must be implemented for any
+class derived from ``InterfaceAdapter``.</strong></p>
+<p>The lifecycle API must be implemented in any derived class. The methods
+can be stubs, but they must return <code class="docutils literal notranslate"><span class="pre">true</span></code> as a minimum.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Initializes</span> <span class="n">the</span> <span class="n">adapter</span><span class="p">,</span> <span class="n">possibly</span> <span class="n">using</span> <span class="n">its</span> <span class="n">configuration</span> <span class="n">data</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">initialize</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Starts</span> <span class="n">the</span> <span class="n">adapter</span><span class="p">,</span> <span class="n">possibly</span> <span class="n">using</span> <span class="n">its</span> <span class="n">configuration</span> <span class="n">data</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">start</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Stops</span> <span class="n">the</span> <span class="n">adapter</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">stop</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Resets</span> <span class="n">the</span> <span class="n">adapter</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">reset</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="o">/**</span>
+  <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Shuts</span> <span class="n">down</span> <span class="n">the</span> <span class="n">adapter</span><span class="p">,</span> <span class="n">releasing</span> <span class="nb">any</span> <span class="n">of</span> <span class="n">its</span> <span class="n">resources</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+  <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span><span class="o">.</span>
+  <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">shutdown</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The lookup API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">an</span> <span class="n">immediate</span> <span class="n">lookup</span> <span class="n">on</span> <span class="n">an</span> <span class="n">existing</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">state</span> <span class="n">The</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">The</span> <span class="n">current</span> <span class="n">value</span> <span class="k">for</span> <span class="n">the</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span><span class="o">.</span> <span class="n">The</span> <span class="n">default</span> <span class="n">method</span> <span class="n">warns</span> <span class="ow">and</span> <span class="n">sets</span> <span class="n">the</span> <span class="n">cache</span> <span class="n">entry</span> <span class="n">to</span> <span class="n">unknown</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">lookupNow</span><span class="p">(</span><span class="n">State</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">state</span><span class="p">,</span> <span class="n">StateCacheEntry</span> <span class="o">&amp;</span><span class="n">cacheEntry</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Inform</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">that</span> <span class="n">it</span> <span class="n">should</span> <span class="n">report</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">value</span> <span class="n">of</span> <span class="n">this</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">state</span> <span class="n">The</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span><span class="o">.</span>  <span class="n">The</span> <span class="n">default</span> <span class="n">method</span> <span class="n">raises</span> <span class="n">an</span> <span class="n">assertion</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">const</span> <span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Inform</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">that</span> <span class="n">a</span> <span class="n">lookup</span> <span class="n">should</span> <span class="n">no</span> <span class="n">longer</span> <span class="n">receive</span> <span class="n">updates</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span><span class="o">.</span>  <span class="n">The</span> <span class="n">default</span> <span class="n">method</span> <span class="n">raises</span> <span class="n">an</span> <span class="n">assertion</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">unsubscribe</span><span class="p">(</span><span class="n">const</span> <span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Advise</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">of</span> <span class="n">the</span> <span class="n">current</span> <span class="n">thresholds</span> <span class="n">to</span> <span class="n">use</span> <span class="n">when</span> <span class="n">reporting</span> <span class="n">this</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">state</span> <span class="n">The</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">hi</span> <span class="n">The</span> <span class="n">upper</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">at</span> <span class="ow">or</span> <span class="n">above</span> <span class="n">which</span> <span class="n">to</span> <span class="n">report</span> <span class="n">changes</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">lo</span> <span class="n">The</span> <span class="n">lower</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">at</span> <span class="ow">or</span> <span class="n">below</span> <span class="n">which</span> <span class="n">to</span> <span class="n">report</span> <span class="n">changes</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Adapters</span> <span class="n">should</span> <span class="n">provide</span> <span class="n">their</span> <span class="n">own</span> <span class="n">methods</span> <span class="k">as</span> <span class="n">appropriate</span><span class="o">.</span>  <span class="n">The</span> <span class="n">default</span> <span class="n">methods</span> <span class="n">do</span> <span class="n">nothing</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setThresholds</span><span class="p">(</span><span class="n">const</span> <span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">,</span> <span class="n">double</span> <span class="n">hi</span><span class="p">,</span> <span class="n">double</span> <span class="n">lo</span><span class="p">);</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setThresholds</span><span class="p">(</span><span class="n">const</span> <span class="n">State</span><span class="o">&amp;</span> <span class="n">state</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">hi</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">lo</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The command API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Execute</span> <span class="n">a</span> <span class="n">command</span> <span class="k">with</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">arguments</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">cmd</span> <span class="n">The</span> <span class="n">Command</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">executeCommand</span><span class="p">(</span><span class="n">Command</span> <span class="o">*</span><span class="n">cmd</span><span class="p">);</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Abort</span> <span class="n">the</span> <span class="n">pending</span> <span class="n">command</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">cmd</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">command</span> <span class="n">being</span> <span class="n">aborted</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Derived</span> <span class="n">classes</span> <span class="n">may</span> <span class="n">implement</span> <span class="n">this</span> <span class="n">method</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">invokeAbort</span><span class="p">(</span><span class="n">Command</span> <span class="o">*</span><span class="n">cmd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The planner update API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Send</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">supplied</span> <span class="n">node</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">supplied</span> <span class="n">value</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">planner</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">update</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Update</span> <span class="nb">object</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Derived</span> <span class="n">classes</span> <span class="n">may</span> <span class="n">implement</span> <span class="n">this</span> <span class="n">method</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">sendPlannerUpdate</span><span class="p">(</span><span class="n">Update</span> <span class="o">*</span><span class="n">update</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="execlistenerbase">
+<span id="id9"></span><h4><a class="toc-backref" href="#id42" role="doc-backlink">ExecListenerBase</a><a class="headerlink" href="#execlistenerbase" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class defining the API used by the
+<a class="reference internal" href="TheApplicationFramework.html#plexilexec"><span class="std std-ref">PlexilExec</span></a> to notify the outside world of plan state
+changes.</p>
+</section>
+<section id="plexillistener">
+<span id="id10"></span><h4><a class="toc-backref" href="#id43" role="doc-backlink">PlexilListener</a><a class="headerlink" href="#plexillistener" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class derived from
+<a class="reference internal" href="#execlistenerbase"><span class="std std-ref">ExecListenerBase</span></a>, adding APIs used by the
+<a class="reference internal" href="TheApplicationFramework.html#interfacemanager"><span class="std std-ref">InterfaceManager</span></a> to notify the outside world
+when new plans or libraries are loaded.</p>
+</section>
+<section id="execlistener">
+<h4><a class="toc-backref" href="#id44" role="doc-backlink">ExecListener</a><a class="headerlink" href="#execlistener" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class derived from
+<a class="reference internal" href="#plexillistener"><span class="std std-ref">PlexilListener</span></a>, which <em>PLEXIL</em> application
+developers may extend to notify the outside world of events inside the
+executive. Optionally uses an instance of
+<a class="reference internal" href="#execlistenerfilter"><span class="std std-ref">ExecListenerFilter</span></a> to perform event filtering.</p>
+<p>The constructors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Default</span> <span class="n">constructor</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">ExecListener</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Constructor</span> <span class="kn">from</span> <span class="nn">configuration</span> <span class="n">XML</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">xml</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="p">(</span><span class="n">shared</span><span class="p">)</span> <span class="n">configuration</span> <span class="n">XML</span> <span class="n">describing</span> <span class="n">this</span> <span class="n">listener</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">ExecListener</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">xml</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">setFilter()</span></code> accessor may be used to install a custom
+<a class="reference internal" href="#execlistenerfilter"><span class="std std-ref">ExecListenerFilter</span></a> instance to select events
+for notification. Only applications which do not use the <a class="reference internal" href="InterfaceConfigurationFile.html#interfaceconfigurationfile"><span class="std std-ref">interface configuration file</span></a> approach need to
+call this accessor.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Set</span> <span class="n">the</span> <span class="nb">filter</span> <span class="n">of</span> <span class="n">this</span> <span class="n">instance</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">fltr</span> <span class="n">Pointer</span> <span class="n">to</span> <span class="n">the</span> <span class="nb">filter</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">setFilter</span><span class="p">(</span><span class="n">ExecListenerFilter</span> <span class="o">*</span><span class="n">fltr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">getXml()</span></code> accessor can be used to extract configuration
+information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="n">getXml</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>Below this line are the member functions which a derived class may
+override if desired. All have default methods.</strong></p>
+<p>The lifecycle member functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">listener</span><span class="o">-</span><span class="n">specific</span> <span class="n">initialization</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">initialize</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">listener</span><span class="o">-</span><span class="n">specific</span> <span class="n">startup</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">start</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">listener</span><span class="o">-</span><span class="n">specific</span> <span class="n">actions</span> <span class="n">to</span> <span class="n">stop</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">stop</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">listener</span><span class="o">-</span><span class="n">specific</span> <span class="n">actions</span> <span class="n">to</span> <span class="n">reset</span> <span class="n">to</span> <span class="n">initialized</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">reset</span><span class="p">();</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Perform</span> <span class="n">listener</span><span class="o">-</span><span class="n">specific</span> <span class="n">actions</span> <span class="n">to</span> <span class="n">shut</span> <span class="n">down</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@return</span> <span class="n">true</span> <span class="k">if</span> <span class="n">successful</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">shutdown</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The notification implementation member functions have <code class="docutils literal notranslate"><span class="pre">protected</span></code>
+access:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">that</span> <span class="n">nodes</span> <span class="n">have</span> <span class="n">changed</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">Vector</span> <span class="n">of</span> <span class="n">node</span> <span class="n">state</span> <span class="n">transition</span> <span class="n">info</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">Current</span> <span class="n">states</span> <span class="n">are</span> <span class="n">accessible</span> <span class="n">via</span> <span class="n">the</span> <span class="n">node</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">implementNotifyNodeTransitions</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NodeTransition</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">&amp;</span> <span class="o">/*</span> <span class="n">transitions</span> <span class="o">*/</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">that</span> <span class="n">a</span> <span class="n">node</span> <span class="n">has</span> <span class="n">changed</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">prevState</span> <span class="n">The</span> <span class="n">old</span> <span class="n">state</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">node</span> <span class="n">The</span> <span class="n">node</span> <span class="n">that</span> <span class="n">has</span> <span class="n">transitioned</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@note</span> <span class="n">The</span> <span class="n">current</span> <span class="n">state</span> <span class="ow">is</span> <span class="n">accessible</span> <span class="n">via</span> <span class="n">the</span> <span class="n">node</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">implementNotifyNodeTransition</span><span class="p">(</span><span class="n">NodeState</span> <span class="o">/*</span> <span class="n">prevState</span> <span class="o">*/</span><span class="p">,</span>
+                                           <span class="n">Node</span> <span class="o">*</span> <span class="o">/*</span> <span class="n">node</span> <span class="o">*/</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">that</span> <span class="n">a</span> <span class="n">plan</span> <span class="n">has</span> <span class="n">been</span> <span class="n">received</span> <span class="n">by</span> <span class="n">the</span> <span class="n">Exec</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">plan</span> <span class="n">The</span> <span class="n">intermediate</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">implementNotifyAddPlan</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="o">/*</span> <span class="n">plan</span> <span class="o">*/</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">that</span> <span class="n">a</span> <span class="n">library</span> <span class="n">node</span> <span class="n">has</span> <span class="n">been</span> <span class="n">received</span> <span class="n">by</span> <span class="n">the</span> <span class="n">Exec</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">libNode</span> <span class="n">The</span> <span class="n">intermediate</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plan</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">implementNotifyAddLibrary</span><span class="p">(</span><span class="n">pugi</span><span class="p">::</span><span class="n">xml_node</span> <span class="n">const</span> <span class="o">/*</span> <span class="n">libNode</span> <span class="o">*/</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Notify</span> <span class="n">that</span> <span class="n">a</span> <span class="n">variable</span> <span class="n">assignment</span> <span class="n">has</span> <span class="n">been</span> <span class="n">performed</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">dest</span> <span class="n">The</span> <span class="n">Expression</span> <span class="n">being</span> <span class="n">assigned</span> <span class="n">to</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">destName</span> <span class="n">A</span> <span class="n">string</span> <span class="n">naming</span> <span class="n">the</span> <span class="n">destination</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">value</span> <span class="n">The</span> <span class="n">value</span> <span class="n">being</span> <span class="n">assigned</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">implementNotifyAssignment</span><span class="p">(</span><span class="n">Expression</span> <span class="n">const</span> <span class="o">*</span> <span class="o">/*</span> <span class="n">dest</span> <span class="o">*/</span><span class="p">,</span>
+                                       <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span> <span class="o">/*</span> <span class="n">destName</span> <span class="o">*/</span><span class="p">,</span>
+                                       <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span> <span class="o">/*</span> <span class="n">value</span> <span class="o">*/</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="execlistenerfilter">
+<span id="id11"></span><h4><a class="toc-backref" href="#id45" role="doc-backlink">ExecListenerFilter</a><a class="headerlink" href="#execlistenerfilter" title="Permalink to this heading">¶</a></h4>
+<p>An abstract base class which <em>PLEXIL</em> application developers may extend to
+select the events reported by an instance of a class derived from
+<a class="reference internal" href="TheApplicationFramework.html#execlistener"><span class="std std-ref">ExecListener</span></a>.</p>
+</section>
+<section id="parserexception">
+<h4><a class="toc-backref" href="#id46" role="doc-backlink">ParserException</a><a class="headerlink" href="#parserexception" title="Permalink to this heading">¶</a></h4>
+<p>Used to report an error in plan or script parsing.</p>
+<p>Constructors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ParserException</span><span class="p">()</span> <span class="n">throw</span><span class="p">();</span>
+<span class="n">ParserException</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">)</span> <span class="n">throw</span> <span class="p">();</span>
+<span class="n">ParserException</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">,</span> <span class="nb">int</span> <span class="n">offset</span><span class="p">)</span> <span class="n">throw</span><span class="p">();</span>
+<span class="n">ParserException</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">msg</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">filename</span><span class="p">,</span> <span class="nb">int</span> <span class="n">line</span><span class="p">,</span> <span class="nb">int</span> <span class="n">col</span><span class="p">)</span> <span class="n">throw</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Several ways to invoke the constructor.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">msg</span></code> is the message to be displayed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code> is the name of the file in which the error was found, if
+available.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> is the number of bytes into the file at which the error
+was found. (This is provided because the <a class="reference internal" href="#pugixml"><span class="std std-ref">pugixml</span></a>
+doesn’t maintain a line counter.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">line</span></code> and <code class="docutils literal notranslate"><span class="pre">col</span></code> are the line number and column number,
+respectively, of the error location.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="o">~</span><span class="n">ParserException</span><span class="p">()</span> <span class="n">throw</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Destructor.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ParserException</span><span class="o">&amp;</span> <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">const</span> <span class="n">ParserException</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">throw</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Assignment operator.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">what</span><span class="p">()</span> <span class="n">const</span> <span class="n">throw</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Returns the error message.</p>
+</section>
+</section>
+</section>
+<section id="internal-representations">
+<span id="id12"></span><h2><a class="toc-backref" href="#id47" role="doc-backlink">Internal representations</a><a class="headerlink" href="#internal-representations" title="Permalink to this heading">¶</a></h2>
+<section id="basic-data-types">
+<span id="id13"></span><h3><a class="toc-backref" href="#id48" role="doc-backlink">Basic Data Types</a><a class="headerlink" href="#basic-data-types" title="Permalink to this heading">¶</a></h3>
+<p>These are the representations used inside the <em>PLEXIL</em> Exec.</p>
+<section id="valuetype">
+<h4><a class="toc-backref" href="#id49" role="doc-backlink">ValueType</a><a class="headerlink" href="#valuetype" title="Permalink to this heading">¶</a></h4>
+<p>This is an enumeration which identifies the type of a <em>PLEXIL</em> value.</p>
+</section>
+<section id="boolean">
+<h4><a class="toc-backref" href="#id50" role="doc-backlink">Boolean</a><a class="headerlink" href="#boolean" title="Permalink to this heading">¶</a></h4>
+<p>Represented by the C++ <code class="docutils literal notranslate"><span class="pre">bool</span></code> type, effectively a one-byte integer.
+<code class="docutils literal notranslate"><span class="pre">false</span></code> is 0, and <code class="docutils literal notranslate"><span class="pre">true</span></code> is any other value, but by convention 1 is
+preferred.</p>
+</section>
+<section id="integer">
+<h4><a class="toc-backref" href="#id51" role="doc-backlink">Integer</a><a class="headerlink" href="#integer" title="Permalink to this heading">¶</a></h4>
+<p>A 32-bit signed two’s complement integer. Implemented as the C99 type
+<code class="docutils literal notranslate"><span class="pre">int32_t</span></code>, defined in standard header file stdint.h.</p>
+</section>
+<section id="real">
+<h4><a class="toc-backref" href="#id52" role="doc-backlink">Real</a><a class="headerlink" href="#real" title="Permalink to this heading">¶</a></h4>
+<p>A 64-bit floating point number, as defined by the C type <code class="docutils literal notranslate"><span class="pre">double</span></code>.
+Expected to conform to the IEEE 754 standard.</p>
+</section>
+<section id="string">
+<h4><a class="toc-backref" href="#id53" role="doc-backlink">String</a><a class="headerlink" href="#string" title="Permalink to this heading">¶</a></h4>
+<p>A character string, implemented as the C++ Standard Library class
+<code class="docutils literal notranslate"><span class="pre">std::string</span></code>.</p>
+</section>
+<section id="internal-node-values">
+<span id="id14"></span><h4><a class="toc-backref" href="#id54" role="doc-backlink">Internal Node Values</a><a class="headerlink" href="#internal-node-values" title="Permalink to this heading">¶</a></h4>
+<p>The <em>PLEXIL</em> types <code class="docutils literal notranslate"><span class="pre">NodeStateValue</span></code>, <code class="docutils literal notranslate"><span class="pre">NodeOutcomeValue</span></code>,
+<code class="docutils literal notranslate"><span class="pre">NodeFailureValue</span></code>, and <code class="docutils literal notranslate"><span class="pre">NodeCommandHandleValue</span></code> are implemented as
+C enumerated types with non-overlapping ranges.</p>
+<p>In the <em>PLEXIL</em> implementation, internal node values are stored and passed
+as the C99 type <code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>, defined in standard header file stdint.h.</p>
+</section>
+</section>
+<section id="classes-1">
+<span id="id15"></span><h3><a class="toc-backref" href="#id55" role="doc-backlink">Classes</a><a class="headerlink" href="#classes-1" title="Permalink to this heading">¶</a></h3>
+<section id="array">
+<h4><a class="toc-backref" href="#id56" role="doc-backlink">Array</a><a class="headerlink" href="#array" title="Permalink to this heading">¶</a></h4>
+<p>A base class for homogeneous one-dimensional arrays of <em>PLEXIL</em> language
+data types <code class="docutils literal notranslate"><span class="pre">Boolean</span></code>, <code class="docutils literal notranslate"><span class="pre">Integer</span></code>, <code class="docutils literal notranslate"><span class="pre">Real</span></code>, or <code class="docutils literal notranslate"><span class="pre">String</span></code>.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">Array</span></code> has a maximum size, and an element value type. Each
+individual element can be unknown or an actual value.</p>
+<p>These query methods are generic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size_t</span> <span class="n">size</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">elementKnown</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">allElementsKnown</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">anyElementsKnown</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">bool</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">getKnownVector</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>These pure virtual accessors are implemented by derived classes of
+specific element types:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">ValueType</span> <span class="n">getElementType</span><span class="p">()</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">Value</span> <span class="n">getElementValue</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>These pure virtual accessors should be used only after the array’s
+element type has been checked. Incompatible types may result in a failed
+assertion.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="nb">bool</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">int32_t</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">double</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>These accessors are only implemented on String arrays.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getElementPointer</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="nb">bool</span> <span class="n">getMutableElementPointer</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>These accessors give a const reference to the vector actually storing
+the array elements.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">getContentsVector</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="nb">bool</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">getContentsVector</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">int32_t</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">getContentsVector</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">getContentsVector</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Arrays can be set to all-unknown by the reset method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">reset</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>To resize an array, use this method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Expand</span> <span class="n">the</span> <span class="n">array</span> <span class="n">to</span> <span class="n">the</span> <span class="n">requested</span> <span class="n">size</span><span class="o">.</span>
+ <span class="o">*</span>        <span class="n">Mark</span> <span class="n">the</span> <span class="n">new</span> <span class="n">elements</span> <span class="k">as</span> <span class="n">unknown</span><span class="o">.</span>
+ <span class="o">*</span>        <span class="n">If</span> <span class="n">already</span> <span class="n">that</span> <span class="n">size</span> <span class="ow">or</span> <span class="n">larger</span><span class="p">,</span> <span class="n">does</span> <span class="n">nothing</span><span class="o">.</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">size</span> <span class="n">The</span> <span class="n">requested</span> <span class="n">size</span><span class="o">.</span>
+ <span class="o">*/</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">resize</span><span class="p">(</span><span class="n">size_t</span> <span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Elements of the array can be set via the setElement methods:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">setElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="nb">bool</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">newVal</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">newVal</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">double</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">newVal</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">virtual</span> <span class="n">void</span> <span class="n">setElement</span><span class="p">(</span><span class="n">size_t</span> <span class="n">index</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">newVal</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A call to <code class="docutils literal notranslate"><span class="pre">setElement</span></code> with a numeric value that is not one
+of the specific types above (e.g. <code class="docutils literal notranslate"><span class="pre">int</span></code>) may result in the <code class="docutils literal notranslate"><span class="pre">bool</span></code>
+method being selected by the compiler. We recommend explicitly
+converting or casting values to one of the above types to be safe.</p>
+</div>
+</section>
+<section id="value">
+<span id="id16"></span><h4><a class="toc-backref" href="#id57" role="doc-backlink">Value</a><a class="headerlink" href="#value" title="Permalink to this heading">¶</a></h4>
+<p>A concrete class representing a typed value in the <em>PLEXIL</em> language.
+<code class="docutils literal notranslate"><span class="pre">Value</span></code> instances can represent any legal value in the <em>PLEXIL</em>
+language.</p>
+<p>The <a class="reference internal" href="#adapterexecinterface"><span class="std std-ref">AdapterExecInterface</span></a> members
+<code class="docutils literal notranslate"><span class="pre">handleValueChange()</span></code> and <code class="docutils literal notranslate"><span class="pre">handleCommandReturn()</span></code> take <code class="docutils literal notranslate"><span class="pre">Value</span></code>
+instances as arguments.</p>
+<p>Constructors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Value</span><span class="p">();</span>                                      <span class="o">//</span> <span class="n">creates</span> <span class="n">an</span> <span class="n">unknown</span> <span class="n">value</span> <span class="n">of</span> <span class="n">unknown</span> <span class="nb">type</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="p">);</span>                         <span class="o">//</span> <span class="n">copy</span> <span class="n">constructor</span>
+
+<span class="n">Value</span><span class="p">(</span><span class="nb">bool</span> <span class="n">val</span><span class="p">);</span>                              <span class="o">//</span> <span class="n">Boolean</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">uint16_t</span> <span class="n">enumVal</span><span class="p">,</span> <span class="n">ValueType</span> <span class="n">typ</span><span class="p">);</span>       <span class="o">//</span> <span class="n">internal</span> <span class="n">values</span><span class="p">,</span> <span class="n">typed</span> <span class="n">UNKNOWN</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">int32_t</span> <span class="n">val</span><span class="p">);</span>                           <span class="o">//</span> <span class="n">Integer</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">double</span> <span class="n">val</span><span class="p">);</span>                            <span class="o">//</span> <span class="n">Real</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>                <span class="o">//</span> <span class="n">String</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">char</span> <span class="n">const</span> <span class="o">*</span><span class="n">val</span><span class="p">);</span>                       <span class="o">//</span> <span class="n">String</span><span class="p">;</span> <span class="n">convenience</span> <span class="n">constructor</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">BooleanArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>               <span class="o">//</span> <span class="n">Array</span> <span class="n">types</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">IntegerArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">RealArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">StringArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+
+<span class="o">//</span> <span class="n">Constructs</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">array</span> <span class="nb">type</span><span class="o">.</span>
+<span class="n">Value</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&gt;</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">vals</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A call to a <code class="docutils literal notranslate"><span class="pre">Value</span></code> constructor with a numeric value that is
+not one of the specific types above (e.g. <code class="docutils literal notranslate"><span class="pre">int</span></code>) may result in the
+<code class="docutils literal notranslate"><span class="pre">bool</span></code> constructor being selected by the compiler. We recommend
+explicitly converting or casting values to one of the above types to be
+safe.</p>
+</div>
+<p>Assignment operators:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="nb">bool</span> <span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">uint16_t</span> <span class="n">enumVal</span><span class="p">);</span> <span class="o">//</span> <span class="n">Node</span><span class="o">-</span><span class="n">internal</span> <span class="n">values</span> <span class="n">only</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">int32_t</span> <span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">double</span> <span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">char</span> <span class="n">const</span> <span class="o">*</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">BooleanArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">IntegerArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">RealArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">Value</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">StringArray</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">setUnknown</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>..note:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A call to a ``Value`` assignment operator with a numeric value
+that is not one of the specific types above (e.g. ``int``) may result in
+the ``bool`` method being selected by the compiler. We recommend
+explicitly converting or casting values to one of the above types to be
+safe.
+</pre></div>
+</div>
+<p>You can ask a <code class="docutils literal notranslate"><span class="pre">Value</span></code> what its type is, and if its value is known:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ValueType</span> <span class="n">valueType</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">isKnown</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">getValue()</span></code> and <code class="docutils literal notranslate"><span class="pre">getValuePointer</span></code> accessors all take a reference to
+the result variable as an argument, and return <code class="docutils literal notranslate"><span class="pre">true</span></code> if the value was
+known and valid for the variable, <code class="docutils literal notranslate"><span class="pre">false</span></code> if it was unknown or of a
+type incompatible with the reference.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span> <span class="n">getValue</span><span class="p">(</span><span class="nb">bool</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValue</span><span class="p">(</span><span class="n">uint16_t</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValue</span><span class="p">(</span><span class="n">int32_t</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValue</span><span class="p">(</span><span class="n">double</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValue</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">Array</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span> <span class="o">//</span> <span class="n">generic</span> <span class="n">Array</span>
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">BooleanArray</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">IntegerArray</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">RealArray</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">getValuePointer</span><span class="p">(</span><span class="n">StringArray</span> <span class="n">const</span> <span class="o">*&amp;</span><span class="n">ptr</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Two comparison operators are defined as member functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span> <span class="n">equals</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="nb">bool</span> <span class="n">lessThan</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span> <span class="o">//</span> <span class="k">for</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">)</span> <span class="n">std</span><span class="p">::</span><span class="nb">map</span>
+</pre></div>
+</div>
+<p>And several variations are defined as overloaded operators:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span> <span class="n">operator</span><span class="o">==</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+<span class="nb">bool</span> <span class="n">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Print methods:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="nb">print</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+<span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">valueToString</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And the overloaded operator <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="p">,</span> <span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="statecacheentry">
+<span id="id17"></span><h4><a class="toc-backref" href="#id58" role="doc-backlink">StateCacheEntry</a><a class="headerlink" href="#statecacheentry" title="Permalink to this heading">¶</a></h4>
+<p>A concrete class representing the current value of a Lookup in the
+<em>PLEXIL</em> language. They are managed by the executive.</p>
+<p>The accessors (setters) below are the only member functions an interface
+developer should need:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">setUnknown</span><span class="p">();</span>
+
+<span class="n">void</span> <span class="n">update</span><span class="p">(</span><span class="n">Value</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>  <span class="o">//</span> <span class="n">convenience</span>
+
+<span class="n">void</span> <span class="n">update</span><span class="p">(</span><span class="nb">bool</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">update</span><span class="p">(</span><span class="n">int32_t</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">update</span><span class="p">(</span><span class="n">double</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">update</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A call to <code class="docutils literal notranslate"><span class="pre">update</span></code> with a numeric value that is not one of
+the specific types above (e.g. <code class="docutils literal notranslate"><span class="pre">int</span></code>) may result in the <code class="docutils literal notranslate"><span class="pre">bool</span></code>
+method being selected by the compiler. We recommend explicitly
+converting or casting values to one of the above types to be safe.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">updatePtr</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">const</span> <span class="o">*</span><span class="n">valPtr</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">updatePtr</span><span class="p">(</span><span class="n">BooleanArray</span> <span class="n">const</span> <span class="o">*</span><span class="n">valPtr</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">updatePtr</span><span class="p">(</span><span class="n">IntegerArray</span> <span class="n">const</span> <span class="o">*</span><span class="n">valPtr</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">updatePtr</span><span class="p">(</span><span class="n">RealArray</span> <span class="n">const</span> <span class="o">*</span><span class="n">valPtr</span><span class="p">);</span>
+<span class="n">void</span> <span class="n">updatePtr</span><span class="p">(</span><span class="n">StringArray</span> <span class="n">const</span> <span class="o">*</span><span class="n">valPtr</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="other-utilities">
+<span id="id18"></span><h2><a class="toc-backref" href="#id59" role="doc-backlink">Other utilities</a><a class="headerlink" href="#other-utilities" title="Permalink to this heading">¶</a></h2>
+<section id="debug-logging">
+<span id="id19"></span><h3><a class="toc-backref" href="#id60" role="doc-backlink">Debug logging</a><a class="headerlink" href="#debug-logging" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">debugMsg</span></code> and <code class="docutils literal notranslate"><span class="pre">condDebugMsg</span></code> macros allow a developer to
+selectively print information from inside the Exec.</p>
+<p>The debug facility is enabled by default. Use the
+<code class="docutils literal notranslate"><span class="pre">--disable-debug-logging</span></code> option to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script to
+disable it. See the <code class="docutils literal notranslate"><span class="pre">README</span></code> file in the top level of the
+distribution.</p>
+<p>Each message has an associated <em>marker</em>, a string identifying one or
+more related messages, as well as the name of the source file in which
+the message appears. The list of active file names and marker patterns
+is in the <em>debug configuration file</em>, by default the file named
+<code class="docutils literal notranslate"><span class="pre">Debug.cfg</span></code> in the working directory from which the program was
+launched.</p>
+<section id="debug-macros">
+<span id="id20"></span><h4><a class="toc-backref" href="#id61" role="doc-backlink">Debug macros</a><a class="headerlink" href="#debug-macros" title="Permalink to this heading">¶</a></h4>
+<p>These macros, when inserted into a C++ source file, will print messages
+when the appropriate marker and file are enabled. In each case
+<code class="docutils literal notranslate"><span class="pre">marker</span></code> should be a quoted string.</p>
+<p><code class="docutils literal notranslate"><span class="pre">#define debugMsg(marker, data) ...</span></code></p>
+<p>When <code class="docutils literal notranslate"><span class="pre">marker</span></code> is enabled, prints the <code class="docutils literal notranslate"><span class="pre">data</span></code> to the debug log stream.
+Note that <code class="docutils literal notranslate"><span class="pre">data</span></code> is expanded into a statement like:</p>
+<p><code class="docutils literal notranslate"><span class="pre">stream &lt;&lt; data ;</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">#define condDebugMsg(cond, marker, data) ...</span></code></p>
+<p>Like <code class="docutils literal notranslate"><span class="pre">debugMsg</span></code> above, but the message is only printed when the
+<code class="docutils literal notranslate"><span class="pre">marker</span></code> is enabled and the <code class="docutils literal notranslate"><span class="pre">cond</span></code> expression is true.</p>
+<p><code class="docutils literal notranslate"><span class="pre">#define debugStmt(marker, stmt)</span></code></p>
+<p>Executes <code class="docutils literal notranslate"><span class="pre">stmt</span></code> when <code class="docutils literal notranslate"><span class="pre">marker</span></code> is enabled.</p>
+<p><code class="docutils literal notranslate"><span class="pre">#define condDebugStmt(cond, marker, stmt)</span></code></p>
+<p>Executes <code class="docutils literal notranslate"><span class="pre">stmt</span></code> when <code class="docutils literal notranslate"><span class="pre">marker</span></code> is enabled and the <code class="docutils literal notranslate"><span class="pre">cond</span></code> expression
+is true.</p>
+</section>
+<section id="debug-logging-initialization">
+<span id="id21"></span><h4><a class="toc-backref" href="#id62" role="doc-backlink">Debug logging initialization</a><a class="headerlink" href="#debug-logging-initialization" title="Permalink to this heading">¶</a></h4>
+<p>The <em>PLEXIL</em> Executive executables already enable debug logging (unless
+configured without it during the build). By default the pattern list is
+read from the file named <code class="docutils literal notranslate"><span class="pre">Debug.cfg</span></code> in the working directory from
+which the program was launched.</p>
+<p>Applications which implement their own <code class="docutils literal notranslate"><span class="pre">main()</span></code> routine can initialize
+the facility via the following C++ API. Note that these functions are in
+the global namespace, not <code class="docutils literal notranslate"><span class="pre">PLEXIL</span></code>.</p>
+<p>The debug output stream defaults to standard output. If redirecting the
+debug output, the stream must be set before any other debug logging
+operations are performed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="nb">bool</span> <span class="n">setDebugOutputStream</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">ostream</span> <span class="o">&amp;</span><span class="n">os</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Debug markers are all disabled at startup. Marker patterns can be read
+with this function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="nb">bool</span> <span class="n">readDebugConfigStream</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">istream</span> <span class="o">&amp;</span><span class="ow">is</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>All, none, or a subset of the message markers can be enabled via the
+following functions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extern</span> <span class="n">void</span> <span class="n">enableAllDebugMessages</span><span class="p">();</span>
+<span class="n">extern</span> <span class="n">void</span> <span class="n">disableAllDebugMessages</span><span class="p">();</span>
+<span class="n">extern</span> <span class="n">void</span> <span class="n">enableMatchingDebugMessages</span><span class="p">(</span><span class="n">char</span> <span class="n">const</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="n">char</span> <span class="n">const</span> <span class="o">*</span><span class="n">marker</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> and <code class="docutils literal notranslate"><span class="pre">marker</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">enableMatchingDebugMessages</span></code>
+may not be <code class="docutils literal notranslate"><span class="pre">NULL</span></code>.</p>
+</section>
+</section>
+<section id="macros">
+<h3><a class="toc-backref" href="#id63" role="doc-backlink">Macros</a><a class="headerlink" href="#macros" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="functions-1">
+<span id="id22"></span><h3><a class="toc-backref" href="#id64" role="doc-backlink">Functions</a><a class="headerlink" href="#functions-1" title="Permalink to this heading">¶</a></h3>
+<section id="finalization-utility">
+<span id="id23"></span><h4><a class="toc-backref" href="#id65" role="doc-backlink">Finalization utility</a><a class="headerlink" href="#finalization-utility" title="Permalink to this heading">¶</a></h4>
+<p>Where a cleanup upon program completion is required, but the order in
+which the cleanup is performed can’t be determined statically, you can
+use this utility, which is written in standard C. It allows cleanup
+functions to be registered, and executes them in last-in, first-out
+order.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">void</span> <span class="p">(</span><span class="o">*</span><span class="n">lc_operator</span><span class="p">)()</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p>Cleanup functions take no arguments and return no value.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">addFinalizer</span><span class="p">(</span><span class="n">lc_operator</span> <span class="n">op</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Registers one cleanup function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">runFinalizers</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Run all the registered cleanup functions, and free the finalizer list.
+This function is most useful if it is the very last function called by a
+program before exit.</p>
+</section>
+</section>
+<section id="classes-2">
+<span id="id24"></span><h3><a class="toc-backref" href="#id66" role="doc-backlink">Classes</a><a class="headerlink" href="#classes-2" title="Permalink to this heading">¶</a></h3>
+</section>
+</section>
+<section id="third-party-code">
+<span id="id25"></span><h2><a class="toc-backref" href="#id67" role="doc-backlink">Third-party code</a><a class="headerlink" href="#third-party-code" title="Permalink to this heading">¶</a></h2>
+<p><em>PLEXIL</em> uses additional open-source libraries. For documentation of those
+libraries, please use the links below.</p>
+<section id="pugixml">
+<span id="id26"></span><h3><a class="toc-backref" href="#id68" role="doc-backlink">pugixml</a><a class="headerlink" href="#pugixml" title="Permalink to this heading">¶</a></h3>
+<p><a class="reference external" href="http://pugixml.org/">pugixml website</a> is a lightweight, high-performance,
+cross-platform, DOM-style XML package coded in C++. pugixml is actively
+developed and maintained at this writing.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Plexilisp &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PlexiLisp Tutorial" href="Plexilisp/PlexilispTutorial.html" />
+    <link rel="prev" title="Plan Persistence and Checkpoints" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Plexilisp/PlexilispTutorial.html" title="PlexiLisp Tutorial"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../PLEXILExecution/PlanPersistenceandCheckpoints.html" title="Plan Persistence and Checkpoints"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plexilisp</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plexilisp">
+<span id="id1"></span><h1>Plexilisp<a class="headerlink" href="#plexilisp" title="Permalink to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<p>Plexilisp is a Lisp-like syntax for Plexil that is designed for use
+within the Emacs editor. It allows you to author Plexil plans and
+simulation scripts in Emacs, and interactively compile them into their
+XML representation for execution.</p>
+<p>Here are the main features of Plexilisp:</p>
+<p>Emacs-based</p>
+<ul class="simple">
+<li><p>Works with Emacs (every version we’ve tried so far, including Gnu, X,
+and Aquamacs).</p></li>
+</ul>
+<p>Lisp-like</p>
+<ul class="simple">
+<li><p>Easy to edit in Emacs (<code class="docutils literal notranslate"><span class="pre">plexilisp</span></code> mode provided).</p></li>
+<li><p>Only PLEXIL constructs are supported; arbitrary Lisp is not allowed.</p></li>
+</ul>
+<p>Plexil language support</p>
+<ul class="simple">
+<li><p>Implements the <a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html#plexilreferences"><span class="std std-ref">Extended PLEXIL</span></a> syntax, and provides
+additional convenience forms and shortcuts.</p></li>
+<li><p>Provides a syntax for <a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html#test-executive-simulation-script"><span class="std std-ref">simulation scripts</span></a> needed
+for testing PLEXIL plans with the <a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html#test-executive"><span class="std std-ref">Test Executive</span></a>.</p></li>
+<li><p>Generates formatted XML in new Emacs buffers.</p></li>
+<li><p>Instant validation of XML in Emacs is possible with <a class="reference internal" href="XMLSchemaEmacs.html#xmlschemaemacs"><span class="std std-ref">supporting tools</span></a>.</p></li>
+</ul>
+</section>
+<section id="using-plexilisp">
+<span id="id2"></span><h2>Using Plexilisp<a class="headerlink" href="#using-plexilisp" title="Permalink to this heading">¶</a></h2>
+<p>To get started, see the <a class="reference internal" href="Plexilisp/PlexilispTutorial.html#plexilisptutorial"><span class="std std-ref">tutorial</span></a>.</p>
+<p>For details, see the <a class="reference internal" href="Plexilisp/PlexilispReferenceManual.html#plexilispreferncemanual"><span class="std std-ref">reference manual</span></a>.</p>
+<p>To enable automatic validation of the generated PLEXIL XML, you’ll need
+the freely available <a class="reference internal" href="XMLSchemaEmacs.html#xmlschemaemacs"><span class="std std-ref">nXML utilities</span></a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

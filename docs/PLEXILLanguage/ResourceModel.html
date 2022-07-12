@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Resource Model &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Simple Unary Resources" href="ResourceModel/SimpleUnaryResources.html" />
+    <link rel="prev" title="PLEXIL Semantics" href="PLEXILSemantics.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ResourceModel/SimpleUnaryResources.html" title="Simple Unary Resources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PLEXILSemantics.html" title="PLEXIL Semantics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Resource Model</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="resource-model">
+<span id="resourcemodel"></span><h1><a class="toc-backref" href="#id5" role="doc-backlink">Resource Model</a><a class="headerlink" href="#resource-model" title="Permalink to this heading">¶</a></h1>
+<p><em>16 Aug 2021</em></p>
+<p>This chapter describes the resource model of <em>PLEXIL</em> and its associated
+language constructs. See the <a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html#resourcearbiter"><span class="std std-ref">Resource Arbiter</span></a>
+chapter for execution-related aspects of this model.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#resource-model" id="id5">Resource Model</a></p>
+<ul>
+<li><p><a class="reference internal" href="#introduction" id="id6">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#approach" id="id7">Approach</a></p>
+<ul>
+<li><p><a class="reference internal" href="#resource-specification" id="id8">Resource Specification</a></p></li>
+<li><p><a class="reference internal" href="#resource-arbitration" id="id9">Resource Arbitration</a></p></li>
+<li><p><a class="reference internal" href="#command-handles" id="id10">Command Handles</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#examples" id="id11">Examples</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="introduction">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A number of serious problems have been identified in the
+resource model described herein. This section should be considered
+deprecated; it will be superseded in some future release.</p>
+</div>
+<p>Currently applicable only to <em>command</em> nodes, the <em>PLEXIL</em> resource model
+allows resource requirements for commands to be specified in the plan,
+and provides a mechanism to check and enforce these requirements during
+plan execution.</p>
+<p>Resources are entities of limited availability and can be classified
+into several categories such as <em>consumable</em>, <em>renewable</em>, <em>unary</em>,
+<em>non-unary</em>, etc. Consumable resources are those wherein a pool of a
+predetermined size is available for use and each command grabs whatever
+it requires from this pool and may or may not release it upon
+completion. Renewable resources are types that can be <em>generated</em> and
+once again as in the case of consumables, commands that generate
+resource may or may not have their action persist after their
+completion. The simplest kind of consumable and renewable resources are
+unary, where a resource is allocated in its entirety to the command that
+needs it and released (once again in its entirety) upon completion.
+After a unary resource is grabbed by a command, no other command that
+requires the resource can be accepted by the external system.</p>
+<p>Consider the following simple example of a strictly consumable unary
+resource. Let’s say we wish to perform two activities, reading from and
+writing to a specific block in memory. In order to eliminate any
+possibility of data corruption the current activity (reading or writing)
+should lock the entire resource (the specific memory block) during the
+course of its execution.</p>
+<p>A good example of a non-unary consumable is the memory stack. Multiple
+commands (or function routines) can make use of the stack as long as
+their cumulative sum does not exceed the maximum limit and when the
+command is completed it relinquishes all the space it had grabbed
+thereby freeing it up for the next command.</p>
+<p>Storage memory is a good example of a non-unary resource that can be
+either consumed or renewed and commands that make use of it can have
+their effect persist after completion.</p>
+</section>
+<section id="approach">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Approach</a><a class="headerlink" href="#approach" title="Permalink to this heading">¶</a></h2>
+<p>Resource handling in <em>PLEXIL</em> has three aspects.</p>
+<ol class="arabic simple">
+<li><p>Specification of resource requirements in the <em>PLEXIL</em> plan. This
+includes all the necessary constructs needed to specify the resources
+that a command needs. Since a command might need more than one
+resource, we should be able to specify a list of resources.</p></li>
+<li><p>A <em>resource arbiter</em> that decides which commands can be issued to the
+external systems and which ones should be rejected based on resource
+requirements and availability.</p></li>
+<li><p>A mechanism using <em>command handles</em> that registers the decisions made
+by the resource arbiter and keeps track of the lifecycle of commands
+after they leave the Plexil Executive.</p></li>
+</ol>
+<section id="resource-specification">
+<span id="id1"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink">Resource Specification</a><a class="headerlink" href="#resource-specification" title="Permalink to this heading">¶</a></h3>
+<p>The resource requirements for a command are specified in a <em>PLEXIL</em> plan
+in the following way.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Resource</span>
+  <span class="o">//</span> <span class="n">required</span>
+  <span class="n">Name</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">String</span> <span class="n">expr</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">Priority</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Integer</span> <span class="n">expr</span><span class="o">&gt;</span> <span class="o">//</span> <span class="n">smallest</span> <span class="n">value</span> <span class="o">=</span> <span class="n">first</span> <span class="n">priority</span>
+  <span class="o">//</span> <span class="n">optional</span>
+  <span class="p">,</span> <span class="n">LowerBound</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Real</span> <span class="n">expr</span><span class="o">&gt;</span> <span class="o">//</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span>
+  <span class="p">,</span> <span class="n">UpperBound</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Real</span> <span class="n">expr</span><span class="o">&gt;</span> <span class="o">//</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span>
+  <span class="p">,</span> <span class="n">ReleaseAtTermination</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Boolean</span> <span class="n">expr</span><span class="o">&gt;</span>  <span class="o">//</span> <span class="n">default</span> <span class="o">=</span> <span class="n">true</span>
+  <span class="p">;</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Command</span> <span class="n">c1</span><span class="p">();</span>
+
+<span class="n">C1</span><span class="p">:</span>
+<span class="p">{</span>
+  <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;left_arm&quot;</span><span class="p">,</span> <span class="n">Priority</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;right_arm&quot;</span><span class="p">,</span> <span class="n">Priority</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">Resource</span> <span class="n">Name</span> <span class="o">=</span> <span class="s2">&quot;memory&quot;</span><span class="p">,</span>
+    <span class="n">LowerBound</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">UpperBound</span> <span class="o">=</span> <span class="mf">20.0</span><span class="p">,</span>
+    <span class="n">ReleaseAtTermination</span> <span class="o">=</span> <span class="n">false</span><span class="p">,</span>
+    <span class="n">Priority</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+  <span class="n">c1</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example states that the command <code class="docutils literal notranslate"><span class="pre">c1()</span></code> requires exclusive use of
+the left arm and the right arm (unary resources) and memory within the
+lower and upper bounds [10.0, 20.0]. The priority value will be used
+during resource arbitration in case of resource contention within the
+same execution cycle. Lower (numerical) priority commands will not be
+preempted if contention occurs between two different execution cycles.</p>
+<p>A resource without bounds is construed to be unary. In the case of
+resources that are not unary, the lower and upper bound values need to
+be passed by the Plexil Executive to the resource arbiter.</p>
+<p>The field ResourceReleaseAtTermination specifies whether the command
+releases the resource upon its completion. In the example given above
+the command will not release the <code class="docutils literal notranslate"><span class="pre">memory</span></code> resource when it terminates.</p>
+<p>Several sample plans are given in the Examples section below.</p>
+</section>
+<section id="resource-arbitration">
+<span id="id2"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Resource Arbitration</a><a class="headerlink" href="#resource-arbitration" title="Permalink to this heading">¶</a></h3>
+<p>Commands are currently issued only at the end of
+<a class="reference internal" href="PLEXILSemantics.html#micro-steps-macro-steps-and-the-quiescence-cycle"><span class="std std-ref">quiescence</span></a>. All the
+commands identified for execution at the end of the quiescence cycle
+will be sent to the <em>resource arbiter</em> instead of the sub-system (i.e
+external world)) directly. The arbiter will consider each of the
+commands in the batch it receives and pick a subset that can be sent to
+the sub-system based on resource availability. The commands accepted by
+the arbiter will be forwarded to the external sub system by the external
+interface while the ones that are rejected will be acknowledged as so by
+the external interface by setting the appropriate value in the command
+handle (enumerated in the next section). Note that the <em>PLEXIL</em> plan can
+specify the next course of action in case a command gets rejected, for
+example, the command could be reissued, etc.</p>
+<p>The resource arbiter is explained in further detail in <a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html#resourcearbiter"><span class="std std-ref">Chapter 10</span></a>.</p>
+</section>
+<section id="command-handles">
+<span id="id3"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Command Handles</a><a class="headerlink" href="#command-handles" title="Permalink to this heading">¶</a></h3>
+<p><strong>UNDER REVISION 23 Oct 2015</strong></p>
+<p>A <em>command handle</em> is the status of a particular command. They provide a
+way to keep track of the particular stage a command node is in after it
+transitions to the <em>Executing</em> state.</p>
+<p>From the time a Command node becomes executable until the time the
+external system completes executing the command, several things can
+happen. First, the command’s resource requirements are analyzed by the
+resource arbiter, to determine whether the requirements of all
+concurrent commands can be met. If the arbiter accepts the command, the
+interface adapter sends the command (via whatever means) to the external
+system. Finally, the external system can report whether the command
+succeeded or failed.</p>
+<p>It will be worthwhile to inform the executive as to what stage of its
+journey the command is in for more reasons than just book-keeping. The
+plan could, for instance, use a particular state of the command to start
+or stop other nodes.</p>
+<p>Command handles may take one of the following values:</p>
+<ul class="simple">
+<li><p>COMMAND_DENIED</p></li>
+<li><p>COMMAND_ACCEPTED</p></li>
+<li><p>COMMAND_SENT_TO_SYSTEM</p></li>
+<li><p>COMMAND_RCVD_BY_SYSTEM</p></li>
+<li><p>COMMAND_SUCCESS</p></li>
+<li><p>COMMAND_FAILED</p></li>
+</ul>
+<p>When the resource arbiter rejects a command due to inadequate resources,
+its command handle is set to COMMAND_DENIED.</p>
+<p>When a command is issued by the executive, the interface may send any
+legal command handle value as feedback. The <em>PLEXIL</em> Exec doesn’t put any
+interpretation on these values, with the exception of COMMAND_DENIED and
+COMMAND_FAILED.</p>
+<p>A hypothetical application could use them in the following ways:</p>
+<ul class="simple">
+<li><p>COMMAND_ACCEPTED when the interface begins to process the command;</p></li>
+<li><p>COMMAND_SENT_TO_SYSTEM when the interface has sent the command to the
+external system;</p></li>
+<li><p>COMMAND_RCVD_BY_SYSTEM when the external system receives the command;</p></li>
+<li><p>COMMAND_SUCCESS when the external system has successfully executed
+the command;</p></li>
+<li><p>COMMAND_FAILED when the command issued to the external system fails
+to execute.</p></li>
+</ul>
+<p>The default EndCondition of Command nodes is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If an
+EndCondition is supplied, the effective expression used for the
+EndCondition is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Self</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_DENIED</span>
+ <span class="o">||</span> <span class="n">Self</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_FAILED</span>
+ <span class="o">||</span> <span class="o">&lt;</span><span class="n">user</span> <span class="n">EndCondition</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Command handles are stored in a variable that can be used in any node as
+a decision variable. This is illustrated in the sample plan shown below.
+Here, there are two Command nodes, <em>Drive</em> and <em>NextWaypoint</em>. Using a
+StartCondition, we can make the NextWaypoint node issue a command
+<em>after</em> the Drive node receives the COMMAND_RCVD_BY_SYSTEM signal from
+the external system.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">Command</span> <span class="n">drive</span><span class="p">();</span>
+<span class="n">Command</span> <span class="n">next_waypoint</span><span class="p">();</span>
+
+<span class="n">SimpleDrive</span><span class="p">:</span>
+<span class="n">Concurrence</span>
+<span class="p">{</span>
+  <span class="n">Drive</span><span class="p">:</span>
+  <span class="p">{</span>
+    <span class="n">Integer</span> <span class="n">returnValue</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">EndCondition</span> <span class="n">returnValue</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="n">PostCondition</span> <span class="n">Drive</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_SUCCESS</span><span class="p">;</span>
+    <span class="n">returnValue</span> <span class="o">=</span> <span class="n">drive</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="n">NextWaypoint</span><span class="p">:</span>
+  <span class="p">{</span>
+    <span class="n">StartCondition</span> <span class="n">Drive</span><span class="o">.</span><span class="n">command_handle</span> <span class="o">==</span> <span class="n">COMMAND_RCVD_BY_SYSTEM</span><span class="p">;</span>
+    <span class="n">next_waypoint</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A command may be <em>aborted</em> when its Command node fails (i.e. the
+InvariantCondition of the node or any of its direct ancestors becomes
+<code class="docutils literal notranslate"><span class="pre">False</span></code>) or is interrupted (the ExitCondition of the node or its
+direct ancestors becomes <code class="docutils literal notranslate"><span class="pre">True</span></code>). How a command abort is actually
+handled is determined by the interface adaptor for the given <em>PLEXIL</em>
+application. See the the section on
+<a class="reference internal" href="../Interfacing/InterfacingOverview.html#interfacingoverview"><span class="std std-ref">interfacing</span></a> for more information.</p>
+<p>The command handle is ignored in the event of an abort. A Boolean status
+variable, the <em>abort acknowledgment variable</em>, is used to determine when
+the abort is complete. The Command node transitions to <em>Iteration_Ended</em>
+when the abort has been acknowledged by the interface adapter.</p>
+</section>
+</section>
+<section id="examples">
+<span id="id4"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><p>Example 1: <a class="reference internal" href="ResourceModel/SimpleUnaryResources.html#simpleunaryresources"><span class="std std-ref">Simple unary resources</span></a></p></li>
+<li><p>Example 2: <a class="reference internal" href="ResourceModel/NonUnaryResources.html#nonunaryresources"><span class="std std-ref">Non-unary resources</span></a> is a
+variation of the previous example with one of the resources
+represented as a non-unary resource.</p></li>
+<li><p>Example 3: <a class="reference internal" href="ResourceModel/HierarchialResources.html#hierarchialresources"><span class="std std-ref">Hierarchical resources</span></a>
+illustrates a command with interrelated resources.</p></li>
+<li><p>Example 4: <a class="reference internal" href="ResourceModel/RenewableResources.html#renewableresources"><span class="std std-ref">Renewable resources</span></a> illustrates
+a command that <em>generates</em> resources (as opposed to consuming them).</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../main.html">Home Page</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILExecution/PlanPersistenceandCheckpoints.html">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>

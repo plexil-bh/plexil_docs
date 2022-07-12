@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Plan Persistence and Checkpoints &#8212; PLEXIL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/readable.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plexilisp" href="../PLEXILTools/Plexilisp.html" />
+    <link rel="prev" title="ResourceArbiter" href="ResourceArbiter.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../PLEXILTools/Plexilisp.html" title="Plexilisp"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ResourceArbiter.html" title="ResourceArbiter"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../main.html">PLEXIL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Plan Persistence and Checkpoints</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="plan-persistence-and-checkpoints">
+<span id="planpersistenceandcheckpoints"></span><h1><a class="toc-backref" href="#id3" role="doc-backlink">Plan Persistence and Checkpoints</a><a class="headerlink" href="#plan-persistence-and-checkpoints" title="Permalink to this heading">¶</a></h1>
+<p><em>Apr 7, 2021</em></p>
+<p>This chapter describes <em>PLEXIL</em>’s Checkpoint Adapter, available for
+inclusion in any <em>PLEXIL</em> plan.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#plan-persistence-and-checkpoints" id="id3">Plan Persistence and Checkpoints</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id4">Overview</a></p></li>
+<li><p><a class="reference internal" href="#usage" id="id5">Usage</a></p></li>
+<li><p><a class="reference internal" href="#options" id="id6">Options</a></p></li>
+<li><p><a class="reference internal" href="#api-reference" id="id7">API Reference</a></p></li>
+<li><p><a class="reference internal" href="#structure" id="id8">Structure</a></p></li>
+<li><p><a class="reference internal" href="#extending" id="id9">Extending</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="overview">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The Checkpoint Adapter enables plan persistence by allowing plans to set
+and read “checkpoints” (identified by a String name), which contain the
+state (true/false/Unknown (if not set)), the last modified time (as a
+Real), and a user-set information String.</p>
+<p>Checkpoints are associated with a boot - that is, if the plan were to
+set a checkpoint “abc” to true, it would be associated with Boot 0. If
+the executive were to crash or shut down, all checkpoints are “promoted”
+by one boot - “abc” would now be true in Boot 1 and Unknown in Boot 0.</p>
+<p>Metadata about each boot and the number of boots is also saved. This
+includes time of boot, time of last save, and an is_ok flag. Boots (and
+checkpoints associated with the boot) other than Boot 0 (current boot)
+are not modifiable other than the is_ok variable.</p>
+<p>Further, the total number of boots ever recorded, the number of boots
+accessible to the executive, and the number of boots with is_ok=false
+are available through Lookups. The number of accessible boots may not
+always be the same as the total number of boots if using a SaveManager
+other than SimpleSaveManager.</p>
+<p>The save management strategy can be modified by extending SaveManager.
+The only current implementation, SimpleSaveManager, stores all previous
+boots and writes to disk on every command sent to CheckpointAdapter.</p>
+<p>Any command or lookup which has an incorrect number of arguments prints
+an error message to cerr and returns Unknown.</p>
+<p>The adapter will use the same time adapter available to the plan. If
+that adapter can’t handle the time lookup or returns Unknown, any
+time-dependent values will be set to Unknown.</p>
+</section>
+<section id="usage">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Usage</a><a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h2>
+<p>If the adapter is included in the configuration file, all lookups and
+commands will be available to the plan, and startup/shutdown behavior is
+enabled(as described below in <a class="reference internal" href="#options"><span class="std std-ref">Options</span></a>).</p>
+<p>An example configuration follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Adapter</span> <span class="n">AdapterType</span><span class="o">=</span><span class="s2">&quot;CheckpointAdapter&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">SaveConfiguration</span> <span class="n">Directory</span><span class="o">=</span><span class="s2">&quot;./saves&quot;</span>
+             <span class="n">RemoveOldSaves</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="n">AdapterConfiguration</span> <span class="n">OKOnExit</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+            <span class="n">FlushOnExit</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+            <span class="n">FlushOnStart</span><span class="o">=</span><span class="s2">&quot;true&quot;</span>
+            <span class="n">UseTime</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">Adapter</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="options">
+<span id="id1"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">Options</a><a class="headerlink" href="#options" title="Permalink to this heading">¶</a></h2>
+<p>The adapter has multiple settings which can be modified in the interface
+configuration file. See the example in examples/checkpoints for the
+exact layout.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AdapterConfiguration</span><span class="p">:</span>
+    <span class="n">OKOnExit</span><span class="p">:</span> <span class="n">Whether</span> <span class="n">is_ok</span> <span class="ow">is</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">true</span> <span class="k">for</span> <span class="n">the</span> <span class="n">current</span> <span class="n">boot</span> <span class="n">when</span> <span class="n">the</span> <span class="n">executive</span> <span class="n">exit</span> <span class="n">normally</span><span class="o">.</span> <span class="n">It</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">recommended</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">this</span> <span class="n">without</span> <span class="n">also</span> <span class="n">setting</span> <span class="n">FlushOnExit</span><span class="o">.</span>
+        <span class="n">Default</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span>
+    <span class="n">FlushOnStart</span><span class="p">:</span> <span class="n">Whether</span> <span class="n">a</span> <span class="n">flush</span> <span class="ow">is</span> <span class="n">called</span> <span class="n">at</span> <span class="n">startup</span> <span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">every</span> <span class="n">boot</span> <span class="ow">is</span> <span class="n">logged</span>
+        <span class="n">Default</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span>
+    <span class="n">FlushOnExit</span><span class="p">:</span> <span class="n">Whether</span> <span class="n">checkpoint</span> <span class="n">data</span><span class="o">/</span><span class="n">is_ok</span><span class="o">/</span><span class="n">last_save_time</span> <span class="ow">is</span> <span class="n">flushed</span> <span class="n">to</span> <span class="n">disk</span> <span class="n">on</span> <span class="n">exit</span>
+        <span class="n">Default</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span>
+    <span class="n">UseTime</span><span class="p">:</span> <span class="n">Whether</span> <span class="n">the</span> <span class="n">checkpoint</span> <span class="n">system</span> <span class="n">attempts</span> <span class="n">to</span> <span class="n">find</span> <span class="ow">and</span> <span class="n">use</span> <span class="n">a</span> <span class="n">time</span> <span class="n">adapter</span><span class="o">.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">useful</span> <span class="n">because</span> <span class="k">if</span> <span class="n">an</span> <span class="n">adapter</span> <span class="n">registered</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">time</span> <span class="n">isn</span><span class="s1">&#39;t found, the PLEXIL interface manager returns the default adapter as the &quot;time&quot; adapter. Attempting to use this anyway will result in slightly reduced performance and potentially a large number of warnings (the CheckpointAdapter will continue to function, however).</span>
+        <span class="n">Default</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span>
+<span class="n">SaveConfiguration</span><span class="p">:</span>
+    <span class="n">Directory</span><span class="p">:</span> <span class="n">The</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">which</span> <span class="n">saves</span> <span class="p">(</span><span class="ow">in</span> <span class="n">the</span> <span class="n">form</span> <span class="n">x_save</span><span class="o">.</span><span class="n">xml</span> <span class="ow">or</span> <span class="n">x_save</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="n">are</span> <span class="n">saved</span>
+        <span class="n">Default</span><span class="p">:</span> <span class="s2">&quot;./saves&quot;</span>
+    <span class="n">RemoveOldSaves</span><span class="p">:</span> <span class="n">If</span> <span class="n">false</span><span class="p">,</span> <span class="n">older</span> <span class="n">saves</span> <span class="n">aren</span><span class="s1">&#39;t deleted as new ones are added. If true, a maximum of two save files will be maintained. This can be useful in testing and debugging.</span>
+        <span class="n">Defailt</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span>
+    <span class="n">NOTE</span><span class="p">:</span> <span class="n">All</span> <span class="n">attributes</span> <span class="n">of</span> <span class="n">SaveConfiguration</span> <span class="n">are</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">the</span> <span class="n">SaveManager</span><span class="p">,</span> <span class="n">so</span> <span class="n">different</span> <span class="n">implementations</span> <span class="n">may</span> <span class="n">have</span> <span class="n">a</span> <span class="n">larger</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">configuration</span> <span class="n">options</span>
+</pre></div>
+</div>
+</section>
+<section id="api-reference">
+<span id="id2"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
+<p>The Lookups are as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">NumberOfTotalBoots</span> <span class="p">()</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">boots</span> <span class="n">ever</span> <span class="n">logged</span>
+
+<span class="n">Integer</span> <span class="n">NumberOfAccessibleBoots</span> <span class="p">()</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">number</span> <span class="n">of</span> <span class="n">boot</span> <span class="n">entries</span> <span class="n">available</span> <span class="n">to</span> <span class="n">the</span> <span class="n">plan</span>
+
+<span class="n">Integer</span> <span class="n">NumberOfUnhandledBoots</span> <span class="p">()</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">number</span> <span class="n">of</span> <span class="n">boot</span> <span class="n">entries</span> <span class="n">which</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">marked</span> <span class="k">as</span> <span class="n">is_ok</span>
+
+<span class="n">Boolean</span> <span class="n">DidCrash</span><span class="p">()</span> <span class="o">//</span> <span class="n">Returns</span> <span class="n">true</span> <span class="k">if</span> <span class="n">IsOK</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="n">false</span><span class="p">,</span> <span class="n">false</span> <span class="n">otherwise</span><span class="o">.</span>
+                   <span class="o">//</span> <span class="n">A</span> <span class="n">true</span> <span class="n">value</span> <span class="n">indicates</span> <span class="n">that</span> <span class="n">the</span> <span class="n">executive</span> <span class="n">shut</span> <span class="n">down</span> <span class="n">without</span> <span class="n">setting</span> <span class="n">is_ok</span>
+
+
+<span class="o">//</span> <span class="n">If</span> <span class="n">a</span> <span class="n">lookup</span> <span class="n">attempts</span> <span class="n">to</span> <span class="n">query</span> <span class="n">a</span> <span class="n">boot</span> <span class="n">that</span> <span class="n">doesn</span><span class="s1">&#39;t exist, Unknown is returned</span>
+
+<span class="n">Boolean</span> <span class="n">IsBootOK</span> <span class="p">(</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">is_ok</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">selected</span> <span class="n">boot</span><span class="p">,</span> <span class="n">which</span> <span class="n">starts</span> <span class="n">off</span> <span class="k">as</span> <span class="n">false</span> <span class="n">when</span> <span class="n">the</span> <span class="n">boot</span> <span class="n">begins</span> <span class="ow">and</span> <span class="n">may</span> <span class="n">be</span> <span class="n">affected</span> <span class="n">by</span> <span class="n">the</span> <span class="n">OKOnExit</span> <span class="n">configuration</span>
+
+<span class="n">Integer</span> <span class="n">TimeOfBoot</span> <span class="p">(</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">time</span> <span class="n">that</span> <span class="n">CheckpointAdapter</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="ow">is</span> <span class="n">called</span> <span class="n">by</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">adapter</span><span class="p">,</span> <span class="n">Unknown</span> <span class="k">if</span> <span class="n">time</span> <span class="ow">not</span> <span class="n">available</span>
+
+<span class="n">Integer</span> <span class="n">TimeOfLastSave</span> <span class="p">(</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">the</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">last</span> <span class="n">save</span> <span class="n">to</span> <span class="n">disk</span>
+
+
+<span class="o">//</span> <span class="n">If</span> <span class="n">a</span> <span class="n">lookup</span> <span class="n">attempts</span> <span class="n">to</span> <span class="n">query</span> <span class="n">a</span> <span class="n">checkpoint</span> <span class="n">that</span> <span class="n">doesn</span><span class="s1">&#39;t exist, Unknown is returned</span>
+
+<span class="n">Boolean</span> <span class="n">CheckpointState</span> <span class="p">(</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span> <span class="n">If</span> <span class="n">checkpoint</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">,</span> <span class="n">Unknown</span>
+
+<span class="n">Real</span> <span class="n">CheckpointTime</span> <span class="p">(</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span><span class="n">Returns</span> <span class="n">last</span> <span class="n">modified</span> <span class="n">time</span><span class="p">,</span>
+
+<span class="n">String</span> <span class="n">CheckpointInfo</span> <span class="p">(</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span> <span class="n">User</span> <span class="n">defined</span> <span class="n">string</span>
+
+<span class="n">Integer</span> <span class="n">CheckpointWhen</span><span class="p">(</span> <span class="n">String</span> <span class="n">name</span> <span class="p">)</span> <span class="o">//</span><span class="n">Return</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">boot</span> <span class="n">number</span> <span class="n">where</span> <span class="n">the</span> <span class="n">checkpoint</span> <span class="n">has</span> <span class="n">been</span> <span class="nb">set</span><span class="p">,</span> <span class="n">Unknown</span> <span class="k">if</span> <span class="n">none</span>
+</pre></div>
+</div>
+<p>The Commands are as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">All</span> <span class="n">commands</span> <span class="k">return</span> <span class="n">handle</span> <span class="n">RECEIVED_BY_SYSTEM</span> <span class="n">when</span> <span class="n">subsequent</span> <span class="n">lookups</span> <span class="n">will</span> <span class="k">return</span> <span class="n">the</span> <span class="n">new</span> <span class="n">value</span><span class="p">,</span> <span class="ow">and</span> <span class="n">COMMAND_SUCCESS</span> <span class="n">when</span> <span class="n">the</span> <span class="n">change</span> <span class="ow">is</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">persistent</span> <span class="n">memory</span><span class="o">.</span>
+
+<span class="o">//</span> <span class="n">Note</span> <span class="n">that</span> <span class="k">as</span> <span class="n">no</span> <span class="n">guarantees</span> <span class="n">are</span> <span class="n">made</span> <span class="n">about</span> <span class="n">when</span> <span class="n">the</span> <span class="n">changes</span> <span class="kn">from</span> <span class="nn">set_boot_ok</span> <span class="ow">and</span> <span class="n">set_checkpoint</span> <span class="n">will</span> <span class="n">be</span> <span class="n">saved</span> <span class="n">to</span> <span class="n">persistent</span> <span class="n">memory</span> <span class="n">other</span> <span class="n">than</span> <span class="n">via</span> <span class="n">the</span> <span class="n">flush_checkpoints</span> <span class="n">command</span><span class="p">,</span> <span class="n">so</span> <span class="n">using</span> <span class="n">them</span> <span class="k">with</span> <span class="n">SynchronousCommand</span> <span class="ow">is</span> <span class="n">highly</span> <span class="n">discouraged</span>
+<span class="o">//</span> <span class="n">Also</span> <span class="n">note</span> <span class="n">that</span> <span class="n">some</span> <span class="n">characters</span> <span class="n">aren</span><span class="s1">&#39;t handled by pugixml which SimpleSaveManager uses - for example, using &quot;|&quot; (pipe) in the info string leads to runtime errors</span>
+
+<span class="n">Integer</span> <span class="n">set_boot_ok</span><span class="p">(</span><span class="n">Boolean</span> <span class="n">state</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">boot</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span> <span class="o">//</span><span class="n">Sets</span> <span class="n">IsOK</span><span class="p">,</span> <span class="n">returns</span> <span class="n">previous</span> <span class="n">value</span>
+
+<span class="n">Boolean</span> <span class="n">set_checkpoint</span><span class="p">(</span> <span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">Boolean</span> <span class="n">value</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">String</span> <span class="n">info</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">//</span><span class="n">Overrides</span> <span class="nb">any</span> <span class="n">existing</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">checkpoint</span> <span class="p">(</span><span class="n">Unknown</span> <span class="k">if</span> <span class="n">checkpoint</span> <span class="n">did</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">)</span>
+
+<span class="n">Boolean</span> <span class="n">flush_checkpoints</span><span class="p">()</span> <span class="o">//</span><span class="n">Flushes</span> <span class="nb">all</span> <span class="n">changes</span> <span class="p">(</span><span class="n">including</span> <span class="n">set_boot_ok</span><span class="p">)</span> <span class="n">to</span> <span class="n">disk</span>
+</pre></div>
+</div>
+</section>
+<section id="structure">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Structure</a><a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
+<p>The Checkpoint Adapter consists of three major components – the adapter
+itself, the underlying checkpoint system, and the save manager. The
+adapter receives commands from the <em>PLEXIL</em> executive, replaces missing
+arguments with their default values, and calls the appropriate function
+in the checkpoint system. The checkpoint system maintains a data
+structure that tracks checkpoints and boots. After each command is
+processed, it indicates to the adapter that the command has been
+received and. The save manager can view the data structure maintained by
+the checkpoint system and is responsible for writing to persistent
+memory.</p>
+<p>There are no constraints on when the save manager will write to
+persistent memory other than during a Flush command, making the
+checkpoint adapter flexible for use in different environments. A diagram
+of the adapter is pictured below.</p>
+<figure class="align-default">
+<img alt="Command_Flow" src="../_images/Command_Flow.png" />
+</figure>
+</section>
+<section id="extending">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Extending</a><a class="headerlink" href="#extending" title="Permalink to this heading">¶</a></h2>
+<p>If a different saving strategy is desired, this can be done by extending
+the SaveManager class and changing which SaveManager is used in
+CheckpointSystem.hh</p>
+<p>The checkpoint adapter currently resides in <code class="docutils literal notranslate"><span class="pre">plexil/examples/checkpoint</span></code></p>
+<p>In the checkpoint adapter directory there are a number of tests,
+including a general usage test described in the README, and a fuzz-like
+test of the SaveManager implementation in the testing directory. It is
+encouraged to run the fuzz-like test for a sufficiently long time if a
+different SaveManager extension is implemented.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../main.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted/Licensing.html">Licensing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILOverview.html">PLEXIL Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILReferences.html">PLEXIL References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/PLEXILSemantics.html">PLEXIL Semantics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILLanguage/ResourceModel.html">Resource Model</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="PLEXILExecutive.html">PLEXIL Executive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILSimulators.html">PLEXIL Simulators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PLEXILViewer.html">PLEXIL Viewer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Inter-ExecutiveCommunication.html">Inter-Executive Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UDPAdapter.html">UDP Adapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ResourceArbiter.html">ResourceArbiter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plan Persistence and Checkpoints</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">PLEXIL Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/Plexilisp.html">Plexilisp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/PLEXILChecker.html">PLEXIL Checker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PLEXILTools/XMLSchemaEmacs.html">XML/Schema, Emacs</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Interfacing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfacingOverview.html">Interfacing Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/InterfaceConfigurationFile.html">Interface Configuration File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/StandardLibraries.html">Standard Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/TheApplicationFramework.html">The Application Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomInterfaces.html">Implementing Custom Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/ImplementingCustomApplications.html">Implementing Custom Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Interfacing/APIReference.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/PLEXIL4ReleaseNotes.html">PLEXIL-4 Release Notes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/NodeStateDiagrams.html">Node State Diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/ExamplePlans.html">Example Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/RoboSim.html">RoboSim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/SimulatorNotes.html">SimulatorNotes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Appendices/References.html">References</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright (c) 2006-2022, Universities Space Research Association (USRA). All rights reserved.
+    
+  </div>
+  
+  </body>
+</html>
